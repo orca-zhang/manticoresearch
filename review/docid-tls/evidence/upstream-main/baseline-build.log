@@ -1,0 +1,585 @@
+[  0%] Building CXX object src/CMakeFiles/conversion.dir/conversion.cpp.o
+[  0%] Building CXX object src/stripper/CMakeFiles/stripper.dir/html_stripper.cpp.o
+[  0%] Building CXX object src/daemon/CMakeFiles/daemon.dir/api_search.cpp.o
+[  1%] Building CXX object src/CMakeFiles/indexcheck.dir/indexcheck.cpp.o
+[  1%] Building CXX object src/CMakeFiles/lmanticore_coro.dir/coroutine.cpp.o
+[  2%] Building CXX object src/CMakeFiles/lcjk.dir/cjkpreprocessor.cpp.o
+[  2%] Built target conversion
+[  2%] Building CXX object src/daemon/CMakeFiles/daemon.dir/crash_logger.cpp.o
+[  2%] Linking CXX static library liblcjk.a
+[  2%] Built target lcjk
+[  2%] Building CXX object src/std/CMakeFiles/manticore_std.dir/autoevent.cpp.o
+[  2%] Linking CXX static library libstripper.a
+[  2%] Built target stripper
+[  2%] Building CXX object src/tokenizer/CMakeFiles/lowercaser.dir/lowercaser.cpp.o
+[  2%] Building CXX object src/std/CMakeFiles/manticore_std.dir/base64.cpp.o
+[  2%] Building CXX object src/CMakeFiles/lmanticore_coro.dir/coro_stack.cpp.o
+[  2%] Building CXX object src/CMakeFiles/lmanticore_coro.dir/task_dispatcher.cpp.o
+[  3%] Building CXX object src/daemon/CMakeFiles/daemon.dir/daemon_log.cpp.o
+[  4%] Building CXX object src/tokenizer/CMakeFiles/lowercaser.dir/charset_definition_parser.cpp.o
+[  4%] Built target indexcheck
+[  5%] Building CXX object src/std/CMakeFiles/manticore_std.dir/checks.cpp.o
+[  5%] Building CXX object src/std/CMakeFiles/manticore_std.dir/crc32.cpp.o
+[  5%] Building CXX object src/std/CMakeFiles/manticore_std.dir/env.cpp.o
+[  5%] Building CXX object src/daemon/CMakeFiles/daemon.dir/failures_log.cpp.o
+[  5%] Building CXX object src/daemon/CMakeFiles/daemon.dir/match_iterator.cpp.o
+[  5%] Built target lmanticore_coro
+[  5%] Linking CXX static library liblowercaser.a
+[  6%] Building CXX object src/schema/CMakeFiles/schema.dir/columninfo.cpp.o
+[  6%] Built target lowercaser
+[  6%] Building CXX object src/daemon/CMakeFiles/daemon.dir/minimize_aggr_result.cpp.o
+[  6%] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxmetaphone.cpp.o
+[  8%] Building CXX object src/std/CMakeFiles/manticore_std.dir/fastlog.cpp.o
+[  8%] Building CXX object src/schema/CMakeFiles/schema.dir/helper.cpp.o
+[  8%] Building CXX object src/std/CMakeFiles/manticore_std.dir/fatal.cpp.o
+[  8%] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxsoundex.cpp.o
+[  8%] Building CXX object src/schema/CMakeFiles/schema.dir/schema.cpp.o
+[  9%] Building CXX object src/daemon/CMakeFiles/daemon.dir/http_log.cpp.o
+[  9%] Building CXX object src/std/CMakeFiles/manticore_std.dir/fnv64.cpp.o
+[ 10%] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxstemar.cpp.o
+[ 10%] Building CXX object src/std/CMakeFiles/manticore_std.dir/mem.cpp.o
+[ 10%] Building CXX object src/dict/infix/CMakeFiles/infix.dir/infix_builder.cpp.o
+[ 11%] Building CXX object src/std/CMakeFiles/manticore_std.dir/mm.cpp.o
+[ 11%] Building CXX object src/daemon/CMakeFiles/daemon.dir/query_log.cpp.o
+[ 11%] Building CXX object src/schema/CMakeFiles/schema.dir/rset.cpp.o
+[ 11%] Building CXX object src/std/CMakeFiles/manticore_std.dir/mutex.cpp.o
+[ 11%] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxstemcz.cpp.o
+[ 11%] [BISON][QueryParser] Building parser with bison 2.3
+[ 11%] Building CXX object src/std/CMakeFiles/manticore_std.dir/rand.cpp.o
+[ 11%] Building CXX object src/std/CMakeFiles/manticore_std.dir/rwlock.cpp.o
+[ 11%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/sphinxquery.cpp.o
+[ 11%] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxstemen.cpp.o
+[ 11%] Linking CXX static library libinfix.a
+[ 11%] Built target schema
+[ 11%] Building CXX object src/daemon/CMakeFiles/daemon.dir/search_handler.cpp.o
+[ 11%] Built target infix
+[ 12%] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxstemru.cpp.o
+[ 12%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/wsrep_cxx.cpp.o
+[ 13%] Building CXX object src/std/CMakeFiles/manticore_std.dir/smalloc.cpp.o
+[ 13%] Building CXX object src/std/CMakeFiles/manticore_std.dir/sphwarn.cpp.o
+[ 13%] Building CXX object src/std/CMakeFiles/manticore_std.dir/string.cpp.o
+[ 14%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/parse_helper.cpp.o
+[ 14%] Linking CXX static library libstem.a
+[ 14%] Built target stem
+[ 16%] Building CXX object src/std/CMakeFiles/manticore_std.dir/stringbuilder.cpp.o
+[ 16%] Building CXX object src/CMakeFiles/digest_sha1.dir/digest_sha1.cpp.o
+[ 17%] Building CXX object src/daemon/CMakeFiles/daemon.dir/system_tables.cpp.o
+[ 18%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/api_command_cluster.cpp.o
+[ 18%] Building CXX object src/std/CMakeFiles/manticore_std.dir/stringhash.cpp.o
+[ 18%] Linking CXX static library libdigest_sha1.a
+[ 18%] Built target digest_sha1
+[ 19%] Building CXX object src/CMakeFiles/digest_sha256.dir/digest_sha256.cpp.o
+[ 19%] Building CXX object src/std/CMakeFiles/manticore_std.dir/sys.cpp.o
+[ 19%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/xqparser.cpp.o
+[ 19%] Building CXX object src/std/CMakeFiles/manticore_std.dir/tdigest.cpp.o
+[ 19%] Linking CXX static library libdigest_sha256.a
+[ 19%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_delete.cpp.o
+[ 19%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/xqnode.cpp.o
+[ 19%] Built target digest_sha256
+[ 19%] [FLEX][SQLValidateVecLex] Building scanner with flex 2.6.4
+[ 20%] [FLEX][SQLChecksLex] Building scanner with flex 2.6.4
+[ 20%] Building CXX object src/sqlchecks/CMakeFiles/sqlchecks.dir/scan_parameters.cpp.o
+[ 21%] Building CXX object src/std/CMakeFiles/manticore_std.dir/tdigest_runtime.cpp.o
+[ 21%] Building CXX object src/daemon/CMakeFiles/daemon.dir/winservice.cpp.o
+[ 21%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/common_subtree.cpp.o
+[ 21%] Building CXX object src/std/CMakeFiles/manticore_std.dir/timers.cpp.o
+[ 21%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_file_reserve.cpp.o
+[ 22%] Building CXX object src/sqlchecks/CMakeFiles/sqlchecks.dir/validate_vector.cpp.o
+[ 22%] Built target manticore_std
+[ 22%] Building CXX object src/daemon/CMakeFiles/daemon.dir/notifier.cpp.o
+[ 24%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transformation.cpp.o
+[ 24%] Building CXX object src/daemon/CMakeFiles/daemon.dir/daemon_ipc.cpp.o
+[ 24%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_file_send.cpp.o
+[ 24%] Linking CXX static library libsqlchecks.a
+[ 24%] Built target sqlchecks
+[ 24%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonnot.cpp.o
+[ 24%] Building CXX object src/CMakeFiles/searchd_ssl.dir/searchdssl.cpp.o
+[ 25%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_get_nodes.cpp.o
+[ 25%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_index_add_local.cpp.o
+[ 25%] Built target daemon
+[ 25%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonkeywords.cpp.o
+[ 26%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commoncompoundnot.cpp.o
+[ 26%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_synced.cpp.o
+/tmp/manticore-upstream-review/src/searchdssl.cpp:220:33: warning: 'RSA_free' is deprecated [-Wdeprecated-declarations]
+  220 |         std::unique_ptr<RSA, decltype(&RSA_free)> pRsa ( RSA_new(), RSA_free );
+      |                                        ^
+/opt/homebrew/include/openssl/rsa.h:303:1: note: 'RSA_free' has been explicitly marked deprecated here
+  303 | OSSL_DEPRECATEDIN_3_0 void RSA_free(RSA *r);
+      | ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:220:51: warning: 'RSA_new' is deprecated [-Wdeprecated-declarations]
+  220 |         std::unique_ptr<RSA, decltype(&RSA_free)> pRsa ( RSA_new(), RSA_free );
+      |                                                          ^
+/opt/homebrew/include/openssl/rsa.h:212:1: note: 'RSA_new' has been explicitly marked deprecated here
+  212 | OSSL_DEPRECATEDIN_3_0 RSA *RSA_new(void);
+      | ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:220:62: warning: 'RSA_free' is deprecated [-Wdeprecated-declarations]
+  220 |         std::unique_ptr<RSA, decltype(&RSA_free)> pRsa ( RSA_new(), RSA_free );
+      |                                                                     ^
+/opt/homebrew/include/openssl/rsa.h:303:1: note: 'RSA_free' has been explicitly marked deprecated here
+  303 | OSSL_DEPRECATEDIN_3_0 void RSA_free(RSA *r);
+      | ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:234:8: warning: 'RSA_generate_key_ex' is deprecated [-Wdeprecated-declarations]
+  234 |         if ( !RSA_generate_key_ex ( pRsa.get(), 2048, pBne.get(), nullptr ) )
+      |               ^
+/opt/homebrew/include/openssl/rsa.h:270:1: note: 'RSA_generate_key_ex' has been explicitly marked deprecated here
+  270 | OSSL_DEPRECATEDIN_3_0 int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e,
+      | ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:240:42: warning: 'RSAPrivateKey_dup' is deprecated [-Wdeprecated-declarations]
+  240 |         if ( !EVP_PKEY_assign_RSA ( pKey.get(), RSAPrivateKey_dup ( pRsa.get() ) ) )
+      |                                                 ^
+/opt/homebrew/include/openssl/rsa.h:459:37: note: 'RSAPrivateKey_dup' has been explicitly marked deprecated here
+  459 | DECLARE_ASN1_DUP_FUNCTION_name_attr(OSSL_DEPRECATEDIN_3_0, RSA, RSAPrivateKey)
+      |                                     ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:240:8: warning: 'EVP_PKEY_assign' is deprecated [-Wdeprecated-declarations]
+  240 |         if ( !EVP_PKEY_assign_RSA ( pKey.get(), RSAPrivateKey_dup ( pRsa.get() ) ) )
+      |               ^
+/opt/homebrew/include/openssl/evp.h:510:40: note: expanded from macro 'EVP_PKEY_assign_RSA'
+  510 | #define EVP_PKEY_assign_RSA(pkey, rsa) EVP_PKEY_assign((pkey), EVP_PKEY_RSA, \
+      |                                        ^
+/opt/homebrew/include/openssl/evp.h:1386:1: note: 'EVP_PKEY_assign' has been explicitly marked deprecated here
+ 1386 | OSSL_DEPRECATEDIN_3_0
+      | ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:269:62: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+  269 |         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+      |                                                                     ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:269:152: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+  269 |         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+      |                                                                                                                                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:269:225: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+  269 |         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+      |                                                                                                                                                                                                                                        ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:818:6: warning: variable 'iCiphLen' set but not used [-Wunused-but-set-variable]
+  818 |         int iCiphLen = iLen;
+      |             ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:117:13: warning: unused function 'SetGlobalKeys' [-Wunused-function]
+  117 | static bool SetGlobalKeys ( SSL_CTX * pCtx, CSphString * pError )
+      |             ^~~~~~~~~~~~~
+/tmp/manticore-upstream-review/src/searchdssl.cpp:764:18: warning: unused variable 'AES_GCM_KEY_SIZE' [-Wunused-const-variable]
+  764 | static const int AES_GCM_KEY_SIZE = 32;
+      |                  ^~~~~~~~~~~~~~~~
+12 warnings generated.
+[ 27%] Linking CXX static library libsearchd_ssl.a
+[ 27%] Building CXX object src/indexing_sources/CMakeFiles/sourcedoc.dir/source_document.cpp.o
+[ 27%] Built target searchd_ssl
+[ 28%] Building CXX object src/CMakeFiles/lmanticore_icu.dir/icu.cpp.o
+[ 29%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_update_nodes.cpp.o
+[ 29%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonsubterm.cpp.o
+[ 29%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonandnotfactor.cpp.o
+[ 29%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/grastate.cpp.o
+[ 29%] Linking CXX static library liblmanticore_icu.a
+[ 29%] Built target lmanticore_icu
+[ 29%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonornot.cpp.o
+[ 29%] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer.cpp.o
+[ 31%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_hungoperand.cpp.o
+[ 32%] Linking CXX static library libsourcedoc.a
+[ 32%] Built target sourcedoc
+[ 33%] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_bigram.cpp.o
+[ 33%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/commit_monitor.cpp.o
+[ 33%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/configuration.cpp.o
+[ 33%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_excessandnot.cpp.o
+[ 33%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_andnotnotnot.cpp.o
+[ 33%] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_multiform.cpp.o
+[ 33%] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_plugin.cpp.o
+[ 34%] Building CXX object src/dict/CMakeFiles/dict.dir/dict_base.cpp.o
+[ 35%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/nodes.cpp.o
+[ 35%] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_phrase.cpp.o
+[ 36%] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_utf8.cpp.o
+[ 36%] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizerbase.cpp.o
+[ 36%] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizerbase2.cpp.o
+[ 36%] Building CXX object src/dict/CMakeFiles/dict.dir/dict_star.cpp.o
+[ 36%] Built target sphinxquery
+[ 36%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/portrange.cpp.o
+[ 36%] Building CXX object src/dict/CMakeFiles/dict.dir/dict_exact.cpp.o
+[ 36%] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/exceptions_trie.cpp.o
+[ 37%] Building CXX object src/dict/CMakeFiles/dict.dir/dict_crc.cpp.o
+[ 37%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/receiver_ctx.cpp.o
+[ 37%] Building CXX object src/dict/CMakeFiles/dict.dir/word_forms.cpp.o
+[ 37%] Building CXX object src/dict/CMakeFiles/dict.dir/template_dict_traits.cpp.o
+[ 37%] Building CXX object src/dict/CMakeFiles/dict.dir/dict_keywords.cpp.o
+[ 37%] Built target tokenizer
+[ 39%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/replicate_index.cpp.o
+[ 40%] Building CXX object src/dict/CMakeFiles/dict.dir/bin.cpp.o
+[ 40%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/serialize.cpp.o
+[ 40%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/send_files.cpp.o
+[ 40%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/recv_state.cpp.o
+[ 41%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/wsrep_v25.cpp.o
+[ 41%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/wsrep_v31.cpp.o
+[ 41%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_binlog.cpp.o
+[ 41%] Built target dict
+[ 42%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_sst_progress.cpp.o
+[ 42%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_recv_state_cleanup.cpp.o
+[ 42%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_check_node.cpp.o
+[ 42%] [FLEX][Jsonlex] Building scanner with flex 2.6.4
+[ 42%] [BISON][ExprParser] Building parser with bison 2.3
+[ 42%] [BISON][JsonParser] Building parser with bison 2.3
+[ 42%] [BISON][SelectParser] Building parser with bison 2.3
+[ 43%] [FLEX][Exprlex] Building scanner with flex 2.6.4
+[ 43%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxsort.cpp.o
+[ 43%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxutils.cpp.o
+[ 44%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinx.cpp.o
+[ 44%] Building CXX object src/CMakeFiles/lmanticore.dir/sortsetup.cpp.o
+[ 45%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxexpr.cpp.o
+[ 45%] Linking CXX static library librepli_stuff.a
+[ 45%] Built target repli_stuff
+[ 45%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxfilter.cpp.o
+[ 45%] [FLEX][SQLSecondlex] Building scanner with flex 2.6.4
+[ 47%] [BISON][DDLParser] Building parser with bison 2.3
+[ 47%] [BISON][SQLParser] Building parser with bison 2.3
+[ 47%] [BISON][SQLDebugParser] Building parser with bison 2.3
+[ 47%] [BISON][SQLExtraParser] Building parser with bison 2.3
+[ 47%] [BISON][SQLSecondParser] Building parser with bison 2.3
+[ 47%] [FLEX][DDLlex] Building scanner with flex 2.6.4
+[ 47%] [FLEX][SQLlex] Building scanner with flex 2.6.4
+[ 48%] [FLEX][SQLDebuglex] Building scanner with flex 2.6.4
+[ 49%] [FLEX][SQLExtralex] Building scanner with flex 2.6.4
+[ 49%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdha.cpp.o
+[ 49%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxsearch.cpp.o
+[ 50%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxrt.cpp.o
+[ 50%] Building CXX object src/CMakeFiles/lsearchd.dir/api_reply_stream.cpp.o
+[ 50%] Building C object src/CMakeFiles/lsearchd.dir/http/http_parser.c.o
+[ 51%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdhttp.cpp.o
+[ 51%] Building CXX object src/CMakeFiles/lmanticore.dir/accumulator.cpp.o
+[ 51%] Building CXX object src/CMakeFiles/lmanticore.dir/uuid_docid.cpp.o
+[ 51%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxjson.cpp.o
+[ 52%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxaot.cpp.o
+[ 52%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxplugin.cpp.o
+[ 52%] Building CXX object src/CMakeFiles/lsearchd.dir/indexer_rt_bulk.cpp.o
+[ 52%] Building C object src/CMakeFiles/lmanticore.dir/sphinxudf.c.o
+[ 52%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxqcache.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/lmanticore.dir/attribute.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdtask.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/lmanticore.dir/secondaryindex.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/lmanticore.dir/killlist.cpp.o
+[ 55%] Building CXX object src/CMakeFiles/lsearchd.dir/taskping.cpp.o
+[ 56%] Building CXX object src/CMakeFiles/lmanticore.dir/searchnode.cpp.o
+[ 56%] Building CXX object src/CMakeFiles/lsearchd.dir/taskmalloctrim.cpp.o
+[ 56%] Building C object src/CMakeFiles/lmanticore.dir/json/cJSON_test.c.o
+[ 56%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxpq.cpp.o
+[ 56%] Building CXX object src/CMakeFiles/lsearchd.dir/taskglobalidf.cpp.o
+[ 56%] Building CXX object src/CMakeFiles/lmanticore.dir/global_idf.cpp.o
+[ 57%] Building CXX object src/CMakeFiles/lmanticore.dir/docstore.cpp.o
+[ 57%] Building CXX object src/CMakeFiles/lsearchd.dir/tasksavestate.cpp.o
+[ 58%] Building CXX object src/CMakeFiles/lsearchd.dir/taskflushbinlog.cpp.o
+[ 58%] Building C object src/CMakeFiles/lmanticore.dir/lz4/lz4.c.o
+[ 58%] Building CXX object src/CMakeFiles/lsearchd.dir/taskflushattrs.cpp.o
+[ 58%] Building C object src/CMakeFiles/lmanticore.dir/lz4/lz4hc.c.o
+[ 59%] Building CXX object src/CMakeFiles/lmanticore.dir/snippetfunctor.cpp.o
+[ 59%] Building CXX object src/CMakeFiles/lsearchd.dir/taskflushmutable.cpp.o
+[ 59%] Building CXX object src/CMakeFiles/lmanticore.dir/snippetindex.cpp.o
+[ 60%] Building CXX object src/CMakeFiles/lsearchd.dir/taskpreread.cpp.o
+[ 60%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdaemon.cpp.o
+[ 60%] Building CXX object src/CMakeFiles/lmanticore.dir/snippetstream.cpp.o
+[ 60%] Building CXX object src/CMakeFiles/lmanticore.dir/snippetpassage.cpp.o
+[ 62%] Building CXX object src/CMakeFiles/lmanticore.dir/threadutils.cpp.o
+[ 62%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxversion.cpp.o
+[ 62%] Building CXX object src/CMakeFiles/lmanticore.dir/datareader.cpp.o
+[ 63%] Building CXX object src/CMakeFiles/lmanticore.dir/indexformat.cpp.o
+/tmp/manticore-upstream-review/src/threadutils.cpp:1653:15: warning: variable 'cTopOfMyStack' is uninitialized when passed as a const pointer argument here [-Wuninitialized-const-pointer]
+ 1653 |         pCtx->Run ( &cTopOfMyStack );
+      |                      ^~~~~~~~~~~~~
+[ 63%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdfields.cpp.o
+[ 63%] Building CXX object src/CMakeFiles/lmanticore.dir/indexsettings.cpp.o
+[ 63%] Building CXX object src/CMakeFiles/lmanticore.dir/fileutils.cpp.o
+1 warning generated.
+[ 63%] Building CXX object src/CMakeFiles/lmanticore.dir/threads_detached.cpp.o
+[ 64%] Building CXX object src/CMakeFiles/lmanticore.dir/hazard_pointer.cpp.o
+[ 64%] Building CXX object src/CMakeFiles/lmanticore.dir/task_info.cpp.o
+[ 64%] Building CXX object src/CMakeFiles/lmanticore.dir/mini_timer.cpp.o
+[ 65%] Building CXX object src/CMakeFiles/lmanticore.dir/fileio.cpp.o
+[ 65%] Building CXX object src/CMakeFiles/lmanticore.dir/memio.cpp.o
+[ 65%] Building CXX object src/CMakeFiles/lmanticore.dir/queryprofile.cpp.o
+[ 65%] Building CXX object src/CMakeFiles/lmanticore.dir/columnarfilter.cpp.o
+[ 65%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdconfig.cpp.o
+[ 66%] Building CXX object src/CMakeFiles/lmanticore.dir/columnargrouper.cpp.o
+[ 67%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdsql.cpp.o
+[ 67%] Building CXX object src/CMakeFiles/lmanticore.dir/columnarlib.cpp.o
+[ 67%] Building CXX object src/CMakeFiles/lmanticore.dir/collation.cpp.o
+[ 67%] Building CXX object src/CMakeFiles/lmanticore.dir/histogram.cpp.o
+[ 68%] Building CXX object src/CMakeFiles/lmanticore.dir/timeout_queue.cpp.o
+[ 68%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdddl.cpp.o
+[ 68%] Building CXX object src/CMakeFiles/lsearchd.dir/networking_daemon.cpp.o
+[ 68%] Building CXX object src/CMakeFiles/lmanticore.dir/columnarrt.cpp.o
+[ 68%] Building CXX object src/CMakeFiles/lmanticore.dir/columnarmisc.cpp.o
+[ 70%] Building CXX object src/CMakeFiles/lsearchd.dir/net_action_accept.cpp.o
+[ 71%] Building CXX object src/CMakeFiles/lmanticore.dir/exprtraits.cpp.o
+[ 71%] Building CXX object src/CMakeFiles/lmanticore.dir/columnarexpr.cpp.o
+[ 71%] Building CXX object src/CMakeFiles/lsearchd.dir/netreceive_api.cpp.o
+[ 71%] Building CXX object src/CMakeFiles/lsearchd.dir/netreceive_http.cpp.o
+[ 71%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinx_alter.cpp.o
+[ 71%] Building CXX object src/CMakeFiles/lmanticore.dir/columnarsort.cpp.o
+[ 72%] Building CXX object src/CMakeFiles/lmanticore.dir/binlog.cpp.o
+[ 72%] Building CXX object src/CMakeFiles/lsearchd.dir/netreceive_ql.cpp.o
+[ 73%] Building CXX object src/CMakeFiles/lsearchd.dir/query_status.cpp.o
+[ 73%] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxql_debug.cpp.o
+[ 73%] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxql_second.cpp.o
+[ 74%] Building CXX object src/CMakeFiles/lsearchd.dir/stackmock.cpp.o
+[ 74%] Building CXX object src/CMakeFiles/lsearchd.dir/docs_collector.cpp.o
+[ 74%] Building CXX object src/CMakeFiles/lmanticore.dir/chunksearchctx.cpp.o
+[ 74%] Building CXX object src/CMakeFiles/lsearchd.dir/index_rotator.cpp.o
+[ 74%] Building CXX object src/CMakeFiles/lsearchd.dir/config_reloader.cpp.o
+[ 74%] Building CXX object src/CMakeFiles/lmanticore.dir/client_task_info.cpp.o
+[ 75%] Building CXX object src/CMakeFiles/lmanticore.dir/indexfiles.cpp.o
+[ 77%] Building CXX object src/CMakeFiles/lsearchd.dir/netpoll.cpp.o
+[ 77%] Building CXX object src/CMakeFiles/lsearchd.dir/pollable_event.cpp.o
+[ 77%] Building CXX object src/CMakeFiles/lmanticore.dir/indexfilebase.cpp.o
+[ 77%] Building CXX object src/CMakeFiles/lmanticore.dir/attrindex_builder.cpp.o
+[ 77%] Building CXX object src/CMakeFiles/lmanticore.dir/queryfilter.cpp.o
+[ 77%] Building CXX object src/CMakeFiles/lsearchd.dir/netfetch.cpp.o
+[ 78%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdbuddy.cpp.o
+[ 78%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdhttpcompat.cpp.o
+[ 79%] Building CXX object src/CMakeFiles/lmanticore.dir/aggregate.cpp.o
+[ 79%] Building CXX object src/CMakeFiles/lmanticore.dir/secondarylib.cpp.o
+[ 79%] Building CXX object src/CMakeFiles/lmanticore.dir/costestimate.cpp.o
+[ 79%] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxql_extra.cpp.o
+[ 80%] Building CXX object src/CMakeFiles/lmanticore.dir/docidlookup.cpp.o
+[ 80%] Building CXX object src/CMakeFiles/lmanticore.dir/tracer.cpp.o
+[ 80%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdreplication.cpp.o
+[ 81%] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxjsonquery.cpp.o
+[ 81%] Building CXX object src/CMakeFiles/lsearchd.dir/frontendschema.cpp.o
+[ 81%] Building CXX object src/CMakeFiles/lmanticore.dir/attrindex_merge.cpp.o
+[ 81%] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_http.cpp.o
+[ 81%] Building CXX object src/CMakeFiles/lsearchd.dir/debug_cmds.cpp.o
+[ 82%] Building CXX object src/CMakeFiles/lsearchd.dir/jsonqueryfilter.cpp.o
+[ 82%] Building CXX object src/CMakeFiles/lsearchd.dir/dynamic_idx.cpp.o
+[ 82%] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxexcerpt.cpp.o
+[ 83%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdexpr.cpp.o
+[ 83%] Building CXX object src/CMakeFiles/lsearchd.dir/querystats.cpp.o
+[ 83%] Building CXX object src/CMakeFiles/lsearchd.dir/searchd_shard.cpp.o
+[ 83%] Building CXX object src/CMakeFiles/lmanticore.dir/distinct.cpp.o
+[ 83%] Building CXX object src/CMakeFiles/lsearchd.dir/facetutils.cpp.o
+[ 85%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth.cpp.o
+[ 85%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_common.cpp.o
+[ 85%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_proto_http.cpp.o
+[ 86%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_proto_mysql.cpp.o
+[ 86%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_proto_api.cpp.o
+[ 86%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_perms.cpp.o
+[ 87%] Building CXX object src/CMakeFiles/lmanticore.dir/hyperloglog.cpp.o
+[ 87%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/gcm_nonce.cpp.o
+[ 87%] Building CXX object src/CMakeFiles/lmanticore.dir/pseudosharding.cpp.o
+[ 87%] Building CXX object src/CMakeFiles/lmanticore.dir/geodist.cpp.o
+[ 88%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_log.cpp.o
+[ 88%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_bootstrap.cpp.o
+[ 89%] Building CXX object src/CMakeFiles/lmanticore.dir/datetime.cpp.o
+[ 89%] Building CXX object src/CMakeFiles/lmanticore.dir/grouper.cpp.o
+[ 89%] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_mysql_layer.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_zlib_mysql.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/lmanticore.dir/exprdatetime.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_zstd_mysql.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/lmanticore.dir/detail/indexlink.cpp.o
+[ 91%] Building CXX object src/CMakeFiles/lmanticore.dir/knnmisc.cpp.o
+[ 91%] Building CXX object src/CMakeFiles/lmanticore.dir/knnlib.cpp.o
+[ 91%] Building CXX object src/CMakeFiles/lmanticore.dir/libutils.cpp.o
+[ 91%] Built target lsearchd
+[ 93%] Building CXX object src/CMakeFiles/lmanticore.dir/fieldtext.cpp.o
+[ 93%] Building CXX object src/CMakeFiles/lmanticore.dir/aggrexpr.cpp.o
+[ 93%] Building CXX object src/CMakeFiles/lmanticore.dir/joinsorter.cpp.o
+[ 93%] Building CXX object src/CMakeFiles/lmanticore.dir/queuecreator.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/lmanticore.dir/exprgeodist.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/lmanticore.dir/exprremap.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/lmanticore.dir/exprdocstore.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/lmanticore.dir/schematransform.cpp.o
+[ 95%] Building CXX object src/CMakeFiles/lmanticore.dir/attr_embedding.cpp.o
+[ 95%] Building CXX object src/CMakeFiles/lmanticore.dir/embeddingutils.cpp.o
+[ 95%] Building CXX object src/CMakeFiles/lmanticore.dir/hybridexecutor.cpp.o
+[ 96%] Building CXX object src/CMakeFiles/lmanticore.dir/sortergroup.cpp.o
+[ 96%] Building CXX object src/CMakeFiles/lmanticore.dir/sortertraits.cpp.o
+[ 96%] Building CXX object src/CMakeFiles/lmanticore.dir/sorterprecalc.cpp.o
+[ 96%] Building CXX object src/CMakeFiles/lmanticore.dir/querycontext.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/lmanticore.dir/skip_cache.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/lmanticore.dir/jsonsi.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/lmanticore.dir/sorterscroll.cpp.o
+[ 98%] Linking CXX static library liblmanticore.a
+[ 98%] Built target lmanticore
+[100%] Building CXX object src/CMakeFiles/searchd.dir/searchd.cpp.o
+/tmp/manticore-upstream-review/src/searchd.cpp:17406:23: warning: variable 'cTopOfMainStack' is uninitialized when passed as a const pointer argument here [-Wuninitialized-const-pointer]
+ 17406 |         PrepareMainThread ( &cTopOfMainStack );
+       |                              ^~~~~~~~~~~~~~~
+1 warning generated.
+[100%] Linking CXX executable searchd
+[100%] Built target searchd
+[  2%] Built target conversion
+[  2%] Built target stripper
+[  2%] Built target indexcheck
+[  2%] Built target lcjk
+[  2%] Built target lmanticore_coro
+[  3%] Built target lowercaser
+[  3%] Built target infix
+[  4%] Built target schema
+[  6%] Built target stem
+[  9%] Built target daemon
+[ 16%] Built target manticore_std
+[ 16%] Built target digest_sha1
+[ 17%] Built target digest_sha256
+[ 19%] Built target sqlchecks
+[ 19%] Building CXX object src/indexing_sources/CMakeFiles/source_svpipe.dir/source_svpipe.cpp.o
+[ 20%] Building CXX object src/indexing_sources/CMakeFiles/source_xmlpipe2.dir/source_xmlpipe2.cpp.o
+[ 21%] Built target searchd_ssl
+[ 22%] Built target sourcedoc
+[ 26%] Built target sphinxquery
+[ 27%] Built target lmanticore_icu
+[ 30%] Built target tokenizer
+[ 33%] Built target dict
+[ 40%] Built target repli_stuff
+[ 62%] Built target lsearchd
+[ 62%] Linking CXX static library libsource_xmlpipe2.a
+[ 62%] Linking CXX static library libsource_svpipe.a
+[ 93%] Built target lmanticore
+[ 93%] Built target source_xmlpipe2
+[ 93%] Built target source_svpipe
+[ 93%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidlookup.cpp.o
+[ 93%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_functions.cpp.o
+[ 94%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_globalstate.cpp.o
+[ 93%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_rtstuff.cpp.o
+[ 95%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_hugetokenizer.cpp.o
+[ 95%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_text.cpp.o
+/tmp/manticore-upstream-review/src/gtests/gtests_globalstate.cpp:66:33: warning: variable 'cTopOfMainStack' is uninitialized when passed as a const pointer argument here [-Wuninitialized-const-pointer]
+   66 |                 Threads::PrepareMainThread ( &cTopOfMainStack );
+      |                                               ^~~~~~~~~~~~~~~
+1 warning generated.
+[ 95%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchd.cpp.o
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:114:22: warning: 'GetFieldLengths' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  114 |         MOCK_CONST_METHOD0( GetFieldLengths, const int *() ); // return m_dFieldLengths.Begin();
+      |                             ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:180:23: note: overridden virtual function is here
+  180 |         virtual const int *             GetFieldLengths () const = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:115:17: warning: 'Connect' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  115 |         MOCK_METHOD1 ( Connect, bool ( CSphString & ) ); // return true;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:115:17: note: overridden virtual function is here
+  115 |         virtual bool                    Connect ( CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:116:17: warning: 'Disconnect' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  116 |         MOCK_METHOD0 ( Disconnect, void() );
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:118:17: note: overridden virtual function is here
+  118 |         virtual void                    Disconnect () = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:126:17: warning: 'IterateMultivaluedStart' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  126 |         MOCK_METHOD2 ( IterateMultivaluedStart, bool ( int, CSphString& )); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:153:17: note: overridden virtual function is here
+  153 |         virtual bool                    IterateMultivaluedStart ( int iAttr, CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:127:17: warning: 'IterateMultivaluedNext' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  127 |         MOCK_METHOD2 ( IterateMultivaluedNext, bool(int64_t &, int64_t &)); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:156:17: note: overridden virtual function is here
+  156 |         virtual bool                    IterateMultivaluedNext ( int64_t & iDocID, int64_t & iMvaValue ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:128:17: warning: 'IterateKillListStart' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  128 |         MOCK_METHOD1 ( IterateKillListStart, bool (CSphString & ) ); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:165:17: note: overridden virtual function is here
+  165 |         virtual bool                    IterateKillListStart ( CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:129:17: warning: 'IterateKillListNext' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  129 |         MOCK_METHOD1 ( IterateKillListNext, bool (DocID_t & ) ) ; // return false
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:168:17: note: overridden virtual function is here
+  168 |         virtual bool                    IterateKillListNext ( DocID_t & uDocId ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:199:22: warning: 'GetFieldLengths' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  199 |         MOCK_CONST_METHOD0( GetFieldLengths, const int *() ); // return m_dFieldLengths.Begin();
+      |                             ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:180:23: note: overridden virtual function is here
+  180 |         virtual const int *             GetFieldLengths () const = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:200:17: warning: 'Connect' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  200 |         MOCK_METHOD1 ( Connect, bool ( CSphString & ) ); // return true;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:115:17: note: overridden virtual function is here
+  115 |         virtual bool                    Connect ( CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:201:17: warning: 'Disconnect' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  201 |         MOCK_METHOD0 ( Disconnect, void () );
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:118:17: note: overridden virtual function is here
+  118 |         virtual void                    Disconnect () = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:211:17: warning: 'IterateMultivaluedStart' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  211 |         MOCK_METHOD2 ( IterateMultivaluedStart, bool ( int, CSphString & ) ); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:153:17: note: overridden virtual function is here
+  153 |         virtual bool                    IterateMultivaluedStart ( int iAttr, CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:212:17: warning: 'IterateMultivaluedNext' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  212 |         MOCK_METHOD2 ( IterateMultivaluedNext, bool (int64_t &, int64_t &) ); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:156:17: note: overridden virtual function is here
+  156 |         virtual bool                    IterateMultivaluedNext ( int64_t & iDocID, int64_t & iMvaValue ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:213:17: warning: 'IterateKillListStart' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  213 |         MOCK_METHOD1 ( IterateKillListStart, bool (CSphString & ) ); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:165:17: note: overridden virtual function is here
+  165 |         virtual bool                    IterateKillListStart ( CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:214:17: warning: 'IterateKillListNext' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  214 |         MOCK_METHOD1 ( IterateKillListNext, bool (DocID_t & ) ); // return false
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:168:17: note: overridden virtual function is here
+  168 |         virtual bool                    IterateKillListNext ( DocID_t & uDocId ) = 0;
+      |                                         ^
+[ 95%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_filter.cpp.o
+[ 95%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchdaemon.cpp.o
+In file included from /tmp/manticore-upstream-review/src/gtests/gtests_searchd.cpp:18:
+/tmp/manticore-upstream-review/src/searchd.cpp:17406:23: warning: variable 'cTopOfMainStack' is uninitialized when passed as a const pointer argument here [-Wuninitialized-const-pointer]
+ 17406 |         PrepareMainThread ( &cTopOfMainStack );
+       |                              ^~~~~~~~~~~~~~~
+[ 96%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_api_reply_stream.cpp.o
+[ 96%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_send_files.cpp.o
+14 warnings generated.
+/tmp/manticore-upstream-review/src/gtests/gtests_api_reply_stream.cpp:1362:17: warning: unused variable 'uReplyVersion' [-Wunused-variable]
+ 1362 |         constexpr WORD uReplyVersion = 0x0123;
+      |                        ^~~~~~~~~~~~~
+[ 96%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_ssl.cpp.o
+[ 96%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_stringbuilder.cpp.o
+[ 97%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_strfmt.cpp.o
+[ 97%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_pqstuff.cpp.o
+[ 97%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_json.cpp.o
+[ 98%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docstore_readers.cpp.o
+1 warning generated.
+[ 98%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_threadstuff.cpp.o
+[ 98%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_wsrep.cpp.o
+[ 98%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_uklemmatizer.cpp.o
+1 warning generated.
+[100%] Linking CXX executable gmanticoretest
+ld: warning: ignoring duplicate libraries: '/opt/homebrew/Cellar/openssl@3/3.6.2/lib/libcrypto.a', '/opt/homebrew/Cellar/openssl@3/3.6.2/lib/libssl.a'
+[100%] Built target gmanticoretest

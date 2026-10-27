@@ -1,0 +1,287 @@
+diff --git a/src/docstore.cpp b/src/docstore.cpp
+index 0ed325ebb92038f85b10443f9fda1b1b29fc2f62..e949e05cd01a6b36e32e059d973a3cb4ffc1c0c5 100644
+--- a/src/docstore.cpp
++++ b/src/docstore.cpp
+@@ -20,6 +20,8 @@
+ #include "lz4/lz4hc.h"
+ #include "sphinxint.h"
+ 
++#include <atomic>
++
+ 
+ enum BlockFlags_e : BYTE
+ {
+@@ -374,6 +376,7 @@ private:
+ 	CSphOrderedHash<CSphReader *, HashKey_t, HashKey_t, 1024> m_tHash;
+ 
+ 	static DocstoreReaders_c * m_pReaders;
++	static std::atomic<uint64_t> m_uGeneration;
+ 
+ 	static const int MIN_READER_BUFFER_SIZE = 32768;
+ 	static const int MAX_READER_BUFFER_SIZE = 262144;
+@@ -384,6 +387,8 @@ private:
+ 
+ 
+ DocstoreReaders_c * DocstoreReaders_c::m_pReaders = nullptr;
++// Process lifetime prevents stale TLS entries surviving registry recreation.
++std::atomic<uint64_t> DocstoreReaders_c::m_uGeneration { 1 };
+ 
+ 
+ bool DocstoreReaders_c::HashKey_t::operator == ( const HashKey_t & tKey ) const
+@@ -401,6 +406,7 @@ DWORD DocstoreReaders_c::HashKey_t::Hash ( const HashKey_t & tKey )
+ 
+ DocstoreReaders_c::~DocstoreReaders_c()
+ {
++	m_uGeneration.fetch_add ( 1, std::memory_order_release );
+ 	for ( auto & tDocstore : m_tHash )
+ 		SafeDelete ( tDocstore.second );
+ }
+@@ -428,14 +434,31 @@ void DocstoreReaders_c::CreateReader ( int64_t iSessionId, int64_t iIndexId, con
+ 
+ 	Verify ( m_tHash.Add ( pReader, {iSessionId, iIndexId} ) );
+ 	m_iTotalReaderSize += iBufferSize;
++	m_uGeneration.fetch_add ( 1, std::memory_order_release );
+ }
+ 
+ 
+ CSphReader * DocstoreReaders_c::GetReader ( int64_t iSessionId, int64_t iIndexId )
+ {
++	struct LastReader_t
++	{
++		int64_t m_iSessionId = 0;
++		int64_t m_iIndexId = 0;
++		uint64_t m_uGeneration = 0;
++		CSphReader * m_pReader = nullptr;
++	};
++	static thread_local LastReader_t tLast;
++	const auto uGeneration = m_uGeneration.load ( std::memory_order_acquire );
++	if ( tLast.m_uGeneration==uGeneration && tLast.m_iSessionId==iSessionId && tLast.m_iIndexId==iIndexId )
++		return tLast.m_pReader;
++
++	// Borrow only: session/index lifetime protects the returned reader, as it
++	// already does after the lock is released. TLS never retains reader buffers.
+ 	ScopedMutex_t tLock(m_tLock);
+ 	CSphReader ** ppReader = m_tHash ( { iSessionId, iIndexId } );
+-	return ppReader ? *ppReader : nullptr;
++	// Capture the generation under the lock, including for negative lookups.
++	tLast = { iSessionId, iIndexId, m_uGeneration.load ( std::memory_order_relaxed ), ppReader ? *ppReader : nullptr };
++	return tLast.m_pReader;
+ }
+ 
+ 
+@@ -444,6 +467,7 @@ void DocstoreReaders_c::Delete ( CSphReader * pReader, const HashKey_t tKey )
+ 	m_iTotalReaderSize -= pReader->GetBufferSize();
+ 	assert ( m_iTotalReaderSize>=0 );
+ 
++	m_uGeneration.fetch_add ( 1, std::memory_order_release );
+ 	SafeDelete(pReader);
+ 	m_tHash.Delete(tKey);
+ }
+@@ -482,6 +506,7 @@ void DocstoreReaders_c::DeleteByIndexId ( int64_t iIndexId )
+ void DocstoreReaders_c::Init ()
+ {
+ 	assert(!m_pReaders);
++	m_uGeneration.fetch_add ( 1, std::memory_order_release );
+ 	m_pReaders = new DocstoreReaders_c;
+ }
+ 
+diff --git a/src/gtests/CMakeLists.txt b/src/gtests/CMakeLists.txt
+index bc3efc60aa246c97cc23ba6578436ce4844f231f..481d922dcb5ebc7d43471842b9b17a363535dcc0 100644
+--- a/src/gtests/CMakeLists.txt
++++ b/src/gtests/CMakeLists.txt
+@@ -23,6 +23,7 @@ set ( GTESTS_SRC
+ 		gtests_strfmt.cpp
+ 		gtests_pqstuff.cpp
+ 		gtests_json.cpp
++		gtests_docstore_readers.cpp
+ 		gtests_threadstuff.cpp
+ 		gtests_wsrep.cpp
+ 		gtests_uklemmatizer.cpp )
+diff --git a/src/gtests/gtests_docstore_readers.cpp b/src/gtests/gtests_docstore_readers.cpp
+new file mode 100644
+index 0000000000000000000000000000000000000000..abe4ffd3e0bfa069905c3838dbaa9a9cba3f81d1
+--- /dev/null
++++ b/src/gtests/gtests_docstore_readers.cpp
+@@ -0,0 +1,182 @@
++// Copyright (c) 2026, Manticore Software LTD (https://manticoresearch.com)
++// Distributed under the GNU General Public License, version 3 or later.
++
++#include <gtest/gtest.h>
++#include "docstore.h"
++#include "indexsettings.h"
++#include "threadutils.h"
++
++#include <future>
++#include <string>
++#include <thread>
++#include <vector>
++
++namespace
++{
++class DocstoreReadersTest : public ::testing::Test
++{
++protected:
++	void SetUp() override
++	{
++		InitDocstore(0); // exercise reader lookup rather than the block cache
++		const auto * pInfo = testing::UnitTest::GetInstance()->current_test_info();
++		for ( int i=0; i<2; ++i )
++			m_dFiles[i].SetSprintf ( "__docstore_readers_%d_%s_%d.spds", GetOsProcessId(), pInfo->name(), i );
++		Write ( 0, "first" );
++		Write ( 1, "second" );
++	}
++
++	void TearDown() override
++	{
++		ShutdownDocstore();
++		for ( const auto & sFile : m_dFiles ) unlink(sFile.cstr());
++	}
++
++	static std::string Value ( const char * sPrefix, int iRow )
++	{
++		return std::string(sPrefix)+":"+std::to_string(iRow)+std::string(256,char('a'+iRow));
++	}
++
++	void Write ( int iFile, const char * sPrefix )
++	{
++		CSphString sError;
++		DocstoreSettings_t tSettings;
++		tSettings.m_uBlockSize = 1024;
++		tSettings.m_eCompression = Compression_e::NONE;
++		auto pBuilder = CreateDocstoreBuilder ( m_dFiles[iFile], tSettings, 65536, sError );
++		ASSERT_TRUE(pBuilder) << sError.cstr();
++		ASSERT_EQ ( pBuilder->AddField ( "body", DOCSTORE_TEXT ), 0 );
++		for ( int i=0; i<16; ++i )
++		{
++			auto sValue = Value ( sPrefix, i );
++			DocstoreBuilder_i::Doc_t tDoc;
++			tDoc.m_dFields.Add ( { reinterpret_cast<BYTE *>(sValue.data()), int(sValue.size()) } );
++			pBuilder->AddDoc ( i, tDoc );
++		}
++		pBuilder->Finalize();
++	}
++
++	std::unique_ptr<Docstore_i> Open ( int iFile, int64_t iIndex )
++	{
++		CSphString sError;
++		auto pStore = CreateDocstore ( iIndex, m_dFiles[iFile], sError );
++		EXPECT_TRUE(pStore) << sError.cstr();
++		return pStore;
++	}
++
++	static void Check ( const Docstore_i & tStore, int64_t iSession, const char * sPrefix, int iRow )
++	{
++		auto tDoc = tStore.GetDoc ( iRow, nullptr, iSession, false );
++		ASSERT_EQ ( tDoc.m_dFields.GetLength(), 1 );
++		const auto & dValue = tDoc.m_dFields[0];
++		EXPECT_EQ ( std::string ( reinterpret_cast<const char *>(dValue.Begin()), dValue.GetLength() ), Value(sPrefix,iRow) );
++	}
++
++	CSphString m_dFiles[2];
++};
++
++TEST_F ( DocstoreReadersTest, LateCreationAndSameKeyIndexReplacement )
++{
++	auto pStore = Open ( 0, 101 );
++	ASSERT_TRUE(pStore);
++	DocstoreSession_c tSession;
++	const auto iSession = tSession.GetUID();
++	Check ( *pStore, iSession, "first", 0 ); // negative lookup before creation
++	pStore->CreateReader(iSession);
++	Check ( *pStore, iSession, "first", 1 );
++	Check ( *pStore, iSession, "first", 9 ); // repeated positive lookup
++	pStore.reset(); // retire the reader with a cached key
++	pStore = Open ( 1, 101 ); // deliberately reuse that key with different data
++	ASSERT_TRUE(pStore);
++	Check ( *pStore, iSession, "second", 2 );
++	pStore->CreateReader(iSession);
++	Check ( *pStore, iSession, "second", 10 );
++}
++
++TEST_F ( DocstoreReadersTest, SessionCleanupAndRegistryRestart )
++{
++	auto pStore = Open ( 0, 102 );
++	ASSERT_TRUE(pStore);
++	int64_t iSession;
++	{
++		DocstoreSession_c tSession;
++		iSession = tSession.GetUID();
++		pStore->CreateReader(iSession);
++		Check ( *pStore, iSession, "first", 3 );
++	}
++	Check ( *pStore, iSession, "first", 4 ); // retired session uses the pread fallback
++	pStore->CreateReader(iSession);
++	Check ( *pStore, iSession, "first", 5 );
++	ShutdownDocstore();
++	InitDocstore(0);
++	Check ( *pStore, iSession, "first", 6 ); // old TLS must not survive registry reuse
++	pStore->CreateReader(iSession);
++	Check ( *pStore, iSession, "first", 7 );
++}
++
++TEST_F ( DocstoreReadersTest, IndexReplacementInvalidatesOtherThread )
++{
++	auto pStore = Open ( 0, 106 );
++	ASSERT_TRUE(pStore);
++	DocstoreSession_c tSession;
++	pStore->CreateReader(tSession.GetUID());
++	std::promise<void> tWarmed, tReplaced;
++	auto tWarmedFuture = tWarmed.get_future();
++	auto tReplacedFuture = tReplaced.get_future();
++	std::thread tReader ( [&] {
++		Check ( *pStore, tSession.GetUID(), "first", 0 );
++		tWarmed.set_value();
++		tReplacedFuture.wait();
++		if ( pStore )
++		{
++			Check ( *pStore, tSession.GetUID(), "second", 1 );
++			pStore->CreateReader(tSession.GetUID());
++			Check ( *pStore, tSession.GetUID(), "second", 2 );
++		}
++	} );
++	tWarmedFuture.wait();
++	pStore.reset(); // invalidate the borrowed pointer on another OS thread
++	pStore = Open ( 1, 106 );
++	tReplaced.set_value();
++	tReader.join();
++}
++
++TEST_F ( DocstoreReadersTest, ConcurrentSessionsAndCleanup )
++{
++	auto pFirst = Open ( 0, 103 );
++	auto pSecond = Open ( 1, 104 );
++	ASSERT_TRUE(pFirst);
++	ASSERT_TRUE(pSecond);
++	std::vector<std::thread> dThreads;
++	for ( int i=0; i<8; ++i )
++		dThreads.emplace_back ( [&,i] {
++			for ( int j=0; j<40; ++j )
++			{
++				DocstoreSession_c tSession;
++				pFirst->CreateReader(tSession.GetUID());
++				pSecond->CreateReader(tSession.GetUID());
++				for ( int k=0; k<32; ++k )
++				{
++					bool bSecond = (k/8+j+i)%2;
++					Check ( bSecond ? *pSecond : *pFirst, tSession.GetUID(), bSecond ? "second" : "first", (k+i)%16 );
++				}
++			}
++		} );
++	for ( auto & tThread : dThreads ) tThread.join();
++}
++
++TEST_F ( DocstoreReadersTest, SessionMovesBetweenOsThreads )
++{
++	auto pStore = Open ( 0, 105 );
++	ASSERT_TRUE(pStore);
++	DocstoreSession_c tSession;
++	pStore->CreateReader(tSession.GetUID());
++	for ( int i=0; i<4; ++i )
++	{
++		std::thread tThread ( [&,i] {
++			for ( int j=0; j<16; ++j ) Check ( *pStore, tSession.GetUID(), "first", (j+i)%16 );
++		} );
++		tThread.join(); // sequential reader use, as required by the existing API
++	}
++}
++}

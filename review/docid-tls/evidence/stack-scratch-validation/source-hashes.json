@@ -1,0 +1,6 @@
+{
+  "src/docidlookupcache.h": "964d59042fa5f0f1a4510341b3e8cef2f66a93af2ca43d17e51e1d6a9f1828b6",
+  "src/docidlookupcache.cpp": "9c8b29fdcc4d50f543fdc45ca5401bf1272a7a9b0f432f20736cb3adea87716a",
+  "src/gtests/gtests_docidcache.cpp": "4dac5f43deae57e6d02bdbed1e8a60989bf31dc3c8833c22360baec7f73115da",
+  "test/docid-cache/experiments/tls_cachelines.py": "4b16ad86db66c24040eb38ec3fdaaeca7fcc19e74438a83b5fe97d335b57ce40"
+}

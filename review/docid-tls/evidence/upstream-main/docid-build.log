@@ -1,0 +1,484 @@
+-- WRITEB is not set, bundle will NOT be modified...
+-- WRITEB is not set, bundle will NOT be modified...
+-- WRITEB is not set, bundle will NOT be modified...
+-- WRITEB is not set, bundle will NOT be modified...
+-- VCPKG_ROOT is not defined, bail
+-- ZSTD will be loaded dynamically in runtime as libzstd.1.dylib (/opt/homebrew/opt/zstd/lib/libzstd.1.dylib)
+Parsing deps.txt line: backup 1.11.0+26090711-f5c09c1e-dev
+BACKUP version: >= 1.11.0-26090711-f5c09c1e & < 2.0.0
+Parsing deps.txt line: buddy 4.4.9+26102317-85bde9ce-dev
+BUDDY version: >= 4.4.9-26102317-85bde9ce & < 5.0.0
+Parsing deps.txt line: executor 1.4.6+26102310-445049b4-dev
+EXECUTOR version: >= 1.4.6-26102310-445049b4 & < 2.0.0
+Parsing deps.txt line: tzdata 1.0.1 250714 7eebffa
+TZDATA version: >= 1.0.1-250714-7eebffa & < 2.0.0
+Parsing deps.txt line: load 1.29.0+26101001-0d5796a7-dev
+LOAD version: >= 1.29.0-26101001-0d5796a7 & < 2.0.0
+Parsing deps.txt line: galera 3.37
+GALERA version: >= 3.37-- & < 4.0.0
+EXECUTOR image: manticoresearch/manticore-executor:1.4.6
+-- Provide distr with -DDISTR=<distr>, one of: bionic;bookworm;bullseye;buster;debian;default;focal;jammy;macos;rhel;rhel10;rhel8;rhel9;stretch;windows;xenial
+-- no distr selected 
+-- Inside directory src...
+-- Using MCL API from git submodule: /tmp/manticore-upstream-review/mcl
+-- Only api will be installed
+-- Configured with these definitions: -DUSE_SYSLOG=1 -DWITH_GALERA=OFF -DWITH_RE2=OFF -DWITH_STEMMER=OFF -DWITH_NLJSON=1 -DWITH_UNIALGO=1 -DWITH_ICU=1 -DWITH_ICU_FORCE_STATIC=0 -DWITH_JIEBA=OFF -DWITH_SSL=1 -DWITH_ZLIB=1 -DWITH_ZSTD=1 -DDL_ZSTD=1 -DZSTD_LIB=/opt/homebrew/opt/zstd/lib/libzstd.1.dylib -DWITH_CURL=1 -DWITH_ODBC=OFF -DWITH_EXPAT=1 -DWITH_ICONV=1 -DWITH_MYSQL=OFF -DWITH_POSTGRESQL=OFF -DLOCALDATADIR=/usr/local/var -DFULL_SHARE_DIR=/usr/local/share/manticore
+-- Generating config files...
+-- Inside directory src/stripper...
+-- Generate globalaliases.h from /tmp/manticore-upstream-review/src/charsets/*.txt
+CMake Warning (dev) at src/CMakeLists.txt:128 (find_package):
+  Policy CMP0167 is not set: The FindBoost module is removed.  Run "cmake
+  --help-policy CMP0167" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- No Google perfetto library found
+-- Discovered and added individual google-tests
+CMake Warning (dev) at src/CMakeLists.txt:432 (find_package):
+  Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+  are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+  the cmake_policy command to set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- python binary is /Users/orca/.pyenv/shims/python
+CMake Warning (dev) at test/CMakeLists.txt:50 (find_package):
+  Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+  are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+  the cmake_policy command to set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Create ubertest.php proxies
+-- Skip adding test 194 -- regexps using RE2 since it requires RE2
+-- Skip adding test 228 -- Indexing of ODBC sources (mysql via ODBC connector) since it requires ODBC provider
+-- Skip adding test 252 -- reconfigure since it requires RE2
+-- Skip adding test 293 -- system.table since it requires Galera library for replication
+-- Skip adding test 309 -- jieba_mode since it requires JIEBA
+-- Skip adding test 310 -- CJK via Jieba (mysql) since it requires JIEBA
+-- Skip adding test 311 -- CJK via Jieba since it requires JIEBA
+-- Skip adding test 358 -- percolate query vs token filters since it requires RE2
+-- Skip adding test 368 -- REGEX filter, expression and full-text operator since it requires RE2
+-- Skip adding test 372 -- replication base since it requires Galera library for replication
+-- Skip adding test 376 -- replication join at since it requires Galera library for replication
+-- Skip adding test 381 -- replication of transactions since it requires Galera library for replication
+-- Skip adding test 383 -- replication for RT since it requires Galera library for replication
+-- Skip adding test 384 -- replication for RT via HTTP since it requires Galera library for replication
+-- Skip adding test 385 -- replication for RT with different local index files since it requires Galera library for replication
+-- Skip adding test 387 -- cluster table lock since it requires Galera library for replication
+-- Skip adding test 397 -- explain query since it requires RE2
+-- Skip adding test 402 -- replication for RT stored fields since it requires Galera library for replication
+-- Skip adding test 409 -- replication of external files since it requires Galera library for replication
+-- Skip adding test 456 -- replication of update with blobs since it requires Galera library for replication
+-- Skip adding test 478 -- replication for RT with nodes restart since it requires Galera library for replication
+-- Skip adding test 487 -- replication node rejoin after cluster added \ droped table since it requires Galera library for replication
+-- Skip adding test 488 -- replication duplicates bulk on IST replay since it requires Galera library for replication
+-- Skip adding test 508 -- replication cluster create with long data_dir path since it requires Galera library for replication
+-- Skip adding test 519 -- replication for RT UUID document IDs since it requires Galera library for replication
+-- CMAKE_INSTALL_PREFIX="/usr/local"
+-- CMAKE_INSTALL_BINDIR="bin" ; CMAKE_INSTALL_FULL_BINDIR="/usr/local/bin"
+-- CMAKE_INSTALL_SBINDIR="sbin" ; CMAKE_INSTALL_FULL_SBINDIR="/usr/local/sbin"
+-- CMAKE_INSTALL_LIBEXECDIR="libexec" ; CMAKE_INSTALL_FULL_LIBEXECDIR="/usr/local/libexec"
+-- CMAKE_INSTALL_SYSCONFDIR="etc" ; CMAKE_INSTALL_FULL_SYSCONFDIR="/usr/local/etc"
+-- CMAKE_INSTALL_SHAREDSTATEDIR="com" ; CMAKE_INSTALL_FULL_SHAREDSTATEDIR="/usr/local/com"
+-- CMAKE_INSTALL_LOCALSTATEDIR="var" ; CMAKE_INSTALL_FULL_LOCALSTATEDIR="/usr/local/var"
+-- CMAKE_INSTALL_RUNSTATEDIR="var/run" ; CMAKE_INSTALL_FULL_RUNSTATEDIR="/usr/local/var/run"
+-- CMAKE_INSTALL_LIBDIR="lib" ; CMAKE_INSTALL_FULL_LIBDIR="/usr/local/lib"
+-- CMAKE_INSTALL_INCLUDEDIR="include" ; CMAKE_INSTALL_FULL_INCLUDEDIR="/usr/local/include"
+-- CMAKE_INSTALL_OLDINCLUDEDIR="/usr/include" ; CMAKE_INSTALL_FULL_OLDINCLUDEDIR="/usr/include"
+-- CMAKE_INSTALL_DATAROOTDIR="share" ; CMAKE_INSTALL_FULL_DATAROOTDIR="/usr/local/share"
+-- CMAKE_INSTALL_DATADIR="share" ; CMAKE_INSTALL_FULL_DATADIR="/usr/local/share"
+-- CMAKE_INSTALL_INFODIR="share/info" ; CMAKE_INSTALL_FULL_INFODIR="/usr/local/share/info"
+-- CMAKE_INSTALL_LOCALEDIR="share/locale" ; CMAKE_INSTALL_FULL_LOCALEDIR="/usr/local/share/locale"
+-- CMAKE_INSTALL_MANDIR="share/man" ; CMAKE_INSTALL_FULL_MANDIR="/usr/local/share/man"
+-- CMAKE_INSTALL_DOCDIR="share/doc/manticore" ; CMAKE_INSTALL_FULL_DOCDIR="/usr/local/share/doc/MANTICORE"
+-- CMAKE_INSTALL_LOCALLIBDIR="" ; CMAKE_INSTALL_FULL_LOCALLIBDIR="/usr/local/lib"
+-- Enabled features compiled in:
+ * nlohmann_json, JSON for Modern C++ library
+ * uni-algo, unicode algorithm implementation for C/C++
+ * icu, International Components for Unicode
+ * OpenSSL, for encrypted networking
+ * ZLIB, for compressed data and networking
+ * ZSTD, for compressed networking, <https://github.com/facebook/zstd>
+ * CURL, for enhanced network communication
+ * EXPAT, for indexing xmlpipe sources with indexer
+ * Iconv, for support different encodings when indexing xmlpipe sources with indexer
+
+-- Available runtime features:
+
+-- Configuring done (1.3s)
+-- Generating done (0.3s)
+-- Build files have been written to: /tmp/manticore-upstream-review/build
+[  0%] Built target conversion
+[  0%] Built target stripper
+[  0%] Building CXX object src/CMakeFiles/indexcheck.dir/indexcheck.cpp.o
+[  1%] Built target lcjk
+[  2%] Built target lmanticore_coro
+[  3%] Built target lowercaser
+[  3%] Building CXX object src/daemon/CMakeFiles/daemon.dir/api_search.cpp.o
+[  5%] Built target schema
+[  8%] Built target stem
+[  9%] Building CXX object src/daemon/CMakeFiles/daemon.dir/daemon_log.cpp.o
+[  9%] Built target infix
+[  9%] Building CXX object src/daemon/CMakeFiles/daemon.dir/failures_log.cpp.o
+[ 16%] Built target manticore_std
+[ 16%] Building CXX object src/daemon/CMakeFiles/daemon.dir/match_iterator.cpp.o
+[ 22%] Built target sphinxquery
+[ 22%] Building CXX object src/daemon/CMakeFiles/daemon.dir/minimize_aggr_result.cpp.o
+[ 23%] Building CXX object src/daemon/CMakeFiles/daemon.dir/http_log.cpp.o
+[ 23%] Building CXX object src/daemon/CMakeFiles/daemon.dir/query_log.cpp.o
+[ 24%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/api_command_cluster.cpp.o
+[ 24%] Built target indexcheck
+[ 24%] Building CXX object src/daemon/CMakeFiles/daemon.dir/search_handler.cpp.o
+[ 24%] Built target digest_sha1
+[ 25%] Built target digest_sha256
+[ 26%] Built target sqlchecks
+[ 26%] Building CXX object src/CMakeFiles/searchd_ssl.dir/searchdssl.cpp.o
+[ 27%] Building CXX object src/daemon/CMakeFiles/daemon.dir/system_tables.cpp.o
+[ 27%] Building CXX object src/daemon/CMakeFiles/daemon.dir/daemon_ipc.cpp.o
+[ 27%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_delete.cpp.o
+[ 27%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_file_reserve.cpp.o
+/tmp/manticore-upstream-review/src/searchdssl.cpp:220:33: warning: 'RSA_free' is deprecated [-Wdeprecated-declarations]
+  220 |         std::unique_ptr<RSA, decltype(&RSA_free)> pRsa ( RSA_new(), RSA_free );
+      |                                        ^
+/opt/homebrew/include/openssl/rsa.h:303:1: note: 'RSA_free' has been explicitly marked deprecated here
+  303 | OSSL_DEPRECATEDIN_3_0 void RSA_free(RSA *r);
+      | ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:220:51: warning: 'RSA_new' is deprecated [-Wdeprecated-declarations]
+  220 |         std::unique_ptr<RSA, decltype(&RSA_free)> pRsa ( RSA_new(), RSA_free );
+      |                                                          ^
+/opt/homebrew/include/openssl/rsa.h:212:1: note: 'RSA_new' has been explicitly marked deprecated here
+  212 | OSSL_DEPRECATEDIN_3_0 RSA *RSA_new(void);
+      | ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:220:62: warning: 'RSA_free' is deprecated [-Wdeprecated-declarations]
+  220 |         std::unique_ptr<RSA, decltype(&RSA_free)> pRsa ( RSA_new(), RSA_free );
+      |                                                                     ^
+/opt/homebrew/include/openssl/rsa.h:303:1: note: 'RSA_free' has been explicitly marked deprecated here
+  303 | OSSL_DEPRECATEDIN_3_0 void RSA_free(RSA *r);
+      | ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:234:8: warning: 'RSA_generate_key_ex' is deprecated [-Wdeprecated-declarations]
+  234 |         if ( !RSA_generate_key_ex ( pRsa.get(), 2048, pBne.get(), nullptr ) )
+      |               ^
+/opt/homebrew/include/openssl/rsa.h:270:1: note: 'RSA_generate_key_ex' has been explicitly marked deprecated here
+  270 | OSSL_DEPRECATEDIN_3_0 int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e,
+      | ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:240:42: warning: 'RSAPrivateKey_dup' is deprecated [-Wdeprecated-declarations]
+  240 |         if ( !EVP_PKEY_assign_RSA ( pKey.get(), RSAPrivateKey_dup ( pRsa.get() ) ) )
+      |                                                 ^
+/opt/homebrew/include/openssl/rsa.h:459:37: note: 'RSAPrivateKey_dup' has been explicitly marked deprecated here
+  459 | DECLARE_ASN1_DUP_FUNCTION_name_attr(OSSL_DEPRECATEDIN_3_0, RSA, RSAPrivateKey)
+      |                                     ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:240:8: warning: 'EVP_PKEY_assign' is deprecated [-Wdeprecated-declarations]
+  240 |         if ( !EVP_PKEY_assign_RSA ( pKey.get(), RSAPrivateKey_dup ( pRsa.get() ) ) )
+      |               ^
+/opt/homebrew/include/openssl/evp.h:510:40: note: expanded from macro 'EVP_PKEY_assign_RSA'
+  510 | #define EVP_PKEY_assign_RSA(pkey, rsa) EVP_PKEY_assign((pkey), EVP_PKEY_RSA, \
+      |                                        ^
+/opt/homebrew/include/openssl/evp.h:1386:1: note: 'EVP_PKEY_assign' has been explicitly marked deprecated here
+ 1386 | OSSL_DEPRECATEDIN_3_0
+      | ^
+/opt/homebrew/include/openssl/macros.h:229:31: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  229 | #define OSSL_DEPRECATEDIN_3_0 OSSL_DEPRECATED(3.0)
+      |                               ^
+/opt/homebrew/include/openssl/macros.h:61:47: note: expanded from macro 'OSSL_DEPRECATED'
+   61 | #define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:269:62: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+  269 |         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+      |                                                                     ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:269:152: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+  269 |         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+      |                                                                                                                                                               ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:269:225: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+  269 |         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+      |                                                                                                                                                                                                                                        ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:818:6: warning: variable 'iCiphLen' set but not used [-Wunused-but-set-variable]
+  818 |         int iCiphLen = iLen;
+      |             ^
+/tmp/manticore-upstream-review/src/searchdssl.cpp:117:13: warning: unused function 'SetGlobalKeys' [-Wunused-function]
+  117 | static bool SetGlobalKeys ( SSL_CTX * pCtx, CSphString * pError )
+      |             ^~~~~~~~~~~~~
+/tmp/manticore-upstream-review/src/searchdssl.cpp:764:18: warning: unused variable 'AES_GCM_KEY_SIZE' [-Wunused-const-variable]
+  764 | static const int AES_GCM_KEY_SIZE = 32;
+      |                  ^~~~~~~~~~~~~~~~
+[ 29%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_file_send.cpp.o
+[ 29%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_get_nodes.cpp.o
+[ 29%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_index_add_local.cpp.o
+12 warnings generated.
+[ 30%] Linking CXX static library libsearchd_ssl.a
+[ 30%] Built target searchd_ssl
+[ 30%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_synced.cpp.o
+[ 31%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_update_nodes.cpp.o
+[ 32%] Built target sourcedoc
+[ 32%] Built target lmanticore_icu
+[ 34%] Built target tokenizer
+[ 34%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/commit_monitor.cpp.o
+[ 36%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/configuration.cpp.o
+[ 36%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/nodes.cpp.o
+[ 39%] Built target dict
+[ 39%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/portrange.cpp.o
+[ 40%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinx.cpp.o
+[ 40%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/receiver_ctx.cpp.o
+[ 40%] Built target daemon
+[ 40%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxutils.cpp.o
+[ 41%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/replicate_index.cpp.o
+[ 41%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/serialize.cpp.o
+[ 41%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/send_files.cpp.o
+[ 41%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/recv_state.cpp.o
+[ 41%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_binlog.cpp.o
+[ 43%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_sst_progress.cpp.o
+[ 43%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_recv_state_cleanup.cpp.o
+[ 43%] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_check_node.cpp.o
+[ 43%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxsort.cpp.o
+[ 43%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxexpr.cpp.o
+[ 43%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxfilter.cpp.o
+[ 43%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxsearch.cpp.o
+[ 43%] Linking CXX static library librepli_stuff.a
+[ 44%] Built target repli_stuff
+[ 45%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxrt.cpp.o
+[ 45%] Building CXX object src/CMakeFiles/lmanticore.dir/accumulator.cpp.o
+[ 45%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdha.cpp.o
+[ 45%] Building CXX object src/CMakeFiles/lmanticore.dir/uuid_docid.cpp.o
+[ 45%] Building CXX object src/CMakeFiles/lmanticore.dir/attribute.cpp.o
+[ 45%] Building CXX object src/CMakeFiles/lsearchd.dir/api_reply_stream.cpp.o
+[ 45%] Building CXX object src/CMakeFiles/lmanticore.dir/secondaryindex.cpp.o
+[ 46%] Building CXX object src/CMakeFiles/lmanticore.dir/searchnode.cpp.o
+[ 46%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdhttp.cpp.o
+[ 46%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxpq.cpp.o
+[ 46%] Building CXX object src/CMakeFiles/lmanticore.dir/docstore.cpp.o
+[ 46%] Building CXX object src/CMakeFiles/lmanticore.dir/snippetindex.cpp.o
+[ 46%] Building CXX object src/CMakeFiles/lsearchd.dir/indexer_rt_bulk.cpp.o
+[ 46%] Building CXX object src/CMakeFiles/lmanticore.dir/indexsettings.cpp.o
+[ 47%] Building CXX object src/CMakeFiles/lmanticore.dir/columnarsort.cpp.o
+[ 47%] Building CXX object src/CMakeFiles/lmanticore.dir/client_task_info.cpp.o
+[ 47%] Building CXX object src/CMakeFiles/lmanticore.dir/costestimate.cpp.o
+[ 47%] Building CXX object src/CMakeFiles/lsearchd.dir/taskping.cpp.o
+[ 47%] Building CXX object src/CMakeFiles/lsearchd.dir/taskglobalidf.cpp.o
+[ 48%] Building CXX object src/CMakeFiles/lmanticore.dir/docidlookup.cpp.o
+[ 50%] Building CXX object src/CMakeFiles/lsearchd.dir/tasksavestate.cpp.o
+[ 50%] Building CXX object src/CMakeFiles/lsearchd.dir/taskflushbinlog.cpp.o
+[ 50%] Building CXX object src/CMakeFiles/lsearchd.dir/taskflushattrs.cpp.o
+[ 51%] Building CXX object src/CMakeFiles/lsearchd.dir/taskflushmutable.cpp.o
+[ 51%] Building CXX object src/CMakeFiles/lsearchd.dir/taskpreread.cpp.o
+[ 51%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdaemon.cpp.o
+[ 51%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdfields.cpp.o
+[ 51%] Building CXX object src/CMakeFiles/lmanticore.dir/docidlookupcache.cpp.o
+[ 52%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdconfig.cpp.o
+[ 52%] Building CXX object src/CMakeFiles/lmanticore.dir/attrindex_merge.cpp.o
+[ 52%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdsql.cpp.o
+[ 52%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdddl.cpp.o
+[ 53%] Building CXX object src/CMakeFiles/lsearchd.dir/networking_daemon.cpp.o
+[ 53%] Building CXX object src/CMakeFiles/lsearchd.dir/net_action_accept.cpp.o
+[ 53%] Building CXX object src/CMakeFiles/lsearchd.dir/netreceive_api.cpp.o
+[ 53%] Building CXX object src/CMakeFiles/lsearchd.dir/netreceive_http.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/lsearchd.dir/netreceive_ql.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/lmanticore.dir/knnmisc.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/lsearchd.dir/query_status.cpp.o
+[ 55%] Building CXX object src/CMakeFiles/lsearchd.dir/stackmock.cpp.o
+[ 55%] Building CXX object src/CMakeFiles/lsearchd.dir/docs_collector.cpp.o
+[ 55%] Building CXX object src/CMakeFiles/lsearchd.dir/index_rotator.cpp.o
+[ 56%] Building CXX object src/CMakeFiles/lsearchd.dir/config_reloader.cpp.o
+[ 56%] Building CXX object src/CMakeFiles/lsearchd.dir/netpoll.cpp.o
+[ 56%] Building CXX object src/CMakeFiles/lsearchd.dir/pollable_event.cpp.o
+[ 56%] Building CXX object src/CMakeFiles/lsearchd.dir/netfetch.cpp.o
+[ 58%] Building CXX object src/CMakeFiles/lmanticore.dir/queuecreator.cpp.o
+[ 58%] Building CXX object src/CMakeFiles/lmanticore.dir/attr_embedding.cpp.o
+[ 59%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdbuddy.cpp.o
+[ 59%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdhttpcompat.cpp.o
+[ 60%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdreplication.cpp.o
+[ 61%] Building CXX object src/CMakeFiles/lmanticore.dir/hybridexecutor.cpp.o
+[ 61%] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxjsonquery.cpp.o
+[ 61%] Building CXX object src/CMakeFiles/lsearchd.dir/frontendschema.cpp.o
+[ 62%] Building CXX object src/CMakeFiles/lsearchd.dir/debug_cmds.cpp.o
+[ 62%] Building CXX object src/CMakeFiles/lsearchd.dir/dynamic_idx.cpp.o
+[ 63%] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxexcerpt.cpp.o
+[ 63%] Building CXX object src/CMakeFiles/lsearchd.dir/searchdexpr.cpp.o
+[ 63%] Building CXX object src/CMakeFiles/lsearchd.dir/searchd_shard.cpp.o
+[ 65%] Building CXX object src/CMakeFiles/lsearchd.dir/facetutils.cpp.o
+[ 65%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth.cpp.o
+[ 65%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_common.cpp.o
+[ 65%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_proto_http.cpp.o
+[ 66%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_proto_mysql.cpp.o
+[ 66%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_proto_api.cpp.o
+[ 66%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_perms.cpp.o
+[ 67%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/gcm_nonce.cpp.o
+[ 67%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_log.cpp.o
+[ 67%] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_bootstrap.cpp.o
+[ 67%] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_mysql_layer.cpp.o
+[ 68%] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_zlib_mysql.cpp.o
+[ 68%] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_zstd_mysql.cpp.o
+[ 74%] Built target lsearchd
+[ 74%] Linking CXX static library liblmanticore.a
+[100%] Built target lmanticore
+[100%] Building CXX object src/CMakeFiles/searchd.dir/searchd.cpp.o
+/tmp/manticore-upstream-review/src/searchd.cpp:17413:23: warning: variable 'cTopOfMainStack' is uninitialized when passed as a const pointer argument here [-Wuninitialized-const-pointer]
+ 17413 |         PrepareMainThread ( &cTopOfMainStack );
+       |                              ^~~~~~~~~~~~~~~
+1 warning generated.
+[100%] Linking CXX executable searchd
+[100%] Built target searchd
+[  1%] Built target lcjk
+[  1%] Built target stripper
+[  1%] Built target conversion
+[  2%] Built target lmanticore_coro
+[  2%] Built target indexcheck
+[  3%] Built target lowercaser
+[  5%] Built target schema
+[  5%] Built target infix
+[  7%] Built target stem
+[ 13%] Built target manticore_std
+[ 15%] Built target digest_sha256
+[ 15%] Built target digest_sha1
+[ 20%] Built target sqlchecks
+[ 21%] Built target sphinxquery
+[ 24%] Built target daemon
+[ 25%] Linking CXX static library libsource_svpipe.a
+[ 26%] Built target searchd_ssl
+[ 26%] Linking CXX static library libsource_xmlpipe2.a
+[ 27%] Built target sourcedoc
+[ 27%] Built target lmanticore_icu
+[ 30%] Built target tokenizer
+[ 33%] Built target dict
+[ 33%] Built target source_svpipe
+[ 33%] Built target source_xmlpipe2
+[ 40%] Built target repli_stuff
+[ 72%] Built target lmanticore
+[ 93%] Built target lsearchd
+[ 93%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidcache.cpp.o
+[ 93%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidplanner.cpp.o
+[ 94%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidlookup.cpp.o
+[ 94%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_rtstuff.cpp.o
+[ 94%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchd.cpp.o
+[ 94%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchdaemon.cpp.o
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:114:22: warning: 'GetFieldLengths' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  114 |         MOCK_CONST_METHOD0( GetFieldLengths, const int *() ); // return m_dFieldLengths.Begin();
+      |                             ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:180:23: note: overridden virtual function is here
+  180 |         virtual const int *             GetFieldLengths () const = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:115:17: warning: 'Connect' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  115 |         MOCK_METHOD1 ( Connect, bool ( CSphString & ) ); // return true;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:115:17: note: overridden virtual function is here
+  115 |         virtual bool                    Connect ( CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:116:17: warning: 'Disconnect' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  116 |         MOCK_METHOD0 ( Disconnect, void() );
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:118:17: note: overridden virtual function is here
+  118 |         virtual void                    Disconnect () = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:126:17: warning: 'IterateMultivaluedStart' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  126 |         MOCK_METHOD2 ( IterateMultivaluedStart, bool ( int, CSphString& )); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:153:17: note: overridden virtual function is here
+  153 |         virtual bool                    IterateMultivaluedStart ( int iAttr, CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:127:17: warning: 'IterateMultivaluedNext' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  127 |         MOCK_METHOD2 ( IterateMultivaluedNext, bool(int64_t &, int64_t &)); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:156:17: note: overridden virtual function is here
+  156 |         virtual bool                    IterateMultivaluedNext ( int64_t & iDocID, int64_t & iMvaValue ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:128:17: warning: 'IterateKillListStart' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  128 |         MOCK_METHOD1 ( IterateKillListStart, bool (CSphString & ) ); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:165:17: note: overridden virtual function is here
+  165 |         virtual bool                    IterateKillListStart ( CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:129:17: warning: 'IterateKillListNext' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  129 |         MOCK_METHOD1 ( IterateKillListNext, bool (DocID_t & ) ) ; // return false
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:168:17: note: overridden virtual function is here
+  168 |         virtual bool                    IterateKillListNext ( DocID_t & uDocId ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:199:22: warning: 'GetFieldLengths' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  199 |         MOCK_CONST_METHOD0( GetFieldLengths, const int *() ); // return m_dFieldLengths.Begin();
+      |                             ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:180:23: note: overridden virtual function is here
+  180 |         virtual const int *             GetFieldLengths () const = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:200:17: warning: 'Connect' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  200 |         MOCK_METHOD1 ( Connect, bool ( CSphString & ) ); // return true;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:115:17: note: overridden virtual function is here
+  115 |         virtual bool                    Connect ( CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:201:17: warning: 'Disconnect' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  201 |         MOCK_METHOD0 ( Disconnect, void () );
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:118:17: note: overridden virtual function is here
+  118 |         virtual void                    Disconnect () = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:211:17: warning: 'IterateMultivaluedStart' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  211 |         MOCK_METHOD2 ( IterateMultivaluedStart, bool ( int, CSphString & ) ); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:153:17: note: overridden virtual function is here
+  153 |         virtual bool                    IterateMultivaluedStart ( int iAttr, CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:212:17: warning: 'IterateMultivaluedNext' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  212 |         MOCK_METHOD2 ( IterateMultivaluedNext, bool (int64_t &, int64_t &) ); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:156:17: note: overridden virtual function is here
+  156 |         virtual bool                    IterateMultivaluedNext ( int64_t & iDocID, int64_t & iMvaValue ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:213:17: warning: 'IterateKillListStart' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  213 |         MOCK_METHOD1 ( IterateKillListStart, bool (CSphString & ) ); // return false;
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:165:17: note: overridden virtual function is here
+  165 |         virtual bool                    IterateKillListStart ( CSphString & sError ) = 0;
+      |                                         ^
+/tmp/manticore-upstream-review/src/gtests/gtests_rtstuff.cpp:214:17: warning: 'IterateKillListNext' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+  214 |         MOCK_METHOD1 ( IterateKillListNext, bool (DocID_t & ) ); // return false
+      |                        ^
+/tmp/manticore-upstream-review/src/indexing_sources/source_document.h:168:17: note: overridden virtual function is here
+  168 |         virtual bool                    IterateKillListNext ( DocID_t & uDocId ) = 0;
+      |                                         ^
+[ 94%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_api_reply_stream.cpp.o
+In file included from /tmp/manticore-upstream-review/src/gtests/gtests_searchd.cpp:18:
+/tmp/manticore-upstream-review/src/searchd.cpp:17413:23: warning: variable 'cTopOfMainStack' is uninitialized when passed as a const pointer argument here [-Wuninitialized-const-pointer]
+ 17413 |         PrepareMainThread ( &cTopOfMainStack );
+       |                              ^~~~~~~~~~~~~~~
+[ 94%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_send_files.cpp.o
+[ 95%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_ssl.cpp.o
+/tmp/manticore-upstream-review/src/gtests/gtests_api_reply_stream.cpp:1362:17: warning: unused variable 'uReplyVersion' [-Wunused-variable]
+ 1362 |         constexpr WORD uReplyVersion = 0x0123;
+      |                        ^~~~~~~~~~~~~
+[ 96%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_pqstuff.cpp.o
+14 warnings generated.
+1 warning generated.
+1 warning generated.
+[ 96%] Linking CXX executable gmanticoretest
+ld: warning: ignoring duplicate libraries: '/opt/homebrew/Cellar/openssl@3/3.6.2/lib/libcrypto.a', '/opt/homebrew/Cellar/openssl@3/3.6.2/lib/libssl.a'
+[100%] Built target gmanticoretest

@@ -1,0 +1,14 @@
+{
+  "platform": "Apple M4 Pro, arm64, 128-byte cache line",
+  "compiler": "Apple Clang 21, native RelWithDebInfo -O2",
+  "baseline_docstore_sha256": "143091ba80e0667f105298342b6031ddace7bc6a7c5616de542880a3ebcfbdf0",
+  "files": {
+    "src/docstore.cpp": "caeebeaa8cf3f077039353c82d2d97da5dd87193347f3a868f3adf0f01903b19",
+    "src/gtests/gtests_docstore_readers.cpp": "2c4573457d8ca24ceae151a89ea02b9c9953a8e9beb268ce26bbb916317c9b7f",
+    "src/docidlookupcache.cpp": "9c8b29fdcc4d50f543fdc45ca5401bf1272a7a9b0f432f20736cb3adea87716a",
+    "src/docidlookupcache.h": "964d59042fa5f0f1a4510341b3e8cef2f66a93af2ca43d17e51e1d6a9f1828b6",
+    "build-native/src/searchd": "ed310dd67e70fdee90ab66bb4b57538d3bcfb4f1aa3793a1a77b890b4dbbe41c",
+    "test/docid-cache/bench_reader_tls.py": "5963cdd9939c416dffa7bde1e326e3e834f22234495929be8c00e893fb4f5140"
+  },
+  "sanitizers": "docstore.cpp, fileio.cpp and new tests instrumented; unchanged engine dependencies reused; not a full-engine sanitizer build"
+}

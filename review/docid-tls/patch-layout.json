@@ -1,0 +1,37 @@
+{
+  "base": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+  "working_tree_base": "5e8fc00f55efeee8dba760f13f5ccb09ea7b2382",
+  "patches": {
+    "01-docid-cache.patch": {
+      "files": [
+        "manual/english/Server_settings/Searchd.md",
+        "src/CMakeLists.txt",
+        "src/costestimate.cpp",
+        "src/costestimate.h",
+        "src/docidlookup.cpp",
+        "src/docidlookup.h",
+        "src/docidlookupcache.cpp",
+        "src/docidlookupcache.h",
+        "src/gtests/CMakeLists.txt",
+        "src/gtests/gtests_docidcache.cpp",
+        "src/gtests/gtests_docidlookup.cpp",
+        "src/gtests/gtests_docidplanner.cpp",
+        "src/searchd.cpp",
+        "src/secondaryindex.cpp",
+        "src/sphinx.cpp",
+        "src/sphinxutils.cpp",
+        "test/docid-cache/README.md",
+        "test/docid-cache/test_integration.py"
+      ],
+      "stat": " manual/english/Server_settings/Searchd.md |  41 ++++\n src/CMakeLists.txt                        |   2 +-\n src/costestimate.cpp                      |  19 +-\n src/costestimate.h                        |   2 +\n src/docidlookup.cpp                       |  93 +++++++-\n src/docidlookup.h                         |  11 +-\n src/docidlookupcache.cpp                  | 213 ++++++++++++++++++\n src/docidlookupcache.h                    |  87 ++++++++\n src/gtests/CMakeLists.txt                 |   2 +\n src/gtests/gtests_docidcache.cpp          | 352 ++++++++++++++++++++++++++++++\n src/gtests/gtests_docidlookup.cpp         | 200 +++++++++++++++++\n src/gtests/gtests_docidplanner.cpp        | 139 ++++++++++++\n src/searchd.cpp                           |   7 +\n src/secondaryindex.cpp                    |   5 +\n src/sphinx.cpp                            |  54 ++++-\n src/sphinxutils.cpp                       |   1 +\n test/docid-cache/README.md                |  38 ++++\n test/docid-cache/test_integration.py      | 177 +++++++++++++++\n 18 files changed, 1429 insertions(+), 14 deletions(-)\n"
+    },
+    "02-reader-tls.patch": {
+      "files": [
+        "src/docstore.cpp",
+        "src/gtests/CMakeLists.txt",
+        "src/gtests/gtests_docstore_readers.cpp"
+      ],
+      "stat": " src/docstore.cpp                       |  27 ++++-\n src/gtests/CMakeLists.txt              |   1 +\n src/gtests/gtests_docstore_readers.cpp | 182 +++++++++++++++++++++++++++++++++\n 3 files changed, 209 insertions(+), 1 deletion(-)\n"
+    }
+  }
+}

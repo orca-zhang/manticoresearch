@@ -1,0 +1,31 @@
+Running main() from gmock_main.cc
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+export MANTICORE_KNOWN_CREATE_SIZE=384
+export MANTICORE_START_KNOWN_CREATE_SIZE=3280
+export MANTICORE_KNOWN_EXPR_SIZE=32
+export MANTICORE_START_KNOWN_EXPR_SIZE=160
+export MANTICORE_NONE=32
+export MANTICORE_START_NONE=160
+export MANTICORE_KNOWN_FILTER_SIZE=224
+export MANTICORE_START_KNOWN_FILTER_SIZE=30896
+export MANTICORE_KNOWN_MATCH_SIZE=208
+export MANTICORE_START_KNOWN_MATCH_SIZE=16288
+
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (6 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (8 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (390 ms total)
+[  PASSED  ] 5 tests.

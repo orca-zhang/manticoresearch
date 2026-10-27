@@ -1,0 +1,37 @@
+Running main() from /Users/orca/Documents/GitHub/iWorkFileFormat/iWorkFileInspector/Externals/protobuf-32.1/_deps/googletest-src/googletest/src/gtest_main.cc
+[==========] Running 14 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 14 tests from NativeDocidCache
+[ RUN      ] NativeDocidCache.DisabledEmptyAndOversizedDoNotAllocate
+[       OK ] NativeDocidCache.DisabledEmptyAndOversizedDoNotAllocate (0 ms)
+[ RUN      ] NativeDocidCache.LeafAndDirectoryBoundaries
+[       OK ] NativeDocidCache.LeafAndDirectoryBoundaries (4 ms)
+[ RUN      ] NativeDocidCache.UnsignedExtremesAndRowZero
+[       OK ] NativeDocidCache.UnsignedExtremesAndRowZero (0 ms)
+[ RUN      ] NativeDocidCache.IncompleteDuplicateAndUnsortedInputAreRefused
+[       OK ] NativeDocidCache.IncompleteDuplicateAndUnsortedInputAreRefused (0 ms)
+[ RUN      ] NativeDocidCache.MaxKeyInPartialLastLeaf
+[       OK ] NativeDocidCache.MaxKeyInPartialLastLeaf (0 ms)
+[ RUN      ] NativeDocidCache.BudgetChargesEntireAllocationAndReclaimsIt
+[       OK ] NativeDocidCache.BudgetChargesEntireAllocationAndReclaimsIt (0 ms)
+[ RUN      ] NativeDocidCache.RuntimeAlignmentAndPaddingRemainBudgeted
+[       OK ] NativeDocidCache.RuntimeAlignmentAndPaddingRemainBudgeted (0 ms)
+[ RUN      ] NativeDocidCache.RandomKeysMatchSortedReference
+[       OK ] NativeDocidCache.RandomKeysMatchSortedReference (17 ms)
+[ RUN      ] NativeDocidCache.ConcurrentReadersAndBudgetReservations
+[       OK ] NativeDocidCache.ConcurrentReadersAndBudgetReservations (1 ms)
+[ RUN      ] NativeDocidCache.BatchMatchesReferenceWithTilesPaddingAndUnsignedExtremes
+[       OK ] NativeDocidCache.BatchMatchesReferenceWithTilesPaddingAndUnsignedExtremes (1 ms)
+[ RUN      ] NativeDocidCache.BatchUnsealedAndConcurrentReadsDoNotChangeBudget
+[       OK ] NativeDocidCache.BatchUnsealedAndConcurrentReadsDoNotChangeBudget (0 ms)
+[ RUN      ] NativeDocidCache.BatchPreservesWideLeafIndicesAndOutputPositions
+[       OK ] NativeDocidCache.BatchPreservesWideLeafIndicesAndOutputPositions (27 ms)
+[ RUN      ] NativeDocidCache.ConsecutiveBatchesHandleDifferentCachesAndActiveLanes
+[       OK ] NativeDocidCache.ConsecutiveBatchesHandleDifferentCachesAndActiveLanes (0 ms)
+[ RUN      ] NativeDocidCache.ConcurrentBatchesIsolateThreadsCachesAndQueries
+[       OK ] NativeDocidCache.ConcurrentBatchesIsolateThreadsCachesAndQueries (2 ms)
+[----------] 14 tests from NativeDocidCache (56 ms total)
+
+[----------] Global test environment tear-down
+[==========] 14 tests from 1 test suite ran. (56 ms total)
+[  PASSED  ] 14 tests.

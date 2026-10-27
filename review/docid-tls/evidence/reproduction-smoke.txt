@@ -1,0 +1,4 @@
+Both standalone cache source variants compiled with -Wall -Wextra -Werror.
+All Python reproduction scripts passed py_compile; sanitizer helper CLI checked.
+All 20 submitted files match the combined patch tree.
+QPS binary hashes match saved independent builds.

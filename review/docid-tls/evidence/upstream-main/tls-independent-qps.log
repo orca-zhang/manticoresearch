@@ -1,0 +1,16 @@
+cache=0 clients=1 batch=1 count=False: QPS +3.78% CPU/query -1.81%
+cache=0 clients=1 batch=64 count=False: QPS +1.74% CPU/query -1.21%
+cache=0 clients=1 batch=256 count=False: QPS +0.99% CPU/query -1.09%
+cache=0 clients=1 batch=256 count=True: QPS -1.94% CPU/query -0.86%
+cache=0 clients=8 batch=1 count=False: QPS +7.01% CPU/query -2.80%
+cache=0 clients=8 batch=64 count=False: QPS +0.52% CPU/query -4.03%
+cache=0 clients=8 batch=256 count=False: QPS +7.09% CPU/query -5.20%
+cache=0 clients=8 batch=256 count=True: QPS +0.67% CPU/query -2.96%
+cache=16777216 clients=1 batch=1 count=False: QPS +8.07% CPU/query -3.16%
+cache=16777216 clients=1 batch=64 count=False: QPS -0.54% CPU/query +0.62%
+cache=16777216 clients=1 batch=256 count=False: QPS -3.63% CPU/query +0.37%
+cache=16777216 clients=1 batch=256 count=True: QPS -5.47% CPU/query +1.96%
+cache=16777216 clients=8 batch=1 count=False: QPS +4.84% CPU/query -1.09%
+cache=16777216 clients=8 batch=64 count=False: QPS -0.71% CPU/query +0.53%
+cache=16777216 clients=8 batch=256 count=False: QPS +1.30% CPU/query +1.07%
+cache=16777216 clients=8 batch=256 count=True: QPS +2.89% CPU/query +0.75%

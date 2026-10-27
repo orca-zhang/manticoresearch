@@ -1,0 +1,22 @@
+{
+  "baseline_source_sha256": "d406c85bec8448b9e23edd274034a3e6c7a2322ef45d319403be9e1d8e22ba88",
+  "variants": [
+    "auto",
+    "adaptive-stack",
+    "adaptive-tls"
+  ],
+  "tile_size": 16,
+  "optimization": "-O3",
+  "rounds": 5,
+  "prepared_source_sha256": {
+    "adaptive-stack": {
+      "docidlookupcache.h": "964d59042fa5f0f1a4510341b3e8cef2f66a93af2ca43d17e51e1d6a9f1828b6",
+      "docidlookupcache.cpp": "9c8b29fdcc4d50f543fdc45ca5401bf1272a7a9b0f432f20736cb3adea87716a"
+    },
+    "adaptive-tls": {
+      "docidlookupcache.h": "964d59042fa5f0f1a4510341b3e8cef2f66a93af2ca43d17e51e1d6a9f1828b6",
+      "docidlookupcache.cpp": "04ed6c1c349969e7e509c717d8308ccaddf95bf6bc389e69c1c8beb2a02acb35"
+    }
+  },
+  "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0"
+}

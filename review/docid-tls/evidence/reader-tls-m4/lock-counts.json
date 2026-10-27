@@ -1,0 +1,44 @@
+[
+  {
+    "block_cache_bytes": 0,
+    "clients": 0,
+    "queries": 0,
+    "hits": 19999,
+    "misses": 1
+  },
+  {
+    "block_cache_bytes": 0,
+    "clients": 1,
+    "queries": 20,
+    "hits": 25099,
+    "misses": 21
+  },
+  {
+    "block_cache_bytes": 0,
+    "clients": 8,
+    "queries": 160,
+    "hits": 60380,
+    "misses": 580
+  },
+  {
+    "block_cache_bytes": 16777216,
+    "clients": 0,
+    "queries": 0,
+    "hits": 2499,
+    "misses": 1
+  },
+  {
+    "block_cache_bytes": 16777216,
+    "clients": 1,
+    "queries": 20,
+    "hits": 2499,
+    "misses": 1
+  },
+  {
+    "block_cache_bytes": 16777216,
+    "clients": 8,
+    "queries": 160,
+    "hits": 2499,
+    "misses": 1
+  }
+]

@@ -1,0 +1,418 @@
+/usr/bin/c++ -DBOOST_ALL_NO_LIB=1 -DBOOST_CONTEXT_NO_LIB -DXXH_EXPORT -I/Users/orca/Documents/GitHub/manticoresearch-cpp-opt/src -I/Users/orca/Documents/GitHub/manticoresearch-cpp-opt/mcl -I/Users/orca/Documents/GitHub/manticoresearch-cpp-opt/build-native/config -isystem /opt/homebrew/include -isystem /Users/orca/Documents/GitHub/cache/darwin-arm64/uni-algo/include -O2 -g -DNDEBUG -std=gnu++17 -arch arm64 -F/Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk/System/Library/Frameworks -D_FILE_OFFSET_BITS=64 -Wall -Wstrict-aliasing -fno-rtti -Wno-deprecated-register -Wno-missing-exception-spec -Wno-implicit-exception-spec-mismatch -Wno-invalid-offsetof -Wc++11-narrowing -fsanitize=thread -fno-omit-frame-pointer -O1 -c /Users/orca/Documents/GitHub/manticoresearch-cpp-opt/src/docstore.cpp -o /tmp/manticore-reader-tls/docstore-thread.o
+/usr/bin/c++ -DBOOST_ALL_NO_LIB=1 -DBOOST_CONTEXT_NO_LIB -DXXH_EXPORT -I/Users/orca/Documents/GitHub/manticoresearch-cpp-opt/src -I/Users/orca/Documents/GitHub/manticoresearch-cpp-opt/mcl -I/Users/orca/Documents/GitHub/manticoresearch-cpp-opt/build-native/config -isystem /opt/homebrew/include -isystem /Users/orca/Documents/GitHub/cache/darwin-arm64/uni-algo/include -O2 -g -DNDEBUG -std=gnu++17 -arch arm64 -F/Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk/System/Library/Frameworks -D_FILE_OFFSET_BITS=64 -Wall -Wstrict-aliasing -fno-rtti -Wno-deprecated-register -Wno-missing-exception-spec -Wno-implicit-exception-spec-mismatch -Wno-invalid-offsetof -Wc++11-narrowing -fsanitize=thread -fno-omit-frame-pointer -O1 -c /Users/orca/Documents/GitHub/manticoresearch-cpp-opt/src/fileio.cpp -o /tmp/manticore-reader-tls/fileio-thread.o
+/usr/bin/c++ -DBOOST_ALL_NO_LIB=1 -DBOOST_ATOMIC_NO_LIB -DBOOST_CONTEXT_NO_LIB -DBOOST_FILESYSTEM_NO_LIB -DJSON_USE_GLOBAL_UDLS=0 -DXXH_EXPORT -Dgmanticoretest_EXPORTS -I/Users/orca/Documents/GitHub/manticoresearch-cpp-opt/src -I/Users/orca/Documents/GitHub/manticoresearch-cpp-opt/mcl -I/Users/orca/Documents/GitHub/manticoresearch-cpp-opt/build-native/config -isystem /opt/homebrew/include -isystem /Users/orca/Documents/GitHub/cache/darwin-arm64/uni-algo/include -isystem /Users/orca/Documents/GitHub/cache/darwin-arm64/nlohmann_json/include -isystem /opt/homebrew/Cellar/openssl@3/3.6.2/include -O2 -g -DNDEBUG -std=gnu++17 -arch arm64 -F/Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk/System/Library/Frameworks -D_FILE_OFFSET_BITS=64 -Wall -Wstrict-aliasing -fno-rtti -Wno-deprecated-register -Wno-missing-exception-spec -Wno-implicit-exception-spec-mismatch -Wno-invalid-offsetof -Wc++11-narrowing -fsanitize=thread -fno-omit-frame-pointer -O1 -c /Users/orca/Documents/GitHub/manticoresearch-cpp-opt/src/gtests/gtests_docstore_readers.cpp -o /tmp/manticore-reader-tls/gtests_docstore_readers-thread.o
+ld: warning: ignoring duplicate libraries: '/opt/homebrew/Cellar/openssl@3/3.6.2/lib/libcrypto.a', '/opt/homebrew/Cellar/openssl@3/3.6.2/lib/libssl.a'
+Running main() from gmock_main.cc
+
+Repeating all tests (iteration 1) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+export MANTICORE_KNOWN_CREATE_SIZE=384
+export MANTICORE_START_KNOWN_CREATE_SIZE=3744
+export MANTICORE_KNOWN_EXPR_SIZE=32
+export MANTICORE_START_KNOWN_EXPR_SIZE=512
+export MANTICORE_NONE=32
+export MANTICORE_START_NONE=512
+export MANTICORE_KNOWN_FILTER_SIZE=224
+export MANTICORE_START_KNOWN_FILTER_SIZE=31280
+export MANTICORE_KNOWN_MATCH_SIZE=208
+export MANTICORE_START_KNOWN_MATCH_SIZE=16544
+
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (14 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (1 ms)
+[----------] 5 tests from DocstoreReadersTest (17 ms total)
+
+[==========] 5 tests from 1 test suite ran. (82 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 2) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (14 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (17 ms total)
+
+[==========] 5 tests from 1 test suite ran. (17 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 3) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (12 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (14 ms total)
+
+[==========] 5 tests from 1 test suite ran. (14 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 4) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (15 ms total)
+
+[==========] 5 tests from 1 test suite ran. (15 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 5) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (15 ms total)
+
+[==========] 5 tests from 1 test suite ran. (15 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 6) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (14 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (16 ms total)
+
+[==========] 5 tests from 1 test suite ran. (16 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 7) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (15 ms total)
+
+[==========] 5 tests from 1 test suite ran. (15 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 8) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (15 ms total)
+
+[==========] 5 tests from 1 test suite ran. (15 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 9) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (15 ms total)
+
+[==========] 5 tests from 1 test suite ran. (15 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 10) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (14 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (16 ms total)
+
+[==========] 5 tests from 1 test suite ran. (16 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 11) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (15 ms total)
+
+[==========] 5 tests from 1 test suite ran. (15 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 12) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (16 ms total)
+
+[==========] 5 tests from 1 test suite ran. (16 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 13) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (16 ms total)
+
+[==========] 5 tests from 1 test suite ran. (16 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 14) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (14 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (17 ms total)
+
+[==========] 5 tests from 1 test suite ran. (17 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 15) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (16 ms total)
+
+[==========] 5 tests from 1 test suite ran. (16 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 16) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (14 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (16 ms total)
+
+[==========] 5 tests from 1 test suite ran. (16 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 17) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (15 ms total)
+
+[==========] 5 tests from 1 test suite ran. (15 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 18) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (14 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (16 ms total)
+
+[==========] 5 tests from 1 test suite ran. (16 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 19) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (15 ms total)
+
+[==========] 5 tests from 1 test suite ran. (15 ms total)
+[  PASSED  ] 5 tests.
+
+Repeating all tests (iteration 20) . . .
+
+Note: Google Test filter = DocstoreReadersTest.*
+[==========] Running 5 tests from 1 test suite.
+[----------] 5 tests from DocstoreReadersTest
+[ RUN      ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement
+[       OK ] DocstoreReadersTest.LateCreationAndSameKeyIndexReplacement (0 ms)
+[ RUN      ] DocstoreReadersTest.SessionCleanupAndRegistryRestart
+[       OK ] DocstoreReadersTest.SessionCleanupAndRegistryRestart (0 ms)
+[ RUN      ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread
+[       OK ] DocstoreReadersTest.IndexReplacementInvalidatesOtherThread (0 ms)
+[ RUN      ] DocstoreReadersTest.ConcurrentSessionsAndCleanup
+[       OK ] DocstoreReadersTest.ConcurrentSessionsAndCleanup (13 ms)
+[ RUN      ] DocstoreReadersTest.SessionMovesBetweenOsThreads
+[       OK ] DocstoreReadersTest.SessionMovesBetweenOsThreads (0 ms)
+[----------] 5 tests from DocstoreReadersTest (16 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (16 ms total)
+[  PASSED  ] 5 tests.

@@ -1,0 +1,6 @@
+
+
+# Preserve raw review artifacts and their recorded byte hashes.
+review/docid-tls/patches/*.patch -whitespace
+review/docid-tls/evidence/** -whitespace
+review/docid-tls/repro/cache-layout-sources/** -whitespace

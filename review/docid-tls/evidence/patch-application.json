@@ -1,0 +1,25 @@
+{
+  "base": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+  "patch_sha256": {
+    "01-docid-cache.patch": "10fa027ef0d9982ba901430197d6b46db9400de09d81a87f98f21ce34dd357ee",
+    "02-reader-tls.patch": "382774e79a6e54e06a7df06719b34173d4158667c723e19007d35ba2446e3b9b"
+  },
+  "application_orders": {
+    "docid-only": {
+      "tree": "84b20aef39bf09b6f501aec0683c1a40a94ceb23",
+      "stat": " manual/english/Server_settings/Searchd.md |  41 ++++\n src/CMakeLists.txt                        |   2 +-\n src/costestimate.cpp                      |  19 +-\n src/costestimate.h                        |   2 +\n src/docidlookup.cpp                       |  93 +++++++-\n src/docidlookup.h                         |  11 +-\n src/docidlookupcache.cpp                  | 213 ++++++++++++++++++\n src/docidlookupcache.h                    |  87 ++++++++\n src/gtests/CMakeLists.txt                 |   2 +\n src/gtests/gtests_docidcache.cpp          | 352 ++++++++++++++++++++++++++++++\n src/gtests/gtests_docidlookup.cpp         | 200 +++++++++++++++++\n src/gtests/gtests_docidplanner.cpp        | 139 ++++++++++++\n src/searchd.cpp                           |   7 +\n src/secondaryindex.cpp                    |   5 +\n src/sphinx.cpp                            |  54 ++++-\n src/sphinxutils.cpp                       |   1 +\n test/docid-cache/README.md                |  38 ++++\n test/docid-cache/test_integration.py      | 177 +++++++++++++++\n 18 files changed, 1429 insertions(+), 14 deletions(-)\n"
+    },
+    "tls-only": {
+      "tree": "9910614bdaf6d4afd71cf1d978b98d9ff440fc68",
+      "stat": " src/docstore.cpp                       |  27 ++++-\n src/gtests/CMakeLists.txt              |   1 +\n src/gtests/gtests_docstore_readers.cpp | 182 +++++++++++++++++++++++++++++++++\n 3 files changed, 209 insertions(+), 1 deletion(-)\n"
+    },
+    "docid-then-tls": {
+      "tree": "06b49e624d1cecfb02f8f053480de04440e83272",
+      "stat": " manual/english/Server_settings/Searchd.md |  41 ++++\n src/CMakeLists.txt                        |   2 +-\n src/costestimate.cpp                      |  19 +-\n src/costestimate.h                        |   2 +\n src/docidlookup.cpp                       |  93 +++++++-\n src/docidlookup.h                         |  11 +-\n src/docidlookupcache.cpp                  | 213 ++++++++++++++++++\n src/docidlookupcache.h                    |  87 ++++++++\n src/docstore.cpp                          |  27 ++-\n src/gtests/CMakeLists.txt                 |   3 +\n src/gtests/gtests_docidcache.cpp          | 352 ++++++++++++++++++++++++++++++\n src/gtests/gtests_docidlookup.cpp         | 200 +++++++++++++++++\n src/gtests/gtests_docidplanner.cpp        | 139 ++++++++++++\n src/gtests/gtests_docstore_readers.cpp    | 182 +++++++++++++++\n src/searchd.cpp                           |   7 +\n src/secondaryindex.cpp                    |   5 +\n src/sphinx.cpp                            |  54 ++++-\n src/sphinxutils.cpp                       |   1 +\n test/docid-cache/README.md                |  38 ++++\n test/docid-cache/test_integration.py      | 177 +++++++++++++++\n 20 files changed, 1638 insertions(+), 15 deletions(-)\n"
+    },
+    "tls-then-docid": {
+      "tree": "06b49e624d1cecfb02f8f053480de04440e83272",
+      "stat": " manual/english/Server_settings/Searchd.md |  41 ++++\n src/CMakeLists.txt                        |   2 +-\n src/costestimate.cpp                      |  19 +-\n src/costestimate.h                        |   2 +\n src/docidlookup.cpp                       |  93 +++++++-\n src/docidlookup.h                         |  11 +-\n src/docidlookupcache.cpp                  | 213 ++++++++++++++++++\n src/docidlookupcache.h                    |  87 ++++++++\n src/docstore.cpp                          |  27 ++-\n src/gtests/CMakeLists.txt                 |   3 +\n src/gtests/gtests_docidcache.cpp          | 352 ++++++++++++++++++++++++++++++\n src/gtests/gtests_docidlookup.cpp         | 200 +++++++++++++++++\n src/gtests/gtests_docidplanner.cpp        | 139 ++++++++++++\n src/gtests/gtests_docstore_readers.cpp    | 182 +++++++++++++++\n src/searchd.cpp                           |   7 +\n src/secondaryindex.cpp                    |   5 +\n src/sphinx.cpp                            |  54 ++++-\n src/sphinxutils.cpp                       |   1 +\n test/docid-cache/README.md                |  38 ++++\n test/docid-cache/test_integration.py      | 177 +++++++++++++++\n 20 files changed, 1638 insertions(+), 15 deletions(-)\n"
+    }
+  }
+}

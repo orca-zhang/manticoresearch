@@ -1,0 +1,205 @@
+-- The C compiler identification is AppleClang 21.0.0.21000101
+-- The CXX compiler identification is AppleClang 21.0.0.21000101
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_UNSIGNED_MINCORE
+-- Performing Test HAVE_UNSIGNED_MINCORE - Failed
+-- Looking for getaddrinfo_a
+-- Looking for getaddrinfo_a - not found
+-- Looking for getaddrinfo_a
+-- Looking for getaddrinfo_a - not found
+-- Looking for setsockopt
+-- Looking for setsockopt - found
+-- Looking for getaddrinfo
+-- Looking for getaddrinfo - found
+-- Looking for clock_gettime
+-- Looking for clock_gettime - found
+-- Looking for logf
+-- Looking for logf - found
+-- Looking for poll
+-- Looking for poll - found
+-- Looking for pthread_mutex_timedlock
+-- Looking for pthread_mutex_timedlock - not found
+-- Looking for pthread_cond_timedwait
+-- Looking for pthread_cond_timedwait - found
+-- Looking for pread
+-- Looking for pread - found
+-- Looking for backtrace
+-- Looking for backtrace - found
+-- Looking for backtrace_symbols
+-- Looking for backtrace_symbols - found
+-- Looking for mremap
+-- Looking for mremap - not found
+-- Looking for eventfd
+-- Looking for eventfd - not found
+-- Looking for kqueue
+-- Looking for kqueue - found
+-- Looking for pthread_getname_np
+-- Looking for pthread_getname_np - found
+-- Looking for getrlimit
+-- Looking for getrlimit - found
+-- Looking for setrlimit
+-- Looking for setrlimit - found
+-- Looking for epoll_ctl
+-- Looking for epoll_ctl - not found
+-- Looking for F_SETLKW
+-- Looking for F_SETLKW - found
+-- Looking for SO_REUSEPORT
+-- Looking for SO_REUSEPORT - found
+-- Looking for malloc_trim
+-- Looking for malloc_trim - not found
+-- Looking for malloc_stats
+-- Looking for malloc_stats - not found
+-- Performing Test HAVE_RWLOCK_PREFER_WRITER
+-- Performing Test HAVE_RWLOCK_PREFER_WRITER - Failed
+-- Performing Test HAVE_PTHREAD_SETNAME_NP
+-- Performing Test HAVE_PTHREAD_SETNAME_NP - Failed
+-- Performing Test HAVE_PTHREAD_SETNAME_NP_1ARG
+-- Performing Test HAVE_PTHREAD_SETNAME_NP_1ARG - Success
+-- Looking for dlopen
+-- Looking for dlopen - found
+-- Looking for strnlen
+-- Looking for strnlen - found
+-- Performing Test HAVE_SYNC_FETCH
+-- Performing Test HAVE_SYNC_FETCH - Success
+-- Looking for syslog.h
+-- Looking for syslog.h - found
+-- Performing Test UNALIGNED_RAM_ACCESS
+-- Performing Test UNALIGNED_RAM_ACCESS - Success
+-- WRITEB is not set, bundle will NOT be modified...
+-- WRITEB is not set, bundle will NOT be modified...
+-- WRITEB is not set, bundle will NOT be modified...
+-- WRITEB is not set, bundle will NOT be modified...
+-- VCPKG_ROOT is not defined, bail
+-- Found OpenSSL: /opt/homebrew/Cellar/openssl@3/3.6.2/lib/libcrypto.a (found version "3.6.2") found components: SSL
+-- Found ZLIB: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libz.tbd (found version "1.2.12")
+-- Found ZSTD: /opt/homebrew/lib/libzstd.dylib
+-- ZSTD will be loaded dynamically in runtime as libzstd.1.dylib (/opt/homebrew/opt/zstd/lib/libzstd.1.dylib)
+-- Found CURL: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libcurl.tbd (found version "8.7.1")
+-- Found EXPAT: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libexpat.tbd (found version "2.7.4")
+-- Performing Test Iconv_IS_BUILT_IN
+-- Performing Test Iconv_IS_BUILT_IN - Failed
+-- Found Iconv: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libiconv.tbd
+-- Performing Test ICONV_INBUF_CONST
+-- Performing Test ICONV_INBUF_CONST - Failed
+Parsing deps.txt line: backup 1.11.0+26090711-f5c09c1e-dev
+BACKUP version: >= 1.11.0-26090711-f5c09c1e & < 2.0.0
+Parsing deps.txt line: buddy 4.4.9+26102317-85bde9ce-dev
+BUDDY version: >= 4.4.9-26102317-85bde9ce & < 5.0.0
+Parsing deps.txt line: executor 1.4.6+26102310-445049b4-dev
+EXECUTOR version: >= 1.4.6-26102310-445049b4 & < 2.0.0
+Parsing deps.txt line: tzdata 1.0.1 250714 7eebffa
+TZDATA version: >= 1.0.1-250714-7eebffa & < 2.0.0
+Parsing deps.txt line: load 1.29.0+26101001-0d5796a7-dev
+LOAD version: >= 1.29.0-26101001-0d5796a7 & < 2.0.0
+Parsing deps.txt line: galera 3.37
+GALERA version: >= 3.37-- & < 4.0.0
+EXECUTOR image: manticoresearch/manticore-executor:1.4.6
+-- Provide distr with -DDISTR=<distr>, one of: bionic;bookworm;bullseye;buster;debian;default;focal;jammy;macos;rhel;rhel10;rhel8;rhel9;stretch;windows;xenial
+-- no distr selected 
+-- Inside directory src...
+-- Using MCL API from git submodule: /tmp/manticore-upstream-review/mcl
+-- Only api will be installed
+-- Configured with these definitions: -DUSE_SYSLOG=1 -DWITH_GALERA=OFF -DWITH_RE2=OFF -DWITH_STEMMER=OFF -DWITH_NLJSON=1 -DWITH_UNIALGO=1 -DWITH_ICU=1 -DWITH_ICU_FORCE_STATIC=0 -DWITH_JIEBA=OFF -DWITH_SSL=1 -DWITH_ZLIB=1 -DWITH_ZSTD=1 -DDL_ZSTD=1 -DZSTD_LIB=/opt/homebrew/opt/zstd/lib/libzstd.1.dylib -DWITH_CURL=1 -DWITH_ODBC=OFF -DWITH_EXPAT=1 -DWITH_ICONV=1 -DWITH_MYSQL=OFF -DWITH_POSTGRESQL=OFF -DLOCALDATADIR=/usr/local/var -DFULL_SHARE_DIR=/usr/local/share/manticore
+-- Generating config files...
+-- Inside directory src/stripper...
+-- Generate globalaliases.h from /tmp/manticore-upstream-review/src/charsets/*.txt
+-- Looking for shm_open
+-- Looking for shm_open - found
+CMake Warning (dev) at src/CMakeLists.txt:128 (find_package):
+  Policy CMP0167 is not set: The FindBoost module is removed.  Run "cmake
+  --help-policy CMP0167" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Found Boost: /opt/homebrew/lib/cmake/Boost-1.90.0/BoostConfig.cmake (found suitable version "1.90.0", minimum required is "1.71.0") found components: context filesystem
+-- No Google perfetto library found
+-- Discovered and added individual google-tests
+CMake Warning (dev) at src/CMakeLists.txt:432 (find_package):
+  Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+  are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+  the cmake_policy command to set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- python binary is /Users/orca/.pyenv/shims/python
+CMake Warning (dev) at test/CMakeLists.txt:50 (find_package):
+  Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+  are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+  the cmake_policy command to set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Create ubertest.php proxies
+-- Skip adding test 194 -- regexps using RE2 since it requires RE2
+-- Skip adding test 228 -- Indexing of ODBC sources (mysql via ODBC connector) since it requires ODBC provider
+-- Skip adding test 252 -- reconfigure since it requires RE2
+-- Skip adding test 293 -- system.table since it requires Galera library for replication
+-- Skip adding test 309 -- jieba_mode since it requires JIEBA
+-- Skip adding test 310 -- CJK via Jieba (mysql) since it requires JIEBA
+-- Skip adding test 311 -- CJK via Jieba since it requires JIEBA
+-- Skip adding test 358 -- percolate query vs token filters since it requires RE2
+-- Skip adding test 368 -- REGEX filter, expression and full-text operator since it requires RE2
+-- Skip adding test 372 -- replication base since it requires Galera library for replication
+-- Skip adding test 376 -- replication join at since it requires Galera library for replication
+-- Skip adding test 381 -- replication of transactions since it requires Galera library for replication
+-- Skip adding test 383 -- replication for RT since it requires Galera library for replication
+-- Skip adding test 384 -- replication for RT via HTTP since it requires Galera library for replication
+-- Skip adding test 385 -- replication for RT with different local index files since it requires Galera library for replication
+-- Skip adding test 387 -- cluster table lock since it requires Galera library for replication
+-- Skip adding test 397 -- explain query since it requires RE2
+-- Skip adding test 402 -- replication for RT stored fields since it requires Galera library for replication
+-- Skip adding test 409 -- replication of external files since it requires Galera library for replication
+-- Skip adding test 456 -- replication of update with blobs since it requires Galera library for replication
+-- Skip adding test 478 -- replication for RT with nodes restart since it requires Galera library for replication
+-- Skip adding test 487 -- replication node rejoin after cluster added \ droped table since it requires Galera library for replication
+-- Skip adding test 488 -- replication duplicates bulk on IST replay since it requires Galera library for replication
+-- Skip adding test 508 -- replication cluster create with long data_dir path since it requires Galera library for replication
+-- Skip adding test 519 -- replication for RT UUID document IDs since it requires Galera library for replication
+-- CMAKE_INSTALL_PREFIX="/usr/local"
+-- CMAKE_INSTALL_BINDIR="bin" ; CMAKE_INSTALL_FULL_BINDIR="/usr/local/bin"
+-- CMAKE_INSTALL_SBINDIR="sbin" ; CMAKE_INSTALL_FULL_SBINDIR="/usr/local/sbin"
+-- CMAKE_INSTALL_LIBEXECDIR="libexec" ; CMAKE_INSTALL_FULL_LIBEXECDIR="/usr/local/libexec"
+-- CMAKE_INSTALL_SYSCONFDIR="etc" ; CMAKE_INSTALL_FULL_SYSCONFDIR="/usr/local/etc"
+-- CMAKE_INSTALL_SHAREDSTATEDIR="com" ; CMAKE_INSTALL_FULL_SHAREDSTATEDIR="/usr/local/com"
+-- CMAKE_INSTALL_LOCALSTATEDIR="var" ; CMAKE_INSTALL_FULL_LOCALSTATEDIR="/usr/local/var"
+-- CMAKE_INSTALL_RUNSTATEDIR="var/run" ; CMAKE_INSTALL_FULL_RUNSTATEDIR="/usr/local/var/run"
+-- CMAKE_INSTALL_LIBDIR="lib" ; CMAKE_INSTALL_FULL_LIBDIR="/usr/local/lib"
+-- CMAKE_INSTALL_INCLUDEDIR="include" ; CMAKE_INSTALL_FULL_INCLUDEDIR="/usr/local/include"
+-- CMAKE_INSTALL_OLDINCLUDEDIR="/usr/include" ; CMAKE_INSTALL_FULL_OLDINCLUDEDIR="/usr/include"
+-- CMAKE_INSTALL_DATAROOTDIR="share" ; CMAKE_INSTALL_FULL_DATAROOTDIR="/usr/local/share"
+-- CMAKE_INSTALL_DATADIR="share" ; CMAKE_INSTALL_FULL_DATADIR="/usr/local/share"
+-- CMAKE_INSTALL_INFODIR="share/info" ; CMAKE_INSTALL_FULL_INFODIR="/usr/local/share/info"
+-- CMAKE_INSTALL_LOCALEDIR="share/locale" ; CMAKE_INSTALL_FULL_LOCALEDIR="/usr/local/share/locale"
+-- CMAKE_INSTALL_MANDIR="share/man" ; CMAKE_INSTALL_FULL_MANDIR="/usr/local/share/man"
+-- CMAKE_INSTALL_DOCDIR="share/doc/manticore" ; CMAKE_INSTALL_FULL_DOCDIR="/usr/local/share/doc/MANTICORE"
+-- CMAKE_INSTALL_LOCALLIBDIR="" ; CMAKE_INSTALL_FULL_LOCALLIBDIR="/usr/local/lib"
+-- Enabled features compiled in:
+ * nlohmann_json, JSON for Modern C++ library
+ * uni-algo, unicode algorithm implementation for C/C++
+ * icu, International Components for Unicode
+ * OpenSSL, for encrypted networking
+ * ZLIB, for compressed data and networking
+ * ZSTD, for compressed networking, <https://github.com/facebook/zstd>
+ * CURL, for enhanced network communication
+ * EXPAT, for indexing xmlpipe sources with indexer
+ * Iconv, for support different encodings when indexing xmlpipe sources with indexer
+
+-- Available runtime features:
+ * ZSTD, for compressed networking, <https://github.com/facebook/zstd>
+
+-- Configuring done (9.2s)
+-- Generating done (0.2s)
+-- Build files have been written to: /tmp/manticore-upstream-review/build

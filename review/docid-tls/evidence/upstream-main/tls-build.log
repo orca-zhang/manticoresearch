@@ -1,0 +1,55 @@
+[  0%] Built target conversion
+[  2%] Built target indexcheck
+[  2%] Built target lcjk
+[  2%] Built target stripper
+[  2%] Built target lmanticore_coro
+[  5%] Built target daemon
+[  5%] Built target infix
+[  6%] Built target schema
+[  8%] Built target lowercaser
+[ 10%] Built target stem
+[ 17%] Built target manticore_std
+[ 17%] Built target digest_sha1
+[ 18%] Built target digest_sha256
+[ 20%] Built target sqlchecks
+[ 25%] Built target sphinxquery
+[ 26%] Built target searchd_ssl
+[ 27%] Built target sourcedoc
+[ 28%] Built target lmanticore_icu
+[ 34%] Built target tokenizer
+[ 39%] Built target repli_stuff
+[ 42%] Built target dict
+[ 65%] Built target lsearchd
+[ 66%] Building CXX object src/CMakeFiles/lmanticore.dir/docstore.cpp.o
+[ 67%] Linking CXX static library liblmanticore.a
+[ 98%] Built target lmanticore
+[ 98%] Linking CXX executable searchd
+[100%] Built target searchd
+[  0%] Built target conversion
+[  0%] Built target stripper
+[  2%] Built target indexcheck
+[  2%] Built target lcjk
+[  2%] Built target lmanticore_coro
+[  5%] Built target daemon
+[  6%] Built target infix
+[  6%] Built target lowercaser
+[  7%] Built target schema
+[  9%] Built target stem
+[ 16%] Built target manticore_std
+[ 18%] Built target sqlchecks
+[ 19%] Built target digest_sha256
+[ 19%] Built target digest_sha1
+[ 23%] Built target sphinxquery
+[ 24%] Built target searchd_ssl
+[ 25%] Built target sourcedoc
+[ 26%] Built target source_svpipe
+[ 26%] Built target source_xmlpipe2
+[ 27%] Built target lmanticore_icu
+[ 35%] Built target repli_stuff
+[ 37%] Built target tokenizer
+[ 40%] Built target dict
+[ 62%] Built target lsearchd
+[ 93%] Built target lmanticore
+[ 94%] Linking CXX executable gmanticoretest
+ld: warning: ignoring duplicate libraries: '/opt/homebrew/Cellar/openssl@3/3.6.2/lib/libcrypto.a', '/opt/homebrew/Cellar/openssl@3/3.6.2/lib/libssl.a'
+[100%] Built target gmanticoretest
