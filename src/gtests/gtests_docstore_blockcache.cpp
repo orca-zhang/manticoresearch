@@ -6,6 +6,7 @@
 #include "indexsettings.h"
 #include "threadutils.h"
 #include "std/lrucache.h"
+#include "docstore_blockpool.h"
 
 #include <atomic>
 #include <string>
@@ -14,6 +15,100 @@
 
 namespace
 {
+TEST ( DocstoreBlockPool, ReuseAndReturnExcessMappings )
+{
+	DocstoreBlockPool_c tPool;
+	std::vector<BYTE *> dBlocks;
+	for ( int i=0; i<32; ++i )
+	{
+		auto * p = tPool.Allocate(16381);
+		ASSERT_NE ( p, nullptr );
+		memset ( p, i, 16381 );
+		dBlocks.push_back(p);
+	}
+	int64_t iMapped = 0, iSpare = 0;
+	tPool.GetStats ( iMapped, iSpare );
+	ASSERT_GE ( iMapped, 32*DocstoreBlockPool_c::AllocationSize(16381) );
+	ASSERT_EQ ( iSpare, 0 );
+	for ( auto * p : dBlocks ) tPool.Free ( p, 16381 );
+	iMapped = iSpare = 0;
+	tPool.GetStats ( iMapped, iSpare );
+	ASSERT_LE ( iMapped, 64*1024 );
+	ASSERT_EQ ( iMapped, iSpare );
+	auto * p = tPool.Allocate(16381);
+	ASSERT_NE ( p, nullptr );
+	int64_t iMappedAfter = 0, iSpareAfter = 0;
+	tPool.GetStats ( iMappedAfter, iSpareAfter );
+	ASSERT_EQ ( iMappedAfter, iMapped );
+	ASSERT_LT ( iSpareAfter, iSpare );
+	tPool.Free ( p, 16381 );
+}
+
+TEST ( DocstoreBlockPool, LargeMappingAndNoSpareBudget )
+{
+	DocstoreBlockPool_c tPool(0);
+	ASSERT_EQ ( tPool.Allocate(0), nullptr );
+	ASSERT_EQ ( tPool.Allocate(UINT32_MAX), nullptr );
+	auto * p = tPool.Allocate(70001);
+	ASSERT_NE ( p, nullptr );
+	memset ( p, 0x67, 70001 );
+	tPool.Free ( p, 70001 );
+	int64_t iMapped = 0, iSpare = 0;
+	tPool.GetStats ( iMapped, iSpare );
+	ASSERT_EQ ( iMapped, 0 );
+	ASSERT_EQ ( iSpare, 0 );
+}
+
+TEST ( DocstoreBlockPool, PacksBlocksAbovePageBoundary )
+{
+	DocstoreBlockPool_c tPool;
+	const DWORD uSize = 16385;
+	ASSERT_GE ( DocstoreBlockPool_c::AllocationSize(uSize), uSize );
+	ASSERT_LT ( DocstoreBlockPool_c::AllocationSize(uSize), 2*16384 );
+	std::vector<BYTE *> dBlocks;
+	for ( int i=0; i<30; ++i )
+	{
+		auto * p = tPool.Allocate(uSize);
+		ASSERT_NE ( p, nullptr );
+		memset ( p, i, uSize );
+		dBlocks.push_back(p);
+	}
+	int64_t iMapped = 0, iSpare = 0;
+	tPool.GetStats ( iMapped, iSpare );
+	ASSERT_LT ( iMapped, 30*2*16384 );
+	for ( int i=0; i<30; ++i )
+	{
+		EXPECT_EQ ( dBlocks[i][0], i );
+		EXPECT_EQ ( dBlocks[i][uSize-1], i );
+		tPool.Free ( dBlocks[i], uSize );
+	}
+}
+
+TEST ( DocstoreBlockPool, ConcurrentAllocateAndRelease )
+{
+	DocstoreBlockPool_c tPool;
+	std::atomic<int> iFailures {0};
+	std::vector<std::thread> dThreads;
+	for ( int i=0; i<8; ++i )
+		dThreads.emplace_back ( [&,i] {
+			for ( int j=0; j<2000; ++j )
+			{
+				const DWORD uSize = j%2 ? 16381 : 16637;
+				auto * p = tPool.Allocate(uSize);
+				if ( !p ) { ++iFailures; continue; }
+				memset ( p, i, uSize );
+				for ( DWORD k=0; k<uSize; ++k ) if ( p[k]!=i ) { ++iFailures; break; }
+				tPool.Free ( p, uSize );
+			}
+		} );
+	for ( auto & t : dThreads ) t.join();
+	ASSERT_EQ ( iFailures.load(), 0 );
+	int64_t iMapped = 0, iSpare = 0;
+	tPool.GetStats ( iMapped, iSpare );
+	ASSERT_EQ ( iMapped, iSpare );
+	ASSERT_LE ( iMapped, 64*1024 );
+}
+
 struct CacheTestData_t
 {
 	BYTE * m_pData;
@@ -164,12 +259,12 @@ protected:
 		return sPrefix+std::string ( iSize-sPrefix.size(), char('a'+iRow%26) );
 	}
 
-	void Write ( int iFile, int iVersion, int iRows, int iSize )
+	void Write ( int iFile, int iVersion, int iRows, int iSize, Compression_e eCompression = Compression_e::LZ4 )
 	{
 		CSphString sError;
 		DocstoreSettings_t tSettings;
 		tSettings.m_uBlockSize = 16384;
-		tSettings.m_eCompression = Compression_e::LZ4;
+		tSettings.m_eCompression = eCompression;
 		auto pBuilder = CreateDocstoreBuilder ( m_dFiles[iFile], tSettings, 65536, sError );
 		ASSERT_TRUE(pBuilder) << sError.cstr();
 		ASSERT_EQ ( pBuilder->AddField ( "body", DOCSTORE_TEXT ), 0 );
@@ -276,6 +371,45 @@ TEST_P ( DocstoreBlockCacheTest, LargeFieldsAndTinyBudgetFallback )
 	pStore->CreateReader(tSession.GetUID());
 	for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 70000 ) );
 	ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
+}
+
+TEST_P ( DocstoreBlockCacheTest, UncompressedFieldsAndMappedClear )
+{
+	for ( int iFile=0; iFile<2; ++iFile )
+	{
+		const int iSize = iFile ? 70000 : 128;
+		Write ( iFile, 3, 40, iSize, Compression_e::NONE );
+		auto pStore = Open ( iFile, 810+iFile );
+		ASSERT_TRUE(pStore);
+		DocstoreSession_c tSession;
+		pStore->CreateReader(tSession.GetUID());
+		for ( int k=0; k<2; ++k )
+			for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 3, i, iSize ) );
+		const auto tStats = GetDocstoreCacheStats();
+		if ( GetParam() ) ASSERT_GT ( tStats.m_iMappedBytes, 0 );
+		else ASSERT_EQ ( tStats.m_iMappedBytes, 0 );
+	}
+	ClearDocstoreCache();
+	const auto tStats = GetDocstoreCacheStats();
+	ASSERT_EQ ( tStats.m_iUsedBytes, 0 );
+	ASSERT_EQ ( tStats.m_iMappedBytes, tStats.m_iSpareBytes );
+	ASSERT_LE ( tStats.m_iSpareBytes, 16*64*1024 );
+}
+
+TEST_P ( DocstoreBlockCacheTest, FullWorkingSetFitsDefaultBudget )
+{
+	ShutdownDocstore();
+	InitDocstore ( 16*1024*1024, GetParam() );
+	Write ( 0, 1, 100000, 128 );
+	auto pStore = Open ( 0, 820 );
+	ASSERT_TRUE(pStore);
+	DocstoreSession_c tSession;
+	pStore->CreateReader(tSession.GetUID());
+	for ( int i=0; i<100000; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 128 ) );
+	const auto iUsed = GetDocstoreCacheUsedBytes();
+	ASSERT_GT ( iUsed, 100000*128 );
+	ASSERT_LT ( iUsed, 14*1024*1024 );
+	ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, 0, 128 ) );
 }
 
 INSTANTIATE_TEST_SUITE_P ( Modes, DocstoreBlockCacheTest, ::testing::Values ( false, true ) );

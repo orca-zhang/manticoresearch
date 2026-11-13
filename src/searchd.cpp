@@ -2947,7 +2947,10 @@ void BuildStatus ( VectorLike & dStatus )
 	dStatus.MatchTupletf ( "qcache_used_bytes", "%l", s.m_iUsedBytes );
 	dStatus.MatchTupletf ( "qcache_hits", "%l", s.m_iHits );
 	dStatus.MatchTupletf ( "docid_lookup_cache_used_bytes", "%l", (int64_t)DocidLookupCache_c::GetUsed() );
-	dStatus.MatchTupletf ( "docstore_cache_used_bytes", "%l", GetDocstoreCacheUsedBytes() );
+	const auto tDocstoreCache = GetDocstoreCacheStats();
+	dStatus.MatchTupletf ( "docstore_cache_used_bytes", "%l", tDocstoreCache.m_iUsedBytes );
+	dStatus.MatchTupletf ( "docstore_cache_mapped_bytes", "%l", tDocstoreCache.m_iMappedBytes );
+	dStatus.MatchTupletf ( "docstore_cache_spare_bytes", "%l", tDocstoreCache.m_iSpareBytes );
 
 	// clusters
 	ReplicateClustersStatus ( dStatus );
