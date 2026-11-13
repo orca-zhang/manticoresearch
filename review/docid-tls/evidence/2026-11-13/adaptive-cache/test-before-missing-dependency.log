@@ -1,0 +1,8 @@
+In file included from /private/tmp/manticore-adaptive-cache-source-20261113/src/gtests/gtests_docstore_blockcache.cpp:5:
+In file included from /private/tmp/manticore-adaptive-cache-source-20261113/src/docstore.h:16:
+In file included from /private/tmp/manticore-adaptive-cache-source-20261113/src/sphinx.h:19:
+In file included from /private/tmp/manticore-adaptive-cache-source-20261113/src/indexsettings.h:20:
+/private/tmp/manticore-adaptive-cache-source-20261113/src/columnarlib.h:16:10: fatal error: 'columnar/columnar.h' file not found
+   16 | #include "columnar/columnar.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~
+1 error generated.

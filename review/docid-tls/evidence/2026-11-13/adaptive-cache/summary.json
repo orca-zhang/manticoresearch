@@ -1,0 +1,2437 @@
+{
+  "cases": [
+    {
+      "rows": 20000,
+      "arms": {
+        "reference16": {
+          "qps_median": 7373.558802678897,
+          "server_cpu_ms_per_query_median": 0.882633404868182,
+          "rss_bytes_median": 34209792.0,
+          "p95_ms_median": 1.4211874999999998,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.180090409359285,
+              "external_cpu_percent_machine_peak": 7.175678382588156,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.671356919531328,
+              "external_cpu_percent_machine_peak": 7.959441257030009,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.512940964672718,
+              "external_cpu_percent_machine_peak": 8.396029740594178,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.838439867150345,
+              "external_cpu_percent_machine_peak": 7.332330552503458,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 7.416333095689639,
+              "external_cpu_percent_machine_peak": 11.268929332745776,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.779951228629638,
+              "external_cpu_percent_machine_peak": 8.082706087079847,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": null,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.009265138254815
+        },
+        "manual16": {
+          "qps_median": 7386.411286236593,
+          "server_cpu_ms_per_query_median": 0.8748694478900021,
+          "rss_bytes_median": 34766848.0,
+          "p95_ms_median": 1.4473955,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.136340172043448,
+              "external_cpu_percent_machine_peak": 6.955297492637087,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.319563667284659,
+              "external_cpu_percent_machine_peak": 8.549431994720727,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 8.108767436074723,
+              "external_cpu_percent_machine_peak": 8.770141359627141,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.530848176717438,
+              "external_cpu_percent_machine_peak": 7.332330552503458,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.89857118878467,
+              "external_cpu_percent_machine_peak": 7.836567973134834,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 7.870531932581337,
+              "external_cpu_percent_machine_peak": 8.84186766083935,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 2631304.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 7.109067428034665
+        },
+        "manual512": {
+          "qps_median": 7308.538104252486,
+          "server_cpu_ms_per_query_median": 0.8862831684234915,
+          "rss_bytes_median": 34447360.0,
+          "p95_ms_median": 1.4490835,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.4737853730313,
+              "external_cpu_percent_machine_peak": 6.3686080210674545,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 8.556064465170152,
+              "external_cpu_percent_machine_peak": 9.265979709056019,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.971598879706444,
+              "external_cpu_percent_machine_peak": 7.09279021926757,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.5698596325686625,
+              "external_cpu_percent_machine_peak": 6.9927585519008995,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 8.683346407718625,
+              "external_cpu_percent_machine_peak": 10.880646036429967,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 7.218141417039945,
+              "external_cpu_percent_machine_peak": 9.133220153096957,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 2631304.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.894000524804303
+        },
+        "adaptive512": {
+          "qps_median": 7321.227356977002,
+          "server_cpu_ms_per_query_median": 0.8825226973384335,
+          "rss_bytes_median": 36036608.0,
+          "p95_ms_median": 1.447646,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 29.26533530229555,
+              "external_cpu_percent_machine_peak": 35.08475798476401,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.071972882730666,
+              "external_cpu_percent_machine_peak": 9.106510670395714,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.1624737172365895,
+              "external_cpu_percent_machine_peak": 8.596733495946259,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.793343726104139,
+              "external_cpu_percent_machine_peak": 7.657611581121347,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 7.226078569538261,
+              "external_cpu_percent_machine_peak": 11.268929332745776,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.765789186210628,
+              "external_cpu_percent_machine_peak": 8.340069206636791,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 2631304.0,
+          "load_flagged_samples": 1,
+          "external_cpu_percent_machine_median": 6.9188810344706475
+        },
+        "off0": {
+          "qps_median": 5731.056752872022,
+          "server_cpu_ms_per_query_median": 1.148436900580867,
+          "rss_bytes_median": 30654464.0,
+          "p95_ms_median": 1.7679165000000001,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 8.156674283843575,
+              "external_cpu_percent_machine_peak": 24.516871887578947,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.956858903724879,
+              "external_cpu_percent_machine_peak": 8.229377935624568,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.491480738995888,
+              "external_cpu_percent_machine_peak": 7.75054983986902,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.087030727563805,
+              "external_cpu_percent_machine_peak": 7.012137768119196,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 7.026238716050784,
+              "external_cpu_percent_machine_peak": 10.540625468146407,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.136869789580164,
+              "external_cpu_percent_machine_peak": 6.901748236675434,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 0.0,
+          "load_flagged_samples": 1,
+          "external_cpu_percent_machine_median": 6.724169821360384
+        },
+        "off1": {
+          "qps_median": 5688.051497751983,
+          "server_cpu_ms_per_query_median": 1.1618044886909753,
+          "rss_bytes_median": 29933568.0,
+          "p95_ms_median": 1.754604,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.602748729495405,
+              "external_cpu_percent_machine_peak": 6.472678334936101,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.7698358744922835,
+              "external_cpu_percent_machine_peak": 9.106510670395714,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.890493874686106,
+              "external_cpu_percent_machine_peak": 7.657611581121347,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.298549207778789,
+              "external_cpu_percent_machine_peak": 7.406397224906591,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.759550325121087,
+              "external_cpu_percent_machine_peak": 6.941082075445966,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.897295438812207,
+              "external_cpu_percent_machine_peak": 8.082706087079847,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 0.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.094521541232448
+        }
+      },
+      "comparisons": {
+        "manual16_regression": {
+          "before_arm": "reference16",
+          "after_arm": "manual16",
+          "qps_change_percent": 0.17430502558717365,
+          "cpu_query_change_percent": -0.8796355242570275,
+          "paired_qps_changes_percent": [
+            1.1984376936010843,
+            0.030609550170779265,
+            -1.015812949203443,
+            1.8728494662743955,
+            3.5474557758643943,
+            -1.9555035166874957
+          ]
+        },
+        "adaptive512": {
+          "before_arm": "manual512",
+          "after_arm": "adaptive512",
+          "qps_change_percent": 0.17362231055664257,
+          "cpu_query_change_percent": -0.42429679576868606,
+          "paired_qps_changes_percent": [
+            -24.73624693041857,
+            1.232884391061262,
+            0.5138365415333856,
+            1.865622958650759,
+            0.4649906080918642,
+            0.5972329588325609
+          ]
+        },
+        "capacity16_to512": {
+          "before_arm": "manual16",
+          "after_arm": "manual512",
+          "qps_change_percent": -1.054276277970212,
+          "cpu_query_change_percent": 1.3046198562559175,
+          "paired_qps_changes_percent": [
+            -0.753221742160537,
+            -2.9109642888553444,
+            0.7925789502909897,
+            -2.313117658352315,
+            -1.9062892679492238,
+            0.6980565305783504
+          ]
+        },
+        "off_to_manual512": {
+          "before_arm": "off0",
+          "after_arm": "manual512",
+          "qps_change_percent": 27.525139243996065,
+          "cpu_query_change_percent": -22.827003558034487,
+          "paired_qps_changes_percent": [
+            31.716322316814672,
+            26.76676172026027,
+            28.812208149495454,
+            26.150244572892724,
+            26.661360625498155,
+            27.47914358559511
+          ]
+        },
+        "off_to_adaptive512": {
+          "before_arm": "off0",
+          "after_arm": "adaptive512",
+          "qps_change_percent": 27.74655133729209,
+          "cpu_query_change_percent": -23.15444610913643,
+          "paired_qps_changes_percent": [
+            -0.8653524191386319,
+            28.32964933856319,
+            29.47409234492362,
+            28.50373249803868,
+            27.250324056488083,
+            28.240491046725747
+          ]
+        },
+        "cache_off_control": {
+          "before_arm": "off0",
+          "after_arm": "off1",
+          "qps_change_percent": -0.7503896222714523,
+          "cpu_query_change_percent": 1.1639810688203411,
+          "paired_qps_changes_percent": [
+            4.308146368375088,
+            -2.181542418284732,
+            0.3101713641600945,
+            -1.8782289856404843,
+            0.8010634854227705,
+            -1.958293835312075
+          ]
+        }
+      },
+      "idle_gate": {
+        "interval_seconds": 31.26882304099854,
+        "idle_percent_mean": 90.02878892844517,
+        "idle_percent_min": 85.62401263823065,
+        "from_monotonic_seconds": 972585.4232945,
+        "to_monotonic_seconds": 972616.692117541
+      }
+    },
+    {
+      "rows": 100000,
+      "arms": {
+        "manual16": {
+          "qps_median": 6821.878642772943,
+          "server_cpu_ms_per_query_median": 0.9765135473758944,
+          "rss_bytes_median": 48824320.0,
+          "p95_ms_median": 1.5741874999999999,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 7.366586293153943,
+              "external_cpu_percent_machine_peak": 8.657282012856394,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.384954258844522,
+              "external_cpu_percent_machine_peak": 8.657456993776233,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 7.648999196926884,
+              "external_cpu_percent_machine_peak": 10.17628268884094,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.909391332716756,
+              "external_cpu_percent_machine_peak": 6.997851943072131,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.994963171542303,
+              "external_cpu_percent_machine_peak": 6.812643719636093,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.063246854180233,
+              "external_cpu_percent_machine_peak": 7.783131469795413,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 13156304.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.714916573667088
+        },
+        "manual512": {
+          "qps_median": 6783.18204869896,
+          "server_cpu_ms_per_query_median": 0.9839030026229905,
+          "rss_bytes_median": 49446912.0,
+          "p95_ms_median": 1.5869375,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 8.150876699974141,
+              "external_cpu_percent_machine_peak": 10.52026513955697,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.081334121917859,
+              "external_cpu_percent_machine_peak": 8.113896614795967,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 7.106172951309543,
+              "external_cpu_percent_machine_peak": 9.805664297309207,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.838722954403646,
+              "external_cpu_percent_machine_peak": 9.209403172244413,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.9906254673031665,
+              "external_cpu_percent_machine_peak": 7.872632691771184,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.4120963073678805,
+              "external_cpu_percent_machine_peak": 7.061314155902696,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 13156304.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 7.035979794610513
+        },
+        "adaptive512": {
+          "qps_median": 6813.108116547327,
+          "server_cpu_ms_per_query_median": 0.9744055422975089,
+          "rss_bytes_median": 50044928.0,
+          "p95_ms_median": 1.5845829999999999,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.135894391089699,
+              "external_cpu_percent_machine_peak": 7.383455172191084,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.949640255482908,
+              "external_cpu_percent_machine_peak": 7.981316946369986,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 11.442792868283489,
+              "external_cpu_percent_machine_peak": 15.34541748185422,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.287688996183713,
+              "external_cpu_percent_machine_peak": 8.422614385381292,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.450095290869653,
+              "external_cpu_percent_machine_peak": 7.303120508977183,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.1579814402110955,
+              "external_cpu_percent_machine_peak": 7.588284598964116,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 13156304.0,
+          "load_flagged_samples": 1,
+          "external_cpu_percent_machine_median": 6.368892143526683
+        },
+        "off0": {
+          "qps_median": 5132.865313917993,
+          "server_cpu_ms_per_query_median": 1.3179981892466157,
+          "rss_bytes_median": 30785536.0,
+          "p95_ms_median": 1.9541875,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.6409616188078155,
+              "external_cpu_percent_machine_peak": 7.766062261662743,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.849002633878325,
+              "external_cpu_percent_machine_peak": 7.668037884260641,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.807219029882693,
+              "external_cpu_percent_machine_peak": 9.55123173439886,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.644351091268621,
+              "external_cpu_percent_machine_peak": 7.8488026116048255,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.993213640861278,
+              "external_cpu_percent_machine_peak": 6.812643719636093,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.839130430911976,
+              "external_cpu_percent_machine_peak": 6.653034627208289,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 0.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 5.921108137369801
+        },
+        "off1": {
+          "qps_median": 5031.208193723425,
+          "server_cpu_ms_per_query_median": 1.339891312507699,
+          "rss_bytes_median": 31383552.0,
+          "p95_ms_median": 2.003521,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.911077317390813,
+              "external_cpu_percent_machine_peak": 7.766062261662743,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 10.668313888759775,
+              "external_cpu_percent_machine_peak": 13.964323320954202,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.367855618529078,
+              "external_cpu_percent_machine_peak": 7.081595310751972,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.237896087556945,
+              "external_cpu_percent_machine_peak": 8.2848002251382,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 7.157841564355046,
+              "external_cpu_percent_machine_peak": 9.784696177972931,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.561936234765832,
+              "external_cpu_percent_machine_peak": 7.060826326259338,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 0.0,
+          "load_flagged_samples": 1,
+          "external_cpu_percent_machine_median": 6.302875853043012
+        },
+        "reference16": {
+          "qps_median": 6738.052614788786,
+          "server_cpu_ms_per_query_median": 0.9861323673192521,
+          "rss_bytes_median": 48947200.0,
+          "p95_ms_median": 1.6059165000000002,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 7.182212757742508,
+              "external_cpu_percent_machine_peak": 7.713252138886631,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.14089109246821,
+              "external_cpu_percent_machine_peak": 8.282994375950429,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.670693824791217,
+              "external_cpu_percent_machine_peak": 7.8488026116048255,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.86861248771779,
+              "external_cpu_percent_machine_peak": 9.209403172244413,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.442684814029337,
+              "external_cpu_percent_machine_peak": 7.382709512399555,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.00798811704057,
+              "external_cpu_percent_machine_peak": 7.783131469795413,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": null,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.655648650873564
+        }
+      },
+      "comparisons": {
+        "manual16_regression": {
+          "before_arm": "reference16",
+          "after_arm": "manual16",
+          "qps_change_percent": 1.244069062330766,
+          "cpu_query_change_percent": -0.9754086025495767,
+          "paired_qps_changes_percent": [
+            -0.21292880121822622,
+            0.8454811478515456,
+            -1.93530825002175,
+            1.4061712985103947,
+            2.4977823347004158,
+            1.142274417941902
+          ]
+        },
+        "adaptive512": {
+          "before_arm": "manual512",
+          "after_arm": "adaptive512",
+          "qps_change_percent": 0.44118037277367517,
+          "cpu_query_change_percent": -0.9652842099436953,
+          "paired_qps_changes_percent": [
+            2.466213909707804,
+            -0.7223519280515012,
+            -6.1522356591318434,
+            -1.3071333268199425,
+            1.3945186952893485,
+            2.211738230765259
+          ]
+        },
+        "capacity16_to512": {
+          "before_arm": "manual16",
+          "after_arm": "manual512",
+          "qps_change_percent": -0.5672424870087345,
+          "cpu_query_change_percent": 0.7567181496819231,
+          "paired_qps_changes_percent": [
+            -0.7901532444245518,
+            3.2742147079189765,
+            0.32310185552164583,
+            0.46456515422679256,
+            -3.6460294250579395,
+            -1.5908001034753982
+          ]
+        },
+        "off_to_manual512": {
+          "before_arm": "off0",
+          "after_arm": "manual512",
+          "qps_change_percent": 32.15195867902592,
+          "cpu_query_change_percent": -25.348683279648377,
+          "paired_qps_changes_percent": [
+            31.03557347263475,
+            33.892085370391946,
+            30.780667912501826,
+            32.88292858685462,
+            29.441530912532098,
+            31.419839133678163
+          ]
+        },
+        "off_to_adaptive512": {
+          "before_arm": "off0",
+          "after_arm": "adaptive512",
+          "qps_change_percent": 32.73498718295376,
+          "cpu_query_change_percent": -26.06928065246499,
+          "paired_qps_changes_percent": [
+            34.26719101228226,
+            32.92491331021057,
+            22.73473302593807,
+            31.145971541641494,
+            31.246617260576095,
+            34.32650195860791
+          ]
+        },
+        "cache_off_control": {
+          "before_arm": "off0",
+          "after_arm": "off1",
+          "qps_change_percent": -1.9805140789281972,
+          "cpu_query_change_percent": 1.6610890242267917,
+          "paired_qps_changes_percent": [
+            2.6281820770346576,
+            -7.391856714477041,
+            -1.1131738302720406,
+            -2.1942167461025286,
+            -2.474052108310054,
+            -0.9622964135681644
+          ]
+        }
+      },
+      "idle_gate": {
+        "interval_seconds": 32.3327575000003,
+        "idle_percent_mean": 90.0289700892672,
+        "idle_percent_min": 86.27132412672623,
+        "from_monotonic_seconds": 972745.110750333,
+        "to_monotonic_seconds": 972777.443507833
+      }
+    },
+    {
+      "rows": 500000,
+      "arms": {
+        "manual512": {
+          "qps_median": 6070.920909457722,
+          "server_cpu_ms_per_query_median": 1.1221751408882832,
+          "rss_bytes_median": 122175488.0,
+          "p95_ms_median": 1.6855,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.572736783199202,
+              "external_cpu_percent_machine_peak": 6.953598837222295,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.841909417069408,
+              "external_cpu_percent_machine_peak": 8.273842669284885,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.062246937122801,
+              "external_cpu_percent_machine_peak": 8.318053956551184,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.781998349663553,
+              "external_cpu_percent_machine_peak": 7.20240934518836,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 8.104425218850615,
+              "external_cpu_percent_machine_peak": 12.48025653298681,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 7.355856929510602,
+              "external_cpu_percent_machine_peak": 8.417247948190505,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 65777040.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.81195388336648
+        },
+        "adaptive512": {
+          "qps_median": 6046.862185037484,
+          "server_cpu_ms_per_query_median": 1.1251187058144845,
+          "rss_bytes_median": 122281984.0,
+          "p95_ms_median": 1.704875,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.7985759163129895,
+              "external_cpu_percent_machine_peak": 8.319655899341674,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.124449531068568,
+              "external_cpu_percent_machine_peak": 7.593228359481933,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.777033292690852,
+              "external_cpu_percent_machine_peak": 8.719543512497976,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.71941653006435,
+              "external_cpu_percent_machine_peak": 7.194342301748971,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.413785290117337,
+              "external_cpu_percent_machine_peak": 6.969795908927284,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 7.228756308890071,
+              "external_cpu_percent_machine_peak": 11.504707082350563,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 65777040.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.748224911377601
+        },
+        "off0": {
+          "qps_median": 3870.1016969032703,
+          "server_cpu_ms_per_query_median": 1.8141986350962687,
+          "rss_bytes_median": 37830656.0,
+          "p95_ms_median": 2.5015419999999997,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 10.195227009598067,
+              "external_cpu_percent_machine_peak": 14.407167392313392,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.791680029051032,
+              "external_cpu_percent_machine_peak": 7.593228359481933,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 7.191796294014838,
+              "external_cpu_percent_machine_peak": 8.58141887274271,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.17913769600254,
+              "external_cpu_percent_machine_peak": 7.304006223041964,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 11.953549699643585,
+              "external_cpu_percent_machine_peak": 13.863389201290417,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.315084050583362,
+              "external_cpu_percent_machine_peak": 7.386471044459005,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 0.0,
+          "load_flagged_samples": 2,
+          "external_cpu_percent_machine_median": 6.753440172299101
+        },
+        "off1": {
+          "qps_median": 3886.4722951209114,
+          "server_cpu_ms_per_query_median": 1.8078964156389739,
+          "rss_bytes_median": 36511744.0,
+          "p95_ms_median": 2.4894165,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.746272488647815,
+              "external_cpu_percent_machine_peak": 9.661634656291985,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.2453410001373255,
+              "external_cpu_percent_machine_peak": 7.220460479341457,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.296701370167132,
+              "external_cpu_percent_machine_peak": 8.09463607656872,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 7.078946162532128,
+              "external_cpu_percent_machine_peak": 8.472470807187559,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.204036954925588,
+              "external_cpu_percent_machine_peak": 7.358132479097733,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.158228841954348,
+              "external_cpu_percent_machine_peak": 7.397476206983392,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 0.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.271021185152229
+        },
+        "reference16": {
+          "qps_median": 3236.350464273786,
+          "server_cpu_ms_per_query_median": 2.1150474420094287,
+          "rss_bytes_median": 86589440.0,
+          "p95_ms_median": 2.9198744999999997,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 8.422364419465051,
+              "external_cpu_percent_machine_peak": 9.62143733211742,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.362471547528437,
+              "external_cpu_percent_machine_peak": 7.603575813993249,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.236254743229465,
+              "external_cpu_percent_machine_peak": 8.318053956551184,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.871894824947802,
+              "external_cpu_percent_machine_peak": 8.472470807187559,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.54329555195034,
+              "external_cpu_percent_machine_peak": 7.609848664207224,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 7.92401515566777,
+              "external_cpu_percent_machine_peak": 11.504707082350563,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": null,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.707595188449071
+        },
+        "manual16": {
+          "qps_median": 3240.0415314778943,
+          "server_cpu_ms_per_query_median": 2.111906589545516,
+          "rss_bytes_median": 82444288.0,
+          "p95_ms_median": 2.879354,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.715931061402747,
+              "external_cpu_percent_machine_peak": 7.510133440124352,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.955834818170166,
+              "external_cpu_percent_machine_peak": 7.5359629762466875,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.894062724967353,
+              "external_cpu_percent_machine_peak": 8.384675701664046,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.560269928431918,
+              "external_cpu_percent_machine_peak": 7.224055527455994,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.923422718325821,
+              "external_cpu_percent_machine_peak": 7.609848664207224,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 7.150955521387831,
+              "external_cpu_percent_machine_peak": 7.38638326982317,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 16705280.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.638100494917333
+        }
+      },
+      "comparisons": {
+        "manual16_regression": {
+          "before_arm": "reference16",
+          "after_arm": "manual16",
+          "qps_change_percent": 0.11405029352828944,
+          "cpu_query_change_percent": -0.14850033155421327,
+          "paired_qps_changes_percent": [
+            2.2590054265465787,
+            1.6433014111872923,
+            -1.1208650450449165,
+            0.5302655252832356,
+            -0.1722761239039694,
+            1.0548912367177143
+          ]
+        },
+        "adaptive512": {
+          "before_arm": "manual512",
+          "after_arm": "adaptive512",
+          "qps_change_percent": -0.3962944795205203,
+          "cpu_query_change_percent": 0.26230886952915977,
+          "paired_qps_changes_percent": [
+            -0.33955753591778937,
+            2.1978705146954436,
+            -1.9835321456723176,
+            -0.6979606776585046,
+            1.822670625780276,
+            -2.722604819034824
+          ]
+        },
+        "capacity16_to512": {
+          "before_arm": "manual16",
+          "after_arm": "manual512",
+          "qps_change_percent": 87.37170034633988,
+          "cpu_query_change_percent": -46.86435723798862,
+          "paired_qps_changes_percent": [
+            90.13765192899288,
+            88.08350702475227,
+            89.0551260520665,
+            88.59549717478161,
+            84.5846610495147,
+            87.14864253764567
+          ]
+        },
+        "off_to_manual512": {
+          "before_arm": "off0",
+          "after_arm": "manual512",
+          "qps_change_percent": 56.8672191305845,
+          "cpu_query_change_percent": -38.144858055813934,
+          "paired_qps_changes_percent": [
+            63.120015120463414,
+            53.04422075789339,
+            59.78614417740762,
+            54.97913146794584,
+            55.48244110423353,
+            54.088996386935165
+          ]
+        },
+        "off_to_adaptive512": {
+          "before_arm": "off0",
+          "after_arm": "adaptive512",
+          "qps_change_percent": 56.24556300099262,
+          "cpu_query_change_percent": -37.982606532234485,
+          "paired_qps_changes_percent": [
+            62.56612881653163,
+            56.40793456037654,
+            56.61673464331842,
+            53.89743807172292,
+            58.31637388648652,
+            49.893761945702074
+          ]
+        },
+        "cache_off_control": {
+          "before_arm": "off0",
+          "after_arm": "off1",
+          "qps_change_percent": 0.42300175808662743,
+          "cpu_query_change_percent": -0.3473830999195071,
+          "paired_qps_changes_percent": [
+            3.4571153053505776,
+            -2.518543418493424,
+            0.2931712732641589,
+            -0.9214258151170163,
+            1.7665282750178202,
+            -1.2299582364913686
+          ]
+        }
+      },
+      "idle_gate": {
+        "interval_seconds": 30.26829470798839,
+        "idle_percent_mean": 90.35359533572141,
+        "idle_percent_min": 86.90763052208835,
+        "from_monotonic_seconds": 972892.62003375,
+        "to_monotonic_seconds": 972922.888328458
+      }
+    },
+    {
+      "rows": 1000000,
+      "arms": {
+        "adaptive512": {
+          "qps_median": 5024.925707495816,
+          "server_cpu_ms_per_query_median": 1.3991005553909481,
+          "rss_bytes_median": 218062848.0,
+          "p95_ms_median": 2.055542,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.542812291599271,
+              "external_cpu_percent_machine_peak": 11.578054220465768,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.110474576380479,
+              "external_cpu_percent_machine_peak": 7.903408729101751,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.472748172672883,
+              "external_cpu_percent_machine_peak": 7.384655589944413,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.894941910548881,
+              "external_cpu_percent_machine_peak": 7.247789891897971,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.049184311808098,
+              "external_cpu_percent_machine_peak": 8.616543828360362,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.058091420203714,
+              "external_cpu_percent_machine_peak": 7.41104878875396,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 131073200.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.265419796438298
+        },
+        "off0": {
+          "qps_median": 3231.077447615786,
+          "server_cpu_ms_per_query_median": 2.2305355325417398,
+          "rss_bytes_median": 46006272.0,
+          "p95_ms_median": 2.982875,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.724966796281495,
+              "external_cpu_percent_machine_peak": 6.156250331577578,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 10.804235006323806,
+              "external_cpu_percent_machine_peak": 14.960270236222094,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.420403610040844,
+              "external_cpu_percent_machine_peak": 7.24890487953956,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 7.631551937859675,
+              "external_cpu_percent_machine_peak": 10.124919404444414,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.897391247614831,
+              "external_cpu_percent_machine_peak": 6.606405772489641,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.478353177086934,
+              "external_cpu_percent_machine_peak": 6.838974219983221,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 0.0,
+          "load_flagged_samples": 1,
+          "external_cpu_percent_machine_median": 5.811179021948163
+        },
+        "off1": {
+          "qps_median": 3243.69567630264,
+          "server_cpu_ms_per_query_median": 2.220051210070621,
+          "rss_bytes_median": 45637632.0,
+          "p95_ms_median": 3.0095834999999997,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.4495019371393045,
+              "external_cpu_percent_machine_peak": 6.673219549826457,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.621871791681227,
+              "external_cpu_percent_machine_peak": 8.971568127844117,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.100218569947249,
+              "external_cpu_percent_machine_peak": 6.604527195717968,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.282830637385385,
+              "external_cpu_percent_machine_peak": 7.811766073577151,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.947390309547138,
+              "external_cpu_percent_machine_peak": 8.616543828360362,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.496258473018709,
+              "external_cpu_percent_machine_peak": 10.296872510601867,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 0.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.191524603666317
+        },
+        "reference16": {
+          "qps_median": 2748.631878703716,
+          "server_cpu_ms_per_query_median": 2.5815808823334967,
+          "rss_bytes_median": 89186304.0,
+          "p95_ms_median": 3.5074375,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 7.70625204454376,
+              "external_cpu_percent_machine_peak": 9.692758147325398,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.673006330431782,
+              "external_cpu_percent_machine_peak": 9.114086593325668,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 7.760828203857066,
+              "external_cpu_percent_machine_peak": 10.457417916237857,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.104081153908799,
+              "external_cpu_percent_machine_peak": 7.588030943678965,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 7.958945004358048,
+              "external_cpu_percent_machine_peak": 11.785454840153477,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 8.088353464111444,
+              "external_cpu_percent_machine_peak": 10.296872510601867,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": null,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 7.733540124200413
+        },
+        "manual16": {
+          "qps_median": 2810.9433568752743,
+          "server_cpu_ms_per_query_median": 2.54771011922193,
+          "rss_bytes_median": 88285184.0,
+          "p95_ms_median": 3.428979,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.2837907853539035,
+              "external_cpu_percent_machine_peak": 7.511616048211997,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.690555397806743,
+              "external_cpu_percent_machine_peak": 8.9020382424513,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.269398248030733,
+              "external_cpu_percent_machine_peak": 7.24890487953956,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.979892262120423,
+              "external_cpu_percent_machine_peak": 7.588030943678965,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.365867899602102,
+              "external_cpu_percent_machine_peak": 7.247789891897971,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.8227888811387185,
+              "external_cpu_percent_machine_peak": 7.41104878875396,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 16705280.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.2765945166923185
+        },
+        "manual512": {
+          "qps_median": 4963.955879876115,
+          "server_cpu_ms_per_query_median": 1.4172369125551598,
+          "rss_bytes_median": 217464832.0,
+          "p95_ms_median": 2.0700205,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.206606182132004,
+              "external_cpu_percent_machine_peak": 6.39811665384665,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.03078463871773,
+              "external_cpu_percent_machine_peak": 7.568609244034867,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.013655901309127,
+              "external_cpu_percent_machine_peak": 7.568335329780143,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.448088339802166,
+              "external_cpu_percent_machine_peak": 7.173265515173287,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.433173518179664,
+              "external_cpu_percent_machine_peak": 7.396562688343501,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.090839170661366,
+              "external_cpu_percent_machine_peak": 7.5761230102535135,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 131073200.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.148722676396686
+        }
+      },
+      "comparisons": {
+        "manual16_regression": {
+          "before_arm": "reference16",
+          "after_arm": "manual16",
+          "qps_change_percent": 2.2669997628400163,
+          "cpu_query_change_percent": -1.3120163440686339,
+          "paired_qps_changes_percent": [
+            1.2634758730681206,
+            0.9093688633288188,
+            3.6172445158632494,
+            1.8022734696214737,
+            -0.34311746536940246,
+            3.9129065016346276
+          ]
+        },
+        "adaptive512": {
+          "before_arm": "manual512",
+          "after_arm": "adaptive512",
+          "qps_change_percent": 1.2282507962424027,
+          "cpu_query_change_percent": -1.2796983343817514,
+          "paired_qps_changes_percent": [
+            1.1718678855533904,
+            0.6325805599428413,
+            0.4792394108601439,
+            3.0671033093280897,
+            0.6353698581960776,
+            -0.5756092893988818
+          ]
+        },
+        "capacity16_to512": {
+          "before_arm": "manual16",
+          "after_arm": "manual512",
+          "qps_change_percent": 76.59394906463686,
+          "cpu_query_change_percent": -44.372128451254746,
+          "paired_qps_changes_percent": [
+            80.6373113513944,
+            81.47023225101412,
+            77.09055726145894,
+            74.24375897995274,
+            79.39513090550703,
+            75.93796837550524
+          ]
+        },
+        "off_to_manual512": {
+          "before_arm": "off0",
+          "after_arm": "manual512",
+          "qps_change_percent": 53.63159690087347,
+          "cpu_query_change_percent": -36.46203380852714,
+          "paired_qps_changes_percent": [
+            52.23507939282192,
+            62.038213403227196,
+            52.84157467699955,
+            52.80264776694723,
+            53.075956555046886,
+            51.89694085344219
+          ]
+        },
+        "off_to_adaptive512": {
+          "before_arm": "off0",
+          "after_arm": "adaptive512",
+          "qps_change_percent": 55.51857821308839,
+          "cpu_query_change_percent": -37.27512810357945,
+          "paired_qps_changes_percent": [
+            54.01907339877312,
+            63.06323564089469,
+            53.57405173903098,
+            57.48926283334821,
+            54.04855504314299,
+            51.02260795157705
+          ]
+        },
+        "cache_off_control": {
+          "before_arm": "off0",
+          "after_arm": "off1",
+          "qps_change_percent": 0.39052696481061133,
+          "cpu_query_change_percent": -0.47003611097696796,
+          "paired_qps_changes_percent": [
+            0.23308129606474104,
+            7.696645502829136,
+            -0.40120790179686283,
+            -0.191477259544226,
+            1.201641428688749,
+            -2.0754765284441867
+          ]
+        }
+      },
+      "idle_gate": {
+        "interval_seconds": 32.214894250035286,
+        "idle_percent_mean": 90.01904254515236,
+        "idle_percent_min": 86.59127625201938,
+        "from_monotonic_seconds": 973051.799757625,
+        "to_monotonic_seconds": 973084.014651875
+      }
+    },
+    {
+      "rows": 5000000,
+      "arms": {
+        "off0": {
+          "qps_median": 1716.4058130418307,
+          "server_cpu_ms_per_query_median": 4.449685929995978,
+          "rss_bytes_median": 105562112.0,
+          "p95_ms_median": 5.719563,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.7235247716823805,
+              "external_cpu_percent_machine_peak": 8.139112748143157,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.87638142999802,
+              "external_cpu_percent_machine_peak": 7.235492407882592,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.119598954755314,
+              "external_cpu_percent_machine_peak": 7.412360912746736,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.509972936652102,
+              "external_cpu_percent_machine_peak": 6.930596682524349,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.131530053710647,
+              "external_cpu_percent_machine_peak": 7.781768093414981,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.1677895344724645,
+              "external_cpu_percent_machine_peak": 7.168425871233335,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 0.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.1255645042329805
+        },
+        "off1": {
+          "qps_median": 1733.284477078706,
+          "server_cpu_ms_per_query_median": 4.415705574314976,
+          "rss_bytes_median": 105873408.0,
+          "p95_ms_median": 5.653979,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.146340412009295,
+              "external_cpu_percent_machine_peak": 7.098236771121066,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.354681981600958,
+              "external_cpu_percent_machine_peak": 7.6571218218454495,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.508471572805156,
+              "external_cpu_percent_machine_peak": 10.107219829423842,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.124910716912049,
+              "external_cpu_percent_machine_peak": 7.38509069790097,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.5137772380029775,
+              "external_cpu_percent_machine_peak": 7.909923092822911,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.868280701837658,
+              "external_cpu_percent_machine_peak": 7.398919794911916,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 0.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.135625564460671
+        },
+        "reference16": {
+          "qps_median": 1608.9943157994308,
+          "server_cpu_ms_per_query_median": 4.730856829268997,
+          "rss_bytes_median": 136372224.0,
+          "p95_ms_median": 6.0807915,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.059524670928239,
+              "external_cpu_percent_machine_peak": 6.606483746068453,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 9.60520519667392,
+              "external_cpu_percent_machine_peak": 16.82166832681847,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 7.344356836003125,
+              "external_cpu_percent_machine_peak": 9.974219865483038,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 7.582542067383305,
+              "external_cpu_percent_machine_peak": 9.83374720945356,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.920508678939652,
+              "external_cpu_percent_machine_peak": 7.909923092822911,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.579767104839206,
+              "external_cpu_percent_machine_peak": 7.8171171714022165,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": null,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.962061970421166
+        },
+        "manual16": {
+          "qps_median": 1602.3593426261132,
+          "server_cpu_ms_per_query_median": 4.753346016558769,
+          "rss_bytes_median": 137732096.0,
+          "p95_ms_median": 6.081604,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.735157841768187,
+              "external_cpu_percent_machine_peak": 8.773382875530414,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.97561682993194,
+              "external_cpu_percent_machine_peak": 7.0910407460093365,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.431603966095776,
+              "external_cpu_percent_machine_peak": 10.107219829423842,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 7.59837538488412,
+              "external_cpu_percent_machine_peak": 9.881124852645717,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.29119250888398,
+              "external_cpu_percent_machine_peak": 7.729443088086629,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.888134339336275,
+              "external_cpu_percent_machine_peak": 7.398919794911916,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 16705280.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 6.361398237489878
+        },
+        "manual512": {
+          "qps_median": 2205.9119105206946,
+          "server_cpu_ms_per_query_median": 3.4815045835532903,
+          "rss_bytes_median": 663846912.0,
+          "p95_ms_median": 4.551396,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.203028222480458,
+              "external_cpu_percent_machine_peak": 6.606483746068453,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.807865668118887,
+              "external_cpu_percent_machine_peak": 6.674674667950305,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.820927997301762,
+              "external_cpu_percent_machine_peak": 8.122859782618749,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 7.801230654386679,
+              "external_cpu_percent_machine_peak": 9.90207651030733,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.929285217333841,
+              "external_cpu_percent_machine_peak": 6.793172245557945,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.890043111980218,
+              "external_cpu_percent_machine_peak": 6.441294879800974,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 427731808.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 5.855485554640991
+        },
+        "adaptive512": {
+          "qps_median": 2202.098459280475,
+          "server_cpu_ms_per_query_median": 3.482816469215558,
+          "rss_bytes_median": 663830528.0,
+          "p95_ms_median": 4.5551255,
+          "sample_load": [
+            {
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.634658651055694,
+              "external_cpu_percent_machine_peak": 8.06971686688353,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.280353693353756,
+              "external_cpu_percent_machine_peak": 7.0910407460093365,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.895251484389247,
+              "external_cpu_percent_machine_peak": 6.778011376705084,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 3,
+              "external_cpu_percent_machine_mean": 7.3708215928639005,
+              "external_cpu_percent_machine_peak": 9.022698366787935,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.796063484088171,
+              "external_cpu_percent_machine_peak": 6.531551180562556,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.896756067252868,
+              "external_cpu_percent_machine_peak": 7.237454693566273,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "cache_used_bytes_median": 427731808.0,
+          "load_flagged_samples": 0,
+          "external_cpu_percent_machine_median": 5.8960037758210575
+        }
+      },
+      "comparisons": {
+        "manual16_regression": {
+          "before_arm": "reference16",
+          "after_arm": "manual16",
+          "qps_change_percent": -0.41236771989595633,
+          "cpu_query_change_percent": 0.4753723923885289,
+          "paired_qps_changes_percent": [
+            -0.5028946997657213,
+            -1.7521185560216757,
+            -0.3862527697007456,
+            0.3190172707788319,
+            -1.4095816030051056,
+            0.2386568221147245
+          ]
+        },
+        "adaptive512": {
+          "before_arm": "manual512",
+          "after_arm": "adaptive512",
+          "qps_change_percent": -0.1728741398073219,
+          "cpu_query_change_percent": 0.03768157217041157,
+          "paired_qps_changes_percent": [
+            -2.2938270262409244,
+            0.23419584044397368,
+            0.46897559576519754,
+            2.3525622333936402,
+            -1.1135707445175225,
+            -0.18979704186635749
+          ]
+        },
+        "capacity16_to512": {
+          "before_arm": "manual16",
+          "after_arm": "manual512",
+          "qps_change_percent": 37.666492892001166,
+          "cpu_query_change_percent": -26.7567609968828,
+          "paired_qps_changes_percent": [
+            40.62420377412288,
+            35.67916649254206,
+            37.1056932292348,
+            35.121178968029774,
+            39.29085437680187,
+            37.37024945606746
+          ]
+        },
+        "off_to_manual512": {
+          "before_arm": "off0",
+          "after_arm": "manual512",
+          "qps_change_percent": 28.519251901818986,
+          "cpu_query_change_percent": -21.758419845230804,
+          "paired_qps_changes_percent": [
+            28.913168641444642,
+            25.5230212891979,
+            27.552020551429557,
+            24.65136393099021,
+            29.214990091281166,
+            28.722203709351323
+          ]
+        },
+        "off_to_adaptive512": {
+          "before_arm": "off0",
+          "after_arm": "adaptive512",
+          "qps_change_percent": 28.297075350606924,
+          "cpu_query_change_percent": -21.728937187737507,
+          "paired_qps_changes_percent": [
+            25.95612353876364,
+            25.81699098385679,
+            28.150208399721176,
+            27.583864842240736,
+            27.776089764093427,
+            28.47789277448578
+          ]
+        },
+        "cache_off_control": {
+          "before_arm": "off0",
+          "after_arm": "off1",
+          "qps_change_percent": 0.9833725747504296,
+          "cpu_query_change_percent": -0.7636573955014492,
+          "paired_qps_changes_percent": [
+            -1.0103861337510844,
+            2.335723226098585,
+            -1.7322023261855057,
+            0.561907953445151,
+            0.8660567943300057,
+            1.4484121704319897
+          ]
+        }
+      },
+      "idle_gate": {
+        "interval_seconds": 32.32006845797878,
+        "idle_percent_mean": 90.29512622119081,
+        "idle_percent_min": 84.33734939759037,
+        "from_monotonic_seconds": 973243.607609958,
+        "to_monotonic_seconds": 973275.927678416
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "pass_number": 1,
+      "arm": "manual512",
+      "phases": [
+        {
+          "name": "large",
+          "queried_id_range": 5000000,
+          "from_before_warmup": 973424.841151208,
+          "sample": {
+            "completed": 18624,
+            "elapsed_seconds": 8.003455415950157,
+            "qps": 2326.9949080848337,
+            "server_cpu_ms_per_query": 3.303175311426117,
+            "rss_bytes": 662994944,
+            "p95_ms": 4.311833,
+            "client_cpu_cores": 0.6361282390420586,
+            "from_monotonic_seconds": 973425.0660345,
+            "to_monotonic_seconds": 973433.069710208
+          },
+          "used_bytes_after": 427731808,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.581752759807711,
+            "external_cpu_percent_machine_peak": 7.499308430921043,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        },
+        {
+          "name": "hot",
+          "queried_id_range": 20000,
+          "from_before_warmup": 973433.077334625,
+          "sample": {
+            "completed": 65418,
+            "elapsed_seconds": 8.000749583006836,
+            "qps": 8176.483880828408,
+            "server_cpu_ms_per_query": 0.7674812838209667,
+            "rss_bytes": 665960448,
+            "p95_ms": 1.248542,
+            "client_cpu_cores": 1.5409739890104825,
+            "from_monotonic_seconds": 973433.204150791,
+            "to_monotonic_seconds": 973441.205758083
+          },
+          "used_bytes_after": 428725368,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.542254119980516,
+            "external_cpu_percent_machine_peak": 7.2263046159065425,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        },
+        {
+          "name": "large-again",
+          "queried_id_range": 5000000,
+          "from_before_warmup": 973441.218130583,
+          "sample": {
+            "completed": 18610,
+            "elapsed_seconds": 8.002693500020541,
+            "qps": 2325.4670443085483,
+            "server_cpu_ms_per_query": 3.302734253519613,
+            "rss_bytes": 666124288,
+            "p95_ms": 4.321083,
+            "client_cpu_cores": 0.6416012308839294,
+            "from_monotonic_seconds": 973441.397689125,
+            "to_monotonic_seconds": 973449.400563291
+          },
+          "used_bytes_after": 428725368,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.837064598063356,
+            "external_cpu_percent_machine_peak": 7.142112546683522,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        }
+      ],
+      "idle_gate": {
+        "interval_seconds": 30.237984624924138,
+        "idle_percent_mean": 90.38204179026161,
+        "idle_percent_min": 85.05654281098546,
+        "from_monotonic_seconds": 973393.727912166,
+        "to_monotonic_seconds": 973423.965896791
+      },
+      "peak_cache_used_bytes": 428725368
+    },
+    {
+      "pass_number": 1,
+      "arm": "adaptive512",
+      "phases": [
+        {
+          "name": "large",
+          "queried_id_range": 5000000,
+          "from_before_warmup": 973482.48508425,
+          "sample": {
+            "completed": 18637,
+            "elapsed_seconds": 8.003349083010107,
+            "qps": 2328.6501446705,
+            "server_cpu_ms_per_query": 3.2996353400761924,
+            "rss_bytes": 663764992,
+            "p95_ms": 4.307208,
+            "client_cpu_cores": 0.637823734420951,
+            "from_monotonic_seconds": 973482.712065166,
+            "to_monotonic_seconds": 973490.715602708
+          },
+          "used_bytes_after": 427731808,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.452214245192433,
+            "external_cpu_percent_machine_peak": 7.5408117330714655,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        },
+        {
+          "name": "hot",
+          "queried_id_range": 20000,
+          "from_before_warmup": 973490.722917416,
+          "sample": {
+            "completed": 64511,
+            "elapsed_seconds": 8.001037083100528,
+            "qps": 8062.829771937637,
+            "server_cpu_ms_per_query": 0.7772353526220334,
+            "rss_bytes": 665927680,
+            "p95_ms": 1.267625,
+            "client_cpu_cores": 1.541613277365312,
+            "from_monotonic_seconds": 973490.848601375,
+            "to_monotonic_seconds": 973498.8503525
+          },
+          "used_bytes_after": 16705280,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.775786674266135,
+            "external_cpu_percent_machine_peak": 6.339940128200163,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        },
+        {
+          "name": "large-again",
+          "queried_id_range": 5000000,
+          "from_before_warmup": 973498.862612083,
+          "sample": {
+            "completed": 17698,
+            "elapsed_seconds": 8.00372612499632,
+            "qps": 2211.2200896939285,
+            "server_cpu_ms_per_query": 3.4715171794553057,
+            "rss_bytes": 666238976,
+            "p95_ms": 4.528583,
+            "client_cpu_cores": 0.6285629869678123,
+            "from_monotonic_seconds": 973499.065453708,
+            "to_monotonic_seconds": 973507.069435333
+          },
+          "used_bytes_after": 428725368,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.874299916656907,
+            "external_cpu_percent_machine_peak": 7.160655626791043,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        }
+      ],
+      "idle_gate": {
+        "interval_seconds": 30.265192584018223,
+        "idle_percent_mean": 90.3662097246368,
+        "idle_percent_min": 86.25707356507681,
+        "from_monotonic_seconds": 973451.303536791,
+        "to_monotonic_seconds": 973481.568729375
+      },
+      "peak_cache_used_bytes": 428725368
+    },
+    {
+      "pass_number": 2,
+      "arm": "adaptive512",
+      "phases": [
+        {
+          "name": "large",
+          "queried_id_range": 5000000,
+          "from_before_warmup": 973540.173213583,
+          "sample": {
+            "completed": 18526,
+            "elapsed_seconds": 8.002785000018775,
+            "qps": 2314.9441100762465,
+            "server_cpu_ms_per_query": 3.318618290942459,
+            "rss_bytes": 663109632,
+            "p95_ms": 4.332625,
+            "client_cpu_cores": 0.6326336394127947,
+            "from_monotonic_seconds": 973540.396807208,
+            "to_monotonic_seconds": 973548.399796666
+          },
+          "used_bytes_after": 427731808,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.90654451327343,
+            "external_cpu_percent_machine_peak": 8.950589714930121,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        },
+        {
+          "name": "hot",
+          "queried_id_range": 20000,
+          "from_before_warmup": 973548.407858458,
+          "sample": {
+            "completed": 62770,
+            "elapsed_seconds": 8.00093450001441,
+            "qps": 7845.333566958579,
+            "server_cpu_ms_per_query": 0.796815486442568,
+            "rss_bytes": 665337856,
+            "p95_ms": 1.301417,
+            "client_cpu_cores": 1.5331405350184917,
+            "from_monotonic_seconds": 973548.540169125,
+            "to_monotonic_seconds": 973556.541965041
+          },
+          "used_bytes_after": 16705280,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 6.274877252595036,
+            "external_cpu_percent_machine_peak": 10.743389655114013,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        },
+        {
+          "name": "large-again",
+          "queried_id_range": 5000000,
+          "from_before_warmup": 973556.554756875,
+          "sample": {
+            "completed": 17483,
+            "elapsed_seconds": 8.002493291045539,
+            "qps": 2184.6941152156614,
+            "server_cpu_ms_per_query": 3.5151173949550993,
+            "rss_bytes": 666058752,
+            "p95_ms": 4.593542,
+            "client_cpu_cores": 0.6231455396007557,
+            "from_monotonic_seconds": 973556.761247166,
+            "to_monotonic_seconds": 973564.763997541
+          },
+          "used_bytes_after": 428725368,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.7752261963410305,
+            "external_cpu_percent_machine_peak": 8.666173576544683,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        }
+      ],
+      "idle_gate": {
+        "interval_seconds": 30.316448000026867,
+        "idle_percent_mean": 90.16541891525222,
+        "idle_percent_min": 85.48387096774194,
+        "from_monotonic_seconds": 973509.028665875,
+        "to_monotonic_seconds": 973539.345113875
+      },
+      "peak_cache_used_bytes": 428725368
+    },
+    {
+      "pass_number": 2,
+      "arm": "manual512",
+      "phases": [
+        {
+          "name": "large",
+          "queried_id_range": 5000000,
+          "from_before_warmup": 973610.001132791,
+          "sample": {
+            "completed": 18486,
+            "elapsed_seconds": 8.003595540998504,
+            "qps": 2309.7119170134556,
+            "server_cpu_ms_per_query": 3.3267815464135024,
+            "rss_bytes": 663093248,
+            "p95_ms": 4.333875,
+            "client_cpu_cores": 0.6362470434587585,
+            "from_monotonic_seconds": 973610.222539041,
+            "to_monotonic_seconds": 973618.226337541
+          },
+          "used_bytes_after": 427731808,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.652153829396476,
+            "external_cpu_percent_machine_peak": 7.142308856808852,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        },
+        {
+          "name": "hot",
+          "queried_id_range": 20000,
+          "from_before_warmup": 973618.234242375,
+          "sample": {
+            "completed": 63304,
+            "elapsed_seconds": 8.000789958052337,
+            "qps": 7912.218709889784,
+            "server_cpu_ms_per_query": 0.791254620561102,
+            "rss_bytes": 665911296,
+            "p95_ms": 1.292542,
+            "client_cpu_cores": 1.554715230023119,
+            "from_monotonic_seconds": 973618.3598195,
+            "to_monotonic_seconds": 973626.361505958
+          },
+          "used_bytes_after": 428725368,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.915015757793627,
+            "external_cpu_percent_machine_peak": 7.2169526193467215,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        },
+        {
+          "name": "large-again",
+          "queried_id_range": 5000000,
+          "from_before_warmup": 973626.3736825,
+          "sample": {
+            "completed": 17361,
+            "elapsed_seconds": 8.004641416016966,
+            "qps": 2168.8666734354065,
+            "server_cpu_ms_per_query": 3.538926485110305,
+            "rss_bytes": 666124288,
+            "p95_ms": 4.623041,
+            "client_cpu_cores": 0.624539156744333,
+            "from_monotonic_seconds": 973626.564462083,
+            "to_monotonic_seconds": 973634.569336
+          },
+          "used_bytes_after": 428725368,
+          "load": {
+            "round": 0,
+            "external_cpu_percent_machine_mean": 5.817774546092231,
+            "external_cpu_percent_machine_peak": 13.242121714533043,
+            "coverage_fraction": 1.0,
+            "elevated_external_load": false
+          }
+        }
+      ],
+      "idle_gate": {
+        "interval_seconds": 32.32238654198591,
+        "idle_percent_mean": 90.22111597010213,
+        "idle_percent_min": 84.85092667203867,
+        "from_monotonic_seconds": 973577.188380041,
+        "to_monotonic_seconds": 973609.510766583
+      },
+      "peak_cache_used_bytes": 428725368
+    }
+  ],
+  "all_completed_samples_retained": true,
+  "primary_timed_arm_samples": 180,
+  "primary_timed_queries": 2481672,
+  "primary_load_flagged_samples": 7,
+  "diagnostic_timed_arm_samples": 12,
+  "diagnostic_timed_queries": 401428,
+  "diagnostic_load_flagged_samples": 0
+}

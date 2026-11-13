@@ -1,0 +1,13 @@
+/private/tmp/manticore-adaptive-cache-source-20261113/src/gtests/gtests_docstore_blockcache.cpp:36:5: error: no matching constructor for initialization of 'LRUCache_T<int, CacheTestData_t, CacheTestUtil_t>'
+   36 |                 : BASE ( iLimit, iLimit, bAdaptive ? 16*1024 : 0 ) {}
+      |                   ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/private/tmp/manticore-adaptive-cache-source-20261113/src/std/lrucache.h:24:4: note: candidate constructor not viable: requires at most 2 arguments, but 3 were provided
+   24 |                         LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize = -1 );
+      |                         ^            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/private/tmp/manticore-adaptive-cache-source-20261113/src/std/lrucache.h:21:7: note: candidate constructor (the implicit copy constructor) not viable: requires 1 argument, but 3 were provided
+   21 | class LRUCache_T
+      |       ^~~~~~~~~~
+/private/tmp/manticore-adaptive-cache-source-20261113/src/gtests/gtests_docstore_blockcache.cpp:37:26: error: use of undeclared identifier 'GetUsedBytes'
+   37 |         int64_t Used() { return GetUsedBytes(); }
+      |                                 ^~~~~~~~~~~~
+2 errors generated.

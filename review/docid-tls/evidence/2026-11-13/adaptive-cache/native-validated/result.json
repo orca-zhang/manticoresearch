@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "focused_tests": 11,
+  "repeats": 20,
+  "full_tests": 529,
+  "leak_detection": false,
+  "env": {
+    "ASAN_OPTIONS": "halt_on_error=1:detect_leaks=0",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1",
+    "TSAN_OPTIONS": "halt_on_error=1"
+  },
+  "binary_sha256": "dc319fbc69625c01ba1412593993913bde5393466bcad76532ea19b78bbd897a"
+}

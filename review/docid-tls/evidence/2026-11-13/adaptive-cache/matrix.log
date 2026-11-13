@@ -1,0 +1,23 @@
+waiting for matrix idle gate 20000
+starting matrix 20000
+matrix 20000 {'reference16': 7373.6, 'manual16': 7386.4, 'manual512': 7308.5, 'adaptive512': 7321.2, 'off0': 5731.1, 'off1': 5688.1}
+waiting for matrix idle gate 100000
+starting matrix 100000
+matrix 100000 {'manual16': 6821.9, 'manual512': 6783.2, 'adaptive512': 6813.1, 'off0': 5132.9, 'off1': 5031.2, 'reference16': 6738.1}
+waiting for matrix idle gate 500000
+starting matrix 500000
+matrix 500000 {'manual512': 6070.9, 'adaptive512': 6046.9, 'off0': 3870.1, 'off1': 3886.5, 'reference16': 3236.4, 'manual16': 3240.0}
+waiting for matrix idle gate 1000000
+starting matrix 1000000
+matrix 1000000 {'adaptive512': 5024.9, 'off0': 3231.1, 'off1': 3243.7, 'reference16': 2748.6, 'manual16': 2810.9, 'manual512': 4964.0}
+waiting for matrix idle gate 5000000
+starting matrix 5000000
+matrix 5000000 {'off0': 1716.4, 'off1': 1733.3, 'reference16': 1609.0, 'manual16': 1602.4, 'manual512': 2205.9, 'adaptive512': 2202.1}
+waiting for transition idle gate 1 manual512
+transition 1 manual512 [('large', 407.92), ('hot', 408.86), ('large-again', 408.86)]
+waiting for transition idle gate 1 adaptive512
+transition 1 adaptive512 [('large', 407.92), ('hot', 15.93), ('large-again', 408.86)]
+waiting for transition idle gate 2 adaptive512
+transition 2 adaptive512 [('large', 407.92), ('hot', 15.93), ('large-again', 408.86)]
+waiting for transition idle gate 2 manual512
+transition 2 manual512 [('large', 407.92), ('hot', 408.86), ('large-again', 408.86)]

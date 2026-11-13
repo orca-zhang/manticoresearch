@@ -1,0 +1,76 @@
+{
+  "base_source_commit": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+  "reader_tls": false,
+  "searchd_sha256": "51c674f1ddbb1b676932bb9846708f55536063cd347deeadfa2605f38f3ce4a2",
+  "production_sources_unchanged_since_timing": true,
+  "changed_since_timing": [
+    "manual/english/Server_settings/Searchd.md",
+    "src/gtests/gtests_docstore_blockcache.cpp",
+    "test/docid-cache/README.md"
+  ],
+  "source_sha256": {
+    "api/libsphinxclient/smoke_ref.txt": "6afa3872275853533826d75ca338e20a6ccca205621f36bed5ded938045845fa",
+    "manual/english/References.md": "88e7c4175dcb70a766d05fd867360b01693f5f22784b595c862e469f798cea34",
+    "manual/english/Server_settings/Searchd.md": "7c261fcc98e149b4299b5a9cbe420db5929f37657df04b40097e673fcb6e28e3",
+    "src/docstore.cpp": "1c48b9408cbdc2ad94989a3a1265bc6c68c3f1e2317859dd2d932cb95b046204",
+    "src/docstore.h": "2b393e2eca1cd166c2f2d3c991cce5fdb9695da38cf699bc5fb70f63973b4d14",
+    "src/gtests/gtests_docstore_blockcache.cpp": "2243881f8fed32861de933fcc4a341d7a6a3eb25808bd36128dbf64b395aa5ca",
+    "src/searchd.cpp": "4801ed342089bf1c7ca77e8f0de751608386f90c03955daaefb9b44557b637d0",
+    "src/sphinxutils.cpp": "fc247d63702f129f0ceef953c44aa55a4c93e3998389d6c0d033a7fb9f286989",
+    "src/std/lrucache.h": "ab2f65e86449d0699237e64bfcbf43d406ba1042e56c52f4c64e304015b2acde",
+    "src/std/lrucache_impl.h": "1921160056b7bf20a6087c20ac073ad271f4c956718bb34acdecb54fdeb22a64",
+    "test/clt-tests/buddy-plugins/test-prometheus-exporter.rec": "c1ccadea2ef0ab695059236e424b5b823ca74db65ccd834d1ec656117a13966c",
+    "test/docid-cache/README.md": "af9dcce37cae848f7f1c3512287b995e635bff021e3bff1e9415af17b69e3670"
+  },
+  "final_patch_sha256": "e12df182c2df09e8d319ed1886d4261e075a54e3b71f0e37b8cea39cb25b8919",
+  "validation": {
+    "native": {
+      "passed": true,
+      "focused_tests": 11,
+      "repeats": 20,
+      "full_tests": 529,
+      "leak_detection": false,
+      "env": {
+        "ASAN_OPTIONS": "halt_on_error=1:detect_leaks=0",
+        "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1",
+        "TSAN_OPTIONS": "halt_on_error=1"
+      },
+      "binary_sha256": "dc319fbc69625c01ba1412593993913bde5393466bcad76532ea19b78bbd897a"
+    },
+    "asan-ubsan": {
+      "passed": true,
+      "focused_tests": 11,
+      "repeats": 20,
+      "full_tests": null,
+      "leak_detection": false,
+      "env": {
+        "ASAN_OPTIONS": "halt_on_error=1:detect_leaks=0",
+        "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1",
+        "TSAN_OPTIONS": "halt_on_error=1"
+      },
+      "binary_sha256": "8a2f2969b4e0f614023395c377b541e0e01f3402eb48b7cb43db51ba172a59d2"
+    },
+    "tsan": {
+      "passed": true,
+      "focused_tests": 11,
+      "repeats": 20,
+      "full_tests": null,
+      "leak_detection": false,
+      "env": {
+        "ASAN_OPTIONS": "halt_on_error=1:detect_leaks=0",
+        "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1",
+        "TSAN_OPTIONS": "halt_on_error=1"
+      },
+      "binary_sha256": "63f18a83efc95e6a1e581fba1cb7d3dbaf9b170203d50a30d9e55197a7efcc94"
+    }
+  },
+  "notes": [
+    "The measured build-manifest and original patch/source snapshots are preserved unchanged.",
+    "Only test source and English documentation changed after the timed searchd build.",
+    "The final test assertion uses the policy activity threshold rather than requiring guaranteed convergence to its floor. Prior failed ASan-run assertion is retained.",
+    "Sanitizer instrumentation covers docstore, skip_cache, fileio and focused tests; other engine/dependency objects are reused uninstrumented.",
+    "LeakSanitizer is unsupported on this macOS runtime; leak detection was disabled.",
+    "This Apple build has HAVE_MALLOC_TRIM=0; no allocator purge was added or invoked."
+  ],
+  "source_commit": "ad885be366eda4e897c828f05cb93ff04702d02c"
+}

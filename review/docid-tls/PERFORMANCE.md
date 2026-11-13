@@ -1,5 +1,22 @@
 # Performance evidence and reporting boundaries
 
+## Adaptive follow-up: capacity and policy are separate
+
+The [512 MiB opt-in experiment](ADAPTIVE_CACHE_2026-11-13.md) is outside both
+production PRs. On the same experimental binary, manual 16→512 MiB raises QPS
+by 87.37% at 500k, 76.59% at 1M and 37.67% at 5M, while 20k/100k show no
+established benefit. Adaptive versus manual at the same 512 MiB ceiling gives
+-0.40% to +1.23%; no consistent extra throughput gain is established.
+
+The existing cache already allocates on demand: 20k retains 2.509 MiB with
+16 MiB or 512 MiB ceilings. Two reversed-order memory diagnostics reproduce
+adaptive entries 407.92→15.93→408.86 MiB as the hot set shrinks and expands,
+but RSS stays about 632–635 MiB. This is entry reclamation, not a demonstrated
+process-memory saving. All 180 primary samples and 12 diagnostic samples,
+including seven primary load flags, remain. No adaptive-plus-TLS run exists.
+
+![Separate capacity comparison](figures/adaptive-cache-capacity.png)
+
 Updated review (2026-11-13): [#5042 shared-block-cache results and CI fixes,
 without TLS](BLOCK_CACHE_2026-11-13.md); [#5045 default-cache/large-data,
 lifetime and churn answers](TLS_REVIEW_2026-11-13.md). The sections below retain

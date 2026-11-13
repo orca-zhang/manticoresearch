@@ -1,0 +1,5 @@
+[
+  "/private/tmp/manticore-adaptive-cache-review-20261113/gmanticoretest-final",
+  "--gtest_filter=AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*",
+  "--gtest_output=json:/private/tmp/manticore-adaptive-cache-review-20261113/focused-final-tests.json"
+]

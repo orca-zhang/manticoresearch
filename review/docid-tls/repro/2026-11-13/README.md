@@ -310,3 +310,60 @@ and the initial phase's snapshot are both archived because the case was added
 after the initial matrix. Vertical ranges show the six paired-round changes,
 not confidence intervals. Connecting lines guide the eye; the plots do not
 infer unmeasured optima. The 5M budget chart shows both QPS and RSS.
+
+
+## Adaptive cache follow-up
+
+The [experimental report](../../ADAPTIVE_CACHE_2026-11-13.md) is separate from
+both production PRs. Build original #5042 `376fbf9` and experimental source
+`ad885be366eda4e897c828f05cb93ff04702d02c` with equal build configuration.
+The experiment adds `docstore_cache_adaptive`, default 0, and a status metric.
+Its manual512/adaptive512 arms run the same binary at an equal 512 MiB entry
+ceiling. There is no reader TLS. Existing defaults remain unchanged.
+
+The recorded build recompiled all six affected translation units and replaced
+changed archive objects; unchanged engine/dependency objects were reused.
+`../../evidence/2026-11-13/adaptive-cache/` includes exact native/sanitizer
+commands, the measured driver snapshot, source/binary hashes, calibration
+exports, raw timing/CPU/RSS data and the plan saved before results. Final
+validation strengthened only tests and English docs; the timed production
+sources/searchd hash remained unchanged. Use `final-validation/` for the
+final source/test snapshot and `candidate-source/` for the timed-build snapshot.
+Absolute local paths in archived commands describe this machine; rebuild with
+normal upstream CMake/dependency setup in another checkout rather than running
+those commands against an unrelated build directory.
+
+Using fixtures prepared with the earlier guide:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 adaptive_cache.py --selfcheck
+PYTHONDONTWRITEBYTECODE=1 python3 adaptive_cache.py \
+  ORIGINAL_376FBF9_SEARCHD EXPERIMENTAL_AD885BE_SEARCHD \
+  --fixtures /tmp/fixtures --output /tmp/adaptive/sql
+```
+
+Six arms cover original manual16, new manual16, new manual512, adaptive512,
+and cache off with the adaptive flag 0/1. Five sizes, six balanced Williams
+rounds, three seconds per arm, full idle gates and CPU telemetry. Each client
+warms its 20-query pool before timing. Both 16 and 512 MiB use 16 shards.
+The two memory passes use fresh servers, reverse arm order and query a broad
+range, then a small hot range, then broad again on the same 5M table, with
+concurrent 0.2-second status/RSS probes. Do not treat diagnostic QPS as the
+primary throughput comparison.
+
+To regenerate the published summary/figures from archived evidence:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 summarize_adaptive_cache.py \
+  ../../evidence/2026-11-13/adaptive-cache
+python3 plot_adaptive_cache.py ../../evidence/2026-11-13/adaptive-cache \
+  --output ../../figures
+```
+
+The summarizer checks driver/source hashes, all median/ratio/paired-range
+formulas, ceilings, lifecycle checks, idle gates and full telemetry overlap.
+It retains all flagged samples. The plots separate the capacity comparison
+from equal-ceiling adaptive policy and graph both entry occupancy and RSS.
+Released entries do not prove RSS savings. The experiment's known gaps include
+SkipCache throughput, a fully idle timer, Linux allocator/RSS behavior,
+production-rate metric polling and adaptive-plus-TLS measurements.

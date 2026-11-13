@@ -1,0 +1,36 @@
+Running main() from gmock_main.cc
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] Global test environment set-up.
+
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (0 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (0 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (0 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (0 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (29 ms)
+[----------] 5 tests from AdaptiveLru (30 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (1 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (0 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (19 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (113 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (2 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (1 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (138 ms total)
+
+[----------] Global test environment tear-down
+[==========] 11 tests from 2 test suites ran. (170 ms total)
+[  PASSED  ] 11 tests.

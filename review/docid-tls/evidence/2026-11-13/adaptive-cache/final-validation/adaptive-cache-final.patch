@@ -1,0 +1,660 @@
+diff --git a/api/libsphinxclient/smoke_ref.txt b/api/libsphinxclient/smoke_ref.txt
+index 7946f71..ac8192c 100644
+--- a/api/libsphinxclient/smoke_ref.txt
++++ b/api/libsphinxclient/smoke_ref.txt
+@@ -354,6 +354,7 @@ qcache_cached_queries: 0
+ qcache_used_bytes: 0
+ qcache_hits: 0
+ docid_lookup_cache_used_bytes: 0
++docstore_cache_used_bytes: 0
+ 
+ 
+ ***************************
+diff --git a/manual/english/References.md b/manual/english/References.md
+index fb2a980..5ac43ba 100755
+--- a/manual/english/References.md
++++ b/manual/english/References.md
+@@ -476,6 +476,7 @@ To be put in the `searchd {}` section of the configuration file:
+   * [diskchunk_flush_write_timeout](Server_settings/Searchd.md#diskchunk_flush_write_timeout) - Timeout for auto-flushing a RAM chunk if there are no writes to it
+   * [diskchunk_flush_search_timeout](Server_settings/Searchd.md#diskchunk_flush_search_timeout) - Timeout for preventing auto-flushing a RAM chunk if there are no searches in the table
+   * [docstore_cache_size](Server_settings/Searchd.md#docstore_cache_size) - Maximum size of document blocks from document storage held in memory
++  * [docstore_cache_adaptive](Server_settings/Searchd.md#docstore_cache_adaptive) - Reclaim cold stored-field blocks as the active working set shrinks
+   * [embeddings_threads](Server_settings/Searchd.md#embeddings_threads) - Maximum number of threads the embeddings library may use when generating vectors for auto-embedding inserts, `ALTER TABLE` KNN rebuilds, and KNN text-query embedding
+   * [expansion_limit](Creating_a_table/NLP_and_tokenization/Wildcard_searching_settings.md#expansion_limit) - Maximum number of expanded keywords for a single wildcard
+   * [grouping_in_utc](Server_settings/Searchd.md#grouping_in_utc) - Enables using UTC timezone for grouping time fields
+diff --git a/manual/english/Server_settings/Searchd.md b/manual/english/Server_settings/Searchd.md
+index 051a46f..85fbd29 100755
+--- a/manual/english/Server_settings/Searchd.md
++++ b/manual/english/Server_settings/Searchd.md
+@@ -715,6 +715,43 @@ docstore_cache_size = 8m
+ ```
+ <!-- end -->
+ 
++### docstore_cache_adaptive
++
++Enable adaptive cold-block reclamation with `1`; the default is `0`. The
++`docstore_cache_size` setting remains the hard limit for cached decoded blocks
++and LRU entries. Memory is already allocated on demand in either mode: a
++512 MiB limit does not reserve 512 MiB at startup. Hash tables and allocator
++metadata, reader buffers and in-flight decompression remain additional memory.
++
++Adaptive mode keeps the partition count and block-to-partition mapping fixed.
++Each partition observes windows of 4096 block lookups under its existing lock.
++After four windows with at least 99% hits and touched bytes below one quarter
++of retained bytes, it gradually frees cold, unreferenced entries. It retains
++headroom of twice the touched bytes, with a target floor totaling up to 16 MiB
++across partitions. This floor is not a minimum allocation. Each reclamation
++step examines at most 32 entries per 64 lookups. Recently touched and referenced
++blocks survive reclamation; normal admission can grow again up to the limit.
++
++Reclamation is driven by lookups, not a wall-clock timer. Idle partitions do
++not advance their windows. Low hit rates do not trigger this cold-block trim,
++and adaptive mode does not bypass cache lookup costs or exceed an undersized
++configured limit. Choose the limit for the active decoded working set and
++available memory. It is independent of DocID caching and requires no reader TLS.
++
++`SHOW STATUS LIKE 'docstore_cache_used_bytes'` reports retained decoded payload
++and LRU entry bytes, summed from separately locked partition snapshots. It
++excludes hash tables, allocator metadata, reader buffers and in-flight blocks;
++it is not process RSS or an atomic cross-partition snapshot.
++Freeing cached blocks does not guarantee lower process RSS: the allocator can
++retain released storage. The target floor is a policy target, not a guaranteed
++final occupancy; the activity threshold and pinned blocks can stop reclamation
++above it.
++
++```ini
++docstore_cache_size = 512m
++docstore_cache_adaptive = 1
++```
++
+ ### engine
+ 
+ <!-- example conf engine -->
+diff --git a/src/docstore.cpp b/src/docstore.cpp
+index 394ee45..6b98363 100644
+--- a/src/docstore.cpp
++++ b/src/docstore.cpp
+@@ -322,7 +322,7 @@ class BlockCache_c
+ 	using Shard_t = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
+ 
+ public:
+-	explicit BlockCache_c ( int64_t iCacheSize )
++	explicit BlockCache_c ( int64_t iCacheSize, bool bAdaptive )
+ 	{
+ 		while ( m_iShards<16 && iCacheSize/(m_iShards*2)>=1024*1024 )
+ 			m_iShards *= 2;
+@@ -330,13 +330,20 @@ public:
+ 		{
+ 			const int64_t iBudget = iCacheSize/m_iShards + (i<iCacheSize%m_iShards);
+ 			// Sharding must not shrink the original maximum-block admission threshold.
+-			m_dShards[i] = std::make_unique<Shard_t> ( iBudget, iCacheSize/64 );
++			const int64_t iFloor = bAdaptive ? Min ( iBudget, int64_t(16*1024*1024)/m_iShards ) : 0;
++			m_dShards[i] = std::make_unique<Shard_t> ( iBudget, iCacheSize/64, iFloor );
+ 		}
+ 	}
+ 
+ 	bool Find ( HashKey_t tKey, BlockData_t & tData ) { return Shard(tKey).Find ( tKey, tData ); }
+ 	bool Add ( HashKey_t tKey, const BlockData_t & tData ) { return Shard(tKey).Add ( tKey, tData ); }
+ 	void Release ( HashKey_t tKey ) { Shard(tKey).Release(tKey); }
++	int64_t GetUsedBytes()
++	{
++		int64_t iUsed = 0;
++		for ( int i=0; i<m_iShards; ++i ) iUsed += m_dShards[i]->GetUsedBytes();
++		return iUsed;
++	}
+ 
+ 	void ClearByIndexId ( int64_t iIndexId )
+ 	{
+@@ -349,7 +356,7 @@ public:
+ 			m_dShards[i]->Delete ( []( const HashKey_t & ){ return true; } );
+ 	}
+ 
+-	static void Init ( int64_t iCacheSize );
++	static void Init ( int64_t iCacheSize, bool bAdaptive );
+ 	static void Done() { SafeDelete(m_pBlockCache); }
+ 	static BlockCache_c * Get() { return m_pBlockCache; }
+ 
+@@ -364,11 +371,11 @@ private:
+ 
+ BlockCache_c * BlockCache_c::m_pBlockCache = nullptr;
+ 
+-void BlockCache_c::Init ( int64_t iCacheSize )
++void BlockCache_c::Init ( int64_t iCacheSize, bool bAdaptive )
+ {
+ 	assert ( !m_pBlockCache );
+ 	if ( iCacheSize > 0 )
+-		m_pBlockCache = new BlockCache_c(iCacheSize);
++		m_pBlockCache = new BlockCache_c ( iCacheSize, bAdaptive );
+ }
+ 
+ //////////////////////////////////////////////////////////////////////////
+@@ -2013,12 +2020,18 @@ std::unique_ptr<DocstoreFields_i> CreateDocstoreFields()
+ }
+ 
+ 
+-void InitDocstore ( int64_t iCacheSize )
++void InitDocstore ( int64_t iCacheSize, bool bAdaptive )
+ {
+-	BlockCache_c::Init(iCacheSize);
++	BlockCache_c::Init ( iCacheSize, bAdaptive );
+ 	DocstoreReaders_c::Init();
+ }
+ 
++int64_t GetDocstoreCacheUsedBytes()
++{
++	auto * pCache = BlockCache_c::Get();
++	return pCache ? pCache->GetUsedBytes() : 0;
++}
++
+ 
+ void ShutdownDocstore()
+ {
+diff --git a/src/docstore.h b/src/docstore.h
+index ac21e0e..8c64fc4 100644
+--- a/src/docstore.h
++++ b/src/docstore.h
+@@ -137,7 +137,8 @@ std::unique_ptr<DocstoreBuilder_i>	CreateDocstoreBuilder ( const CSphString & sF
+ std::unique_ptr<DocstoreRT_i>		CreateDocstoreRT();
+ std::unique_ptr<DocstoreFields_i>	CreateDocstoreFields();
+ 
+-void				InitDocstore ( int64_t iCacheSize );
++void				InitDocstore ( int64_t iCacheSize, bool bAdaptive = false );
++int64_t				GetDocstoreCacheUsedBytes();
+ void				ShutdownDocstore();
+ void				ClearDocstoreCache();
+ 
+diff --git a/src/gtests/gtests_docstore_blockcache.cpp b/src/gtests/gtests_docstore_blockcache.cpp
+index f4da02b..037ff6e 100644
+--- a/src/gtests/gtests_docstore_blockcache.cpp
++++ b/src/gtests/gtests_docstore_blockcache.cpp
+@@ -5,6 +5,7 @@
+ #include "docstore.h"
+ #include "indexsettings.h"
+ #include "threadutils.h"
++#include "std/lrucache.h"
+ 
+ #include <atomic>
+ #include <string>
+@@ -13,15 +14,142 @@
+ 
+ namespace
+ {
+-class DocstoreBlockCacheTest : public ::testing::Test
++struct CacheTestData_t
++{
++	BYTE * m_pData;
++	DWORD m_uSize;
++};
++
++struct CacheTestUtil_t
++{
++	static DWORD GetHash ( int iKey ) { return DWORD(iKey)*2654435761U; }
++	static bool Equal ( int a, int b ) { return a==b; }
++	static DWORD GetSize ( const CacheTestData_t & tData ) { return tData.m_uSize; }
++	static void Reset ( CacheTestData_t & tData ) { delete[] tData.m_pData; }
++};
++
++class AdaptiveLruTest_c : public LRUCache_T<int, CacheTestData_t, CacheTestUtil_t>
++{
++	using BASE = LRUCache_T<int, CacheTestData_t, CacheTestUtil_t>;
++public:
++	explicit AdaptiveLruTest_c ( bool bAdaptive, int64_t iLimit = 512*1024 )
++		: BASE ( iLimit, iLimit, bAdaptive ? 16*1024 : 0 ) {}
++	int64_t Used() { return GetUsedBytes(); }
++	void Put ( int iKey )
++	{
++		CacheTestData_t tData;
++		if ( Find ( iKey, tData ) )
++		{
++			Release(iKey);
++			return;
++		}
++		tData = { new BYTE[1] { BYTE(iKey%251) }, 1024 };
++		if ( Add ( iKey, tData ) )
++			Release(iKey);
++		else
++			CacheTestUtil_t::Reset(tData);
++	}
++	void Hot ( int iReads = 30000 )
++	{
++		for ( int i=0; i<iReads; ++i ) Put(i%4);
++	}
++};
++
++TEST ( AdaptiveLru, LazyGrowthAndHardLimit )
++{
++	AdaptiveLruTest_c tCache(true);
++	ASSERT_EQ ( tCache.Used(), 0 );
++	for ( int i=0; i<1000; ++i )
++	{
++		tCache.Put(i);
++		ASSERT_LE ( tCache.Used(), 512*1024 );
++	}
++	ASSERT_GT ( tCache.Used(), 16*1024 );
++}
++
++TEST ( AdaptiveLru, HotSetChangeReclaimsColdBlocks )
++{
++	AdaptiveLruTest_c tCache(true);
++	for ( int i=0; i<256; ++i ) tCache.Put(i);
++	ASSERT_GT ( tCache.Used(), 128*1024 );
++	tCache.Hot();
++	ASSERT_LE ( tCache.Used(), 16*1024 );
++	for ( int i=0; i<4; ++i )
++	{
++		CacheTestData_t tData;
++		ASSERT_TRUE ( tCache.Find ( i, tData ) );
++		EXPECT_EQ ( *tData.m_pData, i );
++		tCache.Release(i);
++	}
++}
++
++TEST ( AdaptiveLru, ManualModeRetainsExistingBehavior )
++{
++	AdaptiveLruTest_c tCache(false);
++	for ( int i=0; i<256; ++i ) tCache.Put(i);
++	const auto iUsed = tCache.Used();
++	tCache.Hot();
++	ASSERT_EQ ( tCache.Used(), iUsed );
++}
++
++TEST ( AdaptiveLru, ReferencedBlocksSurviveReclamation )
++{
++	AdaptiveLruTest_c tCache(true);
++	std::vector<CacheTestData_t> dPinned(256);
++	for ( int i=0; i<256; ++i )
++	{
++		tCache.Put(i);
++		ASSERT_TRUE ( tCache.Find ( i, dPinned[i] ) );
++	}
++	const auto iUsed = tCache.Used();
++	tCache.Hot();
++	ASSERT_EQ ( tCache.Used(), iUsed );
++	for ( int i=0; i<256; ++i )
++	{
++		EXPECT_EQ ( *dPinned[i].m_pData, i%251 );
++		tCache.Release(i);
++	}
++	tCache.Hot(2048);
++	ASSERT_LE ( tCache.Used(), 16*1024 );
++}
++
++TEST ( AdaptiveLru, ConcurrentGrowthReadsAndReclamation )
++{
++	AdaptiveLruTest_c tCache(true, 128*1024);
++	std::atomic<int> iFailures { 0 };
++	std::vector<std::thread> dThreads;
++	for ( int i=0; i<8; ++i )
++		dThreads.emplace_back ( [&,i] {
++			for ( int j=0; j<30000; ++j )
++			{
++				int iKey = j<5000 ? (j*31+i*173)%1024 : j%4;
++				tCache.Put(iKey);
++				CacheTestData_t tData;
++				if ( tCache.Find ( iKey, tData ) )
++				{
++					if ( *tData.m_pData!=iKey%251 ) ++iFailures;
++					tCache.Release(iKey);
++				}
++			}
++		} );
++	for ( auto & tThread : dThreads ) tThread.join();
++	ASSERT_EQ ( iFailures.load(), 0 );
++	// Overlapping thread phases can stop trimming at the one-quarter activity threshold.
++	ASSERT_LT ( tCache.Used(), 32*1024 );
++}
++
++class DocstoreBlockCacheTest : public ::testing::TestWithParam<bool>
+ {
+ protected:
+ 	void SetUp() override
+ 	{
+-		InitDocstore ( 2*1024*1024 );
++		InitDocstore ( 2*1024*1024, GetParam() );
++		ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
+ 		const auto * pInfo = testing::UnitTest::GetInstance()->current_test_info();
++		std::string sName = pInfo->name();
++		for ( auto & c : sName ) if ( c=='/' ) c='_';
+ 		for ( int i=0; i<2; ++i )
+-			m_dFiles[i].SetSprintf ( "__docstore_blocks_%d_%s_%d.spds", GetOsProcessId(), pInfo->name(), i );
++			m_dFiles[i].SetSprintf ( "__docstore_blocks_%d_%s_%d.spds", GetOsProcessId(), sName.c_str(), i );
+ 	}
+ 
+ 	void TearDown() override
+@@ -74,7 +202,7 @@ protected:
+ 	CSphString m_dFiles[2];
+ };
+ 
+-TEST_F ( DocstoreBlockCacheTest, ClearAndSameKeyReplacement )
++TEST_P ( DocstoreBlockCacheTest, ClearAndSameKeyReplacement )
+ {
+ 	Write ( 0, 1, 256, 128 );
+ 	Write ( 1, 2, 256, 128 );
+@@ -84,6 +212,7 @@ TEST_F ( DocstoreBlockCacheTest, ClearAndSameKeyReplacement )
+ 	pStore->CreateReader(tSession.GetUID());
+ 	for ( int i=0; i<256; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 128 ) );
+ 	ClearDocstoreCache();
++	ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
+ 	ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, 123, 128 ) );
+ 	pStore.reset();
+ 	pStore = Open ( 1, 801 );
+@@ -92,26 +221,45 @@ TEST_F ( DocstoreBlockCacheTest, ClearAndSameKeyReplacement )
+ 	for ( int i=255; i>=0; --i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 2, i, 128 ) );
+ }
+ 
+-TEST_F ( DocstoreBlockCacheTest, ConcurrentReadsUnderEvictionPressure )
++TEST_P ( DocstoreBlockCacheTest, ConcurrentReadsUnderEvictionPressure )
+ {
+-	Write ( 0, 1, 2048, 4096 ); // 8 MiB decoded data exceeds the 2 MiB shared budget.
++	const int iRows = GetParam() ? 6144 : 2048;
++	const int64_t iBudget = GetParam() ? 32*1024*1024 : 2*1024*1024;
++	if ( GetParam() )
++	{
++		ShutdownDocstore();
++		InitDocstore ( iBudget, true );
++	}
++	Write ( 0, 1, iRows, 4096 );
+ 	auto pStore = Open ( 0, 802 );
+ 	ASSERT_TRUE(pStore);
+ 	std::atomic<int> iFailures { 0 };
+ 	std::vector<std::thread> dThreads;
+-	for ( int i=0; i<8; ++i )
+-		dThreads.emplace_back ( [&,i] {
+-			DocstoreSession_c tSession;
+-			pStore->CreateReader(tSession.GetUID());
+-			for ( int j=0; j<2048; ++j )
+-				if ( !Matches ( *pStore, tSession.GetUID(), 1, (j*509+i*173)%2048, 4096 ) ) ++iFailures;
+-		} );
+-	for ( auto & tThread : dThreads ) tThread.join();
++	auto fnRead = [&] ( int iCount, int iRange ) {
++		dThreads.clear();
++		for ( int i=0; i<8; ++i )
++			dThreads.emplace_back ( [&,i,iCount,iRange] {
++				DocstoreSession_c tSession;
++				pStore->CreateReader(tSession.GetUID());
++				for ( int j=0; j<iCount; ++j )
++					if ( !Matches ( *pStore, tSession.GetUID(), 1, (j*509+i*173)%iRange, 4096 ) ) ++iFailures;
++			} );
++		for ( auto & tThread : dThreads ) tThread.join();
++	};
++	fnRead ( iRows, iRows );
++	if ( GetParam() )
++	{
++		const auto iBefore = GetDocstoreCacheUsedBytes();
++		ASSERT_GT ( iBefore, 20*1024*1024 );
++		fnRead ( 50000, 512 );
++		ASSERT_LT ( GetDocstoreCacheUsedBytes(), iBefore );
++	}
+ 	ASSERT_EQ ( iFailures.load(), 0 );
++	ASSERT_LE ( GetDocstoreCacheUsedBytes(), iBudget );
+ 	ClearDocstoreCache();
+ }
+ 
+-TEST_F ( DocstoreBlockCacheTest, LargeFieldsAndTinyBudgetFallback )
++TEST_P ( DocstoreBlockCacheTest, LargeFieldsAndTinyBudgetFallback )
+ {
+ 	Write ( 0, 1, 40, 70000 );
+ 	auto pStore = Open ( 0, 803 );
+@@ -122,10 +270,13 @@ TEST_F ( DocstoreBlockCacheTest, LargeFieldsAndTinyBudgetFallback )
+ 		for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 70000 ) );
+ 	pStore.reset();
+ 	ShutdownDocstore();
+-	InitDocstore(1);
++	InitDocstore ( 1, GetParam() );
+ 	pStore = Open ( 0, 803 );
+ 	ASSERT_TRUE(pStore);
+ 	pStore->CreateReader(tSession.GetUID());
+ 	for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 70000 ) );
++	ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
+ }
++
++INSTANTIATE_TEST_SUITE_P ( Modes, DocstoreBlockCacheTest, ::testing::Values ( false, true ) );
+ }
+diff --git a/src/searchd.cpp b/src/searchd.cpp
+index af44ee7..489a44b 100644
+--- a/src/searchd.cpp
++++ b/src/searchd.cpp
+@@ -149,6 +149,7 @@ int						g_iMaxFilterValues	= 4096;
+ int						g_iMaxBatchQueries	= 32;
+ 
+ static int64_t			g_iDocstoreCache = 0;
++static bool				g_bDocstoreCacheAdaptive = false;
+ static int64_t			g_iSkipCache = 0;
+ 
+ static auto &	g_iDistThreads		= getDistThreads();
+@@ -2946,6 +2947,7 @@ void BuildStatus ( VectorLike & dStatus )
+ 	dStatus.MatchTupletf ( "qcache_used_bytes", "%l", s.m_iUsedBytes );
+ 	dStatus.MatchTupletf ( "qcache_hits", "%l", s.m_iHits );
+ 	dStatus.MatchTupletf ( "docid_lookup_cache_used_bytes", "%l", (int64_t)DocidLookupCache_c::GetUsed() );
++	dStatus.MatchTupletf ( "docstore_cache_used_bytes", "%l", GetDocstoreCacheUsedBytes() );
+ 
+ 	// clusters
+ 	ReplicateClustersStatus ( dStatus );
+@@ -16009,6 +16011,7 @@ void ConfigureSearchd ( const CSphConfig & hConf, bool bNeedPIDFile, bool bTestM
+ 	DocidLookupCache_c::SetBudget((size_t)iDocidCache);
+ 
+ 	g_iDocstoreCache = hSearchd.GetSize64 ( "docstore_cache_size", 16777216 );
++	g_bDocstoreCacheAdaptive = hSearchd.GetInt ( "docstore_cache_adaptive", 0 )!=0;
+ 	g_iSkipCache = hSearchd.GetSize64 ( "skiplist_cache_size", 67108864 );
+ 
+ 	if ( hSearchd.Exists ( "max_open_files" ) )
+@@ -17204,7 +17207,7 @@ int WINAPI ServiceMain ( int argc, char **argv ) EXCLUDES (MainThread)
+ 		sphLockUn ( g_iPidFD );
+ 
+ 	SetUidShort ( GetMacAddress(), g_sPidFile, bTestMode );
+-	InitDocstore ( g_iDocstoreCache );
++	InitDocstore ( g_iDocstoreCache, g_bDocstoreCacheAdaptive );
+ 	InitSkipCache ( g_iSkipCache );
+ 	InitParserOption();
+ 
+diff --git a/src/sphinxutils.cpp b/src/sphinxutils.cpp
+index 87653c8..65b6c5d 100644
+--- a/src/sphinxutils.cpp
++++ b/src/sphinxutils.cpp
+@@ -1177,6 +1177,7 @@ static KeyDesc_t g_dKeysSearchd[] =
+ 	{ "access_secondary",		0, nullptr },
+ 	{ "docid_lookup_cache_size", 0, nullptr },
+ 	{ "docstore_cache_size",	0, nullptr },
++	{ "docstore_cache_adaptive", 0, nullptr },
+ 	{ "skiplist_cache_size",	0, nullptr },
+ 	{ "ssl_cert",				0, nullptr },
+ 	{ "ssl_key",				0, nullptr },
+diff --git a/src/std/lrucache.h b/src/std/lrucache.h
+index 7f5bdff..f577790 100644
+--- a/src/std/lrucache.h
++++ b/src/std/lrucache.h
+@@ -21,12 +21,13 @@ template <typename KEY, typename VALUE, typename HELPER>
+ class LRUCache_T
+ {
+ public:
+-			LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize = -1 );
++			LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize = -1, int64_t iAdaptiveFloor = 0 );
+ 			~LRUCache_T();
+ 
+ 	bool	Find ( KEY tKey, VALUE & tData );
+ 	bool	Add ( KEY tKey, const VALUE & tData );
+ 	void	Release ( KEY tKey );
++	int64_t GetUsedBytes();
+ 
+ 	template <typename COND>
+ 	void	Delete ( COND && fnCond );
+@@ -37,6 +38,7 @@ protected:
+ 		VALUE			m_tValue;
+ 		DWORD			m_uSize = 0;
+ 		int				m_iRefcount = 0;
++		uint32_t		m_uAccessEpoch = 0;
+ 		LinkedEntry_t *	m_pPrev = nullptr;
+ 		LinkedEntry_t *	m_pNext = nullptr;
+ 		KEY				m_tKey;
+@@ -66,6 +68,18 @@ protected:
+ 	void	Delete ( LinkedEntry_t * pEntry );
+ 
+ private:
++	// Access epochs advance under the existing shard lock, without a global counter.
++	int64_t m_iAdaptiveFloor = 0;
++	int64_t m_iAdaptiveTarget = 0;
++	int64_t m_iActiveBytes = 0;
++	uint32_t m_uAccessEpoch = 1;
++	int m_iWindowAccesses = 0;
++	int m_iWindowHits = 0;
++	int m_iStableWindows = 0;
++
++	void	Observe ( LinkedEntry_t * pEntry );
++	void	Touch ( LinkedEntry_t * pEntry );
++	void	TrimCold();
+ 	void	MoveToHead ( LinkedEntry_t * pEntry );
+ 	void	Add ( LinkedEntry_t * pEntry );
+ 	void	SweepUnused ( DWORD uSpaceNeeded );
+diff --git a/src/std/lrucache_impl.h b/src/std/lrucache_impl.h
+index c55ae40..5aa0bf4 100644
+--- a/src/std/lrucache_impl.h
++++ b/src/std/lrucache_impl.h
+@@ -13,10 +13,12 @@
+ #include "scopedlock.h"
+ 
+ template <typename KEY, typename VALUE, typename HELPER>
+-LRUCache_T<KEY,VALUE,HELPER>::LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize )
++LRUCache_T<KEY,VALUE,HELPER>::LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize, int64_t iAdaptiveFloor )
+ 	: m_iCacheSize ( iCacheSize )
+ 	, m_uMaxBlockSize ( DWORD(iMaxBlockSize<0 ? iCacheSize/64 : iMaxBlockSize) )
+ 	, m_tHash ( 1024 )
++	, m_iAdaptiveFloor ( Min ( iCacheSize, iAdaptiveFloor ) )
++	, m_iAdaptiveTarget ( iCacheSize )
+ {}
+ 
+ template <typename KEY, typename VALUE, typename HELPER>
+@@ -38,12 +40,16 @@ bool LRUCache_T<KEY,VALUE,HELPER>::Find ( KEY tKey, VALUE & tData )
+ 
+ 	LinkedEntry_t ** ppEntry = m_tHash.Find(tKey);
+ 	if ( !ppEntry )
++	{
++		if ( m_iAdaptiveFloor ) Observe(nullptr);
+ 		return false;
++	}
+ 
+ 	MoveToHead ( *ppEntry );
+ 
+ 	(*ppEntry)->m_iRefcount++;
+ 	tData = (*ppEntry)->m_tValue;
++	if ( m_iAdaptiveFloor ) Observe(*ppEntry);
+ 	return true;
+ }
+ 
+@@ -76,9 +82,74 @@ bool LRUCache_T<KEY,VALUE,HELPER>::Add ( KEY tKey, const VALUE & tData )
+ 	pEntry->m_uSize = uSize;
+ 
+ 	Add ( pEntry );
++	if ( m_iAdaptiveFloor ) Touch(pEntry);
+ 	return true;
+ }
+ 
++template <typename KEY, typename VALUE, typename HELPER>
++int64_t LRUCache_T<KEY,VALUE,HELPER>::GetUsedBytes()
++{
++	ScopedMutex_t tLock(m_tLock);
++	return m_iMemUsed;
++}
++
++template <typename KEY, typename VALUE, typename HELPER>
++void LRUCache_T<KEY,VALUE,HELPER>::Touch ( LinkedEntry_t * pEntry )
++{
++	if ( pEntry->m_uAccessEpoch==m_uAccessEpoch )
++		return;
++	pEntry->m_uAccessEpoch = m_uAccessEpoch;
++	m_iActiveBytes += pEntry->m_uSize + sizeof(LinkedEntry_t);
++}
++
++template <typename KEY, typename VALUE, typename HELPER>
++void LRUCache_T<KEY,VALUE,HELPER>::Observe ( LinkedEntry_t * pEntry )
++{
++	if ( pEntry )
++	{
++		Touch(pEntry);
++		++m_iWindowHits;
++	}
++	if ( ++m_iWindowAccesses==4096 )
++	{
++		// Require four stable windows and retain twice the recently touched bytes.
++		if ( m_iWindowHits>=4056 && m_iActiveBytes<m_iMemUsed/4 )
++		{
++			m_iStableWindows = Min ( m_iStableWindows+1, 4 );
++			if ( m_iStableWindows==4 )
++				m_iAdaptiveTarget = Min ( m_iCacheSize, Max ( m_iAdaptiveFloor, m_iActiveBytes*2 ) );
++		}
++		else
++		{
++			m_iStableWindows = 0;
++			m_iAdaptiveTarget = m_iCacheSize;
++		}
++		m_iWindowAccesses = m_iWindowHits = 0;
++		m_iActiveBytes = 0;
++		if ( !++m_uAccessEpoch )
++		{
++			m_uAccessEpoch = 1;
++			for ( auto * p = m_pHead; p; p=p->m_pNext ) p->m_uAccessEpoch = 0;
++		}
++	}
++	// Bound each lock hold while a smaller hot set releases cold storage.
++	if ( !(m_iWindowAccesses%64) && m_iMemUsed>m_iAdaptiveTarget ) TrimCold();
++}
++
++template <typename KEY, typename VALUE, typename HELPER>
++void LRUCache_T<KEY,VALUE,HELPER>::TrimCold()
++{
++	auto * pEntry = m_pTail;
++	for ( int i=0; pEntry && i<32 && m_iMemUsed>m_iAdaptiveTarget; ++i )
++	{
++		auto * pPrevious = pEntry->m_pPrev;
++		if ( !pEntry->m_iRefcount && pEntry->m_uAccessEpoch!=m_uAccessEpoch
++			&& pEntry->m_uAccessEpoch!=m_uAccessEpoch-1 )
++			Delete(pEntry);
++		pEntry = pPrevious;
++	}
++}
++
+ template <typename KEY, typename VALUE, typename HELPER>
+ void LRUCache_T<KEY,VALUE,HELPER>::Release ( KEY tKey )
+ {
+diff --git a/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec b/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
+index a27dd24..0da49c2 100644
+--- a/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
++++ b/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
+@@ -13,10 +13,10 @@ curl -s 0:9308/metrics > /tmp/exporter_unfiltered_output.txt
+ cat /tmp/exporter_unfiltered_output.txt | grep -e "^manticore" | cut -d" " -f1 | sed 's/^manticore_//' | sed 's/qcache_thresh_microseconds/qcache_thresh_msec/' | sort > /tmp/exporter_output.txt
+ ––– output –––
+ ––– input –––
+-searchd --iostats --cpustats --status | cut -d":" -f1 | tail -n +10 | grep -v -e "^command_optimize$" -e "^command_shard_write$" -e "^docid_lookup_cache_used_bytes$" | sort > /tmp/searchd_output.txt
++searchd --iostats --cpustats --status | cut -d":" -f1 | tail -n +10 | grep -v -e "^command_optimize$" -e "^command_shard_write$" -e "^docid_lookup_cache_used_bytes$" -e "^docstore_cache_used_bytes$" | sort > /tmp/searchd_output.txt
+ ––– output –––
+ ––– comment –––
+-command_optimize, command_shard_write and docid_lookup_cache_used_bytes are public daemon metrics, but the pinned Buddy version does not export them yet. Keep this filter until Buddy metric_definitions.json is updated in the Buddy repo.
++command_optimize, command_shard_write, docid_lookup_cache_used_bytes and docstore_cache_used_bytes are public daemon metrics, but the pinned Buddy version does not export them yet. Keep this filter until Buddy metric_definitions.json is updated in the Buddy repo.
+ ––– input –––
+ ls -1 /tmp | grep -E "^(exporter|searchd).*\.txt$"
+ ––– output –––
+diff --git a/test/docid-cache/README.md b/test/docid-cache/README.md
+index 237408d..6824c40 100644
+--- a/test/docid-cache/README.md
++++ b/test/docid-cache/README.md
+@@ -52,3 +52,21 @@ Windows `RowID_t`/`uint32_t` ABI difference. Block-cache performance comparisons
+ must state the DocID budget and compare equal budgets in both binaries. A
+ same-binary comparison of `docstore_cache_size=0` and `16m` answers a separate
+ question from the benefit of changing the block-cache implementation.
++
++The opt-in `docstore_cache_adaptive=1` mode retains the configured
++`docstore_cache_size` hard entry limit and reclaims cold, unreferenced blocks
++after a stable smaller hot set is observed. Both modes already allocate only
++on demand; the adaptive change adds reclamation rather than preallocation or
++automatic growth beyond the configured ceiling. Lookup epochs are per shard,
++updated under the existing lock, and require no TLS or global atomic counter.
++Idle shards do not advance epochs and no low-hit-rate bypass is implemented.
++
++The public stored-field tests run in both manual and adaptive modes.
++`AdaptiveLru` tests additionally check demand growth, hard limits, hot-set
++changes, unchanged manual retention, pinned references and concurrent reads
++under admission/reclamation pressure. The `docstore_cache_used_bytes` status
++metric reports charged cached entry bytes, separately from process RSS. Compare
++manual/adaptive at the same ceiling before attributing an effect to the new
++policy; raising 16 MiB to 512 MiB is a separate capacity comparison.
++Releasing cached entries does not guarantee that the allocator returns memory
++to the operating system or that process RSS falls.

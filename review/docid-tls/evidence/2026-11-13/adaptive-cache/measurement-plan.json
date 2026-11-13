@@ -1,0 +1,48 @@
+{
+  "written_before_results": true,
+  "source_baseline": "376fbf9",
+  "candidate_patch_sha256": "3be73b2f9f5246a5164372c863d67cb76fdee66138771561392216c2fa69cd2d",
+  "native_docid_budget": 0,
+  "reader_tls": false,
+  "query_cache": 0,
+  "matrix_rows": [
+    20000,
+    100000,
+    500000,
+    1000000,
+    5000000
+  ],
+  "matrix_rounds": 6,
+  "seconds_per_arm": 3,
+  "matrix_arms": [
+    "reference16",
+    "manual16",
+    "manual512",
+    "adaptive512",
+    "off0",
+    "off1"
+  ],
+  "purpose": "Separate default-mode regression, 16-to-512 capacity change, equal-512 adaptive policy, and cache-off control. Both 512 modes already allocate on demand.",
+  "order": "Six-arm Williams balanced design; rotate server creation order by size.",
+  "transition_diagnostic": {
+    "passes": 2,
+    "reverse_arm_order": true,
+    "fresh_servers_each_arm": true,
+    "stages": [
+      "5M ID range",
+      "20k hot ID range on same 5M table",
+      "5M ID range again"
+    ],
+    "seconds_per_stage": 8,
+    "memory_probe_interval_seconds": 0.2,
+    "scope": "Cache occupancy diagnostic with concurrent status probes; not the primary QPS comparison."
+  },
+  "load_control": {
+    "idle_gate_seconds": 30,
+    "minimum_mean_idle": 90,
+    "minimum_interval_idle": 80,
+    "telemetry_seconds": 1,
+    "retain_all_samples": true
+  },
+  "outcome_selection": "All sizes, both memory passes and every sign retained."
+}

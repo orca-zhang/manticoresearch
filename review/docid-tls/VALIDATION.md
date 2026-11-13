@@ -1,5 +1,30 @@
 # Validation record
 
+## Separate adaptive prototype validation
+
+The [adaptive report](ADAPTIVE_CACHE_2026-11-13.md) uses source experiment
+`ad885be366eda4e897c828f05cb93ff04702d02c`, based on #5042 `376fbf9`, with no TLS.
+It is outside both production PRs. Final native tests pass 529/529; focused
+native, ASan+UBSan and TSan each pass 11 tests ×20. The final public
+stored-field case checks real concurrent cold-entry reclamation. Instrumented
+scope is docstore, SkipCache, file I/O and focused tests; other linked objects
+are reused. LeakSanitizer is unsupported on this macOS runtime and passing
+ASan runs disable leak detection. Inherited stack-calibration overrides are
+recorded; no fresh automatic calibration is claimed.
+
+The original measured searchd/source snapshot is preserved. Later changes
+are confined to stronger tests and two English documents; production hashes
+remain identical. A prior strengthened-test floor assertion failure and its
+correction are retained, along with setup and unsupported-LeakSanitizer logs.
+The final-validation manifest distinguishes these scopes. API smoke and all
+192 timed sample/stage response checks and lifecycle checks pass. Primary
+samples cover 2,481,672 queries; memory diagnostics cover 401,428. All timed
+telemetry coverage is complete; seven primary samples are flagged and retained.
+
+No upstream CI result validates this prototype; SkipCache performance,
+adaptive-plus-TLS performance and lower process RSS are not established.
+#5042's separate CI gate remains `action_required`, with zero jobs.
+
 Updated review (2026-11-13): [#5042 shared-block-cache results and CI fixes,
 without TLS](BLOCK_CACHE_2026-11-13.md); [#5045 default-cache/large-data,
 lifetime and churn answers](TLS_REVIEW_2026-11-13.md). The sections below retain

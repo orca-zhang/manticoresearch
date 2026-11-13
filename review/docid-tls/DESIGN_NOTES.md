@@ -1,5 +1,18 @@
 # Design boundaries: DocID, shared blocks and reader TLS
 
+## Experimental adaptive cold-entry reclamation
+
+A separate [opt-in experiment](ADAPTIVE_CACHE_2026-11-13.md) keeps
+`docstore_cache_size` as the hard cached-entry ceiling. Both modes already
+allocate on demand. Per-shard lookup epochs, updated under existing locks,
+identify a stable smaller hot set and gradually delete cold unreferenced
+entries. It uses XXH3, fixed shard mapping, no TLS and no global counter.
+Idle shards do not advance epochs. The target floor is not a guarantee of
+final occupancy or an RSS bound. Two memory passes reclaim entries but show
+no process-RSS drop, so the prototype remains outside both production PRs.
+Generic LRU node metadata changes even in manual mode; SkipCache performance
+is unmeasured. See the report before treating this as a production extension.
+
 PR #5042 covers row resolution and the shared docstore block cache. PR #5045
 only covers reader-map TLS; the two PRs remain independently applicable.
 The diagram shows the optional combined flow. #5042 alone always uses the

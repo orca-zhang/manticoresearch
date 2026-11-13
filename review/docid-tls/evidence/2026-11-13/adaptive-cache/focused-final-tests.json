@@ -1,0 +1,149 @@
+{
+  "tests": 11,
+  "failures": 0,
+  "disabled": 0,
+  "errors": 0,
+  "timestamp": "2026-11-13T22:30:36Z",
+  "time": "0.17s",
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "AdaptiveLru",
+      "tests": 5,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2026-11-13T22:30:36Z",
+      "time": "0.03s",
+      "testsuite": [
+        {
+          "name": "LazyGrowthAndHardLimit",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 58,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0s",
+          "classname": "AdaptiveLru"
+        },
+        {
+          "name": "HotSetChangeReclaimsColdBlocks",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 70,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0s",
+          "classname": "AdaptiveLru"
+        },
+        {
+          "name": "ManualModeRetainsExistingBehavior",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 86,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0s",
+          "classname": "AdaptiveLru"
+        },
+        {
+          "name": "ReferencedBlocksSurviveReclamation",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 95,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0s",
+          "classname": "AdaptiveLru"
+        },
+        {
+          "name": "ConcurrentGrowthReadsAndReclamation",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 116,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0.029s",
+          "classname": "AdaptiveLru"
+        }
+      ]
+    },
+    {
+      "name": "Modes\/DocstoreBlockCacheTest",
+      "tests": 6,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2026-11-13T22:30:36Z",
+      "time": "0.138s",
+      "testsuite": [
+        {
+          "name": "ClearAndSameKeyReplacement\/0",
+          "value_param": "false",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 204,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0.001s",
+          "classname": "Modes\/DocstoreBlockCacheTest"
+        },
+        {
+          "name": "ClearAndSameKeyReplacement\/1",
+          "value_param": "true",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 204,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0s",
+          "classname": "Modes\/DocstoreBlockCacheTest"
+        },
+        {
+          "name": "ConcurrentReadsUnderEvictionPressure\/0",
+          "value_param": "false",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 223,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0.019s",
+          "classname": "Modes\/DocstoreBlockCacheTest"
+        },
+        {
+          "name": "ConcurrentReadsUnderEvictionPressure\/1",
+          "value_param": "true",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 223,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0.113s",
+          "classname": "Modes\/DocstoreBlockCacheTest"
+        },
+        {
+          "name": "LargeFieldsAndTinyBudgetFallback\/0",
+          "value_param": "false",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 261,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0.002s",
+          "classname": "Modes\/DocstoreBlockCacheTest"
+        },
+        {
+          "name": "LargeFieldsAndTinyBudgetFallback\/1",
+          "value_param": "true",
+          "file": "\/private\/tmp\/manticore-adaptive-cache-source-20261113\/src\/gtests\/gtests_docstore_blockcache.cpp",
+          "line": 261,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2026-11-13T22:30:36Z",
+          "time": "0.001s",
+          "classname": "Modes\/DocstoreBlockCacheTest"
+        }
+      ]
+    }
+  ]
+}

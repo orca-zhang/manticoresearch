@@ -1,0 +1,4 @@
+[
+  "/private/tmp/manticore-adaptive-cache-review-20261113/gmanticoretest",
+  "--gtest_output=json:/private/tmp/manticore-adaptive-cache-review-20261113/full-tests.json"
+]

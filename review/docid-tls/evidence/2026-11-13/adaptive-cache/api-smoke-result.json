@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "compared_output_sha256": "6afa3872275853533826d75ca338e20a6ccca205621f36bed5ded938045845fa",
+  "golden_sha256": "6afa3872275853533826d75ca338e20a6ccca205621f36bed5ded938045845fa",
+  "cwd": "/private/tmp/manticore-adaptive-cache-review-20261113/smoke-build/api/libsphinxclient",
+  "note": "Successful output equals source golden; initial empty-fixture setup failure retained separately."
+}

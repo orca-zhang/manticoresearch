@@ -1,0 +1,1 @@
+ld: warning: ignoring duplicate libraries: '/opt/homebrew/opt/openssl@3/lib/libcrypto.a', '/opt/homebrew/opt/openssl@3/lib/libssl.a'

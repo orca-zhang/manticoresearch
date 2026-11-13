@@ -1,0 +1,35 @@
+{
+  "base_source_commit": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+  "reader_tls": false,
+  "scope": "Recompile all six affected translation units using recorded Clang 21 -O2 commands; copy engine archive, replace changed objects, reuse unchanged engine/dependency objects. gtests_searchd.cpp includes searchd.cpp.",
+  "reused_base_archive_sha256": "fedf6fe6ad34b7ed3ef99d734a96d2c5f32d7774198bbf7c9dada7a36fa3bdba",
+  "sources": {
+    "api/libsphinxclient/smoke_ref.txt": "6afa3872275853533826d75ca338e20a6ccca205621f36bed5ded938045845fa",
+    "manual/english/References.md": "88e7c4175dcb70a766d05fd867360b01693f5f22784b595c862e469f798cea34",
+    "manual/english/Server_settings/Searchd.md": "9a2af287ef3aabe3184974b38795bf072315cb0360e8f0deac3d5f568a6ec9ce",
+    "src/docstore.cpp": "1c48b9408cbdc2ad94989a3a1265bc6c68c3f1e2317859dd2d932cb95b046204",
+    "src/docstore.h": "2b393e2eca1cd166c2f2d3c991cce5fdb9695da38cf699bc5fb70f63973b4d14",
+    "src/gtests/gtests_docstore_blockcache.cpp": "91459fd114b6b2c0ab6688d2ba98a382491f67e0dce54734e336d366c1863725",
+    "src/searchd.cpp": "4801ed342089bf1c7ca77e8f0de751608386f90c03955daaefb9b44557b637d0",
+    "src/sphinxutils.cpp": "fc247d63702f129f0ceef953c44aa55a4c93e3998389d6c0d033a7fb9f286989",
+    "src/std/lrucache.h": "ab2f65e86449d0699237e64bfcbf43d406ba1042e56c52f4c64e304015b2acde",
+    "src/std/lrucache_impl.h": "1921160056b7bf20a6087c20ac073ad271f4c956718bb34acdecb54fdeb22a64",
+    "test/clt-tests/buddy-plugins/test-prometheus-exporter.rec": "c1ccadea2ef0ab695059236e424b5b823ca74db65ccd834d1ec656117a13966c",
+    "test/docid-cache/README.md": "189d91ad1b77fdd05d7f1691b56bcc0c63659be84e528171120e81a2d5d56e5a"
+  },
+  "binaries": {
+    "searchd": "51c674f1ddbb1b676932bb9846708f55536063cd347deeadfa2605f38f3ce4a2",
+    "gmanticoretest": "c5dda1ce30265dbbf6a4b37106895f63f1a0ec178aa7e700e4738584aad63863"
+  },
+  "source_patch_sha256": "3be73b2f9f5246a5164372c863d67cb76fdee66138771561392216c2fa69cd2d",
+  "mcl_commit": "88b5412a243ab0439957203acfe86c09944280d3",
+  "validation": {
+    "native_full_tests": 529,
+    "focused_tests": 11,
+    "asan_ubsan_repeats": 20,
+    "tsan_repeats": 20,
+    "asan_leak_detection_supported": false,
+    "api_smoke": "passed",
+    "stack_calibration": "Identical supported exports inherited from the earlier Clang 21 build; no new automatic calibration."
+  }
+}

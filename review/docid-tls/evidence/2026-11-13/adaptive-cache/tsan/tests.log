@@ -1,0 +1,704 @@
+Running main() from gmock_main.cc
+
+Repeating all tests (iteration 1) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] Global test environment set-up.
+
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (24 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1191 ms)
+[----------] 5 tests from AdaptiveLru (1258 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (5 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (5 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (80 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (83 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (8 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (189 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1449 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 2) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (22 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (23 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (961 ms)
+[----------] 5 tests from AdaptiveLru (1027 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (81 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (83 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (189 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1217 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 3) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (19 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (24 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (937 ms)
+[----------] 5 tests from AdaptiveLru (1004 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (5 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (5 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (83 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (82 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (8 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (8 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (192 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1197 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 4) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (22 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (19 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (23 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1104 ms)
+[----------] 5 tests from AdaptiveLru (1172 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (76 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (85 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (186 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1358 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 5) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (23 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1090 ms)
+[----------] 5 tests from AdaptiveLru (1157 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (91 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (84 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (8 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (8 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (202 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1359 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 6) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (23 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1232 ms)
+[----------] 5 tests from AdaptiveLru (1298 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (89 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (96 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (9 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (8 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (214 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1513 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 7) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (22 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (19 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (24 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1475 ms)
+[----------] 5 tests from AdaptiveLru (1544 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (97 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (99 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (8 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (8 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (223 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1767 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 8) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (22 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (24 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1463 ms)
+[----------] 5 tests from AdaptiveLru (1530 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (5 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (89 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (91 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (8 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (206 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1737 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 9) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (23 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1223 ms)
+[----------] 5 tests from AdaptiveLru (1289 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (98 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (89 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (8 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (214 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1504 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 10) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (22 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (23 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1250 ms)
+[----------] 5 tests from AdaptiveLru (1317 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (78 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (79 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (183 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1501 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 11) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (24 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1006 ms)
+[----------] 5 tests from AdaptiveLru (1072 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (79 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (77 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (181 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1254 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 12) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (22 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (24 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1086 ms)
+[----------] 5 tests from AdaptiveLru (1153 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (82 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (82 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (8 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (190 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1343 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 13) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (19 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (24 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1069 ms)
+[----------] 5 tests from AdaptiveLru (1136 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (77 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (79 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (181 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1317 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 14) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (19 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (23 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1014 ms)
+[----------] 5 tests from AdaptiveLru (1081 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (5 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (89 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (91 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (8 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (209 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1290 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 15) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (22 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (24 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1088 ms)
+[----------] 5 tests from AdaptiveLru (1155 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (81 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (81 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (187 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1342 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 16) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (22 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (19 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (23 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1008 ms)
+[----------] 5 tests from AdaptiveLru (1075 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (76 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (79 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (8 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (182 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1258 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 17) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (76 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (22 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1004 ms)
+[----------] 5 tests from AdaptiveLru (1126 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (80 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (82 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (187 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1314 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 18) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (19 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (24 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1066 ms)
+[----------] 5 tests from AdaptiveLru (1132 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (75 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (81 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (8 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (182 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1315 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 19) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (21 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (18 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (23 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (972 ms)
+[----------] 5 tests from AdaptiveLru (1038 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (78 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (83 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (7 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (186 ms total)
+
+[==========] 11 tests from 2 test suites ran. (1224 ms total)
+[  PASSED  ] 11 tests.
+
+Repeating all tests (iteration 20) . . .
+
+Note: Google Test filter = AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*
+[==========] Running 11 tests from 2 test suites.
+[----------] 5 tests from AdaptiveLru
+[ RUN      ] AdaptiveLru.LazyGrowthAndHardLimit
+[       OK ] AdaptiveLru.LazyGrowthAndHardLimit (1 ms)
+[ RUN      ] AdaptiveLru.HotSetChangeReclaimsColdBlocks
+[       OK ] AdaptiveLru.HotSetChangeReclaimsColdBlocks (22 ms)
+[ RUN      ] AdaptiveLru.ManualModeRetainsExistingBehavior
+[       OK ] AdaptiveLru.ManualModeRetainsExistingBehavior (19 ms)
+[ RUN      ] AdaptiveLru.ReferencedBlocksSurviveReclamation
+[       OK ] AdaptiveLru.ReferencedBlocksSurviveReclamation (23 ms)
+[ RUN      ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation
+[       OK ] AdaptiveLru.ConcurrentGrowthReadsAndReclamation (1115 ms)
+[----------] 5 tests from AdaptiveLru (1182 ms total)
+
+[----------] 6 tests from Modes/DocstoreBlockCacheTest
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/0 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1
+[       OK ] Modes/DocstoreBlockCacheTest.ClearAndSameKeyReplacement/1 (4 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/0 (82 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1
+[       OK ] Modes/DocstoreBlockCacheTest.ConcurrentReadsUnderEvictionPressure/1 (84 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/0 (8 ms)
+[ RUN      ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1
+[       OK ] Modes/DocstoreBlockCacheTest.LargeFieldsAndTinyBudgetFallback/1 (7 ms)
+[----------] 6 tests from Modes/DocstoreBlockCacheTest (192 ms total)
+
+[----------] Global test environment tear-down
+[==========] 11 tests from 2 test suites ran. (1374 ms total)
+[  PASSED  ] 11 tests.
