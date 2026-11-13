@@ -1,0 +1,11 @@
+{
+  "gitlink": "88b5412a243ab0439957203acfe86c09944280d3",
+  "verified_files": 189,
+  "mismatches": [],
+  "nested_gitlinks": [],
+  "blob_exact_files": 188,
+  "archive_export_subst_exact_files": [
+    "util/version.h.in"
+  ],
+  "note": "The version template expands Git export-subst placeholders exactly as git archive does; all 189 tracked files match the upstream gitlink tree/archive."
+}

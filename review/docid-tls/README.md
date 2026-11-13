@@ -1,5 +1,16 @@
 # Manticore cache review evidence
 
+## Latest independent reader TLS measurement (2026-11-14)
+
+The [standalone #5045 report](independent-tls-2026-11-14/REPORT.md) compares
+upstream `047d2f9` with only the reader TLS diff from `019868e9`. Both arms
+retain the original upstream block cache; #5042 and adaptive-cache changes
+are excluded. It covers 20k/1M/10M rows, default 16 MiB and cache off,
+64/256-row retrieval, point/mixed session churn, count and A/A controls.
+All 216 timed samples, CPU/query tables, build-isolation hashes and the
+scale plot are retained. Default-cache 256-row QPS changes are -0.40% to
++0.61%; the 20k cache-off result is +13.09% QPS / -10.31% CPU/query.
+
 PR [#5042](https://github.com/manticoresoftware/manticoresearch/pull/5042)
 contains the opt-in native DocID cache and shared docstore block-cache sharding
 with XXH3. Its current source is `376fbf9988b2458ee196a5d92135c35a5121edc7`.

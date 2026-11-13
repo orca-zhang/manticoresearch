@@ -1,5 +1,7 @@
 # Reader TLS with original and latest block-cache baselines (2026-11-13)
 
+**New standalone retest (2026-11-14):** see the [independent TLS-only report](independent-tls-2026-11-14/REPORT.md). It retains the original upstream block cache in both arms and includes no #5042 or adaptive-cache changes. The datasets below are historical and are not pooled with that retest.
+
 This report gives **two datasets** for PR #5045. Each dataset measures TLS off/on
 with the **same block-cache implementation in both arms**. The latest dataset
 uses the shared sharded-LRU/XXH3 implementation from final #5042 commit

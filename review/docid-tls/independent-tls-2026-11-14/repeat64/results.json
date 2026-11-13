@@ -1,0 +1,427 @@
+{
+  "comparison": "Upstream 047d2f9 vs PR #5045 TLS only; original upstream single-lock block cache in BOTH arms",
+  "upstream_base": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+  "tls_pr_head": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "payload_bytes": 128,
+  "block_bytes": 16384,
+  "compression": "lz4",
+  "query_cache_bytes": 0,
+  "reader_buffer_budget_bytes": 8388608,
+  "docid_cache": "Upstream has no native DocID cache; no setting injected",
+  "planned_cases": [
+    {
+      "name": "random64-20000-0m",
+      "rows": 20000,
+      "cache_mib": 0,
+      "batch": 64,
+      "clients": 8
+    }
+  ],
+  "calibration": {
+    "MANTICORE_KNOWN_CREATE_SIZE": "384",
+    "MANTICORE_START_KNOWN_CREATE_SIZE": "3280",
+    "MANTICORE_KNOWN_EXPR_SIZE": "32",
+    "MANTICORE_START_KNOWN_EXPR_SIZE": "160",
+    "MANTICORE_NONE": "32",
+    "MANTICORE_START_NONE": "160",
+    "MANTICORE_KNOWN_FILTER_SIZE": "224",
+    "MANTICORE_START_KNOWN_FILTER_SIZE": "30896",
+    "MANTICORE_KNOWN_MATCH_SIZE": "208",
+    "MANTICORE_START_KNOWN_MATCH_SIZE": "16288"
+  },
+  "binary_sha256": {
+    "baseline": "f8be256143e096f8962a4e6d66337fe57bbb5433d326bd8651c20ce71f42fb00",
+    "tls": "c5936369df1a4bbfe9b53404db95af7027f8a5bd7c8a0c6223377ed86de6e7b6"
+  },
+  "driver_sha256": "2746ae3e4e8e98d3adf41346edca0207d7ef9d3e29d3c195df9d7b84b1e6ea33",
+  "quality_policy": "Retain every sample; flag external mean CPU >10% machine or one-second peak >20%; repeat affected comparisons in full, never select rounds by QPS",
+  "cases": [
+    {
+      "case": {
+        "name": "random64-20000-0m",
+        "rows": 20000,
+        "cache_mib": 0,
+        "batch": 64,
+        "clients": 8
+      },
+      "arms": {
+        "baseline": {
+          "binary": "searchd-baseline",
+          "samples": [
+            {
+              "completed": 90653,
+              "elapsed_seconds": 5.000528458040208,
+              "qps": 18128.683950241622,
+              "server_cpu_ms_per_query": 0.3275542848333756,
+              "rss_bytes": 23871488,
+              "p95_ms": 0.530375,
+              "client_cpu_cores": 1.6335359489587609,
+              "bulk_qps": 9084.63982980791,
+              "point_qps": 9044.044120433713,
+              "from_monotonic_seconds": 996175.086254083,
+              "to_monotonic_seconds": 996180.087887375,
+              "round": 0,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 1.1689533586840029,
+              "external_cpu_peak_machine_percent": 2.4218534493039816,
+              "quality_flag": false
+            },
+            {
+              "completed": 93288,
+              "elapsed_seconds": 5.000504416064359,
+              "qps": 18655.71795123465,
+              "server_cpu_ms_per_query": 0.3176126565045879,
+              "rss_bytes": 24494080,
+              "p95_ms": 0.520875,
+              "client_cpu_cores": 1.6881514938534856,
+              "bulk_qps": 9349.456796759736,
+              "point_qps": 9306.261154474912,
+              "from_monotonic_seconds": 996190.213597166,
+              "to_monotonic_seconds": 996195.215227375,
+              "round": 1,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 0.9540951470752559,
+              "external_cpu_peak_machine_percent": 1.3710077673741778,
+              "quality_flag": false
+            },
+            {
+              "completed": 90828,
+              "elapsed_seconds": 5.000514333019964,
+              "qps": 18163.731558618725,
+              "server_cpu_ms_per_query": 0.32851882495485973,
+              "rss_bytes": 24723456,
+              "p95_ms": 0.530792,
+              "client_cpu_cores": 1.633960520030246,
+              "bulk_qps": 9121.461706210832,
+              "point_qps": 9042.269852407895,
+              "from_monotonic_seconds": 996195.256775291,
+              "to_monotonic_seconds": 996200.258283416,
+              "round": 2,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 0.6993137980014709,
+              "external_cpu_peak_machine_percent": 1.2114321401516708,
+              "quality_flag": false
+            },
+            {
+              "completed": 92972,
+              "elapsed_seconds": 5.000452084001154,
+              "qps": 18592.718905848942,
+              "server_cpu_ms_per_query": 0.31988455349997846,
+              "rss_bytes": 25051136,
+              "p95_ms": 0.524709,
+              "client_cpu_cores": 1.6816545501764797,
+              "bulk_qps": 9302.358910472718,
+              "point_qps": 9290.359995376226,
+              "from_monotonic_seconds": 996210.38313675,
+              "to_monotonic_seconds": 996215.384843166,
+              "round": 3,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 1.034713517544148,
+              "external_cpu_peak_machine_percent": 1.4495946358972625,
+              "quality_flag": false
+            },
+            {
+              "completed": 90395,
+              "elapsed_seconds": 5.000491082901135,
+              "qps": 18077.224516827962,
+              "server_cpu_ms_per_query": 0.330589046683998,
+              "rss_bytes": 25149440,
+              "p95_ms": 0.533958,
+              "client_cpu_cores": 1.6261160884387416,
+              "bulk_qps": 9076.508536371157,
+              "point_qps": 9000.715980456805,
+              "from_monotonic_seconds": 996215.427225708,
+              "to_monotonic_seconds": 996220.428846416,
+              "round": 4,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 0.8195777825411077,
+              "external_cpu_peak_machine_percent": 1.4495946358972625,
+              "quality_flag": false
+            },
+            {
+              "completed": 91563,
+              "elapsed_seconds": 5.000504584051669,
+              "qps": 18310.752137299492,
+              "server_cpu_ms_per_query": 0.3243054886580824,
+              "rss_bytes": 25149440,
+              "p95_ms": 0.530958,
+              "client_cpu_cores": 1.6799156682691285,
+              "bulk_qps": 9178.273757887984,
+              "point_qps": 9132.478379411508,
+              "from_monotonic_seconds": 996230.553609625,
+              "to_monotonic_seconds": 996235.555300333,
+              "round": 5,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 0.7748043959919012,
+              "external_cpu_peak_machine_percent": 1.1046522273169657,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:62277:http\ndata_dir = /private/tmp/manticore-tls-independent-20261114/servers-wn0g3_tr/baseline/data\nlog = /private/tmp/manticore-tls-independent-20261114/servers-wn0g3_tr/baseline/searchd.log\npid_file = /private/tmp/manticore-tls-independent-20261114/servers-wn0g3_tr/baseline/searchd.pid\nbuddy_path =\ndocstore_cache_size = 0\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "64"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "64"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.001"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 18237.241847959107,
+          "server_cpu_ms_per_query_median": 0.325929886745729,
+          "p95_ms_median": 0.5305835000000001,
+          "rss_bytes_median": 24887296.0,
+          "bulk_qps_median": 9149.867732049408,
+          "point_qps_median": 9088.26124992261
+        },
+        "tls": {
+          "binary": "searchd-tls",
+          "samples": [
+            {
+              "completed": 96416,
+              "elapsed_seconds": 5.000486208009534,
+              "qps": 19281.325053064957,
+              "server_cpu_ms_per_query": 0.3074614872012944,
+              "rss_bytes": 24100864,
+              "p95_ms": 0.506208,
+              "client_cpu_cores": 1.7594629070084271,
+              "bulk_qps": 9702.25653703223,
+              "point_qps": 9579.068516032727,
+              "from_monotonic_seconds": 996180.128370166,
+              "to_monotonic_seconds": 996185.130164916,
+              "round": 0,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 1.1278400254079932,
+              "external_cpu_peak_machine_percent": 1.4523269439934898,
+              "quality_flag": false
+            },
+            {
+              "completed": 92998,
+              "elapsed_seconds": 5.000518125016242,
+              "qps": 18597.67281609402,
+              "server_cpu_ms_per_query": 0.3241255622916622,
+              "rss_bytes": 24739840,
+              "p95_ms": 0.520417,
+              "client_cpu_cores": 1.69210125600185,
+              "bulk_qps": 9317.434480821657,
+              "point_qps": 9280.238335272361,
+              "from_monotonic_seconds": 996185.17119675,
+              "to_monotonic_seconds": 996190.172847666,
+              "round": 1,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 0.8730229635342088,
+              "external_cpu_peak_machine_percent": 1.4495530182819072,
+              "quality_flag": false
+            },
+            {
+              "completed": 96402,
+              "elapsed_seconds": 5.000494417035952,
+              "qps": 19278.493676859733,
+              "server_cpu_ms_per_query": 0.3089557205763366,
+              "rss_bytes": 25001984,
+              "p95_ms": 0.507542,
+              "client_cpu_cores": 1.7589826658008167,
+              "bulk_qps": 9666.044188616575,
+              "point_qps": 9612.449488243157,
+              "from_monotonic_seconds": 996200.297899541,
+              "to_monotonic_seconds": 996205.299702916,
+              "round": 2,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 1.1579158656628974,
+              "external_cpu_peak_machine_percent": 1.6247418951616783,
+              "quality_flag": false
+            },
+            {
+              "completed": 97450,
+              "elapsed_seconds": 5.000412833993323,
+              "qps": 19488.390905951772,
+              "server_cpu_ms_per_query": 0.3045604865674705,
+              "rss_bytes": 25477120,
+              "p95_ms": 0.499458,
+              "client_cpu_cores": 1.7655062278027478,
+              "bulk_qps": 9794.391308464792,
+              "point_qps": 9693.99959748698,
+              "from_monotonic_seconds": 996205.34023025,
+              "to_monotonic_seconds": 996210.341721083,
+              "round": 3,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 0.8374864059285602,
+              "external_cpu_peak_machine_percent": 1.2080613445816824,
+              "quality_flag": false
+            },
+            {
+              "completed": 93847,
+              "elapsed_seconds": 5.000449542072602,
+              "qps": 18767.71262471374,
+              "server_cpu_ms_per_query": 0.31743991017294104,
+              "rss_bytes": 25526272,
+              "p95_ms": 0.518875,
+              "client_cpu_cores": 1.7263383876526404,
+              "bulk_qps": 9456.34979458282,
+              "point_qps": 9311.36283013092,
+              "from_monotonic_seconds": 996220.468849333,
+              "to_monotonic_seconds": 996225.470528166,
+              "round": 4,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 1.0643506840544419,
+              "external_cpu_peak_machine_percent": 1.5301387601441088,
+              "quality_flag": false
+            },
+            {
+              "completed": 93782,
+              "elapsed_seconds": 5.000418208073825,
+              "qps": 18754.831315624117,
+              "server_cpu_ms_per_query": 0.31526505708984665,
+              "rss_bytes": 25526272,
+              "p95_ms": 0.518125,
+              "client_cpu_cores": 1.7357534187812196,
+              "bulk_qps": 9379.41549054282,
+              "point_qps": 9375.415825081298,
+              "from_monotonic_seconds": 996225.510770875,
+              "to_monotonic_seconds": 996230.5123565,
+              "round": 5,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 1.0203156035681529,
+              "external_cpu_peak_machine_percent": 1.5301387601441088,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:62281:http\ndata_dir = /private/tmp/manticore-tls-independent-20261114/servers-wn0g3_tr/tls/data\nlog = /private/tmp/manticore-tls-independent-20261114/servers-wn0g3_tr/tls/searchd.log\npid_file = /private/tmp/manticore-tls-independent-20261114/servers-wn0g3_tr/tls/searchd.pid\nbuddy_path =\ndocstore_cache_size = 0\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "64"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "64"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 19023.103150786737,
+          "server_cpu_ms_per_query_median": 0.3121103888330916,
+          "p95_ms_median": 0.5128334999999999,
+          "rss_bytes_median": 25239552.0,
+          "bulk_qps_median": 9561.196991599698,
+          "point_qps_median": 9477.242170557012
+        }
+      },
+      "query_pool_sizes": [
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64
+      ],
+      "query_sha256": "03627ea06f5af5ddfc7791f5d74f3bfe3457859d65db866ef5df7b276d146183",
+      "fixture": {
+        "spds_bytes": 111801,
+        "disk_chunks": 1,
+        "logical_text_bytes": 2560000
+      },
+      "idle_gate": {
+        "interval_seconds": 30.4624582080869,
+        "idle_percent_mean": 96.1730366766072,
+        "idle_percent_min": 80.95617529880478,
+        "from_monotonic_seconds": 996143.765065708,
+        "to_monotonic_seconds": 996174.227523916
+      },
+      "thermal_before": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   137769.\nPages active:                                 462164.\nPages inactive:                               444744.\nPages speculative:                             42403.\nPages throttled:                                   0.\nPages wired down:                             175736.\nPages purgeable:                                6998.\n\"Translation faults\":                     6654668401.\nPages copy-on-write:                       827257474.\nPages zero filled:                        4757608321.\nPages reactivated:                         224453691.\nPages purged:                               47121357.\nFile-backed pages:                            369852.\nAnonymous pages:                              579459.\nPages stored in compressor:                   820788.\nPages occupied by compressor:                 274881.\nDecompressions:                            170410978.\nCompressions:                              222552149.\nPageins:                                   109059884.\nPageouts:                                    1484009.\nSwapins:                                     1214410.\nSwapouts:                                    2156871.\n"
+      },
+      "thermal_after": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   143692.\nPages active:                                 462795.\nPages inactive:                               444848.\nPages speculative:                             44023.\nPages throttled:                                   0.\nPages wired down:                             167093.\nPages purgeable:                                8284.\n\"Translation faults\":                     6655103289.\nPages copy-on-write:                       827327791.\nPages zero filled:                        4757831527.\nPages reactivated:                         224453764.\nPages purged:                               47122301.\nFile-backed pages:                            371657.\nAnonymous pages:                              580009.\nPages stored in compressor:                   820676.\nPages occupied by compressor:                 274824.\nDecompressions:                            170411090.\nCompressions:                              222552149.\nPageins:                                   109062770.\nPageouts:                                    1484009.\nSwapins:                                     1214410.\nSwapouts:                                    2156871.\n"
+      },
+      "qps_change_percent": 4.309101723710351,
+      "cpu_change_percent": -4.2400216962670045,
+      "paired_qps_changes_percent": [
+        6.358106887334047,
+        -0.3111385758101548,
+        6.13729681394708,
+        4.817326635433972,
+        3.8196577535617005,
+        2.4252372321725835
+      ],
+      "paired_cpu_changes_percent": [
+        -6.134188610081004,
+        2.050581314595745,
+        -5.954941663148594,
+        -4.790499186297536,
+        -3.9774870471210533,
+        -2.7876282962842946
+      ],
+      "lifecycle_passed": true
+    }
+  ],
+  "completed": true
+}

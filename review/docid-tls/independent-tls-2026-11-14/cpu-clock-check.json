@@ -1,0 +1,9 @@
+{
+  "process_time_ns": 299987000,
+  "proc_pid_rusage_converted_ns": 300027500,
+  "ratio": 1.0001350058502536,
+  "mach_timebase": {
+    "numer": 125,
+    "denom": 3
+  }
+}

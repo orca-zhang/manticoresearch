@@ -1,0 +1,159 @@
+{
+  "comparison": "Upstream 047d2f9 vs PR #5045 TLS only; original upstream single-lock block cache in BOTH arms",
+  "upstream_base": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+  "tls_pr_head": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "payload_bytes": 128,
+  "block_bytes": 16384,
+  "compression": "lz4",
+  "query_cache_bytes": 0,
+  "reader_buffer_budget_bytes": 8388608,
+  "docid_cache": "Upstream has no native DocID cache; no setting injected",
+  "planned_cases": [
+    {
+      "name": "random256-20000-16m",
+      "rows": 20000,
+      "cache_mib": 16,
+      "batch": 256,
+      "clients": 8
+    },
+    {
+      "name": "random256-20000-0m",
+      "rows": 20000,
+      "cache_mib": 0,
+      "batch": 256,
+      "clients": 8
+    },
+    {
+      "name": "random256-1000000-16m",
+      "rows": 1000000,
+      "cache_mib": 16,
+      "batch": 256,
+      "clients": 8
+    },
+    {
+      "name": "random256-1000000-0m",
+      "rows": 1000000,
+      "cache_mib": 0,
+      "batch": 256,
+      "clients": 8
+    },
+    {
+      "name": "random256-10000000-16m",
+      "rows": 10000000,
+      "cache_mib": 16,
+      "batch": 256,
+      "clients": 8
+    },
+    {
+      "name": "random256-10000000-0m",
+      "rows": 10000000,
+      "cache_mib": 0,
+      "batch": 256,
+      "clients": 8
+    },
+    {
+      "name": "random64-20000-16m",
+      "rows": 20000,
+      "cache_mib": 16,
+      "batch": 64,
+      "clients": 8
+    },
+    {
+      "name": "random64-20000-0m",
+      "rows": 20000,
+      "cache_mib": 0,
+      "batch": 64,
+      "clients": 8
+    },
+    {
+      "name": "random64-1000000-16m",
+      "rows": 1000000,
+      "cache_mib": 16,
+      "batch": 64,
+      "clients": 8
+    },
+    {
+      "name": "random64-1000000-0m",
+      "rows": 1000000,
+      "cache_mib": 0,
+      "batch": 64,
+      "clients": 8
+    },
+    {
+      "name": "point-20000-16m",
+      "rows": 20000,
+      "cache_mib": 16,
+      "batch": 1,
+      "clients": 8
+    },
+    {
+      "name": "mixed-1000000-16m",
+      "rows": 1000000,
+      "cache_mib": 16,
+      "batch": 256,
+      "clients": 8,
+      "mixed": true
+    },
+    {
+      "name": "point-20000-0m",
+      "rows": 20000,
+      "cache_mib": 0,
+      "batch": 1,
+      "clients": 8
+    },
+    {
+      "name": "mixed-1000000-0m",
+      "rows": 1000000,
+      "cache_mib": 0,
+      "batch": 256,
+      "clients": 8,
+      "mixed": true
+    },
+    {
+      "name": "count-1000000-16m",
+      "rows": 1000000,
+      "cache_mib": 16,
+      "batch": 256,
+      "clients": 8,
+      "count": true
+    },
+    {
+      "name": "aa-20000-16m",
+      "rows": 20000,
+      "cache_mib": 16,
+      "batch": 256,
+      "clients": 8,
+      "aa": true
+    },
+    {
+      "name": "aa-20000-0m",
+      "rows": 20000,
+      "cache_mib": 0,
+      "batch": 256,
+      "clients": 8,
+      "aa": true
+    }
+  ],
+  "calibration": {
+    "MANTICORE_KNOWN_CREATE_SIZE": "384",
+    "MANTICORE_START_KNOWN_CREATE_SIZE": "3280",
+    "MANTICORE_KNOWN_EXPR_SIZE": "32",
+    "MANTICORE_START_KNOWN_EXPR_SIZE": "160",
+    "MANTICORE_NONE": "32",
+    "MANTICORE_START_NONE": "160",
+    "MANTICORE_KNOWN_FILTER_SIZE": "224",
+    "MANTICORE_START_KNOWN_FILTER_SIZE": "30896",
+    "MANTICORE_KNOWN_MATCH_SIZE": "208",
+    "MANTICORE_START_KNOWN_MATCH_SIZE": "16288"
+  },
+  "binary_sha256": {
+    "baseline": "f8be256143e096f8962a4e6d66337fe57bbb5433d326bd8651c20ce71f42fb00",
+    "tls": "c5936369df1a4bbfe9b53404db95af7027f8a5bd7c8a0c6223377ed86de6e7b6"
+  },
+  "driver_sha256": "2746ae3e4e8e98d3adf41346edca0207d7ef9d3e29d3c195df9d7b84b1e6ea33",
+  "quality_policy": "Retain every sample; flag external mean CPU >10% machine or one-second peak >20%; repeat affected comparisons in full, never select rounds by QPS",
+  "cases": []
+}
