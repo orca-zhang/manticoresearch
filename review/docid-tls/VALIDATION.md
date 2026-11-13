@@ -49,6 +49,28 @@ lifecycle checks. The new harness selfchecks cover telemetry CPU parsing,
 benchmark-descendant exclusion and query-pool shape; per-case load records
 and startup/binary/script hashes are archived with the timing data.
 
+## Added block-cache budget and combined TLS matrices
+
+The [budget supplement](BLOCK_CACHE_BUDGETS_2026-11-13.md) reuses the exact
+validated no-TLS 521-test pair and latest-context TLS 529-test pair, with binary
+hashes checked before collection. No production source or build changes were
+made. There is no new full-suite or automatic-stack-calibration claim.
+
+All 528 timed arm samples completed, validating 7,691,431 timed queries and
+post-timing REPLACE/flush/DROP/recreate for every group. Every native DocID
+used-byte check is zero. Script hashes are checked against each phase's exact
+archived driver, including the earlier no-TLS version before TLS metadata was
+added to the public helper. Query-pool hashes and fixture metadata match.
+
+The new driver selfcheck verifies six-arm balanced scheduling, query-pool shape
+and telemetry parsing/tree exclusion. The summary selfcheck verifies overlap
+weighting and load flags. The summary recomputes all medians and ratios and
+checks complete 100% timed-interval telemetry coverage. Seven load-flagged
+samples remain in all results. Raw samples, flags, commands, pre-run plans,
+binary/source hashes and Python helpers are archived. Packaging checks validate
+English Markdown, local links, PNG/SVG rendering, Python syntax and ZIP/manifest
+member hashes; these checks do not add cross-platform engine coverage.
+
 ## Original snapshot
 
 Prepared locally on 2026-10-27. Upstream base:

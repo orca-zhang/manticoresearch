@@ -35,6 +35,13 @@ TLS comparisons hold the block-cache budget constant while comparing locked
 map lookups with TLS reuse. Disabling the block cache keeps the reader-map path
 active for diagnosis; it does not establish that production should disable it.
 
+The [0/8/16 MiB budget supplement](BLOCK_CACHE_BUDGETS_2026-11-13.md)
+measures this optional combination separately from the block-cache change.
+Old-to-new cache implementation, same-binary cache off/on, and incremental TLS
+have different denominators. 8 MiB selects eight shared shards; 16 MiB selects
+sixteen, so capacity and locking parallelism change together. No TLS copy of
+block data is introduced.
+
 ## DocID cache and directory
 
 - Data is shared per disk chunk and immutable after publication. Keys occupy

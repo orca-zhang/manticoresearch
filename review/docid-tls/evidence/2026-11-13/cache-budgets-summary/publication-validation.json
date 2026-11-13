@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "block-cache-budgets: exact live binaries, build-manifest hashes and archived sources match",
+    "tls-block-cache-budgets: exact live binaries, build-manifest hashes and archived sources match",
+    "Current Python helpers parse; all SVG XML parses; all Markdown is English.",
+    "Three new PNG figures inspected visually.",
+    "Driver/wrapper and summary selfchecks passed; balanced schedule and telemetry overlap assertions passed."
+  ],
+  "engine_binaries_rebuilt": false,
+  "full_engine_tests_rerun": false,
+  "production_source_changed": false,
+  "new_samples": 528,
+  "all_completed_samples_retained": true
+}

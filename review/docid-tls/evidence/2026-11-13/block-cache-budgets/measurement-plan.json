@@ -1,0 +1,44 @@
+{
+  "purpose": "Add cache-off and 8 MiB data to PR #5042, holding native DocID budget 0 and excluding reader TLS.",
+  "written_before_results": true,
+  "matrix_rows": [
+    20000,
+    100000,
+    500000,
+    1000000,
+    5000000
+  ],
+  "block_cache_mib": [
+    0,
+    8,
+    16
+  ],
+  "binaries": "Previously validated 521-test reference/candidate; manifest hashes verified.",
+  "initial_rounds": 6,
+  "initial_seconds_per_arm": 3,
+  "arms_per_text_case": 6,
+  "order": "Six-arm Williams design: each arm appears once at every position and follows every other arm once.",
+  "creation_order": "Rotate by case; reverse in repeat phase.",
+  "controls": [
+    "1M count across all six arms",
+    "1M A/A with candidate binary and 8 MiB in both arms"
+  ],
+  "preselected_repeats": {
+    "rows": [
+      20000,
+      5000000
+    ],
+    "rounds": 6,
+    "seconds_per_arm": 5,
+    "reverse_case_and_arm_creation_order": true
+  },
+  "idle_gate": {
+    "seconds": 30,
+    "mean_idle_percent_at_least": 90,
+    "minimum_idle_percent_at_least": 80,
+    "timeout_seconds": 600
+  },
+  "telemetry": "One-second host and external-process CPU; preserve every completed sample; flag mean >10% or peak >20% external machine CPU.",
+  "final_sample_coverage": "Wait for a telemetry point past the final timed interval before stopping the logger.",
+  "scope": "All six arms are live but only one is queried at a time. Query cache off; same original fixed fixtures/query pools."
+}

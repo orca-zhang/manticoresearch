@@ -10,6 +10,55 @@ The results below compare the final #5042 implementation **without TLS in either
 arm**, with the same DocID-cache budget in both arms. The older prototype's
 TLS-present measurements are separately preserved and are not substituted here.
 
+## Added 0 / 8 / 16 MiB matrix and TLS combination
+
+The [budget supplement](BLOCK_CACHE_BUDGETS_2026-11-13.md) adds five dataset
+sizes, a preselected longer 20k/5M repeat, count/A/A controls and reader-TLS
+combination measurements. All new arms use native DocID budget **0**, SQL
+query-result cache off, and the same separate 8 MiB reader-buffer budget.
+**#5042 production still contains no TLS.**
+
+The following compares **cache off/on in the same final #5042 binary**:
+
+| Rows | Cache off QPS | 8 MiB QPS | 16 MiB QPS | Off to 8 MiB | Off to 16 MiB |
+| --- | --- | --- | --- | --- | --- |
+| 20,000 | 6,038.8 | 7,225.0 | 7,679.6 | +19.64% | +27.17% |
+| 100,000 | 5,293.1 | 4,730.6 | 6,931.6 | -10.63% | +30.96% |
+| 500,000 | 3,874.2 | 3,226.5 | 3,226.8 | -16.72% | -16.71% |
+| 1,000,000 | 3,309.7 | 2,862.3 | 2,816.3 | -13.52% | -14.91% |
+| 5,000,000 | 1,719.5 | 1,598.3 | 1,602.2 | -7.05% | -6.82% |
+
+![Final no-TLS binary across block-cache budgets](figures/block-cache-budgets-off-on.png)
+
+This differs from the old-to-new implementation comparison at an equal budget:
+
+| Rows | Old to new: cache off | Old to new: 8 MiB | Old to new: 16 MiB |
+| --- | --- | --- | --- |
+| 20,000 | +0.18% | +113.84% | +127.49% |
+| 100,000 | +1.41% | +147.78% | +128.17% |
+| 500,000 | -0.90% | +121.08% | +118.08% |
+| 1,000,000 | -0.47% | +104.88% | +103.61% |
+| 5,000,000 | -0.29% | +30.70% | +31.06% |
+
+At 20k, the earlier old-to-new 16 MiB gain (+119.45%) and same-binary off/on
+(+26.66%) become +127.49% and +27.17% here: the gain has not disappeared under
+an equivalent comparison. At 5M, old-to-new is +31.06%, while same-binary cache
+on is -6.82% versus off. Both can be true. Longer repeats preserve these
+conclusions and all samples, including higher-load annotations.
+
+At 100k, 16 MiB helps but 8 MiB hurts; at 500k and above both enabled budgets
+are slower than off in this workload. 8 MiB uses eight shards and 16 MiB uses
+sixteen, changing both capacity and locking parallelism. Neither row count nor
+compressed size alone defines the decoded working set or a universal optimum.
+
+The separate combined pair holds the latest cache constant and adds only
+#5045's reader production diff. Incremental TLS QPS at the default 16 MiB is
+-1.12% to +1.80%; it does not reproduce the large shared-cache gain. Full
+absolute QPS, CPU/query, RSS, controls, load logs and exact drivers are in the
+[supplement](BLOCK_CACHE_BUDGETS_2026-11-13.md) and
+[budget evidence ZIP](attachments/block-cache-budget-evidence.zip).
+The sections below preserve the earlier measurement phases separately.
+
 ## Design, budgets and unchanged data format
 
 The new native DocID cache remains disabled by default (`docid_lookup_cache_size=0`).
@@ -51,7 +100,7 @@ still serializes, and large blocks can be refused by the smaller shard even
 when the aggregate cache has free space. The server-settings manual and original
 DocID regression README now describe these costs and separate cache budgets.
 
-## Final no-TLS comparison and method
+## Earlier no-TLS comparison and method
 
 Candidate: `376fbf9`. Baseline: parent `1514b3e` (the original DocID implementation
 plus the same CI/alignment repairs and identical extra tests, using the old
@@ -87,7 +136,7 @@ actual admitted bytes before lifecycle mutations. These compare the block-cache
 change with DocID caching held constant; they do not measure the DocID cache's
 own benefit. Query plans and observed usage are in each raw JSON record.
 
-## Measured sweet spot and charts
+## Earlier measured size sweep and charts
 
 With the default disabled DocID cache, the largest sampled relative gain is
 **+129.18% at 100,000 rows**. The 20k–1M
@@ -108,7 +157,7 @@ panel distinguishes absolute throughput from relative optimization gain.
 
 At 5M, 16 MiB gives the larger relative implementation gain (+35.68%), but
 512 MiB gives higher candidate throughput (1,690 → 2,341 QPS) with higher RSS.
-Only these two budgets were sampled in this no-TLS budget comparison. A sweet
+Only these two budgets were sampled in this earlier no-TLS budget comparison. A sweet
 spot depends on the throughput/memory objective as well as dataset size.
 
 ### Default DocID budget 0: implementation comparison

@@ -144,6 +144,61 @@ not whole-engine, coverage. ASan+UBSan and TSan must be separate. Both final
 runs passed; the earlier failing alignment logs are retained. The native full
 suite/API smoke and standalone `test/docid-cache/test_integration.py` are separate.
 
+## Added 0 / 8 / 16 MiB matrices, with and without reader TLS
+
+Use `block_cache_budgets.py` with the no-TLS `1514b3e` / `376fbf9` binaries
+identified by the existing build manifest. Use `tls_block_cache_budgets.py` with
+the latest-context `376fbf9` / same-plus-reader-diff binaries. Each driver fixes
+native DocID budget 0 and query cache off; the separate reader buffers stay at
+8 MiB. Fixture snapshots are the same `fixture-N` directories as the size sweep.
+
+Apply the exact supported calibration exports in the corresponding archived
+`calibration.json` to both arms, using the recorded commands; these local
+Apple workaround values are not portable defaults. Use macOS for the supplied
+host telemetry. Keep this task's builds, tests and plot rendering outside timing.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 block_cache_budgets.py OLD_CACHE_SEARCHD NEW_CACHE_SEARCHD \
+  --fixtures /tmp/tls-fixtures --output /tmp/no-tls-budgets/matrix.json --controls
+PYTHONDONTWRITEBYTECODE=1 python3 block_cache_budgets.py OLD_CACHE_SEARCHD NEW_CACHE_SEARCHD \
+  --fixtures /tmp/tls-fixtures --output /tmp/no-tls-budgets/repeat.json \
+  --rows 20000 5000000 --duration 5 --reverse
+PYTHONDONTWRITEBYTECODE=1 python3 tls_block_cache_budgets.py LATEST_NO_TLS_SEARCHD LATEST_TLS_SEARCHD \
+  --fixtures /tmp/tls-fixtures --output /tmp/tls-budgets/matrix.json --controls
+```
+
+Create the output directories first. Six live arms are queried one at a time,
+using six balanced Williams rounds x three seconds/arm by default. A 30-second
+pre-group idle gate requires mean >=90%, minimum >=80%; one-second CPU logging
+and thermal/swap/VM snapshots cover warmup and timing. No sample is rejected by
+its load flag. The new logger waits for a point beyond the final timed interval.
+Both no-TLS endpoint repeats were selected before outcomes. A/A uses candidate
+8 MiB in both labeled arms: no TLS in the first matrix, TLS on in the combined
+matrix. Every timed response and post-timing lifecycle check is validated.
+
+The archived no-TLS `driver/` is the exact pre-wrapper version; the TLS driver
+and public default differ only by optional TLS comparison metadata. Preserve
+both snapshots when checking recorded script hashes. For a new collection,
+archive its exact helpers beside the JSON as `driver/` before summarizing.
+The checked-in collection can be summarized and plotted with:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 block_cache_budgets.py --selfcheck
+python3 summarize_cache_budgets.py --selfcheck
+python3 summarize_cache_budgets.py --evidence ../../evidence/2026-11-13 \
+  --output ../../evidence/2026-11-13/cache-budgets-summary
+python3 plot_cache_budgets.py \
+  --summary ../../evidence/2026-11-13/cache-budgets-summary/summary.json --output ../../figures
+```
+
+Plotting uses the same Matplotlib environment as the other review charts.
+Summary validation checks all medians/ratios, per-run helper hashes, common
+query pools/fixture metadata, disabled DocID usage, successful lifecycle checks
+and full timed-interval load coverage. The [budget report](../../BLOCK_CACHE_BUDGETS_2026-11-13.md)
+separates all three denominators and gives the raw-data/ZIP links. The previous
+521/529-test and sanitizer evidence remains separately scoped; binaries were
+reused without a fresh full-suite or automatic-calibration claim.
+
 ## #5045: latest shared block-cache context and load-recorded reruns
 
 The latest reference is `376fbf9988b2458ee196a5d92135c35a5121edc7` (#5042).

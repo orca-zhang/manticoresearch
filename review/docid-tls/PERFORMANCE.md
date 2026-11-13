@@ -11,7 +11,33 @@ All percentages below identify their reference. Directory lookup throughput and
 SQL QPS are different metrics. Improvements from the two patches must not be
 added or multiplied; the affected query paths and baselines differ.
 
-## Current #5042 block-cache comparison (2026-11-13)
+## Added budget matrix: three separate comparisons
+
+The [budget supplement](BLOCK_CACHE_BUDGETS_2026-11-13.md) adds 0/8/16 MiB
+across 20k/100k/500k/1M/5M rows, with native DocID and SQL query caches off.
+It separates old-to-new block-cache implementation gains, same-binary cache
+off/on gains, and incremental TLS on the latest cache. Large implementation
+gains do not establish that enabling the cache is always faster.
+
+| Rows | Cache off QPS | 8 MiB QPS | 16 MiB QPS | Off to 8 MiB | Off to 16 MiB |
+| --- | --- | --- | --- | --- | --- |
+| 20,000 | 6,038.8 | 7,225.0 | 7,679.6 | +19.64% | +27.17% |
+| 100,000 | 5,293.1 | 4,730.6 | 6,931.6 | -10.63% | +30.96% |
+| 500,000 | 3,874.2 | 3,226.5 | 3,226.8 | -16.72% | -16.71% |
+| 1,000,000 | 3,309.7 | 2,862.3 | 2,816.3 | -13.52% | -14.91% |
+| 5,000,000 | 1,719.5 | 1,598.3 | 1,602.2 | -7.05% | -6.82% |
+
+![Same final no-TLS binary, cache off/8/16 MiB](figures/block-cache-budgets-off-on.png)
+
+At equal 16 MiB the new implementation gains +127.49%/+128.17%/+118.08%/
++103.61%/+31.06%, respectively. Longer no-TLS endpoint repeats remain separate.
+Adding TLS at equal default budget gives +0.60%/-1.12%/+1.10%/+1.80%/+0.49%.
+All CPU/query/RSS data, 528 timed arm samples and telemetry are retained in the
+supplement. These changes have different references; do not add or multiply
+percentages. The remaining sections preserve earlier phases, including their
+negative and control outcomes.
+
+## Earlier #5042 block-cache comparison (2026-11-13)
 
 Both arms contain the same native DocID implementation and CI/alignment repairs,
 with no reader TLS. At the default disabled DocID budget and default 16 MiB

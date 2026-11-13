@@ -1,0 +1,16 @@
+[
+  "/opt/homebrew/opt/python@3.13/bin/python3.13",
+  "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/repro/2026-11-13/block_cache_budgets.py",
+  "/private/tmp/manticore-5042-publish-review-20261113/baseline-searchd",
+  "/private/tmp/manticore-5042-publish-review-20261113/candidate-searchd",
+  "--fixtures",
+  "/private/tmp/manticore-5045-review-20261113/sql",
+  "--output",
+  "/private/tmp/manticore-5042-budget-review-20261113/repeat.json",
+  "--rows",
+  "20000",
+  "5000000",
+  "--duration",
+  "5",
+  "--reverse"
+]

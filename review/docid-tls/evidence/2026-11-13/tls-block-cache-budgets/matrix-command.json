@@ -1,0 +1,11 @@
+[
+  "/opt/homebrew/opt/python@3.13/bin/python3.13",
+  "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/repro/2026-11-13/tls_block_cache_budgets.py",
+  "/private/tmp/manticore-5045-latest-block-review-20261113/reference-searchd",
+  "/private/tmp/manticore-5045-latest-block-review-20261113/tls-searchd",
+  "--fixtures",
+  "/private/tmp/manticore-5045-review-20261113/sql",
+  "--output",
+  "/private/tmp/manticore-5042-tls-budget-review-20261113/matrix.json",
+  "--controls"
+]

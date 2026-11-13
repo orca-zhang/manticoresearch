@@ -18,6 +18,45 @@ remains unproven. Background spikes were recorded, particularly in the first
 pass. The data does not establish a consistent default-cache benefit. All
 historical, initial and fresh samples remain below; cache-off gains are separate.
 
+## Added latest-cache 0 / 8 / 16 MiB combination matrix
+
+The [new budget supplement](BLOCK_CACHE_BUDGETS_2026-11-13.md) uses the same
+validated latest-context binaries at five dataset sizes. Six balanced Williams
+rounds x three seconds/arm vary TLS off/on at **each equal block-cache budget**.
+All six arms are live, but only one is queried at a time. Native DocID caching
+and SQL query-result caching are off. The pre-group idle gate is 30 seconds,
+with continuous one-second CPU telemetry and full final-interval coverage.
+This phase is separate from the two earlier five-second load-recorded passes.
+
+| Rows | TLS QPS: cache off | TLS QPS: 8 MiB | TLS QPS: 16 MiB | TLS CPU/query: 16 MiB |
+| --- | --- | --- | --- | --- |
+| 20,000 | +12.01% | -1.24% | +0.60% | -0.50% |
+| 100,000 | +5.38% | -0.55% | -1.12% | +1.46% |
+| 500,000 | -0.20% | +2.61% | +1.10% | -0.88% |
+| 1,000,000 | +0.84% | +2.74% | +1.80% | -1.40% |
+| 5,000,000 | +0.40% | +0.01% | +0.49% | -0.25% |
+
+![TLS and block-cache budgets](figures/reader-tls-block-cache-budgets.png)
+
+The default-cache incremental gain remains small and changes sign; turning on
+the shared block cache is a different comparison. For example, at 20k,
+shared-cache implementation improvement was +127.49%, enabling 16 MiB in the
+same no-TLS final binary was +27.17%, and adding TLS at equal 16 MiB is +0.60%.
+These percentages have different denominators and must not be combined.
+
+Count controls change -1.11%/-0.83%/-0.78% at 0/8/16 MiB. A/A with the TLS-on
+binary at 8 MiB in both arms is -1.60% (CPU/query +1.19%); one A/A sample is
+load-flagged and remains. No text/count sample meets that flag. Thresholds are
+monitoring annotations, not confidence bounds; small positive/negative TLS
+changes do not establish a consistent benefit. With TLS on, both 8/16 MiB
+remain slower than block cache off at 500k/1M/5M.
+
+All absolute rates, CPU/query, RSS, paired-round ranges, logs and reproduction
+commands are in the [supplement](BLOCK_CACHE_BUDGETS_2026-11-13.md) and
+[budget evidence ZIP](attachments/block-cache-budget-evidence.zip).
+#5045 remains TLS-only; #5042 remains TLS-free. The earlier two-dataset tables
+and load-recorded reruns below remain preserved with their original scopes.
+
 ## What is held constant
 
 | Dataset | TLS-off baseline | TLS-on candidate | Block cache in both arms | Native DocID cache |

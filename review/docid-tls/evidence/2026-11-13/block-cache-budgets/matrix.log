@@ -1,0 +1,21 @@
+waiting for idle gate rows20000
+starting rows20000 idle mean 90.33
+rows20000 QPS: {'baseline0': 6028.2, 'candidate0': 6038.8, 'baseline8': 3378.7, 'candidate8': 7225.0, 'baseline16': 3375.8, 'candidate16': 7679.6}
+waiting for idle gate rows100000
+starting rows100000 idle mean 91.72
+rows100000 QPS: {'candidate0': 5293.1, 'baseline8': 1909.2, 'candidate8': 4730.6, 'baseline16': 3037.9, 'candidate16': 6931.6, 'baseline0': 5219.3}
+waiting for idle gate rows500000
+starting rows500000 idle mean 91.63
+rows500000 QPS: {'baseline8': 1459.4, 'candidate8': 3226.5, 'baseline16': 1479.7, 'candidate16': 3226.8, 'baseline0': 3909.2, 'candidate0': 3874.2}
+waiting for idle gate rows1000000
+starting rows1000000 idle mean 90.1
+rows1000000 QPS: {'candidate8': 2862.3, 'baseline16': 1383.2, 'candidate16': 2816.3, 'baseline0': 3325.5, 'candidate0': 3309.7, 'baseline8': 1397.0}
+waiting for idle gate rows5000000
+starting rows5000000 idle mean 90.87
+rows5000000 QPS: {'baseline16': 1222.5, 'candidate16': 1602.2, 'baseline0': 1724.4, 'candidate0': 1719.5, 'baseline8': 1222.9, 'candidate8': 1598.3}
+waiting for idle gate count-1000000
+starting count-1000000 idle mean 91.11
+count-1000000 QPS: {'candidate16': 9501.0, 'baseline0': 9488.0, 'candidate0': 9580.8, 'baseline8': 9472.5, 'candidate8': 9512.3, 'baseline16': 9483.9}
+waiting for idle gate aa-1000000-cache8
+starting aa-1000000-cache8 idle mean 91.73
+aa-1000000-cache8 QPS: {'aa0': 2920.9, 'aa1': 2916.9}

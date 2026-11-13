@@ -8,6 +8,8 @@ PR [#5045](https://github.com/manticoresoftware/manticoresearch/pull/5045)
 remains reader TLS only at `019868e9f79d1bb2bd1f96dafb88ef20acd45418`.
 Neither PR depends on the other.
 
+- [Added cache OFF / 8 / 16 MiB matrix, with separate reader-TLS combinations](BLOCK_CACHE_BUDGETS_2026-11-13.md): absolute QPS, negative results, controls and load telemetry.
+- [Budget supplement ZIP](attachments/block-cache-budget-evidence.zip), including exact archived drivers and every new sample.
 - [Shared block cache: final no-TLS results, design and CI fixes](BLOCK_CACHE_2026-11-13.md).
 - [Reader TLS: original and latest block-cache datasets side by side](TLS_REVIEW_2026-11-13.md), with default-cache/large-data results and maintainer answers.
 - [Historical original-cache TLS report](TLS_ORIGINAL_CACHE_2026-11-13.md).
