@@ -1,0 +1,253 @@
+waiting for matrix idle gate 20000
+starting matrix 20000
+matrix 20000 {'default16': 7541.3, 'heap_manual512': 7521.0, 'heap_adaptive512': 7493.9, 'vm_adaptive16': 7505.4, 'vm_adaptive512': 7484.0, 'cache_off': 5898.8}
+waiting for matrix idle gate 100000
+starting matrix 100000
+matrix 100000 {'heap_manual512': 7089.4, 'heap_adaptive512': 6990.3, 'vm_adaptive16': 6959.1, 'vm_adaptive512': 7005.1, 'cache_off': 5276.7, 'default16': 6942.4}
+waiting for matrix idle gate 500000
+starting matrix 500000
+matrix 500000 {'heap_adaptive512': 6258.6, 'vm_adaptive16': 3386.1, 'vm_adaptive512': 6272.2, 'cache_off': 4069.4, 'default16': 3329.3, 'heap_manual512': 6251.2}
+waiting for matrix idle gate 1000000
+starting matrix 1000000
+matrix 1000000 {'vm_adaptive16': 2871.1, 'vm_adaptive512': 5172.0, 'cache_off': 3430.5, 'default16': 2868.8, 'heap_manual512': 5127.2, 'heap_adaptive512': 5137.1}
+waiting for matrix idle gate 5000000
+Traceback (most recent call last):
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/load_telemetry.py", line 102, in run
+    output.flush()
+OSError: [Errno 28] No space left on device
+
+During handling of the above exception, another exception occurred:
+
+OSError: [Errno 28] No space left on device
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 115, in running
+    yield self
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 84, in matrix_case
+    with LoadMonitor(args.output / f'matrix-{rows}-load.jsonl') as monitor:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/load_telemetry.py", line 132, in __exit__
+    raise self.error
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 86, in matrix_case
+    result['idle_gate'] = monitor.wait_idle(seconds=30, mean_idle=90, min_idle=80, timeout=600)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/load_telemetry.py", line 112, in wait_idle
+    raise self.error
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/load_telemetry.py", line 88, in run
+    with self.path.open('w') as output:
+         ^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 28] No space left on device
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 115, in running
+    yield self
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 595, in __exit__
+    if cb(*exc_details):
+       ^^^^^^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 125, in running
+    raise RuntimeError(f"searchd exited with status {proc.returncode}:\n" + (self.root / "console.log").read_text())
+RuntimeError: searchd exited with status 1:
+[Fri Nov 13 16:54:55.428 2026] [40389315] using config file '/private/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/vm_adaptive16/manticore.conf' (496 chars)...
+starting daemon version '0.0.0 9144f76@26102722' ...
+listening on 127.0.0.1:55169 for sphinx and http(s)
+Manticore 0.0.0 9144f76@26102722
+Copyright (c) 2001-2016, Andrew Aksyonoff
+Copyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)
+Copyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)
+
+precaching table 'docs'
+WARNING: secondary library not loaded; secondary index(es) disabled
+WARNING: last message repeated 7 times
+WARNING: failed to get MAC address, using random number 1445749771
+prereading 1 tables
+accepting connections
+preread 1 tables in 0.003 sec
+caught SIGTERM, shutting down
+WARNING: failed to open /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/vm_adaptive16/data/manticore.json.new: No space left on device
+FATAL: failed to open '/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/vm_adaptive16/data/binlog/binlog.meta.new': 'failed to create /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/vm_adaptive16/data/binlog/binlog.meta.new: No space left on device'
+precached 1 tables in 0.005 sec
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 115, in running
+    yield self
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 595, in __exit__
+    if cb(*exc_details):
+       ^^^^^^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 125, in running
+    raise RuntimeError(f"searchd exited with status {proc.returncode}:\n" + (self.root / "console.log").read_text())
+RuntimeError: searchd exited with status 1:
+[Fri Nov 13 16:54:54.249 2026] [40389288] using config file '/private/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/heap_adaptive512/manticore.conf' (506 chars)...
+starting daemon version '0.0.0 9144f76@26102722' ...
+listening on 127.0.0.1:55166 for sphinx and http(s)
+Manticore 0.0.0 9144f76@26102722
+Copyright (c) 2001-2016, Andrew Aksyonoff
+Copyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)
+Copyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)
+
+precaching table 'docs'
+WARNING: secondary library not loaded; secondary index(es) disabled
+WARNING: last message repeated 7 times
+WARNING: failed to get MAC address, using random number 1445749771
+prereading 1 tables
+accepting connections
+preread 1 tables in 0.004 sec
+caught SIGTERM, shutting down
+WARNING: failed to open /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/heap_adaptive512/data/manticore.json.new: No space left on device
+FATAL: failed to open '/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/heap_adaptive512/data/binlog/binlog.meta.new': 'failed to create /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/heap_adaptive512/data/binlog/binlog.meta.new: No space left on device'
+precached 1 tables in 0.004 sec
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 115, in running
+    yield self
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 595, in __exit__
+    if cb(*exc_details):
+       ^^^^^^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 125, in running
+    raise RuntimeError(f"searchd exited with status {proc.returncode}:\n" + (self.root / "console.log").read_text())
+RuntimeError: searchd exited with status 1:
+[Fri Nov 13 16:54:53.010 2026] [40389270] using config file '/private/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/heap_manual512/manticore.conf' (500 chars)...
+starting daemon version '0.0.0 9144f76@26102722' ...
+listening on 127.0.0.1:55163 for sphinx and http(s)
+Manticore 0.0.0 9144f76@26102722
+Copyright (c) 2001-2016, Andrew Aksyonoff
+Copyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)
+Copyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)
+
+precaching table 'docs'
+WARNING: secondary library not loaded; secondary index(es) disabled
+WARNING: last message repeated 7 times
+WARNING: failed to get MAC address, using random number 1445749771
+prereading 1 tables
+accepting connections
+preread 1 tables in 0.003 sec
+caught SIGTERM, shutting down
+WARNING: failed to open /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/heap_manual512/data/manticore.json.new: No space left on device
+FATAL: failed to open '/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/heap_manual512/data/binlog/binlog.meta.new': 'failed to create /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/heap_manual512/data/binlog/binlog.meta.new: No space left on device'
+precached 1 tables in 0.005 sec
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 115, in running
+    yield self
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 595, in __exit__
+    if cb(*exc_details):
+       ^^^^^^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 125, in running
+    raise RuntimeError(f"searchd exited with status {proc.returncode}:\n" + (self.root / "console.log").read_text())
+RuntimeError: searchd exited with status 1:
+[Fri Nov 13 16:54:51.744 2026] [40389252] using config file '/private/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/default16/manticore.conf' (456 chars)...
+starting daemon version '0.0.0 9144f76@26102722' ...
+listening on 127.0.0.1:55160 for sphinx and http(s)
+Manticore 0.0.0 9144f76@26102722
+Copyright (c) 2001-2016, Andrew Aksyonoff
+Copyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)
+Copyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)
+
+precaching table 'docs'
+WARNING: secondary library not loaded; secondary index(es) disabled
+WARNING: last message repeated 7 times
+WARNING: failed to get MAC address, using random number 1445749771
+prereading 1 tables
+accepting connections
+preread 1 tables in 0.003 sec
+caught SIGTERM, shutting down
+WARNING: failed to open /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/default16/data/manticore.json.new: No space left on device
+FATAL: failed to open '/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/default16/data/binlog/binlog.meta.new': 'failed to create /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/default16/data/binlog/binlog.meta.new: No space left on device'
+precached 1 tables in 0.005 sec
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 115, in running
+    yield self
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 595, in __exit__
+    if cb(*exc_details):
+       ^^^^^^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 125, in running
+    raise RuntimeError(f"searchd exited with status {proc.returncode}:\n" + (self.root / "console.log").read_text())
+RuntimeError: searchd exited with status 1:
+[Fri Nov 13 16:54:51.195 2026] [40389223] using config file '/private/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/cache_off/manticore.conf' (477 chars)...
+starting daemon version '0.0.0 9144f76@26102722' ...
+listening on 127.0.0.1:55157 for sphinx and http(s)
+Manticore 0.0.0 9144f76@26102722
+Copyright (c) 2001-2016, Andrew Aksyonoff
+Copyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)
+Copyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)
+
+precaching table 'docs'
+WARNING: secondary library not loaded; secondary index(es) disabled
+WARNING: last message repeated 7 times
+WARNING: failed to get MAC address, using random number 1445749771
+prereading 1 tables
+accepting connections
+preread 1 tables in 0.003 sec
+caught SIGTERM, shutting down
+WARNING: failed to open /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/cache_off/data/manticore.json.new: No space left on device
+FATAL: failed to open '/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/cache_off/data/binlog/binlog.meta.new': 'failed to create /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/cache_off/data/binlog/binlog.meta.new: No space left on device'
+precached 1 tables in 0.005 sec
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 208, in <module>
+    main()
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 195, in main
+    data['cases'].append(matrix_case(rows, number, binaries, args, ctx))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 82, in matrix_case
+    with tempfile.TemporaryDirectory(prefix='vm-cache-matrix-') as temp, ExitStack() as stack:
+                                                                         ^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 610, in __exit__
+    raise exc_details[1]
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 595, in __exit__
+    if cb(*exc_details):
+       ^^^^^^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/support.py", line 125, in running
+    raise RuntimeError(f"searchd exited with status {proc.returncode}:\n" + (self.root / "console.log").read_text())
+RuntimeError: searchd exited with status 1:
+[Fri Nov 13 16:54:51.075 2026] [40389202] using config file '/private/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/vm_adaptive512/manticore.conf' (500 chars)...
+starting daemon version '0.0.0 9144f76@26102722' ...
+listening on 127.0.0.1:55154 for sphinx and http(s)
+Manticore 0.0.0 9144f76@26102722
+Copyright (c) 2001-2016, Andrew Aksyonoff
+Copyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)
+Copyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)
+
+precaching table 'docs'
+WARNING: secondary library not loaded; secondary index(es) disabled
+WARNING: last message repeated 7 times
+WARNING: failed to get MAC address, using random number 1445749771
+prereading 1 tables
+accepting connections
+preread 1 tables in 0.003 sec
+caught SIGTERM, shutting down
+WARNING: failed to open /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/vm_adaptive512/data/manticore.json.new: No space left on device
+FATAL: failed to open '/var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/vm_adaptive512/data/binlog/binlog.meta.new': 'failed to create /var/folders/_b/1qjk2vpd6ln2l2mwvslj77g40000gn/T/vm-cache-matrix-f8cfppuz/vm_adaptive512/data/binlog/binlog.meta.new: No space left on device'
+precached 1 tables in 0.004 sec
+

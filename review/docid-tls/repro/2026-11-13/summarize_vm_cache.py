@@ -17,6 +17,7 @@ def main():
     root = args.evidence
     manifest = json.loads((root / 'build-manifest.json').read_text())
     plan = json.loads((root / 'measurement-plan.json').read_text())
+    idle_plan = json.loads((root / 'idle-repeat-plan.json').read_text())
     assert manifest['reader_tls'] is False
     assert plan['written_before_results'] and plan['reader_tls'] is False
     assert plan['source_commit'] == manifest['source_commit']
@@ -24,17 +25,25 @@ def main():
     assert hashlib.sha256((root / 'vm-cache.patch').read_bytes()).hexdigest() == manifest['source_patch_sha256']
     for name, digest in manifest['sources'].items():
         assert hashlib.sha256((root / 'candidate-source' / name).read_bytes()).hexdigest() == digest
-    result = dict(phases=[], all_completed_samples_retained=True)
+    assert idle_plan['written_before_results'] and idle_plan['source_commit'] == manifest['source_commit']
+    resume_plan = json.loads((root / 'latest-resume-plan.json').read_text())
+    memory_plan = json.loads((root / 'latest-memory-plan.json').read_text())
+    assert resume_plan['written_before_resumed_results'] and memory_plan['written_before_diagnostic_results']
+    assert resume_plan['source_commit'] == memory_plan['source_commit'] == manifest['source_commit']
+    result = dict(phases=[], latest_phase='idle-repeat', all_completed_samples_retained=True)
     csv_rows = []
-    for phase, sizes in [('matrix', 5), ('repeat', 2)]:
+    for phase, sizes in [('matrix', 5), ('repeat', 2), ('idle-repeat', 5)]:
         data = json.loads((root / phase / 'matrix.json').read_text())
         assert data['completed'] and data['reader_tls'] is False
         assert data['rounds'] == 6 and data['docid_lookup_cache_size'] == data['qcache_max_bytes'] == 0
         assert len(data['cases']) == sizes
-        expected_rows = plan['matrix_rows'] if phase == 'matrix' else plan['longer_repeats']['rows']
+        expected_rows = idle_plan['rows'] if phase == 'idle-repeat' else plan['matrix_rows'] if phase == 'matrix' else plan['longer_repeats']['rows']
         assert [c['rows'] for c in data['cases']] == expected_rows
-        assert data['seconds_per_arm'] == (plan['seconds_per_arm'] if phase == 'matrix' else plan['longer_repeats']['seconds_per_arm'])
-        assert len(data['transitions']) == (4 if phase == 'matrix' else 0)
+        assert data['seconds_per_arm'] == (idle_plan['seconds_per_arm'] if phase == 'idle-repeat' else plan['seconds_per_arm'] if phase == 'matrix' else plan['longer_repeats']['seconds_per_arm'])
+        if phase == 'idle-repeat':
+            assert data['binary_sha256'] == idle_plan['binary_sha256']
+            assert hashlib.sha256(json.dumps(data['cases'][:4], sort_keys=True).encode()).hexdigest() == resume_plan['completed_cases_sha256']
+        assert len(data['transitions']) == (0 if phase == 'repeat' else 4)
         assert data['binary_sha256']['candidate'] == manifest['binaries']['searchd']
         for name, digest in data['scripts_sha256'].items():
             assert hashlib.sha256((root / 'driver' / name).read_bytes()).hexdigest() == digest
@@ -99,7 +108,7 @@ def main():
                 summary['diagnostic_load_flagged_samples'] += load['elevated_external_load']
             summary['transitions'].append(dict(pass_number=entry['pass_number'], arm=entry['arm'], phases=phases))
         assert summary['timed_arm_samples'] == sizes * 36
-        assert summary['diagnostic_samples'] == (12 if phase == 'matrix' else 0)
+        assert summary['diagnostic_samples'] == (0 if phase == 'repeat' else 12)
         result['phases'].append(summary)
     (root / 'summary.json').write_text(json.dumps(result, indent=2) + '\n')
     with (root / 'summary.csv').open('w') as stream:

@@ -6,14 +6,11 @@ below compare the current implementation with the published #5042 default
 configuration. It reports throughput, CPU per query and observed process
 memory through a shrinking and expanding working set.
 
-**Observed result:** two fresh-server passes reduce RSS by about 478 MiB
-when the queried range shrinks, then refill successfully. At 500k rows the
-longer default-16→adaptive-512 comparison gives +82.26% QPS and -45.00%
-CPU/query; this also raises capacity. Small datasets show no established
-throughput benefit. Equal-16 changes reverse sign between primary and repeat
-runs. **External-load flags affect 78/180 primary samples and 6/72 longer
-repeat samples**, so these are descriptive results, not a universal gain or
-precise optimum. Every flagged sample remains.
+The throughput and memory results below are all newly measured with the same
+validated source. Five data sizes cover QPS and CPU per query; two fresh-server
+broad/hot/broad passes check process-memory return and refill. The 512 MiB
+comparison also changes capacity. No universal throughput gain or precise
+dataset-size optimum is claimed.
 
 [Current source commit `f5cf080`](https://github.com/orca-zhang/manticoresearch/commit/f5cf080a497d2986336ab514a0fab78536198837),
 [raw evidence and plans](evidence/2026-11-13/vm-cache/),
@@ -80,7 +77,7 @@ its gain must not be attributed solely to the adaptive policy.
 Apple M4 Pro / Clang 21 `-O2 -DNDEBUG`; eight clients and eight server workers,
 256 returned rows, 128-byte rowwise text, 16 KiB/LZ4, persistent HTTP and an
 8 MiB reader-buffer budget. Both cache ceilings use 16 shards. Six balanced
-Williams rounds ×3 seconds per arm; one queried arm at a time. Every returned
+Williams rounds ×5 seconds per arm; one queried arm at a time. Every returned
 ID and text value is checked. Each client warms and cycles through 20 fixed
 random 256-ID queries (seed 513). These finite pools are not a cold full-table
 scan, even on the 5M-row table.
@@ -100,21 +97,21 @@ is applied.
 
 | Rows | Default QPS | Adaptive QPS | QPS change | Default CPU ms/query | Adaptive CPU ms/query | CPU/query change |
 | --- | --- | --- | --- | --- | --- | --- |
-| 20,000 | 7,404.1 | 7,456.3 | +0.70% | 0.8810 | 0.8759 | -0.59% |
-| 100,000 | 6,819.4 | 6,772.2 | -0.69% | 0.9783 | 0.9729 | -0.55% |
-| 500,000 | 3,073.7 | 2,888.4 | -6.03% | 2.1843 | 2.2415 | +2.62% |
-| 1,000,000 | 2,690.7 | 2,619.7 | -2.64% | 2.6302 | 2.6592 | +1.10% |
-| 5,000,000 | 1,116.3 | 1,155.1 | +3.48% | 5.5137 | 5.4818 | -0.58% |
+| 20,000 | 7,541.3 | 7,505.4 | -0.48% | 0.8666 | 0.8735 | +0.79% |
+| 100,000 | 6,942.4 | 6,959.1 | +0.24% | 0.9654 | 0.9630 | -0.25% |
+| 500,000 | 3,329.3 | 3,386.1 | +1.71% | 2.0680 | 2.0208 | -2.28% |
+| 1,000,000 | 2,868.8 | 2,871.1 | +0.08% | 2.4927 | 2.4771 | -0.63% |
+| 5,000,000 | 1,652.2 | 1,648.4 | -0.23% | 4.6148 | 4.6193 | +0.10% |
 
 ### Adaptive 512 MiB ceiling
 
 | Rows | Default QPS | Adaptive QPS | QPS change | Default CPU ms/query | Adaptive CPU ms/query | CPU/query change |
 | --- | --- | --- | --- | --- | --- | --- |
-| 20,000 | 7,404.1 | 7,456.3 | +0.70% | 0.8810 | 0.8693 | -1.34% |
-| 100,000 | 6,819.4 | 6,755.3 | -0.94% | 0.9783 | 0.9898 | +1.18% |
-| 500,000 | 3,073.7 | 5,784.0 | +88.18% | 2.1843 | 1.1625 | -46.78% |
-| 1,000,000 | 2,690.7 | 4,545.0 | +68.92% | 2.6302 | 1.5271 | -41.94% |
-| 5,000,000 | 1,116.3 | 1,732.5 | +55.20% | 5.5137 | 3.9468 | -28.42% |
+| 20,000 | 7,541.3 | 7,484.0 | -0.76% | 0.8666 | 0.8767 | +1.17% |
+| 100,000 | 6,942.4 | 7,005.1 | +0.90% | 0.9654 | 0.9591 | -0.66% |
+| 500,000 | 3,329.3 | 6,272.2 | +88.40% | 2.0680 | 1.0929 | -47.15% |
+| 1,000,000 | 2,868.8 | 5,172.0 | +80.29% | 2.4927 | 1.3648 | -45.25% |
+| 5,000,000 | 1,652.2 | 2,233.1 | +35.16% | 4.6148 | 3.4372 | -25.52% |
 
 The 512 MiB comparison changes capacity as well as mode. Its sampled curve
 locates useful operating points for this query pool, not a universal dataset
@@ -123,17 +120,27 @@ the working set. Internal equal-512 controls and the VM-16→512 comparison are
 retained in the CSV for attribution. Gains from separate comparisons must not
 be added or multiplied. All negative results remain.
 
-![Current server CPU/query and longer checks](figures/adaptive-cache-policy.png)
+![Current server CPU/query and equal-capacity results](figures/adaptive-cache-policy.png)
 
-### Preselected longer repeats
+### Measurement setup
 
-Fresh servers, six balanced rounds ×5 seconds per arm at 20k and 500k. These
-sizes were selected before the final packed-region run, not from its results.
+The full measurement uses the validated binaries and the exact archived driver,
+fresh servers at every size, and six balanced rounds ×5 seconds per arm.
+The plans were saved before their respective results. All five sizes and
+both memory passes are newly measured; no earlier measurement is pooled into
+the current tables or figures.
 
-| Rows | Adaptive 16 QPS change | CPU/query change | Adaptive 16 paired QPS range | Adaptive 512 QPS change | CPU/query change |
-| --- | --- | --- | --- | --- | --- |
-| 20,000 | -2.18% | +1.71% | -7.98% … +0.91% | -0.33% | +0.90% |
-| 500,000 | +1.35% | -0.97% | -1.06% … +3.08% | +82.26% | -45.00% |
+### Cache disabled control: same current binary
+
+| Rows | Cache-off QPS | Cache-off CPU ms/query | Adaptive 16 QPS change | CPU/query change | Adaptive 512 QPS change | CPU/query change |
+| --- | --- | --- | --- | --- | --- | --- |
+| 20,000 | 5,898.8 | 1.1338 | +27.24% | -22.96% | +26.87% | -22.68% |
+| 100,000 | 5,276.7 | 1.2880 | +31.88% | -25.23% | +32.75% | -25.54% |
+| 500,000 | 4,069.4 | 1.7451 | -16.79% | +15.80% | +54.13% | -37.37% |
+| 1,000,000 | 3,430.5 | 2.1104 | -16.31% | +17.37% | +50.77% | -35.33% |
+| 5,000,000 | 1,789.1 | 4.2561 | -7.87% | +8.53% | +24.82% | -19.24% |
+
+At 20k/100k rows, both current cache ceilings outperform cache-off in this workload. At 500k/1M/5M, the 16 MiB ceiling lowers throughput relative to cache-off, while 512 MiB improves it. Cold-entry reclamation cannot remove miss/admission costs when the active working set exceeds the ceiling. The largest sampled gain relative to default occurs at 500k, not at the largest table. Equal-16 differences remain small; no universal policy-only speedup is established.
 
 ## Process memory returned to the OS
 
@@ -148,16 +155,16 @@ the figure are normalized; raw timestamps remain in JSON.
 
 | Pass | Stage | Charged entries MiB | Mapped regions MiB | Empty spares MiB | Process RSS MiB | Physical footprint MiB |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | large | 411.21 | 529.62 | 0.00 | 633.19 | 555.42 |
-| 1 | hot | 15.80 | 50.75 | 1.00 | 155.33 | 77.56 |
-| 1 | large-again | 412.17 | 530.81 | 0.00 | 635.52 | 557.77 |
-| 2 | large | 411.21 | 529.62 | 0.00 | 631.05 | 553.27 |
-| 2 | hot | 15.80 | 50.19 | 1.00 | 153.11 | 75.33 |
-| 2 | large-again | 412.17 | 530.81 | 0.00 | 633.89 | 556.11 |
+| 1 | large | 411.21 | 529.62 | 0.00 | 631.30 | 553.75 |
+| 1 | hot | 15.80 | 47.06 | 1.00 | 150.39 | 72.84 |
+| 1 | large-again | 412.17 | 530.81 | 0.00 | 634.52 | 556.97 |
+| 2 | large | 411.21 | 529.62 | 0.00 | 630.78 | 553.02 |
+| 2 | hot | 15.80 | 51.62 | 1.00 | 153.77 | 76.00 |
+| 2 | large-again | 412.17 | 530.81 | 0.00 | 633.42 | 555.66 |
 
-Pass 1: broad→hot RSS changes by -477.86 MiB; mapped address space changes by -478.88 MiB. The final broad stage reaches 635.52 MiB RSS after refilling.
+Pass 1: broad→hot RSS changes by -480.91 MiB; mapped address space changes by -482.56 MiB. The final broad stage reaches 634.52 MiB RSS after refilling.
 
-Pass 2: broad→hot RSS changes by -477.94 MiB; mapped address space changes by -479.44 MiB. The final broad stage reaches 633.89 MiB RSS after refilling.
+Pass 2: broad→hot RSS changes by -477.02 MiB; mapped address space changes by -478.00 MiB. The final broad stage reaches 633.42 MiB RSS after refilling.
 
 These are observed process RSS/footprint values, separate from cache-entry
 counters. The kernel release calls are checked, and no process-global heap
@@ -174,15 +181,15 @@ reports only completely empty retained regions. Snapshots use separate locks
 and are not globally atomic. Heap-fallback storage is absent from mapped/spare
 metrics. Monitoring overhead at production polling rates is unmeasured.
 
-### Primary memory medians
+### Latest throughput-run memory medians
 
 | Rows | Default RSS MiB | Adaptive 16: entry / mapped / RSS MiB | Adaptive 512: entry / mapped / RSS MiB |
 | --- | --- | --- | --- |
-| 20,000 | 31.77 | 2.53 / 3.62 / 32.40 | 2.53 / 3.62 / 33.16 |
-| 100,000 | 47.23 | 12.65 / 16.75 / 48.05 | 12.65 / 16.75 / 46.48 |
-| 500,000 | 81.54 | 15.80 / 22.00 / 55.45 | 63.24 / 81.69 / 112.49 |
-| 1,000,000 | 76.04 | 15.81 / 22.00 / 67.05 | 126.01 / 162.81 / 207.38 |
-| 5,000,000 | 121.04 | 15.80 / 22.00 / 115.84 | 411.21 / 529.62 / 513.42 |
+| 20,000 | 34.65 | 2.53 / 3.62 / 33.09 | 2.53 / 3.62 / 33.09 |
+| 100,000 | 47.23 | 12.65 / 16.75 / 47.70 | 12.65 / 16.75 / 47.13 |
+| 500,000 | 81.44 | 15.80 / 22.00 / 58.48 | 63.24 / 81.69 / 116.22 |
+| 1,000,000 | 91.05 | 15.80 / 22.00 / 67.48 | 126.01 / 162.81 / 207.12 |
+| 5,000,000 | 129.01 | 15.80 / 22.00 / 124.05 | 411.21 / 529.62 / 631.65 |
 
 ## Load control, raw data and interpretation limits
 
@@ -195,22 +202,13 @@ Flags are annotations, not exclusion rules or proof of causation. CPU placement,
 frequency and desktop activity remain uncontrolled. No confidence interval or
 universal no-regression guarantee is claimed.
 
-| Phase | Timed arm samples | Checked timed queries | Load-flagged samples | Diagnostic stage samples | Checked diagnostic queries | Diagnostic flags |
+| Run | Timed arm samples | Checked timed queries | Load-flagged samples | Diagnostic stage samples | Checked diagnostic queries | Diagnostic flags |
 | --- | --- | --- | --- | --- | --- | --- |
-| matrix | 180 | 2,536,939 | 78 | 12 | 381,473 | 7 |
-| repeat | 72 | 2,225,439 | 6 | 0 | 0 | 0 |
+| idle-repeat | 180 | 4,496,090 | 1 | 12 | 409,801 | 0 |
 
-| Phase | Rows | Flagged arm samples / total |
-| --- | --- | --- |
-| matrix | 20,000 | 1 / 36 |
-| matrix | 100,000 | 2 / 36 |
-| matrix | 500,000 | 17 / 36 |
-| matrix | 1,000,000 | 25 / 36 |
-| matrix | 5,000,000 | 33 / 36 |
-| repeat | 20,000 | 4 / 36 |
-| repeat | 500,000 | 2 / 36 |
+Per-arm/per-round external-CPU means, peaks, flags and telemetry coverage are retained in `summary.json` and the raw logs. No flagged sample is excluded. Idle gates and load logs do not establish frequency/CPU-placement control or a precise optimum.
 
-Per-arm/per-round external-CPU means, peaks, flags and telemetry coverage are retained in `summary.json` and the raw logs. No flagged sample is excluded. In particular, the primary 5M group is heavily load-affected and does not establish a precise gain or optimum.
+All default/current/cache-off comparison samples and all new memory stages are unflagged. The single flag belongs to the internal manual-512 control at 20k, round 0; it is retained.
 
 The primary table has six internal arms: published default 16 MiB; equal-512
 manual/adaptive heap controls; current adaptive 16/512 MiB; and current cache
@@ -221,13 +219,8 @@ journals that survive an interrupted case. The plan was written before final
 results. The summarizer checks exact driver/source hashes, journals, medians,
 ratios, paired ranges, ceiling bounds, lifecycle checks and full telemetry.
 
-An initial per-entry mapping diagnostic exposed page-rounding amplification:
-slightly over-16-KiB blocks consumed 32-KiB mappings on this machine. Its four
-fully completed case groups and interruption record are retained under
-`pre-packing-diagnostic/`. It was stopped during the 5M group; that interrupted
-group's partial samples were not persisted. Final results were fully recollected
-after packing, with a regression test for a 100k-row working set at 16 MiB.
-This diagnostic is not pooled into the final comparisons.
+Development records and prior measurements remain in archived evidence. None
+is pooled into the current default/adaptive comparisons.
 
 ## Validation and source scope
 

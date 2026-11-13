@@ -340,35 +340,43 @@ Absolute local paths in archived commands describe this machine; rebuild with
 normal upstream CMake/dependency setup in another checkout rather than running
 those commands against an unrelated build directory.
 
-Using fixtures prepared with the earlier guide:
+Using fixtures prepared with the earlier guide, the current complete workload
+can be reproduced with one invocation:
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 vm_cache.py --selfcheck
 PYTHONDONTWRITEBYTECODE=1 python3 vm_cache.py \
   ORIGINAL_376FBF9_SEARCHD HEAP_CONTROL_SEARCHD CURRENT_F5CF080_SEARCHD \
-  --fixtures /tmp/fixtures --output /tmp/vm-cache/matrix
-PYTHONDONTWRITEBYTECODE=1 python3 vm_cache.py \
-  ORIGINAL_376FBF9_SEARCHD HEAP_CONTROL_SEARCHD CURRENT_F5CF080_SEARCHD \
-  --fixtures /tmp/fixtures --output /tmp/vm-cache/repeat \
-  --rows 20000 500000 --duration 5 --matrix-only
+  --fixtures /tmp/fixtures --output /tmp/vm-cache/idle-repeat --duration 5
 ```
 
 Six arms cover published default16, current adaptive16/adaptive512/cache-off,
 and internal equal-512 manual/adaptive heap controls. The control source is
 `ad885be366eda4e897c828f05cb93ff04702d02c`; its binary and source hashes are
-recorded in the linked evidence. Main tables focus on default versus current.
-Five sizes, six balanced Williams rounds, three seconds per arm, full idle
-gates and CPU telemetry. Each client warms its 20-query pool before timing.
-Both 16 and 512 MiB use 16 shards. Longer repeats were preselected at 20k and
-500k and use fresh servers, six rounds and five seconds per arm.
+recorded in the evidence. Main tables focus on default versus current.
+All five sizes use fresh servers, six balanced Williams rounds, five seconds
+per arm, full idle gates and CPU telemetry. Each client warms its 20-query
+pool before timing. Both 16 and 512 MiB use 16 shards.
+
+The current tables and figures use `idle-repeat/`. All five throughput cases
+and both memory passes are newly measured; no earlier samples are pooled into
+the current results. The recorded run executes the matrix and memory passes
+sequentially with the same frozen functions. `idle-repeat-plan.json` and
+`latest-memory-plan.json` record their plans before results;
+`review-context/run-vm-quiet-repeat.py` and `run-vm-clean-diagnostics.py` record
+the exact invocation and unchanged binary/driver hashes.
+The 5M group was resumed before its first timed sample after freeing temporary
+build space. `latest-resume-plan.json` hashes the four completed case groups;
+the resume driver verifies they remain unchanged and retains the planned
+fifth-group order. Both memory passes then run anew.
 
 The two memory passes use fresh servers, reverse control/current order and
 query a broad range, then a small hot range, then broad again on the same 5M
 table. Each stage runs eight timed seconds after warmup, with concurrent
 0.2-second status/RSS/footprint probes. Do not treat diagnostic QPS as the
 primary throughput comparison. No compilation, other tests or rendering ran
-during timing. Exact commands are in `timing-commands.json`; the archived
-`review-context/run-vm-cache-matrix.py` records setup, calibration and planning.
+during timing. The current plans and archived `run-vm-quiet-repeat.py` /
+`run-vm-clean-diagnostics.py` record setup, calibration and exact commands.
 
 To regenerate the published summary/figures from archived evidence:
 
@@ -384,9 +392,7 @@ formulas, ceilings, lifecycle checks, idle gates and full telemetry overlap.
 It validates the 36-sample journal for every matrix group and retains all
 flagged samples. The plots distinguish equal-16 comparisons from the 16→512
 capacity change and graph charged entries, pool mappings, RSS and footprint.
-The entry ceiling is not a process-memory cap. An interrupted page-rounding
-diagnostic is archived separately and excluded from final comparisons; its
-interruption note records that the partial 5M group was not persisted.
-The experiment's known gaps include SkipCache throughput, a fully idle timer,
+The entry ceiling is not a process-memory cap. The experiment's known gaps
+include SkipCache throughput, a fully idle timer,
 Linux/Windows runtime behavior, memory pressure, production-rate metric
 polling and adaptive-plus-TLS measurements.

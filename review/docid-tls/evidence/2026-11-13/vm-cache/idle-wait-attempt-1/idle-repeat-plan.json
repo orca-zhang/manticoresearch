@@ -1,0 +1,45 @@
+{
+  "written_before_results": true,
+  "written_time_ns": 1794587277493564000,
+  "reason": "User agreed to pause competing OCR/FFmpeg tasks after earlier measurements had external-load flags. Repeat all five sizes with unchanged binaries/driver, fresh servers and six balanced 5-second rounds.",
+  "source_commit": "f5cf080a497d2986336ab514a0fab78536198837",
+  "rows": [
+    20000,
+    100000,
+    500000,
+    1000000,
+    5000000
+  ],
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "arms": [
+    "default16",
+    "heap_manual512",
+    "heap_adaptive512",
+    "vm_adaptive16",
+    "vm_adaptive512",
+    "cache_off"
+  ],
+  "reader_tls": false,
+  "memory_diagnostics_repeated": false,
+  "retain_every_sample": true,
+  "args": [
+    "/Users/orca/.pyenv/versions/3.12.8/bin/python3",
+    "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py",
+    "/private/tmp/manticore-5042-publish-review-20261113/candidate-searchd",
+    "/private/tmp/manticore-adaptive-cache-review-20261113/searchd",
+    "/private/tmp/manticore-vm-cache-review-20261113/searchd",
+    "--fixtures",
+    "/private/tmp/manticore-5045-review-20261113/sql",
+    "--output",
+    "/private/tmp/manticore-vm-cache-review-20261113/idle-repeat",
+    "--duration",
+    "5",
+    "--matrix-only"
+  ],
+  "binary_sha256": {
+    "reference": "b6658fc0f79f63eb12a1a55c807067b68ef629fedccede8329a769ae398cfb72",
+    "heap": "51c674f1ddbb1b676932bb9846708f55536063cd347deeadfa2605f38f3ce4a2",
+    "candidate": "96403c25079f46ea3cc1603a4e0f52aa1e542944589e0d69ef10e74f4bb87e50"
+  }
+}

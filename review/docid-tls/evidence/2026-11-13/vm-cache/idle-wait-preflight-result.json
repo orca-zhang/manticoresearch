@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "gate": {
+    "interval_seconds": 31.173177208052948,
+    "idle_percent_mean": 90.03628342832717,
+    "idle_percent_min": 84.80392156862744,
+    "from_monotonic_seconds": 981729.67503125,
+    "to_monotonic_seconds": 981760.848208458
+  },
+  "completed_time_ns": 1794588018473302000
+}

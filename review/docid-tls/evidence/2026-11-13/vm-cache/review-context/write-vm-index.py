@@ -2,12 +2,12 @@ from pathlib import Path
 import json
 root=Path('/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls')
 e=Path('/private/tmp/manticore-vm-cache-review-20261113')
-d=json.loads((e/'summary.json').read_text());main,repeat=d['phases'];commit=json.loads((e/'build-manifest.json').read_text())['source_commit']
+d=json.loads((e/'summary.json').read_text());initial,selected,main=d['phases'];commit=json.loads((e/'build-manifest.json').read_text())['source_commit']
 comparisons=[c['comparisons']['default_to_adaptive16']['qps_change_percent'] for c in main['cases']]
 best=max(main['cases'],key=lambda c:c['comparisons']['default_to_adaptive512']['qps_change_percent'])
 mem=[t for t in main['transitions'] if t['arm']=='vm_adaptive512']
 drops=[(t['phases'][0]['usage_after']['rss_bytes']-t['phases'][1]['usage_after']['rss_bytes'])/2**20 for t in mem]
-nt=sum(p['timed_arm_samples'] for p in d['phases']);nd=sum(p['diagnostic_samples'] for p in d['phases']);nq=sum(p['timed_queries'] for p in d['phases']);dq=sum(p['diagnostic_queries'] for p in d['phases']);nf=sum(p['load_flagged_samples'] for p in d['phases'])
+nt=main['timed_arm_samples'];nd=main['diagnostic_samples'];nq=main['timed_queries'];dq=main['diagnostic_queries'];nf=main['load_flagged_samples']
 def replace_intro(name,title,intro):
  p=root/name;s=p.read_text();marker='Updated review (2026-11-13):';assert marker in s
  p.write_text(title+'\n\n'+intro.strip()+'\n\n'+s[s.index(marker):])
@@ -20,10 +20,11 @@ to the OS. It remains outside both production PRs, with unchanged manual
 
 The report gives absolute QPS and CPU/query for default 16 MiB versus current
 adaptive 16/512 MiB at five sizes. Equal-16 QPS changes range from
-{min(comparisons):+.2f}% to {max(comparisons):+.2f}% in the primary run; this does not establish a
+{min(comparisons):+.2f}% to {max(comparisons):+.2f}% in the latest full rerun; this does not establish a
 universal gain. The 512 MiB gain peaks at {best['comparisons']['default_to_adaptive512']['qps_change_percent']:+.2f}% for
 {best['rows']:,} rows among these samples; this comparison also changes capacity.
-Fresh-server, longer repeats at 20k/500k were preselected. The finite warmed
+All five sizes use fresh servers and six balanced ×5-second rounds. The
+finite warmed
 query pools do not constitute a cold full-table scan.
 
 Two broad/hot/broad passes on the same 5M table observe process RSS drops of
@@ -32,8 +33,9 @@ virtual mappings, RSS and physical footprint separately. Partial-region slack
 and bounded empty spares remain; the entry ceiling is not an RSS cap. Idle
 shards do not advance lookup-driven reclamation.
 
-All {nt} primary/repeat arm samples and {nd} diagnostic stage samples remain,
-including {nf} primary/repeat external-load flags. No adaptive-plus-TLS result
+All {nt} timed arm samples and {nd} diagnostic stage samples remain,
+including {nf} external-load flags. All five throughput cases and both memory
+passes are newly measured; no earlier results are pooled into the tables. No adaptive-plus-TLS result
 exists. Exact absolute values, negative results, controls and load limits are
 in the report and CSV.
 
@@ -53,7 +55,8 @@ both production PRs.
   response checks and post-timing SQL lifecycle checks pass: {nq:,} primary/repeat
   queries plus {dq:,} diagnostic queries.
 - Every timed telemetry interval has full coverage. All {nf} primary/repeat
-  load-flagged samples remain; flags are annotations, not exclusions.
+  load-flagged samples remain; flags are annotations, not exclusions. The latest
+  full rerun contributes {main['timed_arm_samples']} samples with {main['load_flagged_samples']} flags.
 
 All affected translation units were rebuilt; unchanged engine/dependency
 objects were reused. Sanitizers instrument docstore, SkipCache, file I/O and

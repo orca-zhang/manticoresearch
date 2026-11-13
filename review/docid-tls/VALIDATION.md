@@ -11,11 +11,12 @@ both production PRs.
 - Coverage includes mapped-region packing/reuse/release, concurrency, pinned
   references, real stored-field cold-entry reclamation, uncompressed small/large
   fields, tiny-budget fallback and the 100k-row working set fitting 16 MiB.
-- API smoke matches the updated metric golden. All 264 timed arm/stage
-  response checks and post-timing SQL lifecycle checks pass: 4,762,378 primary/repeat
-  queries plus 381,473 diagnostic queries.
-- Every timed telemetry interval has full coverage. All 84 primary/repeat
-  load-flagged samples remain; flags are annotations, not exclusions.
+- API smoke matches the updated metric golden. All 192 timed arm/stage
+  response checks and post-timing SQL lifecycle checks pass: 4,496,090 primary/repeat
+  queries plus 409,801 diagnostic queries.
+- Every timed telemetry interval has full coverage. All 1 primary/repeat
+  load-flagged samples remain; flags are annotations, not exclusions. The latest
+  full rerun contributes 180 samples with 1 flags.
 
 All affected translation units were rebuilt; unchanged engine/dependency
 objects were reused. Sanitizers instrument docstore, SkipCache, file I/O and

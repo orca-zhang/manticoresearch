@@ -1,0 +1,19 @@
+{
+  "written_before_resumed_results": true,
+  "written_time_ns": 1794589097613374000,
+  "reason": "Disk filled while creating 5M fixtures, before any 5M timed sample. Four newly measured complete groups are retained unchanged; resume only the remaining size, then newly measure both memory passes.",
+  "completed_rows": [
+    20000,
+    100000,
+    500000,
+    1000000
+  ],
+  "completed_cases_sha256": "9e31de30421ccc1a10ee463f136f1be63714a2e0268771177f7dc573e6a09c75",
+  "remaining_rows": [
+    5000000
+  ],
+  "case_number": 4,
+  "seconds_per_arm": 5,
+  "free_bytes": 1604898816,
+  "source_commit": "f5cf080a497d2986336ab514a0fab78536198837"
+}

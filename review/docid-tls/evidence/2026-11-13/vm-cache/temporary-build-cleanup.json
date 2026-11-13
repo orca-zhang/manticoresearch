@@ -1,0 +1,4252 @@
+{
+  "time_ns": 1794589036658891000,
+  "scope": "Only task-owned rebuildable object/archive/test/server binaries. All measured active binaries, fixture data, source and evidence retained.",
+  "before_free": 689733632,
+  "removed": [
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/tsan/fileio-thread.o",
+      "bytes": 50480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/tsan/gtests_docstore_readers-thread.o",
+      "bytes": 96352
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/tsan/docstore-thread.o",
+      "bytes": 162000
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/diagnostic/searchd",
+      "bytes": 30455640
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/diagnostic/docstore.o",
+      "bytes": 92272
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/baseline-tests",
+      "bytes": 34115056
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/asan-ubsan/fileio-address-undefined.o",
+      "bytes": 128912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/asan-ubsan/gtests_docstore_readers-address-undefined.o",
+      "bytes": 320224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/asan-ubsan/docstore-address-undefined.o",
+      "bytes": 665432
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/lib/libroaring.a",
+      "bytes": 931168
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/lib/libuni-algo-debug.a",
+      "bytes": 882048
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/lib/libuni-algo.a",
+      "bytes": 904632
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/source/contrib/scripts/searchd",
+      "bytes": 1224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/tsan/gtests_docstore_blockcache-thread.o",
+      "bytes": 57712
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/tsan/fileio-thread.o",
+      "bytes": 50480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/tsan/gtests_docstore_readers-thread.o",
+      "bytes": 96352
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/tsan/docstore-thread.o",
+      "bytes": 165008
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/baseline-ubsan-repro/gtests_docstore_blockcache-address-undefined.o",
+      "bytes": 190320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/baseline-ubsan-repro/fileio-address-undefined.o",
+      "bytes": 128912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/baseline-ubsan-repro/gtests_docstore_readers-address-undefined.o",
+      "bytes": 320224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/baseline-ubsan-repro/docstore-address-undefined.o",
+      "bytes": 665432
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/diagnostic/searchd",
+      "bytes": 30456008
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/diagnostic/docstore.o",
+      "bytes": 94768
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/asan-ubsan-final/gtests_docstore_blockcache-address-undefined.o",
+      "bytes": 133864
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/asan-ubsan-final/fileio-address-undefined.o",
+      "bytes": 103184
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/asan-ubsan-final/gtests_docstore_readers-address-undefined.o",
+      "bytes": 228992
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/asan-ubsan-final/docstore-address-undefined.o",
+      "bytes": 367024
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/tsan-final/gtests_docstore_blockcache-thread.o",
+      "bytes": 57712
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/tsan-final/fileio-thread.o",
+      "bytes": 50480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/tsan-final/gtests_docstore_readers-thread.o",
+      "bytes": 96352
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/tsan-final/docstore-thread.o",
+      "bytes": 164880
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/asan-ubsan/gtests_docstore_blockcache-address-undefined.o",
+      "bytes": 190320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/asan-ubsan/fileio-address-undefined.o",
+      "bytes": 128912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/asan-ubsan/gtests_docstore_readers-address-undefined.o",
+      "bytes": 320224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/block-cache-opt/asan-ubsan/docstore-address-undefined.o",
+      "bytes": 677896
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/libdigest_sha256.a",
+      "bytes": 2792
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/searchd",
+      "bytes": 30455816
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/liblmanticore.a",
+      "bytes": 38198088
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/libdigest_sha1.a",
+      "bytes": 15936
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/libsearchd_ssl.a",
+      "bytes": 51208
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/liblcjk.a",
+      "bytes": 12568
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/liblmanticore_icu.a",
+      "bytes": 7888
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/indexing_sources/libsourcedoc.a",
+      "bytes": 52736
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/indexing_sources/libsource_xmlpipe2.a",
+      "bytes": 188128
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/indexing_sources/libsource_svpipe.a",
+      "bytes": 186096
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/stripper/libstripper.a",
+      "bytes": 46520
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/liblowercaser.a",
+      "bytes": 164720
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sqlchecks/libsqlchecks.a",
+      "bytes": 41928
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/librepli_stuff.a",
+      "bytes": 686024
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/gmanticoretest",
+      "bytes": 34115392
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/indexing_sources/CMakeFiles/source_xmlpipe2.dir/source_xmlpipe2.cpp.o",
+      "bytes": 44072
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/indexing_sources/CMakeFiles/source_svpipe.dir/source_svpipe.cpp.o",
+      "bytes": 41776
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/indexing_sources/CMakeFiles/sourcedoc.dir/source_document.cpp.o",
+      "bytes": 44664
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/stripper/CMakeFiles/stripper.dir/html_stripper.cpp.o",
+      "bytes": 44176
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore_coro.dir/task_dispatcher.cpp.o",
+      "bytes": 16512
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore_coro.dir/coroutine.cpp.o",
+      "bytes": 89752
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore_coro.dir/coro_stack.cpp.o",
+      "bytes": 3968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore_icu.dir/icu.cpp.o",
+      "bytes": 6992
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/digest_sha1.dir/digest_sha1.cpp.o",
+      "bytes": 14456
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/indexcheck.dir/indexcheck.cpp.o",
+      "bytes": 129512
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdexpr.cpp.o",
+      "bytes": 60728
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/taskflushbinlog.cpp.o",
+      "bytes": 6688
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdsql.cpp.o",
+      "bytes": 377944
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/compressed_mysql_layer.cpp.o",
+      "bytes": 4424
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/compressed_http.cpp.o",
+      "bytes": 3160
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/sphinxql_extra.cpp.o",
+      "bytes": 41912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/taskflushmutable.cpp.o",
+      "bytes": 16320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdconfig.cpp.o",
+      "bytes": 204768
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/pollable_event.cpp.o",
+      "bytes": 4904
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/config_reloader.cpp.o",
+      "bytes": 34296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/jsonqueryfilter.cpp.o",
+      "bytes": 69240
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdha.cpp.o",
+      "bytes": 123416
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/docs_collector.cpp.o",
+      "bytes": 8368
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/sphinxjsonquery.cpp.o",
+      "bytes": 292248
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/taskflushattrs.cpp.o",
+      "bytes": 14336
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/netfetch.cpp.o",
+      "bytes": 29008
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/taskglobalidf.cpp.o",
+      "bytes": 8584
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/networking_daemon.cpp.o",
+      "bytes": 71744
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdfields.cpp.o",
+      "bytes": 53320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/taskpreread.cpp.o",
+      "bytes": 11584
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/sphinxql_debug.cpp.o",
+      "bytes": 58136
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/taskping.cpp.o",
+      "bytes": 16312
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/compressed_zlib_mysql.cpp.o",
+      "bytes": 9640
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/dynamic_idx.cpp.o",
+      "bytes": 75520
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/facetutils.cpp.o",
+      "bytes": 24960
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdreplication.cpp.o",
+      "bytes": 227016
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/stackmock.cpp.o",
+      "bytes": 79784
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/netreceive_http.cpp.o",
+      "bytes": 15160
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/net_action_accept.cpp.o",
+      "bytes": 35048
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/indexer_rt_bulk.cpp.o",
+      "bytes": 192304
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/index_rotator.cpp.o",
+      "bytes": 16976
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchd_shard.cpp.o",
+      "bytes": 146800
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/api_reply_stream.cpp.o",
+      "bytes": 11192
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/sphinxexcerpt.cpp.o",
+      "bytes": 90888
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdtask.cpp.o",
+      "bytes": 10912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/compressed_zstd_mysql.cpp.o",
+      "bytes": 12304
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/querystats.cpp.o",
+      "bytes": 12936
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdaemon.cpp.o",
+      "bytes": 84560
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdbuddy.cpp.o",
+      "bytes": 305824
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/frontendschema.cpp.o",
+      "bytes": 32536
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdhttpcompat.cpp.o",
+      "bytes": 477808
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/netreceive_ql.cpp.o",
+      "bytes": 95992
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/query_status.cpp.o",
+      "bytes": 16312
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/tasksavestate.cpp.o",
+      "bytes": 37312
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/netreceive_api.cpp.o",
+      "bytes": 11568
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/taskmalloctrim.cpp.o",
+      "bytes": 616
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdhttp.cpp.o",
+      "bytes": 257288
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/netpoll.cpp.o",
+      "bytes": 10224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/debug_cmds.cpp.o",
+      "bytes": 49352
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/sphinxql_second.cpp.o",
+      "bytes": 53104
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/searchdddl.cpp.o",
+      "bytes": 104632
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lcjk.dir/cjkpreprocessor.cpp.o",
+      "bytes": 10872
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/searchd_ssl.dir/searchdssl.cpp.o",
+      "bytes": 47624
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/client_task_info.cpp.o",
+      "bytes": 12872
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/searchnode.cpp.o",
+      "bytes": 724552
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxfilter.cpp.o",
+      "bytes": 220800
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/fileutils.cpp.o",
+      "bytes": 50032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinx.cpp.o",
+      "bytes": 1737576
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/tracer.cpp.o",
+      "bytes": 336
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/binlog.cpp.o",
+      "bytes": 83472
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxpq.cpp.o",
+      "bytes": 286168
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/attribute.cpp.o",
+      "bytes": 77400
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sorterscroll.cpp.o",
+      "bytes": 111944
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sortertraits.cpp.o",
+      "bytes": 27480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/skip_cache.cpp.o",
+      "bytes": 7920
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/exprtraits.cpp.o",
+      "bytes": 9656
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/uuid_docid.cpp.o",
+      "bytes": 9408
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/secondarylib.cpp.o",
+      "bytes": 10520
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/hazard_pointer.cpp.o",
+      "bytes": 24464
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/geodist.cpp.o",
+      "bytes": 14720
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/queryprofile.cpp.o",
+      "bytes": 4824
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/datetime.cpp.o",
+      "bytes": 23512
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/aggrexpr.cpp.o",
+      "bytes": 50584
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/indexformat.cpp.o",
+      "bytes": 48576
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/exprdatetime.cpp.o",
+      "bytes": 89608
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxplugin.cpp.o",
+      "bytes": 45592
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxsearch.cpp.o",
+      "bytes": 375976
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxversion.cpp.o",
+      "bytes": 1648
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxaot.cpp.o",
+      "bytes": 139504
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/hybridexecutor.cpp.o",
+      "bytes": 118224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxjson.cpp.o",
+      "bytes": 198760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/pseudosharding.cpp.o",
+      "bytes": 3240
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxexpr.cpp.o",
+      "bytes": 683256
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/schematransform.cpp.o",
+      "bytes": 30968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/queryfilter.cpp.o",
+      "bytes": 25280
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/columnarmisc.cpp.o",
+      "bytes": 9760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/snippetpassage.cpp.o",
+      "bytes": 12648
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/timeout_queue.cpp.o",
+      "bytes": 6024
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/datareader.cpp.o",
+      "bytes": 17760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/jsonsi.cpp.o",
+      "bytes": 57912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/embeddingutils.cpp.o",
+      "bytes": 21360
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxrt.cpp.o",
+      "bytes": 749472
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/columnarexpr.cpp.o",
+      "bytes": 54936
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/collation.cpp.o",
+      "bytes": 16320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/snippetfunctor.cpp.o",
+      "bytes": 58904
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/threads_detached.cpp.o",
+      "bytes": 14728
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/histogram.cpp.o",
+      "bytes": 56400
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/columnarrt.cpp.o",
+      "bytes": 45504
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/fileio.cpp.o",
+      "bytes": 26176
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxqcache.cpp.o",
+      "bytes": 22144
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/exprdocstore.cpp.o",
+      "bytes": 16208
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/secondaryindex.cpp.o",
+      "bytes": 84840
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/exprgeodist.cpp.o",
+      "bytes": 9392
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/columnarsort.cpp.o",
+      "bytes": 3810232
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sortergroup.cpp.o",
+      "bytes": 17891680
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/attrindex_merge.cpp.o",
+      "bytes": 218016
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/queuecreator.cpp.o",
+      "bytes": 125752
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/columnargrouper.cpp.o",
+      "bytes": 95904
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxutils.cpp.o",
+      "bytes": 200256
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/fieldtext.cpp.o",
+      "bytes": 5904
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/columnarlib.cpp.o",
+      "bytes": 13968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/columnarfilter.cpp.o",
+      "bytes": 215592
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/grouper.cpp.o",
+      "bytes": 218232
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxsort.cpp.o",
+      "bytes": 510312
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/docidlookup.cpp.o",
+      "bytes": 77040
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/costestimate.cpp.o",
+      "bytes": 17144
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/memio.cpp.o",
+      "bytes": 8256
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/distinct.cpp.o",
+      "bytes": 28768
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/killlist.cpp.o",
+      "bytes": 13944
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/knnmisc.cpp.o",
+      "bytes": 145216
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/accumulator.cpp.o",
+      "bytes": 72040
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/snippetstream.cpp.o",
+      "bytes": 23432
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/threadutils.cpp.o",
+      "bytes": 98080
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/querycontext.cpp.o",
+      "bytes": 14960
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinx_alter.cpp.o",
+      "bytes": 23952
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/snippetindex.cpp.o",
+      "bytes": 27408
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/indexsettings.cpp.o",
+      "bytes": 291088
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/chunksearchctx.cpp.o",
+      "bytes": 4968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/task_info.cpp.o",
+      "bytes": 28424
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sphinxudf.c.o",
+      "bytes": 4264
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/indexfilebase.cpp.o",
+      "bytes": 2320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/attrindex_builder.cpp.o",
+      "bytes": 7968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/indexfiles.cpp.o",
+      "bytes": 28488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/exprremap.cpp.o",
+      "bytes": 12808
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/global_idf.cpp.o",
+      "bytes": 21944
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sortsetup.cpp.o",
+      "bytes": 14648
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/mini_timer.cpp.o",
+      "bytes": 23848
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/attr_embedding.cpp.o",
+      "bytes": 23296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/docstore.cpp.o",
+      "bytes": 93256
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/joinsorter.cpp.o",
+      "bytes": 268600
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/sorterprecalc.cpp.o",
+      "bytes": 18856
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/aggregate.cpp.o",
+      "bytes": 77392
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/libutils.cpp.o",
+      "bytes": 5352
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/knnlib.cpp.o",
+      "bytes": 17160
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/hyperloglog.cpp.o",
+      "bytes": 24344
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/conversion.dir/conversion.cpp.o",
+      "bytes": 3512
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/digest_sha256.dir/digest_sha256.cpp.o",
+      "bytes": 2280
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/searchd.dir/searchd.cpp.o",
+      "bytes": 1042376
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/auth/auth_proto_api.cpp.o",
+      "bytes": 15528
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/auth/auth_perms.cpp.o",
+      "bytes": 6032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/auth/gcm_nonce.cpp.o",
+      "bytes": 9840
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/auth/auth_common.cpp.o",
+      "bytes": 74368
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/auth/auth_bootstrap.cpp.o",
+      "bytes": 23800
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/auth/auth_proto_mysql.cpp.o",
+      "bytes": 17240
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/auth/auth.cpp.o",
+      "bytes": 121656
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/auth/auth_log.cpp.o",
+      "bytes": 15896
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/auth/auth_proto_http.cpp.o",
+      "bytes": 13480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lsearchd.dir/http/http_parser.c.o",
+      "bytes": 31008
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/lz4/lz4.c.o",
+      "bytes": 57208
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/lz4/lz4hc.c.o",
+      "bytes": 48704
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/detail/indexlink.cpp.o",
+      "bytes": 5160
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/CMakeFiles/lmanticore.dir/json/cJSON_test.c.o",
+      "bytes": 24960
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizerbase2.cpp.o",
+      "bytes": 10712
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizerbase.cpp.o",
+      "bytes": 32816
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_bigram.cpp.o",
+      "bytes": 23696
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_multiform.cpp.o",
+      "bytes": 20488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_plugin.cpp.o",
+      "bytes": 19408
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer.cpp.o",
+      "bytes": 17488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/CMakeFiles/tokenizer.dir/exceptions_trie.cpp.o",
+      "bytes": 21952
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_utf8.cpp.o",
+      "bytes": 37096
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/CMakeFiles/lowercaser.dir/lowercaser.cpp.o",
+      "bytes": 11880
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/tokenizer/CMakeFiles/lowercaser.dir/charset_definition_parser.cpp.o",
+      "bytes": 148368
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/fastlog.cpp.o",
+      "bytes": 4104
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/crc32.cpp.o",
+      "bytes": 1928
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/rand.cpp.o",
+      "bytes": 1888
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/sys.cpp.o",
+      "bytes": 7456
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/mm.cpp.o",
+      "bytes": 3864
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/stringbuilder.cpp.o",
+      "bytes": 16688
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/mutex.cpp.o",
+      "bytes": 2984
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/mem.cpp.o",
+      "bytes": 952
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/string.cpp.o",
+      "bytes": 768
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/tdigest_runtime.cpp.o",
+      "bytes": 4440
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/base64.cpp.o",
+      "bytes": 12488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/autoevent.cpp.o",
+      "bytes": 3272
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/fatal.cpp.o",
+      "bytes": 2640
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/fnv64.cpp.o",
+      "bytes": 976
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/stringhash.cpp.o",
+      "bytes": 3272
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/checks.cpp.o",
+      "bytes": 336
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/env.cpp.o",
+      "bytes": 9760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/tdigest.cpp.o",
+      "bytes": 27376
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/smalloc.cpp.o",
+      "bytes": 336
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/sphwarn.cpp.o",
+      "bytes": 936
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/timers.cpp.o",
+      "bytes": 1320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/std/CMakeFiles/manticore_std.dir/rwlock.cpp.o",
+      "bytes": 3296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sqlchecks/CMakeFiles/sqlchecks.dir/scan_parameters.cpp.o",
+      "bytes": 21264
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sqlchecks/CMakeFiles/sqlchecks.dir/validate_vector.cpp.o",
+      "bytes": 17888
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/schema/CMakeFiles/schema.dir/helper.cpp.o",
+      "bytes": 19032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/schema/CMakeFiles/schema.dir/columninfo.cpp.o",
+      "bytes": 8208
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/schema/CMakeFiles/schema.dir/schema.cpp.o",
+      "bytes": 50840
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/schema/CMakeFiles/schema.dir/rset.cpp.o",
+      "bytes": 20360
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/xqnode.cpp.o",
+      "bytes": 8800
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_andnotnotnot.cpp.o",
+      "bytes": 1184
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/common_subtree.cpp.o",
+      "bytes": 26112
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/sphinxquery.cpp.o",
+      "bytes": 24488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonornot.cpp.o",
+      "bytes": 3960
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonandnotfactor.cpp.o",
+      "bytes": 4168
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/parse_helper.cpp.o",
+      "bytes": 85464
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonsubterm.cpp.o",
+      "bytes": 9200
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_phrase.cpp.o",
+      "bytes": 20448
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonnot.cpp.o",
+      "bytes": 7752
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_excessandnot.cpp.o",
+      "bytes": 12952
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_hungoperand.cpp.o",
+      "bytes": 1296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commoncompoundnot.cpp.o",
+      "bytes": 6384
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/xqparser.cpp.o",
+      "bytes": 57552
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonkeywords.cpp.o",
+      "bytes": 36088
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/sphinxquery/CMakeFiles/sphinxquery.dir/transformation.cpp.o",
+      "bytes": 25024
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/api_search.cpp.o",
+      "bytes": 118776
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/search_handler.cpp.o",
+      "bytes": 233464
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/notifier.cpp.o",
+      "bytes": 1176
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/system_tables.cpp.o",
+      "bytes": 30136
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/match_iterator.cpp.o",
+      "bytes": 14464
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/minimize_aggr_result.cpp.o",
+      "bytes": 95560
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/query_log.cpp.o",
+      "bytes": 80744
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/http_log.cpp.o",
+      "bytes": 12024
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/winservice.cpp.o",
+      "bytes": 1920
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/failures_log.cpp.o",
+      "bytes": 18984
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/crash_logger.cpp.o",
+      "bytes": 12944
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/daemon_ipc.cpp.o",
+      "bytes": 14304
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/daemon/CMakeFiles/daemon.dir/daemon_log.cpp.o",
+      "bytes": 10504
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/nodes.cpp.o",
+      "bytes": 18080
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/wsrep_v31.cpp.o",
+      "bytes": 41032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/commit_monitor.cpp.o",
+      "bytes": 19000
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_binlog.cpp.o",
+      "bytes": 19488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_recv_state_cleanup.cpp.o",
+      "bytes": 3128
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_check_node.cpp.o",
+      "bytes": 26480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_synced.cpp.o",
+      "bytes": 17224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/wsrep_cxx.cpp.o",
+      "bytes": 22480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_get_nodes.cpp.o",
+      "bytes": 44960
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/api_command_cluster.cpp.o",
+      "bytes": 25240
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/configuration.cpp.o",
+      "bytes": 7472
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/receiver_ctx.cpp.o",
+      "bytes": 41856
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_index_add_local.cpp.o",
+      "bytes": 34224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/send_files.cpp.o",
+      "bytes": 12600
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_file_send.cpp.o",
+      "bytes": 31576
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/portrange.cpp.o",
+      "bytes": 6760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/grastate.cpp.o",
+      "bytes": 14592
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/replicate_index.cpp.o",
+      "bytes": 51736
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_sst_progress.cpp.o",
+      "bytes": 48768
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/recv_state.cpp.o",
+      "bytes": 16072
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_delete.cpp.o",
+      "bytes": 8784
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/wsrep_v25.cpp.o",
+      "bytes": 37760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_update_nodes.cpp.o",
+      "bytes": 16040
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/cluster_file_reserve.cpp.o",
+      "bytes": 29864
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/replication/CMakeFiles/repli_stuff.dir/serialize.cpp.o",
+      "bytes": 10320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/stem/libstem.a",
+      "bytes": 61232
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/infix/libinfix.a",
+      "bytes": 35424
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/CMakeFiles/dict.dir/dict_crc.cpp.o",
+      "bytes": 13728
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/CMakeFiles/dict.dir/dict_keywords.cpp.o",
+      "bytes": 47104
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/CMakeFiles/dict.dir/bin.cpp.o",
+      "bytes": 5912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/CMakeFiles/dict.dir/dict_base.cpp.o",
+      "bytes": 6408
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/CMakeFiles/dict.dir/dict_exact.cpp.o",
+      "bytes": 8984
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/CMakeFiles/dict.dir/word_forms.cpp.o",
+      "bytes": 3672
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/CMakeFiles/dict.dir/template_dict_traits.cpp.o",
+      "bytes": 92296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/CMakeFiles/dict.dir/dict_star.cpp.o",
+      "bytes": 10864
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/stem/CMakeFiles/stem.dir/sphinxstemen.cpp.o",
+      "bytes": 7808
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/stem/CMakeFiles/stem.dir/sphinxstemar.cpp.o",
+      "bytes": 12968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/stem/CMakeFiles/stem.dir/sphinxmetaphone.cpp.o",
+      "bytes": 21176
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/stem/CMakeFiles/stem.dir/sphinxstemru.cpp.o",
+      "bytes": 13264
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/stem/CMakeFiles/stem.dir/sphinxsoundex.cpp.o",
+      "bytes": 1000
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/stem/CMakeFiles/stem.dir/sphinxstemcz.cpp.o",
+      "bytes": 4032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/dict/infix/CMakeFiles/infix.dir/infix_builder.cpp.o",
+      "bytes": 32200
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_stringbuilder.cpp.o",
+      "bytes": 169704
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_functions.cpp.o",
+      "bytes": 524912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_hugetokenizer.cpp.o",
+      "bytes": 666856
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_rtstuff.cpp.o",
+      "bytes": 346032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_json.cpp.o",
+      "bytes": 438928
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_api_reply_stream.cpp.o",
+      "bytes": 292816
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_ssl.cpp.o",
+      "bytes": 27072
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_strfmt.cpp.o",
+      "bytes": 80672
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_threadstuff.cpp.o",
+      "bytes": 145744
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docstore_readers.cpp.o",
+      "bytes": 67056
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_uklemmatizer.cpp.o",
+      "bytes": 67424
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_filter.cpp.o",
+      "bytes": 70104
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchdaemon.cpp.o",
+      "bytes": 249280
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidlookup.cpp.o",
+      "bytes": 64288
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchd.cpp.o",
+      "bytes": 1096856
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_wsrep.cpp.o",
+      "bytes": 33640
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_pqstuff.cpp.o",
+      "bytes": 87192
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_text.cpp.o",
+      "bytes": 198416
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_send_files.cpp.o",
+      "bytes": 54528
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docstore_blockcache.cpp.o",
+      "bytes": 39672
+    },
+    {
+      "path": "/private/tmp/manticore-5045-review-20261113/build/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_globalstate.cpp.o",
+      "bytes": 6480
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/libdigest_sha256.a",
+      "bytes": 2792
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/searchd",
+      "bytes": 30474088
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/liblmanticore.a",
+      "bytes": 38222792
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/libdigest_sha1.a",
+      "bytes": 15936
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/libsearchd_ssl.a",
+      "bytes": 51208
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/liblcjk.a",
+      "bytes": 12568
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/liblmanticore_icu.a",
+      "bytes": 7888
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/api/libsphinxclient/libsphinxclient.a",
+      "bytes": 95224
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/api/libsphinxclient/CMakeFiles/testcli.dir/test.c.o",
+      "bytes": 22008
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/api/libsphinxclient/CMakeFiles/sphinxclient.dir/sphinxclient.c.o",
+      "bytes": 93480
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/indexing_sources/libsourcedoc.a",
+      "bytes": 52736
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/indexing_sources/libsource_xmlpipe2.a",
+      "bytes": 189088
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/indexing_sources/libsource_svpipe.a",
+      "bytes": 187064
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/stripper/libstripper.a",
+      "bytes": 46520
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/liblowercaser.a",
+      "bytes": 164720
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sqlchecks/libsqlchecks.a",
+      "bytes": 41928
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/librepli_stuff.a",
+      "bytes": 686024
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/gmanticoretest",
+      "bytes": 34241248
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/indexing_sources/CMakeFiles/source_xmlpipe2.dir/source_xmlpipe2.cpp.o",
+      "bytes": 44072
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/indexing_sources/CMakeFiles/source_svpipe.dir/source_svpipe.cpp.o",
+      "bytes": 41776
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/indexing_sources/CMakeFiles/sourcedoc.dir/source_document.cpp.o",
+      "bytes": 44664
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/stripper/CMakeFiles/stripper.dir/html_stripper.cpp.o",
+      "bytes": 44176
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/indexer.dir/indexer.cpp.o",
+      "bytes": 149704
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore_coro.dir/task_dispatcher.cpp.o",
+      "bytes": 16512
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore_coro.dir/coroutine.cpp.o",
+      "bytes": 89752
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore_coro.dir/coro_stack.cpp.o",
+      "bytes": 3968
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore_icu.dir/icu.cpp.o",
+      "bytes": 6992
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/digest_sha1.dir/digest_sha1.cpp.o",
+      "bytes": 14456
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/indexcheck.dir/indexcheck.cpp.o",
+      "bytes": 130432
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdexpr.cpp.o",
+      "bytes": 60728
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/taskflushbinlog.cpp.o",
+      "bytes": 6688
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdsql.cpp.o",
+      "bytes": 377944
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/compressed_mysql_layer.cpp.o",
+      "bytes": 4424
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/compressed_http.cpp.o",
+      "bytes": 3160
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/sphinxql_extra.cpp.o",
+      "bytes": 41912
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/taskflushmutable.cpp.o",
+      "bytes": 16320
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdconfig.cpp.o",
+      "bytes": 204768
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/pollable_event.cpp.o",
+      "bytes": 4904
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/config_reloader.cpp.o",
+      "bytes": 34296
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/jsonqueryfilter.cpp.o",
+      "bytes": 69240
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdha.cpp.o",
+      "bytes": 123416
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/docs_collector.cpp.o",
+      "bytes": 8368
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/sphinxjsonquery.cpp.o",
+      "bytes": 292248
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/taskflushattrs.cpp.o",
+      "bytes": 14336
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/netfetch.cpp.o",
+      "bytes": 29008
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/taskglobalidf.cpp.o",
+      "bytes": 8584
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/networking_daemon.cpp.o",
+      "bytes": 71744
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdfields.cpp.o",
+      "bytes": 53320
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/taskpreread.cpp.o",
+      "bytes": 11584
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/sphinxql_debug.cpp.o",
+      "bytes": 58136
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/taskping.cpp.o",
+      "bytes": 16312
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/compressed_zlib_mysql.cpp.o",
+      "bytes": 9640
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/dynamic_idx.cpp.o",
+      "bytes": 75520
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/facetutils.cpp.o",
+      "bytes": 24960
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdreplication.cpp.o",
+      "bytes": 227016
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/stackmock.cpp.o",
+      "bytes": 79784
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/netreceive_http.cpp.o",
+      "bytes": 15160
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/net_action_accept.cpp.o",
+      "bytes": 35048
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/indexer_rt_bulk.cpp.o",
+      "bytes": 192304
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/index_rotator.cpp.o",
+      "bytes": 16976
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchd_shard.cpp.o",
+      "bytes": 146800
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/api_reply_stream.cpp.o",
+      "bytes": 11192
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/sphinxexcerpt.cpp.o",
+      "bytes": 90888
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdtask.cpp.o",
+      "bytes": 10912
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/compressed_zstd_mysql.cpp.o",
+      "bytes": 12304
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/querystats.cpp.o",
+      "bytes": 12936
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdaemon.cpp.o",
+      "bytes": 84560
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdbuddy.cpp.o",
+      "bytes": 305824
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/frontendschema.cpp.o",
+      "bytes": 32536
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdhttpcompat.cpp.o",
+      "bytes": 477808
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/netreceive_ql.cpp.o",
+      "bytes": 95992
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/query_status.cpp.o",
+      "bytes": 16312
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/tasksavestate.cpp.o",
+      "bytes": 37312
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/netreceive_api.cpp.o",
+      "bytes": 11568
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/taskmalloctrim.cpp.o",
+      "bytes": 616
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdhttp.cpp.o",
+      "bytes": 257288
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/netpoll.cpp.o",
+      "bytes": 10224
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/debug_cmds.cpp.o",
+      "bytes": 49352
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/sphinxql_second.cpp.o",
+      "bytes": 53104
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/searchdddl.cpp.o",
+      "bytes": 104632
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lcjk.dir/cjkpreprocessor.cpp.o",
+      "bytes": 10872
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/searchd_ssl.dir/searchdssl.cpp.o",
+      "bytes": 47624
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/client_task_info.cpp.o",
+      "bytes": 12872
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/searchnode.cpp.o",
+      "bytes": 724552
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxfilter.cpp.o",
+      "bytes": 220800
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/fileutils.cpp.o",
+      "bytes": 50032
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinx.cpp.o",
+      "bytes": 1740768
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/tracer.cpp.o",
+      "bytes": 336
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/binlog.cpp.o",
+      "bytes": 83472
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxpq.cpp.o",
+      "bytes": 286168
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/docidlookupcache.cpp.o",
+      "bytes": 10872
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/attribute.cpp.o",
+      "bytes": 77400
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sorterscroll.cpp.o",
+      "bytes": 111944
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sortertraits.cpp.o",
+      "bytes": 27480
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/skip_cache.cpp.o",
+      "bytes": 7920
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/exprtraits.cpp.o",
+      "bytes": 9656
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/uuid_docid.cpp.o",
+      "bytes": 9408
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/secondarylib.cpp.o",
+      "bytes": 10520
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/hazard_pointer.cpp.o",
+      "bytes": 24464
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/geodist.cpp.o",
+      "bytes": 14720
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/queryprofile.cpp.o",
+      "bytes": 4824
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/datetime.cpp.o",
+      "bytes": 23512
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/aggrexpr.cpp.o",
+      "bytes": 50584
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/indexformat.cpp.o",
+      "bytes": 48576
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/exprdatetime.cpp.o",
+      "bytes": 89608
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxplugin.cpp.o",
+      "bytes": 45592
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxsearch.cpp.o",
+      "bytes": 375976
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxversion.cpp.o",
+      "bytes": 1648
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxaot.cpp.o",
+      "bytes": 139504
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/hybridexecutor.cpp.o",
+      "bytes": 118224
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxjson.cpp.o",
+      "bytes": 198760
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/pseudosharding.cpp.o",
+      "bytes": 3240
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxexpr.cpp.o",
+      "bytes": 683256
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/schematransform.cpp.o",
+      "bytes": 30968
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/queryfilter.cpp.o",
+      "bytes": 25280
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/columnarmisc.cpp.o",
+      "bytes": 9760
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/snippetpassage.cpp.o",
+      "bytes": 12648
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/timeout_queue.cpp.o",
+      "bytes": 6024
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/datareader.cpp.o",
+      "bytes": 17760
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/jsonsi.cpp.o",
+      "bytes": 57912
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/embeddingutils.cpp.o",
+      "bytes": 21360
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxrt.cpp.o",
+      "bytes": 749472
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/columnarexpr.cpp.o",
+      "bytes": 54936
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/collation.cpp.o",
+      "bytes": 16320
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/snippetfunctor.cpp.o",
+      "bytes": 58904
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/threads_detached.cpp.o",
+      "bytes": 14728
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/histogram.cpp.o",
+      "bytes": 56400
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/columnarrt.cpp.o",
+      "bytes": 45504
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/fileio.cpp.o",
+      "bytes": 26176
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxqcache.cpp.o",
+      "bytes": 22144
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/exprdocstore.cpp.o",
+      "bytes": 16208
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/secondaryindex.cpp.o",
+      "bytes": 84584
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/exprgeodist.cpp.o",
+      "bytes": 9392
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/columnarsort.cpp.o",
+      "bytes": 3810232
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sortergroup.cpp.o",
+      "bytes": 17891680
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/attrindex_merge.cpp.o",
+      "bytes": 218016
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/queuecreator.cpp.o",
+      "bytes": 125752
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/columnargrouper.cpp.o",
+      "bytes": 95904
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxutils.cpp.o",
+      "bytes": 200344
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/fieldtext.cpp.o",
+      "bytes": 5904
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/columnarlib.cpp.o",
+      "bytes": 13968
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/columnarfilter.cpp.o",
+      "bytes": 215592
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/grouper.cpp.o",
+      "bytes": 218232
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxsort.cpp.o",
+      "bytes": 510312
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/docidlookup.cpp.o",
+      "bytes": 86352
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/costestimate.cpp.o",
+      "bytes": 17776
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/memio.cpp.o",
+      "bytes": 8256
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/distinct.cpp.o",
+      "bytes": 28768
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/killlist.cpp.o",
+      "bytes": 13944
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/knnmisc.cpp.o",
+      "bytes": 145216
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/accumulator.cpp.o",
+      "bytes": 72040
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/snippetstream.cpp.o",
+      "bytes": 23432
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/threadutils.cpp.o",
+      "bytes": 98080
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/querycontext.cpp.o",
+      "bytes": 14960
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinx_alter.cpp.o",
+      "bytes": 23952
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/snippetindex.cpp.o",
+      "bytes": 27408
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/indexsettings.cpp.o",
+      "bytes": 291088
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/chunksearchctx.cpp.o",
+      "bytes": 4968
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/task_info.cpp.o",
+      "bytes": 28424
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxudf.c.o",
+      "bytes": 4264
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/indexfilebase.cpp.o",
+      "bytes": 2320
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/attrindex_builder.cpp.o",
+      "bytes": 7968
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/indexfiles.cpp.o",
+      "bytes": 28488
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/exprremap.cpp.o",
+      "bytes": 12808
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/global_idf.cpp.o",
+      "bytes": 21944
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sortsetup.cpp.o",
+      "bytes": 14648
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/mini_timer.cpp.o",
+      "bytes": 23848
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/attr_embedding.cpp.o",
+      "bytes": 23296
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/docstore.cpp.o",
+      "bytes": 92120
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/joinsorter.cpp.o",
+      "bytes": 268600
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/sorterprecalc.cpp.o",
+      "bytes": 18856
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/aggregate.cpp.o",
+      "bytes": 77392
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/libutils.cpp.o",
+      "bytes": 5352
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/knnlib.cpp.o",
+      "bytes": 17160
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/hyperloglog.cpp.o",
+      "bytes": 24344
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/conversion.dir/conversion.cpp.o",
+      "bytes": 3512
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/digest_sha256.dir/digest_sha256.cpp.o",
+      "bytes": 2280
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/searchd.dir/searchd.cpp.o",
+      "bytes": 1042864
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_proto_api.cpp.o",
+      "bytes": 15528
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_perms.cpp.o",
+      "bytes": 6032
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/auth/gcm_nonce.cpp.o",
+      "bytes": 9840
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_common.cpp.o",
+      "bytes": 74368
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_bootstrap.cpp.o",
+      "bytes": 23800
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_proto_mysql.cpp.o",
+      "bytes": 17240
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth.cpp.o",
+      "bytes": 121656
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_log.cpp.o",
+      "bytes": 15896
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_proto_http.cpp.o",
+      "bytes": 13480
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lsearchd.dir/http/http_parser.c.o",
+      "bytes": 31008
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/lz4/lz4.c.o",
+      "bytes": 57208
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/lz4/lz4hc.c.o",
+      "bytes": 48704
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/detail/indexlink.cpp.o",
+      "bytes": 5160
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/CMakeFiles/lmanticore.dir/json/cJSON_test.c.o",
+      "bytes": 24960
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizerbase2.cpp.o",
+      "bytes": 10712
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizerbase.cpp.o",
+      "bytes": 32816
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_bigram.cpp.o",
+      "bytes": 23696
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_multiform.cpp.o",
+      "bytes": 20488
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_plugin.cpp.o",
+      "bytes": 19408
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer.cpp.o",
+      "bytes": 17488
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/exceptions_trie.cpp.o",
+      "bytes": 21952
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_utf8.cpp.o",
+      "bytes": 37096
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/CMakeFiles/lowercaser.dir/lowercaser.cpp.o",
+      "bytes": 11880
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/tokenizer/CMakeFiles/lowercaser.dir/charset_definition_parser.cpp.o",
+      "bytes": 148368
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/fastlog.cpp.o",
+      "bytes": 4104
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/crc32.cpp.o",
+      "bytes": 1928
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/rand.cpp.o",
+      "bytes": 1888
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/sys.cpp.o",
+      "bytes": 7456
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/mm.cpp.o",
+      "bytes": 3864
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/stringbuilder.cpp.o",
+      "bytes": 16688
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/mutex.cpp.o",
+      "bytes": 2984
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/mem.cpp.o",
+      "bytes": 952
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/string.cpp.o",
+      "bytes": 768
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/tdigest_runtime.cpp.o",
+      "bytes": 4440
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/base64.cpp.o",
+      "bytes": 12488
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/autoevent.cpp.o",
+      "bytes": 3272
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/fatal.cpp.o",
+      "bytes": 2640
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/fnv64.cpp.o",
+      "bytes": 976
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/stringhash.cpp.o",
+      "bytes": 3272
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/checks.cpp.o",
+      "bytes": 336
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/env.cpp.o",
+      "bytes": 9760
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/tdigest.cpp.o",
+      "bytes": 27376
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/smalloc.cpp.o",
+      "bytes": 336
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/sphwarn.cpp.o",
+      "bytes": 936
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/timers.cpp.o",
+      "bytes": 1320
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/std/CMakeFiles/manticore_std.dir/rwlock.cpp.o",
+      "bytes": 3296
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sqlchecks/CMakeFiles/sqlchecks.dir/scan_parameters.cpp.o",
+      "bytes": 21264
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sqlchecks/CMakeFiles/sqlchecks.dir/validate_vector.cpp.o",
+      "bytes": 17888
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/schema/CMakeFiles/schema.dir/helper.cpp.o",
+      "bytes": 19032
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/schema/CMakeFiles/schema.dir/columninfo.cpp.o",
+      "bytes": 8208
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/schema/CMakeFiles/schema.dir/schema.cpp.o",
+      "bytes": 50840
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/schema/CMakeFiles/schema.dir/rset.cpp.o",
+      "bytes": 20360
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/xqnode.cpp.o",
+      "bytes": 8800
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_andnotnotnot.cpp.o",
+      "bytes": 1184
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/common_subtree.cpp.o",
+      "bytes": 26112
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/sphinxquery.cpp.o",
+      "bytes": 24488
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonornot.cpp.o",
+      "bytes": 3960
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonandnotfactor.cpp.o",
+      "bytes": 4168
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/parse_helper.cpp.o",
+      "bytes": 85464
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonsubterm.cpp.o",
+      "bytes": 9200
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_phrase.cpp.o",
+      "bytes": 20448
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonnot.cpp.o",
+      "bytes": 7752
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_excessandnot.cpp.o",
+      "bytes": 12952
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_hungoperand.cpp.o",
+      "bytes": 1296
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commoncompoundnot.cpp.o",
+      "bytes": 6384
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/xqparser.cpp.o",
+      "bytes": 57552
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonkeywords.cpp.o",
+      "bytes": 36088
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transformation.cpp.o",
+      "bytes": 25024
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/api_search.cpp.o",
+      "bytes": 118776
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/search_handler.cpp.o",
+      "bytes": 233464
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/notifier.cpp.o",
+      "bytes": 1176
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/system_tables.cpp.o",
+      "bytes": 30136
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/match_iterator.cpp.o",
+      "bytes": 14464
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/minimize_aggr_result.cpp.o",
+      "bytes": 95560
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/query_log.cpp.o",
+      "bytes": 80744
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/http_log.cpp.o",
+      "bytes": 12024
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/winservice.cpp.o",
+      "bytes": 1920
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/failures_log.cpp.o",
+      "bytes": 18984
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/crash_logger.cpp.o",
+      "bytes": 12944
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/daemon_ipc.cpp.o",
+      "bytes": 14304
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/daemon/CMakeFiles/daemon.dir/daemon_log.cpp.o",
+      "bytes": 10504
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/nodes.cpp.o",
+      "bytes": 18080
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/wsrep_v31.cpp.o",
+      "bytes": 41032
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/commit_monitor.cpp.o",
+      "bytes": 19000
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_binlog.cpp.o",
+      "bytes": 19488
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_recv_state_cleanup.cpp.o",
+      "bytes": 3128
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_check_node.cpp.o",
+      "bytes": 26480
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_synced.cpp.o",
+      "bytes": 17224
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/wsrep_cxx.cpp.o",
+      "bytes": 22480
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_get_nodes.cpp.o",
+      "bytes": 44960
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/api_command_cluster.cpp.o",
+      "bytes": 25240
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/configuration.cpp.o",
+      "bytes": 7472
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/receiver_ctx.cpp.o",
+      "bytes": 41856
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_index_add_local.cpp.o",
+      "bytes": 34224
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/send_files.cpp.o",
+      "bytes": 12600
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_file_send.cpp.o",
+      "bytes": 31576
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/portrange.cpp.o",
+      "bytes": 6760
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/grastate.cpp.o",
+      "bytes": 14592
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/replicate_index.cpp.o",
+      "bytes": 51736
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_sst_progress.cpp.o",
+      "bytes": 48768
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/recv_state.cpp.o",
+      "bytes": 16072
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_delete.cpp.o",
+      "bytes": 8784
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/wsrep_v25.cpp.o",
+      "bytes": 37760
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_update_nodes.cpp.o",
+      "bytes": 16040
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_file_reserve.cpp.o",
+      "bytes": 29864
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/serialize.cpp.o",
+      "bytes": 10320
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/stem/libstem.a",
+      "bytes": 61232
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/infix/libinfix.a",
+      "bytes": 35424
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/CMakeFiles/dict.dir/dict_crc.cpp.o",
+      "bytes": 13728
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/CMakeFiles/dict.dir/dict_keywords.cpp.o",
+      "bytes": 47104
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/CMakeFiles/dict.dir/bin.cpp.o",
+      "bytes": 5912
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/CMakeFiles/dict.dir/dict_base.cpp.o",
+      "bytes": 6408
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/CMakeFiles/dict.dir/dict_exact.cpp.o",
+      "bytes": 8984
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/CMakeFiles/dict.dir/word_forms.cpp.o",
+      "bytes": 3672
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/CMakeFiles/dict.dir/template_dict_traits.cpp.o",
+      "bytes": 92296
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/CMakeFiles/dict.dir/dict_star.cpp.o",
+      "bytes": 10864
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxstemen.cpp.o",
+      "bytes": 7808
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxstemar.cpp.o",
+      "bytes": 12968
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxmetaphone.cpp.o",
+      "bytes": 21176
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxstemru.cpp.o",
+      "bytes": 13264
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxsoundex.cpp.o",
+      "bytes": 1000
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxstemcz.cpp.o",
+      "bytes": 4032
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/dict/infix/CMakeFiles/infix.dir/infix_builder.cpp.o",
+      "bytes": 32200
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_stringbuilder.cpp.o",
+      "bytes": 169704
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidplanner.cpp.o",
+      "bytes": 71560
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_functions.cpp.o",
+      "bytes": 524912
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_hugetokenizer.cpp.o",
+      "bytes": 666856
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_rtstuff.cpp.o",
+      "bytes": 346032
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_json.cpp.o",
+      "bytes": 438928
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_api_reply_stream.cpp.o",
+      "bytes": 292816
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_ssl.cpp.o",
+      "bytes": 27072
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_strfmt.cpp.o",
+      "bytes": 80672
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidcache.cpp.o",
+      "bytes": 123208
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_threadstuff.cpp.o",
+      "bytes": 145744
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_uklemmatizer.cpp.o",
+      "bytes": 67424
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_filter.cpp.o",
+      "bytes": 70104
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchdaemon.cpp.o",
+      "bytes": 249280
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidlookup.cpp.o",
+      "bytes": 122720
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchd.cpp.o",
+      "bytes": 1097336
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_wsrep.cpp.o",
+      "bytes": 33640
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_pqstuff.cpp.o",
+      "bytes": 87192
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_text.cpp.o",
+      "bytes": 198416
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_send_files.cpp.o",
+      "bytes": 54528
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docstore_blockcache.cpp.o",
+      "bytes": 39672
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_globalstate.cpp.o",
+      "bytes": 6480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/libdigest_sha256.a",
+      "bytes": 2792
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/searchd",
+      "bytes": 30474296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/liblmanticore.a",
+      "bytes": 38223984
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/libdigest_sha1.a",
+      "bytes": 15936
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/libsearchd_ssl.a",
+      "bytes": 51208
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/liblcjk.a",
+      "bytes": 12568
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/liblmanticore_icu.a",
+      "bytes": 7888
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/indexing_sources/libsourcedoc.a",
+      "bytes": 52736
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/indexing_sources/libsource_xmlpipe2.a",
+      "bytes": 189088
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/indexing_sources/libsource_svpipe.a",
+      "bytes": 187064
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/stripper/libstripper.a",
+      "bytes": 46520
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/liblowercaser.a",
+      "bytes": 164720
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sqlchecks/libsqlchecks.a",
+      "bytes": 41928
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/librepli_stuff.a",
+      "bytes": 686024
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/gmanticoretest",
+      "bytes": 34289792
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/indexing_sources/CMakeFiles/source_xmlpipe2.dir/source_xmlpipe2.cpp.o",
+      "bytes": 44072
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/indexing_sources/CMakeFiles/source_svpipe.dir/source_svpipe.cpp.o",
+      "bytes": 41776
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/indexing_sources/CMakeFiles/sourcedoc.dir/source_document.cpp.o",
+      "bytes": 44664
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/stripper/CMakeFiles/stripper.dir/html_stripper.cpp.o",
+      "bytes": 44176
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/indexer.dir/indexer.cpp.o",
+      "bytes": 149704
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore_coro.dir/task_dispatcher.cpp.o",
+      "bytes": 16512
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore_coro.dir/coroutine.cpp.o",
+      "bytes": 89752
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore_coro.dir/coro_stack.cpp.o",
+      "bytes": 3968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore_icu.dir/icu.cpp.o",
+      "bytes": 6992
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/digest_sha1.dir/digest_sha1.cpp.o",
+      "bytes": 14456
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/indexcheck.dir/indexcheck.cpp.o",
+      "bytes": 130432
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdexpr.cpp.o",
+      "bytes": 60728
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/taskflushbinlog.cpp.o",
+      "bytes": 6688
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdsql.cpp.o",
+      "bytes": 377944
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/compressed_mysql_layer.cpp.o",
+      "bytes": 4424
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/compressed_http.cpp.o",
+      "bytes": 3160
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/sphinxql_extra.cpp.o",
+      "bytes": 41912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/taskflushmutable.cpp.o",
+      "bytes": 16320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdconfig.cpp.o",
+      "bytes": 204768
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/pollable_event.cpp.o",
+      "bytes": 4904
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/config_reloader.cpp.o",
+      "bytes": 34296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/jsonqueryfilter.cpp.o",
+      "bytes": 69240
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdha.cpp.o",
+      "bytes": 123416
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/docs_collector.cpp.o",
+      "bytes": 8368
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/sphinxjsonquery.cpp.o",
+      "bytes": 292248
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/taskflushattrs.cpp.o",
+      "bytes": 14336
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/netfetch.cpp.o",
+      "bytes": 29008
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/taskglobalidf.cpp.o",
+      "bytes": 8584
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/networking_daemon.cpp.o",
+      "bytes": 71744
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdfields.cpp.o",
+      "bytes": 53320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/taskpreread.cpp.o",
+      "bytes": 11584
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/sphinxql_debug.cpp.o",
+      "bytes": 58136
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/taskping.cpp.o",
+      "bytes": 16312
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/compressed_zlib_mysql.cpp.o",
+      "bytes": 9640
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/dynamic_idx.cpp.o",
+      "bytes": 75520
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/facetutils.cpp.o",
+      "bytes": 24960
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdreplication.cpp.o",
+      "bytes": 227016
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/stackmock.cpp.o",
+      "bytes": 79784
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/netreceive_http.cpp.o",
+      "bytes": 15160
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/net_action_accept.cpp.o",
+      "bytes": 35048
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/indexer_rt_bulk.cpp.o",
+      "bytes": 192304
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/index_rotator.cpp.o",
+      "bytes": 16976
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchd_shard.cpp.o",
+      "bytes": 146800
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/api_reply_stream.cpp.o",
+      "bytes": 11192
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/sphinxexcerpt.cpp.o",
+      "bytes": 90888
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdtask.cpp.o",
+      "bytes": 10912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/compressed_zstd_mysql.cpp.o",
+      "bytes": 12304
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/querystats.cpp.o",
+      "bytes": 12936
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdaemon.cpp.o",
+      "bytes": 84560
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdbuddy.cpp.o",
+      "bytes": 305824
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/frontendschema.cpp.o",
+      "bytes": 32536
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdhttpcompat.cpp.o",
+      "bytes": 477808
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/netreceive_ql.cpp.o",
+      "bytes": 95992
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/query_status.cpp.o",
+      "bytes": 16312
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/tasksavestate.cpp.o",
+      "bytes": 37312
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/netreceive_api.cpp.o",
+      "bytes": 11568
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/taskmalloctrim.cpp.o",
+      "bytes": 616
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdhttp.cpp.o",
+      "bytes": 257288
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/netpoll.cpp.o",
+      "bytes": 10224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/debug_cmds.cpp.o",
+      "bytes": 49352
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/sphinxql_second.cpp.o",
+      "bytes": 53104
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/searchdddl.cpp.o",
+      "bytes": 104632
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lcjk.dir/cjkpreprocessor.cpp.o",
+      "bytes": 10872
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/searchd_ssl.dir/searchdssl.cpp.o",
+      "bytes": 47624
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/client_task_info.cpp.o",
+      "bytes": 12872
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/searchnode.cpp.o",
+      "bytes": 724552
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxfilter.cpp.o",
+      "bytes": 220800
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/fileutils.cpp.o",
+      "bytes": 50032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinx.cpp.o",
+      "bytes": 1740768
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/tracer.cpp.o",
+      "bytes": 336
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/binlog.cpp.o",
+      "bytes": 83472
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxpq.cpp.o",
+      "bytes": 286168
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/docidlookupcache.cpp.o",
+      "bytes": 10872
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/attribute.cpp.o",
+      "bytes": 77400
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sorterscroll.cpp.o",
+      "bytes": 111944
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sortertraits.cpp.o",
+      "bytes": 27480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/skip_cache.cpp.o",
+      "bytes": 7920
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/exprtraits.cpp.o",
+      "bytes": 9656
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/uuid_docid.cpp.o",
+      "bytes": 9408
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/secondarylib.cpp.o",
+      "bytes": 10520
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/hazard_pointer.cpp.o",
+      "bytes": 24464
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/geodist.cpp.o",
+      "bytes": 14720
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/queryprofile.cpp.o",
+      "bytes": 4824
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/datetime.cpp.o",
+      "bytes": 23512
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/aggrexpr.cpp.o",
+      "bytes": 50584
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/indexformat.cpp.o",
+      "bytes": 48576
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/exprdatetime.cpp.o",
+      "bytes": 89608
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxplugin.cpp.o",
+      "bytes": 45592
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxsearch.cpp.o",
+      "bytes": 375976
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxversion.cpp.o",
+      "bytes": 1656
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxaot.cpp.o",
+      "bytes": 139504
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/hybridexecutor.cpp.o",
+      "bytes": 118224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxjson.cpp.o",
+      "bytes": 198760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/pseudosharding.cpp.o",
+      "bytes": 3240
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxexpr.cpp.o",
+      "bytes": 683256
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/schematransform.cpp.o",
+      "bytes": 30968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/queryfilter.cpp.o",
+      "bytes": 25280
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/columnarmisc.cpp.o",
+      "bytes": 9760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/snippetpassage.cpp.o",
+      "bytes": 12648
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/timeout_queue.cpp.o",
+      "bytes": 6024
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/datareader.cpp.o",
+      "bytes": 17760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/jsonsi.cpp.o",
+      "bytes": 57912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/embeddingutils.cpp.o",
+      "bytes": 21360
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxrt.cpp.o",
+      "bytes": 749472
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/columnarexpr.cpp.o",
+      "bytes": 54936
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/collation.cpp.o",
+      "bytes": 16320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/snippetfunctor.cpp.o",
+      "bytes": 58904
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/threads_detached.cpp.o",
+      "bytes": 14728
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/histogram.cpp.o",
+      "bytes": 56400
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/columnarrt.cpp.o",
+      "bytes": 45504
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/fileio.cpp.o",
+      "bytes": 26176
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxqcache.cpp.o",
+      "bytes": 22144
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/exprdocstore.cpp.o",
+      "bytes": 16208
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/secondaryindex.cpp.o",
+      "bytes": 84584
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/exprgeodist.cpp.o",
+      "bytes": 9392
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/columnarsort.cpp.o",
+      "bytes": 3810232
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sortergroup.cpp.o",
+      "bytes": 17891680
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/attrindex_merge.cpp.o",
+      "bytes": 218016
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/queuecreator.cpp.o",
+      "bytes": 125752
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/columnargrouper.cpp.o",
+      "bytes": 95904
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxutils.cpp.o",
+      "bytes": 200344
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/fieldtext.cpp.o",
+      "bytes": 5904
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/columnarlib.cpp.o",
+      "bytes": 13968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/columnarfilter.cpp.o",
+      "bytes": 215592
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/grouper.cpp.o",
+      "bytes": 218232
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxsort.cpp.o",
+      "bytes": 510312
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/docidlookup.cpp.o",
+      "bytes": 86352
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/costestimate.cpp.o",
+      "bytes": 17776
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/memio.cpp.o",
+      "bytes": 8256
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/distinct.cpp.o",
+      "bytes": 28768
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/killlist.cpp.o",
+      "bytes": 13944
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/knnmisc.cpp.o",
+      "bytes": 145216
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/accumulator.cpp.o",
+      "bytes": 72040
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/snippetstream.cpp.o",
+      "bytes": 23432
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/threadutils.cpp.o",
+      "bytes": 98080
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/querycontext.cpp.o",
+      "bytes": 14960
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinx_alter.cpp.o",
+      "bytes": 23952
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/snippetindex.cpp.o",
+      "bytes": 27408
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/indexsettings.cpp.o",
+      "bytes": 291088
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/chunksearchctx.cpp.o",
+      "bytes": 4968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/task_info.cpp.o",
+      "bytes": 28424
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sphinxudf.c.o",
+      "bytes": 4264
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/indexfilebase.cpp.o",
+      "bytes": 2320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/attrindex_builder.cpp.o",
+      "bytes": 7968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/indexfiles.cpp.o",
+      "bytes": 28488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/exprremap.cpp.o",
+      "bytes": 12808
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/global_idf.cpp.o",
+      "bytes": 21944
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sortsetup.cpp.o",
+      "bytes": 14648
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/mini_timer.cpp.o",
+      "bytes": 23848
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/attr_embedding.cpp.o",
+      "bytes": 23296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/docstore.cpp.o",
+      "bytes": 93256
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/joinsorter.cpp.o",
+      "bytes": 268600
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/sorterprecalc.cpp.o",
+      "bytes": 18856
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/aggregate.cpp.o",
+      "bytes": 77392
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/libutils.cpp.o",
+      "bytes": 5352
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/knnlib.cpp.o",
+      "bytes": 17160
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/hyperloglog.cpp.o",
+      "bytes": 24344
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/conversion.dir/conversion.cpp.o",
+      "bytes": 3512
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/digest_sha256.dir/digest_sha256.cpp.o",
+      "bytes": 2280
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/searchd.dir/searchd.cpp.o",
+      "bytes": 1042864
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_proto_api.cpp.o",
+      "bytes": 15528
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_perms.cpp.o",
+      "bytes": 6032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/auth/gcm_nonce.cpp.o",
+      "bytes": 9840
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_common.cpp.o",
+      "bytes": 74368
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_bootstrap.cpp.o",
+      "bytes": 23800
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_proto_mysql.cpp.o",
+      "bytes": 17240
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth.cpp.o",
+      "bytes": 121656
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_log.cpp.o",
+      "bytes": 15896
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/auth/auth_proto_http.cpp.o",
+      "bytes": 13480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lsearchd.dir/http/http_parser.c.o",
+      "bytes": 31008
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/lz4/lz4.c.o",
+      "bytes": 57208
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/lz4/lz4hc.c.o",
+      "bytes": 48704
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/detail/indexlink.cpp.o",
+      "bytes": 5160
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/CMakeFiles/lmanticore.dir/json/cJSON_test.c.o",
+      "bytes": 24960
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizerbase2.cpp.o",
+      "bytes": 10712
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizerbase.cpp.o",
+      "bytes": 32816
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_bigram.cpp.o",
+      "bytes": 23696
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_multiform.cpp.o",
+      "bytes": 20488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_plugin.cpp.o",
+      "bytes": 19408
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer.cpp.o",
+      "bytes": 17488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/exceptions_trie.cpp.o",
+      "bytes": 21952
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_utf8.cpp.o",
+      "bytes": 37096
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/CMakeFiles/lowercaser.dir/lowercaser.cpp.o",
+      "bytes": 11880
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/tokenizer/CMakeFiles/lowercaser.dir/charset_definition_parser.cpp.o",
+      "bytes": 148368
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/fastlog.cpp.o",
+      "bytes": 4104
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/crc32.cpp.o",
+      "bytes": 1928
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/rand.cpp.o",
+      "bytes": 1888
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/sys.cpp.o",
+      "bytes": 7456
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/mm.cpp.o",
+      "bytes": 3864
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/stringbuilder.cpp.o",
+      "bytes": 16688
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/mutex.cpp.o",
+      "bytes": 2984
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/mem.cpp.o",
+      "bytes": 952
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/string.cpp.o",
+      "bytes": 768
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/tdigest_runtime.cpp.o",
+      "bytes": 4440
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/base64.cpp.o",
+      "bytes": 12488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/autoevent.cpp.o",
+      "bytes": 3272
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/fatal.cpp.o",
+      "bytes": 2640
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/fnv64.cpp.o",
+      "bytes": 976
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/stringhash.cpp.o",
+      "bytes": 3272
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/checks.cpp.o",
+      "bytes": 336
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/env.cpp.o",
+      "bytes": 9760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/tdigest.cpp.o",
+      "bytes": 27376
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/smalloc.cpp.o",
+      "bytes": 336
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/sphwarn.cpp.o",
+      "bytes": 936
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/timers.cpp.o",
+      "bytes": 1320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/std/CMakeFiles/manticore_std.dir/rwlock.cpp.o",
+      "bytes": 3296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sqlchecks/CMakeFiles/sqlchecks.dir/scan_parameters.cpp.o",
+      "bytes": 21264
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sqlchecks/CMakeFiles/sqlchecks.dir/validate_vector.cpp.o",
+      "bytes": 17888
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/schema/CMakeFiles/schema.dir/helper.cpp.o",
+      "bytes": 19032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/schema/CMakeFiles/schema.dir/columninfo.cpp.o",
+      "bytes": 8208
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/schema/CMakeFiles/schema.dir/schema.cpp.o",
+      "bytes": 50840
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/schema/CMakeFiles/schema.dir/rset.cpp.o",
+      "bytes": 20360
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/xqnode.cpp.o",
+      "bytes": 8800
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_andnotnotnot.cpp.o",
+      "bytes": 1184
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/common_subtree.cpp.o",
+      "bytes": 26112
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/sphinxquery.cpp.o",
+      "bytes": 24488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonornot.cpp.o",
+      "bytes": 3960
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonandnotfactor.cpp.o",
+      "bytes": 4168
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/parse_helper.cpp.o",
+      "bytes": 85464
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonsubterm.cpp.o",
+      "bytes": 9200
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_phrase.cpp.o",
+      "bytes": 20448
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonnot.cpp.o",
+      "bytes": 7752
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_excessandnot.cpp.o",
+      "bytes": 12952
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_hungoperand.cpp.o",
+      "bytes": 1296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commoncompoundnot.cpp.o",
+      "bytes": 6384
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/xqparser.cpp.o",
+      "bytes": 57552
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonkeywords.cpp.o",
+      "bytes": 36088
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/sphinxquery/CMakeFiles/sphinxquery.dir/transformation.cpp.o",
+      "bytes": 25024
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/api_search.cpp.o",
+      "bytes": 118776
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/search_handler.cpp.o",
+      "bytes": 233464
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/notifier.cpp.o",
+      "bytes": 1176
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/system_tables.cpp.o",
+      "bytes": 30136
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/match_iterator.cpp.o",
+      "bytes": 14464
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/minimize_aggr_result.cpp.o",
+      "bytes": 95560
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/query_log.cpp.o",
+      "bytes": 80744
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/http_log.cpp.o",
+      "bytes": 12024
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/winservice.cpp.o",
+      "bytes": 1920
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/failures_log.cpp.o",
+      "bytes": 18984
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/crash_logger.cpp.o",
+      "bytes": 12944
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/daemon_ipc.cpp.o",
+      "bytes": 14304
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/daemon/CMakeFiles/daemon.dir/daemon_log.cpp.o",
+      "bytes": 10504
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/nodes.cpp.o",
+      "bytes": 18080
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/wsrep_v31.cpp.o",
+      "bytes": 41032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/commit_monitor.cpp.o",
+      "bytes": 19000
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_binlog.cpp.o",
+      "bytes": 19488
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_recv_state_cleanup.cpp.o",
+      "bytes": 3128
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_check_node.cpp.o",
+      "bytes": 26480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_synced.cpp.o",
+      "bytes": 17224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/wsrep_cxx.cpp.o",
+      "bytes": 22480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_get_nodes.cpp.o",
+      "bytes": 44960
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/api_command_cluster.cpp.o",
+      "bytes": 25240
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/configuration.cpp.o",
+      "bytes": 7472
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/receiver_ctx.cpp.o",
+      "bytes": 41856
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_index_add_local.cpp.o",
+      "bytes": 34224
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/send_files.cpp.o",
+      "bytes": 12600
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_file_send.cpp.o",
+      "bytes": 31576
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/portrange.cpp.o",
+      "bytes": 6760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/grastate.cpp.o",
+      "bytes": 14592
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/replicate_index.cpp.o",
+      "bytes": 51736
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_sst_progress.cpp.o",
+      "bytes": 48768
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/recv_state.cpp.o",
+      "bytes": 16072
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_delete.cpp.o",
+      "bytes": 8784
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/wsrep_v25.cpp.o",
+      "bytes": 37760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_update_nodes.cpp.o",
+      "bytes": 16040
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/cluster_file_reserve.cpp.o",
+      "bytes": 29864
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/replication/CMakeFiles/repli_stuff.dir/serialize.cpp.o",
+      "bytes": 10320
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/stem/libstem.a",
+      "bytes": 61232
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/infix/libinfix.a",
+      "bytes": 35424
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/CMakeFiles/dict.dir/dict_crc.cpp.o",
+      "bytes": 13728
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/CMakeFiles/dict.dir/dict_keywords.cpp.o",
+      "bytes": 47104
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/CMakeFiles/dict.dir/bin.cpp.o",
+      "bytes": 5912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/CMakeFiles/dict.dir/dict_base.cpp.o",
+      "bytes": 6408
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/CMakeFiles/dict.dir/dict_exact.cpp.o",
+      "bytes": 8984
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/CMakeFiles/dict.dir/word_forms.cpp.o",
+      "bytes": 3672
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/CMakeFiles/dict.dir/template_dict_traits.cpp.o",
+      "bytes": 92296
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/CMakeFiles/dict.dir/dict_star.cpp.o",
+      "bytes": 10864
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxstemen.cpp.o",
+      "bytes": 7808
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxstemar.cpp.o",
+      "bytes": 12968
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxmetaphone.cpp.o",
+      "bytes": 21176
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxstemru.cpp.o",
+      "bytes": 13264
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxsoundex.cpp.o",
+      "bytes": 1000
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/stem/CMakeFiles/stem.dir/sphinxstemcz.cpp.o",
+      "bytes": 4032
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/dict/infix/CMakeFiles/infix.dir/infix_builder.cpp.o",
+      "bytes": 32200
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_stringbuilder.cpp.o",
+      "bytes": 169704
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidplanner.cpp.o",
+      "bytes": 71568
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_functions.cpp.o",
+      "bytes": 524920
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_hugetokenizer.cpp.o",
+      "bytes": 666912
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_rtstuff.cpp.o",
+      "bytes": 346064
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_json.cpp.o",
+      "bytes": 439696
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_api_reply_stream.cpp.o",
+      "bytes": 292824
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_ssl.cpp.o",
+      "bytes": 27096
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_strfmt.cpp.o",
+      "bytes": 80760
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidcache.cpp.o",
+      "bytes": 123152
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_threadstuff.cpp.o",
+      "bytes": 145696
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docstore_readers.cpp.o",
+      "bytes": 67056
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_uklemmatizer.cpp.o",
+      "bytes": 67440
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_filter.cpp.o",
+      "bytes": 70160
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchdaemon.cpp.o",
+      "bytes": 249280
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidlookup.cpp.o",
+      "bytes": 122696
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchd.cpp.o",
+      "bytes": 1097408
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_wsrep.cpp.o",
+      "bytes": 33696
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_pqstuff.cpp.o",
+      "bytes": 87256
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_text.cpp.o",
+      "bytes": 198648
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_send_files.cpp.o",
+      "bytes": 54504
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docstore_blockcache.cpp.o",
+      "bytes": 39680
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-build-20261113/src/gtests/CMakeFiles/gmanticoretest.dir/gtests_globalstate.cpp.o",
+      "bytes": 6480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-review-20261113/tsan/gtests_docstore_blockcache-thread.o",
+      "bytes": 57712
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-review-20261113/tsan/fileio-thread.o",
+      "bytes": 50480
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-review-20261113/tsan/gtests_docstore_readers-thread.o",
+      "bytes": 96352
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-review-20261113/tsan/docstore-thread.o",
+      "bytes": 164880
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-review-20261113/asan-ubsan/gtests_docstore_blockcache-address-undefined.o",
+      "bytes": 133928
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-review-20261113/asan-ubsan/fileio-address-undefined.o",
+      "bytes": 103200
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-review-20261113/asan-ubsan/gtests_docstore_readers-address-undefined.o",
+      "bytes": 229056
+    },
+    {
+      "path": "/private/tmp/manticore-5045-latest-block-review-20261113/asan-ubsan/docstore-address-undefined.o",
+      "bytes": 367184
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/candidate-tests",
+      "bytes": 34241248
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/baseline-tests",
+      "bytes": 34240880
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/pre-row-load-repair/candidate-tests",
+      "bytes": 34241248
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/pre-row-load-repair/baseline-tests",
+      "bytes": 34240880
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/tsan/gtests_docidcache.o",
+      "bytes": 172832
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/tsan/docidlookup.o",
+      "bytes": 164848
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/tsan/docidlookupcache.o",
+      "bytes": 11488
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/tsan/docstore.o",
+      "bytes": 163408
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/tsan/gtests_docidlookup.o",
+      "bytes": 182216
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/tsan/fileio.o",
+      "bytes": 50480
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/tsan/gtests_docstore_blockcache.o",
+      "bytes": 57712
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/asan-ubsan/gtests_docidcache.o",
+      "bytes": 423416
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/asan-ubsan/docidlookup.o",
+      "bytes": 296040
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/asan-ubsan/docidlookupcache.o",
+      "bytes": 38112
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/asan-ubsan/docstore.o",
+      "bytes": 366568
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/asan-ubsan/gtests_docidlookup.o",
+      "bytes": 348400
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/asan-ubsan/fileio.o",
+      "bytes": 103184
+    },
+    {
+      "path": "/private/tmp/manticore-5042-publish-review-20261113/asan-ubsan/gtests_docstore_blockcache.o",
+      "bytes": 133864
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/liblmanticore.a",
+      "bytes": 38225400
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/gmanticoretest",
+      "bytes": 34307072
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/gmanticoretest-final",
+      "bytes": 34307320
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/tsan/skip_cache.cpp.o",
+      "bytes": 17512
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/tsan/fileio.cpp.o",
+      "bytes": 50480
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/tsan/gtests_docstore_blockcache.cpp.o",
+      "bytes": 175792
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/tsan/docstore.cpp.o",
+      "bytes": 166056
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/tsan-validated/gtests_docstore_blockcache.cpp.o",
+      "bytes": 181000
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/objects/skip_cache.cpp.o",
+      "bytes": 8848
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/objects/sphinxutils.cpp.o",
+      "bytes": 200424
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/objects/gtests_searchd.cpp.o",
+      "bytes": 1097888
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/objects/searchd.cpp.o",
+      "bytes": 1043312
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/objects/gtests_docstore_blockcache.cpp.o",
+      "bytes": 118648
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/objects/docstore.cpp.o",
+      "bytes": 93480
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/native-validated/gtests_docstore_blockcache.cpp.o",
+      "bytes": 118680
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/asan-ubsan-final/gtests_docstore_blockcache.cpp.o",
+      "bytes": 458472
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/tsan-final/gtests_docstore_blockcache.cpp.o",
+      "bytes": 180968
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/asan-ubsan-validated/gtests_docstore_blockcache.cpp.o",
+      "bytes": 458760
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/asan-ubsan/skip_cache.cpp.o",
+      "bytes": 46472
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/asan-ubsan/fileio.cpp.o",
+      "bytes": 103200
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/asan-ubsan/gtests_docstore_blockcache.cpp.o",
+      "bytes": 450160
+    },
+    {
+      "path": "/private/tmp/manticore-adaptive-cache-review-20261113/asan-ubsan/docstore.cpp.o",
+      "bytes": 372952
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/searchd",
+      "bytes": 30475048
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/liblmanticore.a",
+      "bytes": 38229016
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/gmanticoretest",
+      "bytes": 34331168
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/tsan/skip_cache.cpp.o",
+      "bytes": 17512
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/tsan/fileio.cpp.o",
+      "bytes": 50480
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/tsan/gtests_docstore_blockcache.cpp.o",
+      "bytes": 229880
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/tsan/docstore.cpp.o",
+      "bytes": 171640
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/objects/skip_cache.cpp.o",
+      "bytes": 8848
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/objects/sphinxutils.cpp.o",
+      "bytes": 200424
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/objects/gtests_searchd.cpp.o",
+      "bytes": 1098088
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/objects/searchd.cpp.o",
+      "bytes": 1043624
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/objects/gtests_docstore_blockcache.cpp.o",
+      "bytes": 152136
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/objects/docstore.cpp.o",
+      "bytes": 96736
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/asan-ubsan/skip_cache.cpp.o",
+      "bytes": 46456
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/asan-ubsan/fileio.cpp.o",
+      "bytes": 103136
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/asan-ubsan/gtests_docstore_blockcache.cpp.o",
+      "bytes": 571232
+    },
+    {
+      "path": "/private/tmp/manticore-vm-cache-page-diagnostic-20261113/asan-ubsan/docstore.cpp.o",
+      "bytes": 390248
+    }
+  ],
+  "after_free": 1628332032
+}

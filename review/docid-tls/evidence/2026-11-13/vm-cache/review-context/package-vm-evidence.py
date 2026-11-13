@@ -3,9 +3,9 @@ import hashlib,json,re,shutil,subprocess,zipfile
 repo=Path('/private/tmp/manticore-block-cache-evidence-20261113');root=repo/'review/docid-tls'
 src=Path('/private/tmp/manticore-vm-cache-review-20261113');source=Path('/private/tmp/manticore-vm-cache-source-20261113');dst=root/'evidence/2026-11-13/vm-cache'
 allowed={'.json','.jsonl','.log','.csv','.patch','.cpp','.h','.md','.py','.txt','.rec'}
-dirs={'matrix','repeat','driver','candidate-source','asan-ubsan','tsan','review-context','analysis-driver'}
+dirs={'matrix','repeat','idle-repeat','idle-wait-attempt-1','disk-space-interruption','driver','candidate-source','asan-ubsan','tsan','review-context','analysis-driver'}
 ctx=src/'review-context';ctx.mkdir(exist_ok=True)
-for name in ['build-vm-cache.py','sanitize-vm-cache.py','run-vm-cache-matrix.py','write-vm-report.py','write-vm-index.py','package-vm-evidence.py']:shutil.copy2(Path('/private/tmp')/name,ctx/name)
+for name in ['build-vm-cache.py','sanitize-vm-cache.py','run-vm-cache-matrix.py','run-vm-quiet-repeat.py','resume-vm-clean-run.py','run-vm-clean-diagnostics.py','finish-vm-clean-run.py','wait-vm-idle.py','write-vm-report.py','write-vm-index.py','package-vm-evidence.py']:shutil.copy2(Path('/private/tmp')/name,ctx/name)
 b=Path('/private/tmp/manticore-5042-publish-build-20261113')
 for name in ['CMakeCache.txt','compile_commands.json','config/config.h']:
  target=ctx/'build-context'/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(b/name,target)

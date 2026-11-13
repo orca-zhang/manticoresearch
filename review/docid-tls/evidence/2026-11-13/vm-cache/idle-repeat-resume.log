@@ -1,0 +1,12 @@
+waiting for matrix idle gate 5000000
+starting matrix 5000000
+matrix 5000000 {'vm_adaptive512': 2233.1, 'cache_off': 1789.1, 'default16': 1652.2, 'heap_manual512': 2277.5, 'heap_adaptive512': 2253.9, 'vm_adaptive16': 1648.4}
+Waiting for the fresh five-size matrix before new memory diagnostics.
+waiting for transition idle gate 1 heap_adaptive512
+transition 1 heap_adaptive512 [('large', 407.92, 632.56), ('hot', 15.93, 635.05), ('large-again', 408.86, 635.22)]
+waiting for transition idle gate 1 vm_adaptive512
+transition 1 vm_adaptive512 [('large', 411.21, 631.3), ('hot', 15.8, 150.39), ('large-again', 412.17, 634.52)]
+waiting for transition idle gate 2 vm_adaptive512
+transition 2 vm_adaptive512 [('large', 411.21, 630.78), ('hot', 15.8, 153.77), ('large-again', 412.17, 633.42)]
+waiting for transition idle gate 2 heap_adaptive512
+transition 2 heap_adaptive512 [('large', 407.92, 632.22), ('hot', 15.93, 634.66), ('large-again', 408.86, 635.02)]

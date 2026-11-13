@@ -1,0 +1,14 @@
+{
+  "written_before_diagnostic_results": true,
+  "written_time_ns": 1794589334158470000,
+  "reason": "User requested all measurements anew, including both fresh-server broad/hot/broad memory passes.",
+  "source_commit": "f5cf080a497d2986336ab514a0fab78536198837",
+  "passes": 2,
+  "seconds_per_stage": 8,
+  "arms": [
+    "heap_adaptive512",
+    "vm_adaptive512"
+  ],
+  "table_rows": 5000000,
+  "unchanged_driver_sha256": "1437cb7e7ab8389b2034dd5e4535da57315936531939b597bfc58d62391c0b71"
+}

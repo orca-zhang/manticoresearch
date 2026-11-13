@@ -1,0 +1,5 @@
+{
+  "reason": "600-second idle gate timed out before the first timed sample. User will handle competing Git jobs; no process was interrupted by this agent.",
+  "timed_samples": 0,
+  "preserved_time_ns": 1794587904747952000
+}

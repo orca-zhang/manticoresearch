@@ -9,20 +9,22 @@ to the OS. It remains outside both production PRs, with unchanged manual
 
 The report gives absolute QPS and CPU/query for default 16 MiB versus current
 adaptive 16/512 MiB at five sizes. Equal-16 QPS changes range from
--6.03% to +3.48% in the primary run; this does not establish a
-universal gain. The 512 MiB gain peaks at +88.18% for
+-0.48% to +1.71% in the latest full rerun; this does not establish a
+universal gain. The 512 MiB gain peaks at +88.40% for
 500,000 rows among these samples; this comparison also changes capacity.
-Fresh-server, longer repeats at 20k/500k were preselected. The finite warmed
+All five sizes use fresh servers and six balanced ×5-second rounds. The
+finite warmed
 query pools do not constitute a cold full-table scan.
 
 Two broad/hot/broad passes on the same 5M table observe process RSS drops of
-477.86 and 477.94 MiB from broad to hot. The report plots charged entries,
+480.91 and 477.02 MiB from broad to hot. The report plots charged entries,
 virtual mappings, RSS and physical footprint separately. Partial-region slack
 and bounded empty spares remain; the entry ceiling is not an RSS cap. Idle
 shards do not advance lookup-driven reclamation.
 
-All 252 primary/repeat arm samples and 12 diagnostic stage samples remain,
-including 84 primary/repeat external-load flags. No adaptive-plus-TLS result
+All 180 timed arm samples and 12 diagnostic stage samples remain,
+including 1 external-load flags. All five throughput cases and both memory
+passes are newly measured; no earlier results are pooled into the tables. No adaptive-plus-TLS result
 exists. Exact absolute values, negative results, controls and load limits are
 in the report and CSV.
 

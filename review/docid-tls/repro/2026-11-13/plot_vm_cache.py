@@ -34,16 +34,17 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     d = json.loads((args.evidence / 'summary.json').read_text())
-    raw = json.loads((args.evidence / 'matrix/matrix.json').read_text())
-    primary, repeat = d['phases']
+    raw = json.loads((args.evidence / 'idle-repeat/matrix.json').read_text())
+    initial, selected, primary = d['phases']
     cases = primary['cases']; rows = [c['rows'] for c in cases]
+    comparison_flags=sum(c['arms'][n]['load_flagged_samples'] for c in cases for n in ['default16','vm_adaptive16','vm_adaptive512','cache_off'])
     args.output.mkdir(parents=True, exist_ok=True)
     common = ('M4 Pro / Clang 21 -O2; 8 clients, 256 returned rows; 128-byte text, 16 KiB / LZ4. No reader TLS.\n'
-              'DocID and SQL query caches off. Six balanced rounds: primary 3 s/arm; fresh-server repeats 5 s/arm.\n'
-              f"Load flags: {primary['load_flagged_samples']}/{primary['timed_arm_samples']} primary, {repeat['load_flagged_samples']}/{repeat['timed_arm_samples']} repeat samples; all retained. Ranges are paired min/max, not confidence intervals.\n"
+              'DocID and SQL query caches off. Latest full rerun: six balanced rounds x 5 seconds/arm, fresh servers and idle gates.\n'
+              f"Plotted comparison load flags: {comparison_flags}/120 samples; all samples retained. Ranges are paired min/max, not confidence intervals.\n"
               'Equal 16 MiB compares implementations/modes; 16 to 512 MiB also changes capacity. Small blocks use 256-byte classes; backing slack is additional.')
     fig, ax = plt.subplots(1, 2, figsize=(13, 6));fig.suptitle('Current adaptive cache: throughput versus dataset size', fontsize=15)
-    for name, color, label in [('default16','tab:gray','Default manual 16 MiB'),('vm_adaptive16','tab:orange','Adaptive 16 MiB'),('vm_adaptive512','tab:green','Adaptive 512 MiB ceiling')]:
+    for name, color, label in [('default16','tab:gray','Default manual 16 MiB'),('vm_adaptive16','tab:orange','Adaptive 16 MiB'),('vm_adaptive512','tab:green','Adaptive 512 MiB ceiling'),('cache_off','tab:blue','Cache off, current build')]:
         ax[0].plot(rows,[c['arms'][name]['qps_median'] for c in cases],marker='o',color=color,label=label)
     for name, color, label in [('default_to_adaptive16','tab:orange','Default to adaptive, equal 16 MiB'),('default_to_adaptive512','tab:green','Default 16 to adaptive 512 MiB')]:
         values=[c['comparisons'][name] for c in cases]
@@ -52,21 +53,19 @@ def main():
     peak=max(cases,key=lambda c:c['comparisons']['default_to_adaptive512']['qps_change_percent'])
     ax[1].annotate(f"Largest sampled gain\n{peak['rows']:,} rows",
         xy=(peak['rows'],peak['comparisons']['default_to_adaptive512']['qps_change_percent']),
-        xytext=(10,15),textcoords='offset points',fontsize=8,
+        xytext=(-145,-55),textcoords='offset points',fontsize=8,va='top',
         arrowprops=dict(arrowstyle='-',color='tab:green'))
     ax[1].axhline(0,color='gray',linewidth=.8)
     style(ax[0],rows,'Absolute throughput','QPS (higher is better)');style(ax[1],rows,'Change relative to default 16 MiB','QPS change (%)')
     save(fig,args.output,'adaptive-cache-capacity',common)
 
-    fig,ax=plt.subplots(1,2,figsize=(13,6));fig.suptitle('Current adaptive cache: server CPU per query and longer checks',fontsize=15)
+    fig,ax=plt.subplots(1,2,figsize=(13,6));fig.suptitle('Current adaptive cache: server CPU per query and equal-capacity results',fontsize=15)
     for name,color,label in [('default16','tab:gray','Default manual 16 MiB'),('vm_adaptive16','tab:orange','Adaptive 16 MiB'),('vm_adaptive512','tab:green','Adaptive 512 MiB ceiling')]:
         ax[0].plot(rows,[c['arms'][name]['server_cpu_ms_per_query_median'] for c in cases],marker='o',color=color,label=label)
     style(ax[0],rows,'Absolute server CPU per completed query','CPU milliseconds/query (lower is better)')
-    for phase,marker,linestyle in [(primary,'o','-'),(repeat,'s','--')]:
-        cells=phase['cases'];x=[c['rows'] for c in cells];values=[c['comparisons']['default_to_adaptive16'] for c in cells]
-        label='Initial, 3 s/arm' if phase is primary else 'Fresh-server repeat, 5 s/arm'
-        ax[1].vlines(x,[min(v['paired_qps_changes_percent']) for v in values],[max(v['paired_qps_changes_percent']) for v in values],alpha=.5)
-        ax[1].plot(x,[v['qps_change_percent'] for v in values],marker=marker,linestyle=linestyle,label=label)
+    values=[c['comparisons']['default_to_adaptive16'] for c in cases]
+    ax[1].vlines(rows,[min(v['paired_qps_changes_percent']) for v in values],[max(v['paired_qps_changes_percent']) for v in values],color='tab:orange',alpha=.5)
+    ax[1].plot(rows,[v['qps_change_percent'] for v in values],marker='o',color='tab:orange',label='Latest full rerun, 5 s/arm')
     ax[1].axhline(0,color='gray',linewidth=.8)
     style(ax[1],rows,'Default to adaptive at equal 16 MiB','QPS change (%)')
     save(fig,args.output,'adaptive-cache-policy',common)

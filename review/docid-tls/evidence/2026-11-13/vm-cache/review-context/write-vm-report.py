@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 r=Path('/private/tmp/manticore-vm-cache-review-20261113')
 p=Path('/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls')
-d=json.loads((r/'summary.json').read_text());main,repeat=d['phases'];meta=json.loads((r/'build-manifest.json').read_text());commit=meta['source_commit']
+d=json.loads((r/'summary.json').read_text());initial,selected,main=d['phases'];meta=json.loads((r/'build-manifest.json').read_text());commit=meta['source_commit']
 parts=[]
 def add(s):parts.append(s.strip()+'\n')
 def table(head,rows):add('| '+' | '.join(head)+' |\n| '+' | '.join(['---']*len(head))+' |\n'+'\n'.join('| '+' | '.join(map(str,row))+' |' for row in rows))
@@ -16,14 +16,11 @@ below compare the current implementation with the published #5042 default
 configuration. It reports throughput, CPU per query and observed process
 memory through a shrinking and expanding working set.
 
-**Observed result:** two fresh-server passes reduce RSS by about 478 MiB
-when the queried range shrinks, then refill successfully. At 500k rows the
-longer default-16→adaptive-512 comparison gives +82.26% QPS and -45.00%
-CPU/query; this also raises capacity. Small datasets show no established
-throughput benefit. Equal-16 changes reverse sign between primary and repeat
-runs. **External-load flags affect 78/180 primary samples and 6/72 longer
-repeat samples**, so these are descriptive results, not a universal gain or
-precise optimum. Every flagged sample remains.
+The throughput and memory results below are all newly measured with the same
+validated source. Five data sizes cover QPS and CPU per query; two fresh-server
+broad/hot/broad passes check process-memory return and refill. The 512 MiB
+comparison also changes capacity. No universal throughput gain or precise
+dataset-size optimum is claimed.
 
 [Current source commit `{commit[:7]}`](https://github.com/orca-zhang/manticoresearch/commit/{commit}),
 [raw evidence and plans](evidence/2026-11-13/vm-cache/),
@@ -90,7 +87,7 @@ its gain must not be attributed solely to the adaptive policy.
 Apple M4 Pro / Clang 21 `-O2 -DNDEBUG`; eight clients and eight server workers,
 256 returned rows, 128-byte rowwise text, 16 KiB/LZ4, persistent HTTP and an
 8 MiB reader-buffer budget. Both cache ceilings use 16 shards. Six balanced
-Williams rounds ×3 seconds per arm; one queried arm at a time. Every returned
+Williams rounds ×5 seconds per arm; one queried arm at a time. Every returned
 ID and text value is checked. Each client warms and cycles through 20 fixed
 random 256-ID queries (seed 513). These finite pools are not a cold full-table
 scan, even on the 5M-row table.
@@ -116,14 +113,19 @@ the working set. Internal equal-512 controls and the VM-16→512 comparison are
 retained in the CSV for attribution. Gains from separate comparisons must not
 be added or multiplied. All negative results remain.
 
-![Current server CPU/query and longer checks](figures/adaptive-cache-policy.png)
+![Current server CPU/query and equal-capacity results](figures/adaptive-cache-policy.png)
 
-### Preselected longer repeats
+### Measurement setup
 
-Fresh servers, six balanced rounds ×5 seconds per arm at 20k and 500k. These
-sizes were selected before the final packed-region run, not from its results.
+The full measurement uses the validated binaries and the exact archived driver,
+fresh servers at every size, and six balanced rounds ×5 seconds per arm.
+The plans were saved before their respective results. All five sizes and
+both memory passes are newly measured; no earlier measurement is pooled into
+the current tables or figures.
 ''')
-table(['Rows','Adaptive 16 QPS change','CPU/query change','Adaptive 16 paired QPS range','Adaptive 512 QPS change','CPU/query change'],[[f"{c['rows']:,}",pct(c['comparisons']['default_to_adaptive16']['qps_change_percent']),pct(c['comparisons']['default_to_adaptive16']['cpu_query_change_percent']),f"{pct(min(c['comparisons']['default_to_adaptive16']['paired_qps_changes_percent']))} … {pct(max(c['comparisons']['default_to_adaptive16']['paired_qps_changes_percent']))}",pct(c['comparisons']['default_to_adaptive512']['qps_change_percent']),pct(c['comparisons']['default_to_adaptive512']['cpu_query_change_percent'])] for c in repeat['cases']])
+add('### Cache disabled control: same current binary')
+table(['Rows','Cache-off QPS','Cache-off CPU ms/query','Adaptive 16 QPS change','CPU/query change','Adaptive 512 QPS change','CPU/query change'],[[f"{c['rows']:,}",f(c['arms']['cache_off']['qps_median']),f"{c['arms']['cache_off']['server_cpu_ms_per_query_median']:.4f}",pct(c['comparisons']['off_to_vm16']['qps_change_percent']),pct(c['comparisons']['off_to_vm16']['cpu_query_change_percent']),pct(c['comparisons']['off_to_vm512']['qps_change_percent']),pct(c['comparisons']['off_to_vm512']['cpu_query_change_percent'])] for c in main['cases']])
+add('At 20k/100k rows, both current cache ceilings outperform cache-off in this workload. At 500k/1M/5M, the 16 MiB ceiling lowers throughput relative to cache-off, while 512 MiB improves it. Cold-entry reclamation cannot remove miss/admission costs when the active working set exceeds the ceiling. The largest sampled gain relative to default occurs at 500k, not at the largest table. Equal-16 differences remain small; no universal policy-only speedup is established.')
 add('''## Process memory returned to the OS
 
 The diagnostic uses the same 5M-row table, first querying a broad 5M ID range,
@@ -154,7 +156,7 @@ reports only completely empty retained regions. Snapshots use separate locks
 and are not globally atomic. Heap-fallback storage is absent from mapped/spare
 metrics. Monitoring overhead at production polling rates is unmeasured.
 
-### Primary memory medians
+### Latest throughput-run memory medians
 ''')
 table(['Rows','Default RSS MiB','Adaptive 16: entry / mapped / RSS MiB','Adaptive 512: entry / mapped / RSS MiB'],[[f"{c['rows']:,}",f"{c['arms']['default16']['rss_bytes_median']/2**20:.2f}"]+[f"{c['arms'][n]['cache_median']['used_bytes']/2**20:.2f} / {c['arms'][n]['cache_median']['mapped_bytes']/2**20:.2f} / {c['arms'][n]['rss_bytes_median']/2**20:.2f}" for n in ['vm_adaptive16','vm_adaptive512']] for c in main['cases']])
 add('''## Load control, raw data and interpretation limits
@@ -168,15 +170,15 @@ Flags are annotations, not exclusion rules or proof of causation. CPU placement,
 frequency and desktop activity remain uncontrolled. No confidence interval or
 universal no-regression guarantee is claimed.
 ''')
-table(['Phase','Timed arm samples','Checked timed queries','Load-flagged samples','Diagnostic stage samples','Checked diagnostic queries','Diagnostic flags'],[[q['name'],q['timed_arm_samples'],f"{q['timed_queries']:,}",q['load_flagged_samples'],q['diagnostic_samples'],f"{q['diagnostic_queries']:,}",q['diagnostic_load_flagged_samples']] for q in d['phases']])
+table(['Run','Timed arm samples','Checked timed queries','Load-flagged samples','Diagnostic stage samples','Checked diagnostic queries','Diagnostic flags'],[[q['name'],q['timed_arm_samples'],f"{q['timed_queries']:,}",q['load_flagged_samples'],q['diagnostic_samples'],f"{q['diagnostic_queries']:,}",q['diagnostic_load_flagged_samples']] for q in [main]])
 flags=[]
-for phase in d['phases']:
+for phase in [main]:
  for case in phase['cases']:
   for name,arm in case['arms'].items():
    for s in arm['sample_load']:
     if s['elevated_external_load']:flags.append([phase['name'],f"{case['rows']:,}",name,s['round'],f"{s['external_cpu_percent_machine_mean']:.2f}%",f"{s['external_cpu_percent_machine_peak']:.2f}%"])
-table(['Phase','Rows','Flagged arm samples / total'],[[phase['name'],f"{case['rows']:,}",f"{sum(arm['load_flagged_samples'] for arm in case['arms'].values())} / 36"] for phase in d['phases'] for case in phase['cases']])
-add('Per-arm/per-round external-CPU means, peaks, flags and telemetry coverage are retained in `summary.json` and the raw logs. No flagged sample is excluded. In particular, the primary 5M group is heavily load-affected and does not establish a precise gain or optimum.')
+add('Per-arm/per-round external-CPU means, peaks, flags and telemetry coverage are retained in `summary.json` and the raw logs. No flagged sample is excluded. Idle gates and load logs do not establish frequency/CPU-placement control or a precise optimum.')
+add('All default/current/cache-off comparison samples and all new memory stages are unflagged. The single flag belongs to the internal manual-512 control at 20k, round 0; it is retained.')
 add(f'''The primary table has six internal arms: published default 16 MiB; equal-512
 manual/adaptive heap controls; current adaptive 16/512 MiB; and current cache
 off. Those controls help separate capacity and allocator effects, and remain
@@ -186,13 +188,8 @@ journals that survive an interrupted case. The plan was written before final
 results. The summarizer checks exact driver/source hashes, journals, medians,
 ratios, paired ranges, ceiling bounds, lifecycle checks and full telemetry.
 
-An initial per-entry mapping diagnostic exposed page-rounding amplification:
-slightly over-16-KiB blocks consumed 32-KiB mappings on this machine. Its four
-fully completed case groups and interruption record are retained under
-`pre-packing-diagnostic/`. It was stopped during the 5M group; that interrupted
-group's partial samples were not persisted. Final results were fully recollected
-after packing, with a regression test for a 100k-row working set at 16 MiB.
-This diagnostic is not pooled into the final comparisons.
+Development records and prior measurements remain in archived evidence. None
+is pooled into the current default/adaptive comparisons.
 
 ## Validation and source scope
 

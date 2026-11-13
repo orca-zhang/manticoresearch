@@ -1,0 +1,13 @@
+waiting for matrix idle gate 20000
+Traceback (most recent call last):
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 208, in <module>
+    main()
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 195, in main
+    data['cases'].append(matrix_case(rows, number, binaries, args, ctx))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 86, in matrix_case
+    result['idle_gate'] = monitor.wait_idle(seconds=30, mean_idle=90, min_idle=80, timeout=600)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/load_telemetry.py", line 124, in wait_idle
+    raise RuntimeError('Idle gate not reached; preserve logs and defer the timed rerun.')
+RuntimeError: Idle gate not reached; preserve logs and defer the timed rerun.
