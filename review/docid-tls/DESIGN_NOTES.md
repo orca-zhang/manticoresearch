@@ -114,5 +114,7 @@ unmeasured. PERFORMANCE.md records allocation sizes and differences.
   cache-line padding.
 
 This independent candidate targets contention on a specific shared lookup.
-Benefits after default block-cache warmup are not established. The performance
-report retains negative samples and independent upstream measurements.
+The effect depends on the block-cache implementation, budget, working set and
+session churn. The [current TLS report](TLS_REVIEW_2026-11-13.md) presents
+original-cache and latest-cache pairs separately, retaining negative samples
+and all controls. The ownership and lifetime requirements are the same in both.

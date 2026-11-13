@@ -1,0 +1,13 @@
+[
+  "python3",
+  "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/repro/2026-11-13/sanitize_readers.py",
+  "/private/tmp/manticore-5045-latest-block-source-20261113",
+  "/private/tmp/manticore-5045-latest-block-build-20261113",
+  "--output",
+  "/private/tmp/manticore-5045-latest-block-review-20261113/asan-ubsan",
+  "--sanitizer",
+  "address,undefined",
+  "--repeat",
+  "20",
+  "--with-block-cache"
+]

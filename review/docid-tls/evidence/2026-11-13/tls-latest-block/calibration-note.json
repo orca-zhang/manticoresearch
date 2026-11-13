@@ -1,0 +1,6 @@
+{
+  "automatic_calibration_attempted_in_this_build": false,
+  "override_source": "Supported MANTICORE_* values inherited from the earlier upstream/Clang 21 build; same values used in both current native arms, both timed arms and focused sanitizers.",
+  "previous_calibration_issue": "An earlier Apple native build failed auto calibration before tests; the archived original record retains that failure. No fresh calibrated-stack claim is made.",
+  "current_validation": "Both current arms passed 529/529 full GoogleTests with these explicit overrides."
+}

@@ -1,0 +1,2292 @@
+{
+  "plan": "load-controlled-plan.json",
+  "sample_rejection": "None; all completed samples retained.",
+  "passes": [
+    {
+      "phase": "load-controlled-1",
+      "cases": [
+        {
+          "case": {
+            "name": "rows20000-cache0",
+            "docs": 20000,
+            "cache": 0,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": 6.6483922024261455,
+          "server_cpu_change_percent": -8.697067325312702,
+          "idle_gate": {
+            "interval_seconds": 60.41701550001744,
+            "idle_percent_mean": 90.82921766496932,
+            "idle_percent_min": 86.84640522875817,
+            "from_monotonic_seconds": 962536.326071083,
+            "to_monotonic_seconds": 962596.743086583
+          },
+          "sample_load": [
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.3837084894776455,
+              "external_cpu_percent_machine_max": 8.233061839892514,
+              "system_idle_percent_mean": 26.813842151582005,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 15.858020640974372,
+              "external_cpu_percent_machine_max": 37.146509886559734,
+              "system_idle_percent_mean": 12.421753508395796,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 39.74645258507342,
+              "external_cpu_percent_machine_max": 55.80081902286693,
+              "system_idle_percent_mean": 0.8708009544740292,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 28.388386930225305,
+              "external_cpu_percent_machine_max": 29.841565089611066,
+              "system_idle_percent_mean": 1.6546694476126496,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 28.485436878765,
+              "external_cpu_percent_machine_max": 29.413759927799646,
+              "system_idle_percent_mean": 1.4281083370878758,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 21.886618282739352,
+              "external_cpu_percent_machine_max": 28.1848951826711,
+              "system_idle_percent_mean": 1.041126671893568,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 27.892186092113135,
+              "external_cpu_percent_machine_max": 28.43401552600893,
+              "system_idle_percent_mean": 1.1913004433697023,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 23.704519087010198,
+              "external_cpu_percent_machine_max": 27.87039717602808,
+              "system_idle_percent_mean": 1.510094420506985,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 27.40459964154998,
+              "external_cpu_percent_machine_max": 30.902246605850433,
+              "system_idle_percent_mean": 1.2291965804478047,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 30.272368204027366,
+              "external_cpu_percent_machine_max": 40.41216073988651,
+              "system_idle_percent_mean": 0.8528556466075884,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 27.378831125662845,
+              "external_cpu_percent_machine_max": 30.05811976422383,
+              "system_idle_percent_mean": 1.0163966124622295,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 28.366541016803772,
+              "external_cpu_percent_machine_max": 29.369535045940996,
+              "system_idle_percent_mean": 2.2252113750932714,
+              "coverage_fraction": 0.9382266648281191,
+              "elevated_external_load": true
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 5693.2721732025575,
+            "external_cpu_percent_machine_median": 27.885570329176876,
+            "external_cpu_percent_machine_peak": 30.902246605850433,
+            "elevated_samples": 5
+          },
+          "tls": {
+            "qps_median": 6071.783236428653,
+            "external_cpu_percent_machine_median": 27.63550860888799,
+            "external_cpu_percent_machine_peak": 55.80081902286693,
+            "elevated_samples": 6
+          }
+        },
+        {
+          "case": {
+            "name": "rows20000-cache16777216",
+            "docs": 20000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": 0.2795525327555115,
+          "server_cpu_change_percent": 0.9342704257604195,
+          "idle_gate": {
+            "interval_seconds": 61.789974292041734,
+            "idle_percent_mean": 92.7439266539468,
+            "idle_percent_min": 80.06509357200976,
+            "from_monotonic_seconds": 963256.926050833,
+            "to_monotonic_seconds": 963318.716025125
+          },
+          "sample_load": [
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 2.1370168174054665,
+              "external_cpu_percent_machine_max": 2.6639814819060064,
+              "system_idle_percent_mean": 27.504979734331553,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 2.157519593226664,
+              "external_cpu_percent_machine_max": 3.3111116041648283,
+              "system_idle_percent_mean": 26.697120031577544,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 2.3604104859866952,
+              "external_cpu_percent_machine_max": 3.0678925438104234,
+              "system_idle_percent_mean": 26.602590208726777,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 2.3083749005225496,
+              "external_cpu_percent_machine_max": 3.1513769983428115,
+              "system_idle_percent_mean": 26.111745122518098,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 2.240655265956759,
+              "external_cpu_percent_machine_max": 2.7496055540341877,
+              "system_idle_percent_mean": 26.432139523407795,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 3.620279684805777,
+              "external_cpu_percent_machine_max": 8.638069832910716,
+              "system_idle_percent_mean": 25.120855289257655,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 11.621317798101325,
+              "external_cpu_percent_machine_max": 18.193287894657114,
+              "system_idle_percent_mean": 18.90264159576441,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 11.452214214477223,
+              "external_cpu_percent_machine_max": 19.451022002737016,
+              "system_idle_percent_mean": 18.666599059361793,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 10.569100117211775,
+              "external_cpu_percent_machine_max": 14.344632046866318,
+              "system_idle_percent_mean": 19.58462399332413,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 7.153413829186497,
+              "external_cpu_percent_machine_max": 9.824734781525597,
+              "system_idle_percent_mean": 22.22846719452363,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 13.01432041659162,
+              "external_cpu_percent_machine_max": 14.889735671544058,
+              "system_idle_percent_mean": 17.295611334089735,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.580434032383098,
+              "external_cpu_percent_machine_max": 12.566839878836651,
+              "system_idle_percent_mean": 22.217440170248146,
+              "coverage_fraction": 0.8756533653926057,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 7696.110265258695,
+            "external_cpu_percent_machine_median": 5.386846756996137,
+            "external_cpu_percent_machine_peak": 18.193287894657114,
+            "elevated_samples": 2
+          },
+          "tls": {
+            "qps_median": 7717.624936428883,
+            "external_cpu_percent_machine_median": 4.4444044664528235,
+            "external_cpu_percent_machine_peak": 19.451022002737016,
+            "elevated_samples": 2
+          }
+        },
+        {
+          "case": {
+            "name": "rows100000-cache16777216",
+            "docs": 100000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": -0.2031294013700946,
+          "server_cpu_change_percent": 0.23339658927228335,
+          "idle_gate": {
+            "interval_seconds": 62.5395045831101,
+            "idle_percent_mean": 90.02415541232952,
+            "idle_percent_min": 85.65640194489465,
+            "from_monotonic_seconds": 963390.05924375,
+            "to_monotonic_seconds": 963452.598748333
+          },
+          "sample_load": [
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.797519382434624,
+              "external_cpu_percent_machine_max": 6.868448762602468,
+              "system_idle_percent_mean": 26.061205997285818,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.6877584910831995,
+              "external_cpu_percent_machine_max": 6.44365888233698,
+              "system_idle_percent_mean": 22.440959823017778,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.323295559382168,
+              "external_cpu_percent_machine_max": 7.8366879518717125,
+              "system_idle_percent_mean": 22.040410009134757,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.662501912616382,
+              "external_cpu_percent_machine_max": 5.7956334070135425,
+              "system_idle_percent_mean": 22.61723700482021,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.5290359228633035,
+              "external_cpu_percent_machine_max": 6.366026110105277,
+              "system_idle_percent_mean": 23.147733204930635,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.426136403716393,
+              "external_cpu_percent_machine_max": 6.597745433053803,
+              "system_idle_percent_mean": 22.62583422308556,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.363237892787548,
+              "external_cpu_percent_machine_max": 5.634046771664148,
+              "system_idle_percent_mean": 23.140431110096785,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.350207944175465,
+              "external_cpu_percent_machine_max": 5.870662236216897,
+              "system_idle_percent_mean": 22.90272790706117,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.127065032533839,
+              "external_cpu_percent_machine_max": 5.974621179439993,
+              "system_idle_percent_mean": 23.348854627160645,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 9.213690164839443,
+              "external_cpu_percent_machine_max": 16.308913421153537,
+              "system_idle_percent_mean": 18.841523982434943,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.161930100272151,
+              "external_cpu_percent_machine_max": 8.533579961856228,
+              "system_idle_percent_mean": 21.17815336450304,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.507100961665852,
+              "external_cpu_percent_machine_max": 7.483299270073481,
+              "system_idle_percent_mean": 21.511404919180272,
+              "coverage_fraction": 0.8048674602269966,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 6828.16637466858,
+            "external_cpu_percent_machine_median": 5.595768917739843,
+            "external_cpu_percent_machine_peak": 7.483299270073481,
+            "elevated_samples": 0
+          },
+          "tls": {
+            "qps_median": 6814.296361187162,
+            "external_cpu_percent_machine_median": 5.9248442956776755,
+            "external_cpu_percent_machine_peak": 16.308913421153537,
+            "elevated_samples": 0
+          }
+        },
+        {
+          "case": {
+            "name": "rows500000-cache16777216",
+            "docs": 500000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": -1.6829431870637457,
+          "server_cpu_change_percent": -2.5442686810487225,
+          "idle_gate": {
+            "interval_seconds": 62.65778179198969,
+            "idle_percent_mean": 90.64928395668302,
+            "idle_percent_min": 85.553772070626,
+            "from_monotonic_seconds": 963664.869353791,
+            "to_monotonic_seconds": 963727.527135583
+          },
+          "sample_load": [
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.469699271541299,
+              "external_cpu_percent_machine_max": 6.431370426050621,
+              "system_idle_percent_mean": 29.56519614347137,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.854657400290243,
+              "external_cpu_percent_machine_max": 6.739277023665175,
+              "system_idle_percent_mean": 26.439091484226555,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 8.349652285517974,
+              "external_cpu_percent_machine_max": 13.22759170252914,
+              "system_idle_percent_mean": 24.22308732265229,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.939724121988664,
+              "external_cpu_percent_machine_max": 16.088481846907232,
+              "system_idle_percent_mean": 23.561573329493118,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 13.671122424195046,
+              "external_cpu_percent_machine_max": 23.05824378529768,
+              "system_idle_percent_mean": 17.215831032136748,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 10.11937652618802,
+              "external_cpu_percent_machine_max": 12.716411428986833,
+              "system_idle_percent_mean": 21.441478170000263,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 10.49034087617078,
+              "external_cpu_percent_machine_max": 11.809319501771752,
+              "system_idle_percent_mean": 20.654064569643417,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 9.359088248860056,
+              "external_cpu_percent_machine_max": 13.531649667202842,
+              "system_idle_percent_mean": 21.965825020533106,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.578774650907754,
+              "external_cpu_percent_machine_max": 6.411106344437324,
+              "system_idle_percent_mean": 26.83583244442789,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.51508139143534,
+              "external_cpu_percent_machine_max": 6.411106344437324,
+              "system_idle_percent_mean": 26.376869251262928,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.338133341926176,
+              "external_cpu_percent_machine_max": 6.08226284483828,
+              "system_idle_percent_mean": 26.89618607542888,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.853788483470486,
+              "external_cpu_percent_machine_max": 8.232899616176509,
+              "system_idle_percent_mean": 11.518535529530743,
+              "coverage_fraction": 0.8114771217946715,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 3234.702969859257,
+            "external_cpu_percent_machine_median": 7.102154842904109,
+            "external_cpu_percent_machine_peak": 13.22759170252914,
+            "elevated_samples": 2
+          },
+          "tls": {
+            "qps_median": 3180.264756606262,
+            "external_cpu_percent_machine_median": 7.396756302729575,
+            "external_cpu_percent_machine_peak": 23.05824378529768,
+            "elevated_samples": 1
+          }
+        },
+        {
+          "case": {
+            "name": "rows1000000-cache16777216",
+            "docs": 1000000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": -1.315631001096207,
+          "server_cpu_change_percent": 1.0945106516716097,
+          "idle_gate": {
+            "interval_seconds": 61.65278399991803,
+            "idle_percent_mean": 93.23601798649537,
+            "idle_percent_min": 80.66612510154346,
+            "from_monotonic_seconds": 963926.728115041,
+            "to_monotonic_seconds": 963988.380899041
+          },
+          "sample_load": [
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 3.542946783090963,
+              "external_cpu_percent_machine_max": 6.127703682455802,
+              "system_idle_percent_mean": 29.348474704984394,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 3.3709826593265815,
+              "external_cpu_percent_machine_max": 5.005252285463117,
+              "system_idle_percent_mean": 27.730944919827305,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 4.069817936250148,
+              "external_cpu_percent_machine_max": 6.6148420699431165,
+              "system_idle_percent_mean": 26.928179905724967,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.1359502184888,
+              "external_cpu_percent_machine_max": 9.618151698870765,
+              "system_idle_percent_mean": 25.332326842897704,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 7.762421855788646,
+              "external_cpu_percent_machine_max": 8.911912483700782,
+              "system_idle_percent_mean": 23.03840238638992,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 8.130364411837895,
+              "external_cpu_percent_machine_max": 13.379238084925811,
+              "system_idle_percent_mean": 22.965880114194448,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 10.12185092658988,
+              "external_cpu_percent_machine_max": 13.379238084925811,
+              "system_idle_percent_mean": 20.430746413063687,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 7.684390775735035,
+              "external_cpu_percent_machine_max": 12.141050055801053,
+              "system_idle_percent_mean": 22.87587467213673,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 12.11144130150307,
+              "external_cpu_percent_machine_max": 15.050784530717872,
+              "system_idle_percent_mean": 18.017904274936587,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 12.793988191052593,
+              "external_cpu_percent_machine_max": 31.914795682886833,
+              "system_idle_percent_mean": 19.16125869077114,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 14.664205753263742,
+              "external_cpu_percent_machine_max": 31.914795682886833,
+              "system_idle_percent_mean": 17.139270232549332,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 12.634858871193632,
+              "external_cpu_percent_machine_max": 16.291485661018108,
+              "system_idle_percent_mean": 18.966327870120598,
+              "coverage_fraction": 0.8760006255247966,
+              "elevated_external_load": true
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 2765.724159483158,
+            "external_cpu_percent_machine_median": 7.7234063157618404,
+            "external_cpu_percent_machine_peak": 16.291485661018108,
+            "elevated_samples": 2
+          },
+          "tls": {
+            "qps_median": 2729.33743503619,
+            "external_cpu_percent_machine_median": 9.126107669213887,
+            "external_cpu_percent_machine_peak": 31.914795682886833,
+            "elevated_samples": 3
+          }
+        },
+        {
+          "case": {
+            "name": "rows5000000-cache16777216",
+            "docs": 5000000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": 11.325043229115494,
+          "server_cpu_change_percent": -4.35841977695387,
+          "idle_gate": {
+            "interval_seconds": 62.51839295902755,
+            "idle_percent_mean": 90.45865577595316,
+            "idle_percent_min": 86.37820512820514,
+            "from_monotonic_seconds": 964304.033501291,
+            "to_monotonic_seconds": 964366.55189425
+          },
+          "sample_load": [
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 7.393902003642265,
+              "external_cpu_percent_machine_max": 10.628361617823463,
+              "system_idle_percent_mean": 25.311650910960918,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 9.13193627547634,
+              "external_cpu_percent_machine_max": 13.657936963820347,
+              "system_idle_percent_mean": 21.5134190870449,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.106995612861361,
+              "external_cpu_percent_machine_max": 11.259035167360423,
+              "system_idle_percent_mean": 22.712968313615374,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.669185708722175,
+              "external_cpu_percent_machine_max": 9.183029739140565,
+              "system_idle_percent_mean": 20.73815877868072,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.821861024886189,
+              "external_cpu_percent_machine_max": 9.338109179983553,
+              "system_idle_percent_mean": 22.90033879881024,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 20.307264067308378,
+              "external_cpu_percent_machine_max": 28.718898342441918,
+              "system_idle_percent_mean": 7.619981776811097,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 17.22433915176214,
+              "external_cpu_percent_machine_max": 36.542024971758146,
+              "system_idle_percent_mean": 13.31531369371233,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 18.87452267521974,
+              "external_cpu_percent_machine_max": 30.94536395480627,
+              "system_idle_percent_mean": 11.345263053703713,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 28.718940002083645,
+              "external_cpu_percent_machine_max": 32.90710321904077,
+              "system_idle_percent_mean": 2.811602288048232,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 30.63306889539166,
+              "external_cpu_percent_machine_max": 38.52649820073476,
+              "system_idle_percent_mean": 1.2248207421970614,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 40.17997802245235,
+              "external_cpu_percent_machine_max": 48.28808337256928,
+              "system_idle_percent_mean": 0.1289017967534805,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 44.272474374382185,
+              "external_cpu_percent_machine_max": 48.30209162802256,
+              "system_idle_percent_mean": 0.060348997904391015,
+              "coverage_fraction": 0.8734291036717426,
+              "elevated_external_load": true
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 1421.7088752176048,
+            "external_cpu_percent_machine_median": 18.76580160953526,
+            "external_cpu_percent_machine_peak": 48.28808337256928,
+            "elevated_samples": 4
+          },
+          "tls": {
+            "qps_median": 1582.7180199281702,
+            "external_cpu_percent_machine_median": 13.271854191970958,
+            "external_cpu_percent_machine_peak": 48.30209162802256,
+            "elevated_samples": 3
+          }
+        },
+        {
+          "case": {
+            "name": "count-1000000",
+            "docs": 1000000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256,
+            "count": true
+          },
+          "qps_change_percent": -1.029779927941532,
+          "server_cpu_change_percent": 1.0012910606704173,
+          "idle_gate": {
+            "interval_seconds": 62.49523212504573,
+            "idle_percent_mean": 90.03482211587833,
+            "idle_percent_min": 82.33387358184766,
+            "from_monotonic_seconds": 964847.886861125,
+            "to_monotonic_seconds": 964910.38209325
+          },
+          "sample_load": [
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 4.6814564796986105,
+              "external_cpu_percent_machine_max": 5.490475038916522,
+              "system_idle_percent_mean": 25.569414083308153,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.1676285261620345,
+              "external_cpu_percent_machine_max": 6.855828107593466,
+              "system_idle_percent_mean": 22.185077957424795,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 4.826968098544249,
+              "external_cpu_percent_machine_max": 5.2483382465906425,
+              "system_idle_percent_mean": 22.793945274499183,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 4.707946778444548,
+              "external_cpu_percent_machine_max": 5.2483382465906425,
+              "system_idle_percent_mean": 22.574245489487755,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 4.612272872807737,
+              "external_cpu_percent_machine_max": 5.086235919143455,
+              "system_idle_percent_mean": 22.854052115985922,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.063632769068396,
+              "external_cpu_percent_machine_max": 5.704884705288347,
+              "system_idle_percent_mean": 22.510300146647616,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.618374108384413,
+              "external_cpu_percent_machine_max": 7.836338472235604,
+              "system_idle_percent_mean": 22.281393600872185,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.309191559552817,
+              "external_cpu_percent_machine_max": 7.288844011656011,
+              "system_idle_percent_mean": 21.85495298719547,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 4.516719434658878,
+              "external_cpu_percent_machine_max": 4.886063409535838,
+              "system_idle_percent_mean": 22.780641923223648,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 4.775667269241838,
+              "external_cpu_percent_machine_max": 5.403435188264607,
+              "system_idle_percent_mean": 22.638968124200073,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 4.733146683450172,
+              "external_cpu_percent_machine_max": 5.31620184800151,
+              "system_idle_percent_mean": 22.90932018304938,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.646426636392637,
+              "external_cpu_percent_machine_max": 8.924808967072654,
+              "system_idle_percent_mean": 21.321276550344116,
+              "coverage_fraction": 0.9463099614719657,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 9617.869183659122,
+            "external_cpu_percent_machine_median": 4.694701629071579,
+            "external_cpu_percent_machine_peak": 8.924808967072654,
+            "elevated_samples": 0
+          },
+          "tls": {
+            "qps_median": 9518.826297310126,
+            "external_cpu_percent_machine_median": 4.945300433806322,
+            "external_cpu_percent_machine_peak": 7.836338472235604,
+            "elevated_samples": 0
+          }
+        },
+        {
+          "case": {
+            "name": "aa-1000000",
+            "docs": 1000000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256,
+            "aa": true
+          },
+          "qps_change_percent": -2.6396331202506618,
+          "server_cpu_change_percent": -0.3691074750708512,
+          "idle_gate": {
+            "interval_seconds": 60.50659850006923,
+            "idle_percent_mean": 91.00379129242599,
+            "idle_percent_min": 81.95669607056936,
+            "from_monotonic_seconds": 964973.041244666,
+            "to_monotonic_seconds": 965033.547843166
+          },
+          "sample_load": [
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.191749505228177,
+              "external_cpu_percent_machine_max": 5.962503586236473,
+              "system_idle_percent_mean": 28.00343082684008,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.255525439011433,
+              "external_cpu_percent_machine_max": 5.806928107006317,
+              "system_idle_percent_mean": 25.890912477100994,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.230604975424254,
+              "external_cpu_percent_machine_max": 5.799714823123277,
+              "system_idle_percent_mean": 25.800801409184576,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 15.813680312347195,
+              "external_cpu_percent_machine_max": 29.133920764436578,
+              "system_idle_percent_mean": 12.331389562904802,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 13.633964542666927,
+              "external_cpu_percent_machine_max": 32.86538197976782,
+              "system_idle_percent_mean": 17.511201847008174,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.2122123700567915,
+              "external_cpu_percent_machine_max": 5.7208519168919905,
+              "system_idle_percent_mean": 25.66385009904568,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.651872228172714,
+              "external_cpu_percent_machine_max": 7.008043222557109,
+              "system_idle_percent_mean": 25.417383882966142,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.4428310634903365,
+              "external_cpu_percent_machine_max": 5.7970183700300275,
+              "system_idle_percent_mean": 25.27785563793025,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.428970909229752,
+              "external_cpu_percent_machine_max": 5.800464272758247,
+              "system_idle_percent_mean": 24.93758128986184,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.594455359969627,
+              "external_cpu_percent_machine_max": 6.531072992902146,
+              "system_idle_percent_mean": 25.518386532145204,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 9.156706816459385,
+              "external_cpu_percent_machine_max": 16.06268327959984,
+              "system_idle_percent_mean": 11.880471717487918,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 18.169691770950966,
+              "external_cpu_percent_machine_max": 25.45174864722077,
+              "system_idle_percent_mean": 0.0,
+              "coverage_fraction": 0.8770803914647123,
+              "elevated_external_load": true
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 2807.6551667419917,
+            "external_cpu_percent_machine_median": 5.424990399490531,
+            "external_cpu_percent_machine_peak": 16.06268327959984,
+            "elevated_samples": 0
+          },
+          "tls": {
+            "qps_median": 2733.543371058241,
+            "external_cpu_percent_machine_median": 9.538397803078631,
+            "external_cpu_percent_machine_peak": 32.86538197976782,
+            "elevated_samples": 3
+          }
+        }
+      ]
+    },
+    {
+      "phase": "load-controlled-2",
+      "cases": [
+        {
+          "case": {
+            "name": "aa-1000000",
+            "docs": 1000000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256,
+            "aa": true
+          },
+          "qps_change_percent": -0.8285699231754262,
+          "server_cpu_change_percent": 1.3531455058254593,
+          "idle_gate": {
+            "interval_seconds": 62.44116300006863,
+            "idle_percent_mean": 90.34106785172933,
+            "idle_percent_min": 85.27257933279088,
+            "from_monotonic_seconds": 965332.276488666,
+            "to_monotonic_seconds": 965394.717651666
+          },
+          "sample_load": [
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.91453603994619,
+              "external_cpu_percent_machine_max": 7.328348341338274,
+              "system_idle_percent_mean": 27.298050334826414,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.258148490266397,
+              "external_cpu_percent_machine_max": 7.328348341338274,
+              "system_idle_percent_mean": 24.538131401659573,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.137795043634216,
+              "external_cpu_percent_machine_max": 6.934137588629183,
+              "system_idle_percent_mean": 24.83741150494208,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.745354725973593,
+              "external_cpu_percent_machine_max": 7.888297841791421,
+              "system_idle_percent_mean": 25.408452863188216,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.445131883551135,
+              "external_cpu_percent_machine_max": 8.535406052083887,
+              "system_idle_percent_mean": 24.350085636563012,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 6.2080271376498795,
+              "external_cpu_percent_machine_max": 7.647161574758112,
+              "system_idle_percent_mean": 24.17566435287724,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.763806684529067,
+              "external_cpu_percent_machine_max": 6.781986545092285,
+              "system_idle_percent_mean": 24.902775761225673,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.6969444920677645,
+              "external_cpu_percent_machine_max": 9.098305221044328,
+              "system_idle_percent_mean": 24.511818944925615,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.917804535342669,
+              "external_cpu_percent_machine_max": 6.196344287511231,
+              "system_idle_percent_mean": 24.36129551931656,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 6.764934898625197,
+              "external_cpu_percent_machine_max": 10.22134401565764,
+              "system_idle_percent_mean": 24.38491401876176,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.654874866409936,
+              "external_cpu_percent_machine_max": 7.889487282733165,
+              "system_idle_percent_mean": 23.92076248539798,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.435684776698532,
+              "external_cpu_percent_machine_max": 8.370931088133899,
+              "system_idle_percent_mean": 24.05884633752106,
+              "coverage_fraction": 0.9162097790098626,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 2786.2204094848594,
+            "external_cpu_percent_machine_median": 6.176744656020601,
+            "external_cpu_percent_machine_peak": 9.098305221044328,
+            "elevated_samples": 0
+          },
+          "tls": {
+            "qps_median": 2763.1346251784926,
+            "external_cpu_percent_machine_median": 6.233087813958138,
+            "external_cpu_percent_machine_peak": 10.22134401565764,
+            "elevated_samples": 0
+          }
+        },
+        {
+          "case": {
+            "name": "count-1000000",
+            "docs": 1000000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256,
+            "count": true
+          },
+          "qps_change_percent": 0.8590810594050424,
+          "server_cpu_change_percent": -0.4786943549436318,
+          "idle_gate": {
+            "interval_seconds": 60.41355429193936,
+            "idle_percent_mean": 90.08498642983186,
+            "idle_percent_min": 80.92532467532467,
+            "from_monotonic_seconds": 965457.602277916,
+            "to_monotonic_seconds": 965518.015832208
+          },
+          "sample_load": [
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.016809360043708,
+              "external_cpu_percent_machine_max": 7.104617921212806,
+              "system_idle_percent_mean": 23.04053399733817,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 6.215113495079298,
+              "external_cpu_percent_machine_max": 8.634514135878142,
+              "system_idle_percent_mean": 21.443684849897746,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 11.743988733270927,
+              "external_cpu_percent_machine_max": 18.421624741494266,
+              "system_idle_percent_mean": 16.636550607019792,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 8.695982031733879,
+              "external_cpu_percent_machine_max": 16.215073562269627,
+              "system_idle_percent_mean": 19.80975398042377,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 11.151896778894244,
+              "external_cpu_percent_machine_max": 12.010137529052917,
+              "system_idle_percent_mean": 16.30062960304224,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 11.356866929742262,
+              "external_cpu_percent_machine_max": 24.63469176078081,
+              "system_idle_percent_mean": 17.475084771366447,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 10.584897281141167,
+              "external_cpu_percent_machine_max": 18.662245211055843,
+              "system_idle_percent_mean": 18.189057744789224,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 12.588834938530214,
+              "external_cpu_percent_machine_max": 28.280750332487504,
+              "system_idle_percent_mean": 16.77034927646787,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": true
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 7.851109559074239,
+              "external_cpu_percent_machine_max": 13.506903473550103,
+              "system_idle_percent_mean": 19.501872882383662,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.831044419981039,
+              "external_cpu_percent_machine_max": 10.075490410672707,
+              "system_idle_percent_mean": 21.746581604818505,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 4.645236713797012,
+              "external_cpu_percent_machine_max": 6.6747066102283625,
+              "system_idle_percent_mean": 22.48985623790276,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 3.2954077309095147,
+              "external_cpu_percent_machine_max": 6.214370271012331,
+              "system_idle_percent_mean": 23.88474842382624,
+              "coverage_fraction": 0.9508833736097676,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 9261.756396781213,
+            "external_cpu_percent_machine_median": 8.400005388110232,
+            "external_cpu_percent_machine_peak": 24.63469176078081,
+            "elevated_samples": 3
+          },
+          "tls": {
+            "qps_median": 9341.322391754195,
+            "external_cpu_percent_machine_median": 8.273545795404058,
+            "external_cpu_percent_machine_peak": 28.280750332487504,
+            "elevated_samples": 2
+          }
+        },
+        {
+          "case": {
+            "name": "rows5000000-cache16777216",
+            "docs": 5000000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": 0.7661219040057565,
+          "server_cpu_change_percent": -0.31679340639803044,
+          "idle_gate": {
+            "interval_seconds": 60.54409724997822,
+            "idle_percent_mean": 90.91972248313529,
+            "idle_percent_min": 86.53386454183267,
+            "from_monotonic_seconds": 965581.040866875,
+            "to_monotonic_seconds": 965641.584964125
+          },
+          "sample_load": [
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.442754789085439,
+              "external_cpu_percent_machine_max": 9.750332660151097,
+              "system_idle_percent_mean": 25.155028403221454,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 3.0196540143677053,
+              "external_cpu_percent_machine_max": 3.711648035984832,
+              "system_idle_percent_mean": 26.961451702472786,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 3.6407717855842803,
+              "external_cpu_percent_machine_max": 9.733768167111835,
+              "system_idle_percent_mean": 26.851334740186076,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 4.370763243241411,
+              "external_cpu_percent_machine_max": 9.733768167111835,
+              "system_idle_percent_mean": 25.410768151042884,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 3.0723192341148775,
+              "external_cpu_percent_machine_max": 4.103712399225317,
+              "system_idle_percent_mean": 26.968682058747348,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 3.523244198285869,
+              "external_cpu_percent_machine_max": 6.1908154009760565,
+              "system_idle_percent_mean": 25.477974994963873,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 3.20970255782216,
+              "external_cpu_percent_machine_max": 6.384899698264174,
+              "system_idle_percent_mean": 26.802779028080796,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.400981874131797,
+              "external_cpu_percent_machine_max": 10.631656078987104,
+              "system_idle_percent_mean": 24.584817166603205,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 2.8622817955244333,
+              "external_cpu_percent_machine_max": 6.262937886863139,
+              "system_idle_percent_mean": 27.26684581546148,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.455852016501118,
+              "external_cpu_percent_machine_max": 7.698130631684788,
+              "system_idle_percent_mean": 23.51488691630491,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 3.0197651580690277,
+              "external_cpu_percent_machine_max": 5.716208290899053,
+              "system_idle_percent_mean": 26.960310873101236,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 3.0355337470122654,
+              "external_cpu_percent_machine_max": 6.126324817543776,
+              "system_idle_percent_mean": 26.67431312594821,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 1707.6288654423752,
+            "external_cpu_percent_machine_median": 3.721541238678144,
+            "external_cpu_percent_machine_peak": 10.631656078987104,
+            "elevated_samples": 0
+          },
+          "tls": {
+            "qps_median": 1720.7113842196543,
+            "external_cpu_percent_machine_median": 3.366473378054015,
+            "external_cpu_percent_machine_peak": 9.733768167111835,
+            "elevated_samples": 0
+          }
+        },
+        {
+          "case": {
+            "name": "rows1000000-cache16777216",
+            "docs": 1000000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": 0.14195730629003034,
+          "server_cpu_change_percent": 0.043919054601571084,
+          "idle_gate": {
+            "interval_seconds": 62.75361574999988,
+            "idle_percent_mean": 92.70025680464282,
+            "idle_percent_min": 82.5422365245374,
+            "from_monotonic_seconds": 965788.61166425,
+            "to_monotonic_seconds": 965851.36528
+          },
+          "sample_load": [
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 4.106412511520066,
+              "external_cpu_percent_machine_max": 5.149679251041645,
+              "system_idle_percent_mean": 28.875147371952536,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 3.551231148149218,
+              "external_cpu_percent_machine_max": 6.27656803643449,
+              "system_idle_percent_mean": 27.451469460645594,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 3.3556318060950434,
+              "external_cpu_percent_machine_max": 5.24663354627189,
+              "system_idle_percent_mean": 27.248448731613735,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 3.0869891063918917,
+              "external_cpu_percent_machine_max": 5.087237439597372,
+              "system_idle_percent_mean": 28.407065282880207,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 3.2144709060505363,
+              "external_cpu_percent_machine_max": 4.934227357092154,
+              "system_idle_percent_mean": 27.449803183088452,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 2.9050744037026277,
+              "external_cpu_percent_machine_max": 4.435303062327206,
+              "system_idle_percent_mean": 28.086693481003728,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 4.910347566894466,
+              "external_cpu_percent_machine_max": 6.850919320853383,
+              "system_idle_percent_mean": 25.893833473684403,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 2.963381998633037,
+              "external_cpu_percent_machine_max": 5.322834983980983,
+              "system_idle_percent_mean": 27.891677597176265,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 3.5721314821784174,
+              "external_cpu_percent_machine_max": 5.155125371609892,
+              "system_idle_percent_mean": 27.043251221008347,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 3.3874681618279876,
+              "external_cpu_percent_machine_max": 4.773254437624269,
+              "system_idle_percent_mean": 27.72195854501299,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 3.3682820423736373,
+              "external_cpu_percent_machine_max": 5.466965037853754,
+              "system_idle_percent_mean": 27.268995384237126,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 2.7877494447608187,
+              "external_cpu_percent_machine_max": 5.55504813041102,
+              "system_idle_percent_mean": 28.091464985467244,
+              "coverage_fraction": 0.9953314899867878,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 3100.511662013193,
+            "external_cpu_percent_machine_median": 3.3778751021008127,
+            "external_cpu_percent_machine_peak": 6.850919320853383,
+            "elevated_samples": 0
+          },
+          "tls": {
+            "qps_median": 3104.913064849795,
+            "external_cpu_percent_machine_median": 3.150730006221214,
+            "external_cpu_percent_machine_peak": 5.55504813041102,
+            "elevated_samples": 0
+          }
+        },
+        {
+          "case": {
+            "name": "rows500000-cache16777216",
+            "docs": 500000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": -0.617232230467768,
+          "server_cpu_change_percent": 0.14694244611588303,
+          "idle_gate": {
+            "interval_seconds": 60.6659621669678,
+            "idle_percent_mean": 93.61760558654461,
+            "idle_percent_min": 86.46496815286623,
+            "from_monotonic_seconds": 965913.721853208,
+            "to_monotonic_seconds": 965974.387815375
+          },
+          "sample_load": [
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 3.5102162311329597,
+              "external_cpu_percent_machine_max": 5.088449982285474,
+              "system_idle_percent_mean": 31.80069802521474,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 3.491709504692525,
+              "external_cpu_percent_machine_max": 5.004709269659678,
+              "system_idle_percent_mean": 29.25966206256476,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 3.24677727170252,
+              "external_cpu_percent_machine_max": 5.8831059857180135,
+              "system_idle_percent_mean": 29.07386936989725,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 3.3321167863429264,
+              "external_cpu_percent_machine_max": 6.326728051200345,
+              "system_idle_percent_mean": 29.379090049194655,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 4.122398427163248,
+              "external_cpu_percent_machine_max": 5.9922677075010675,
+              "system_idle_percent_mean": 28.535588796294505,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 4.058485044485308,
+              "external_cpu_percent_machine_max": 5.974720553495043,
+              "system_idle_percent_mean": 28.645718706630237,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 3.140734578546871,
+              "external_cpu_percent_machine_max": 4.840328257857968,
+              "system_idle_percent_mean": 29.6966600015691,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 2.853413828807526,
+              "external_cpu_percent_machine_max": 5.161930981190971,
+              "system_idle_percent_mean": 29.64648625398853,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 3.103710299736339,
+              "external_cpu_percent_machine_max": 4.3568825810471,
+              "system_idle_percent_mean": 29.01912113249619,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 3.2545186876626033,
+              "external_cpu_percent_machine_max": 4.509500613434992,
+              "system_idle_percent_mean": 29.531121447523756,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 2.9169551549190147,
+              "external_cpu_percent_machine_max": 5.232493577472233,
+              "system_idle_percent_mean": 29.519913049453365,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 3.187106409532636,
+              "external_cpu_percent_machine_max": 5.095380673565533,
+              "system_idle_percent_mean": 29.209820502535564,
+              "coverage_fraction": 0.9342139409743736,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 3541.176630621923,
+            "external_cpu_percent_machine_median": 3.259611597937781,
+            "external_cpu_percent_machine_peak": 6.326728051200345,
+            "elevated_samples": 0
+          },
+          "tls": {
+            "qps_median": 3519.319347119932,
+            "external_cpu_percent_machine_median": 3.2506479796825616,
+            "external_cpu_percent_machine_peak": 5.974720553495043,
+            "elevated_samples": 0
+          }
+        },
+        {
+          "case": {
+            "name": "rows100000-cache16777216",
+            "docs": 100000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": 1.3056665777694043,
+          "server_cpu_change_percent": -1.1868585569201895,
+          "idle_gate": {
+            "interval_seconds": 62.553540125023574,
+            "idle_percent_mean": 91.20758353958911,
+            "idle_percent_min": 85.86429725363489,
+            "from_monotonic_seconds": 966102.584800125,
+            "to_monotonic_seconds": 966165.13834025
+          },
+          "sample_load": [
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.451826556377742,
+              "external_cpu_percent_machine_max": 6.611853332151942,
+              "system_idle_percent_mean": 25.683409260250194,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.135697911691308,
+              "external_cpu_percent_machine_max": 6.9577132019759516,
+              "system_idle_percent_mean": 23.567906947335327,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 7.107304586094126,
+              "external_cpu_percent_machine_max": 14.34053179788224,
+              "system_idle_percent_mean": 22.017224017316725,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.33720461665593,
+              "external_cpu_percent_machine_max": 9.930131430639536,
+              "system_idle_percent_mean": 22.985788112450166,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.429412939881775,
+              "external_cpu_percent_machine_max": 9.930131430639536,
+              "system_idle_percent_mean": 22.869351422449768,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.434559004494374,
+              "external_cpu_percent_machine_max": 6.449380585532224,
+              "system_idle_percent_mean": 23.122632200965317,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.647534598652398,
+              "external_cpu_percent_machine_max": 7.567624574810487,
+              "system_idle_percent_mean": 22.74665548860582,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.209773817065007,
+              "external_cpu_percent_machine_max": 8.472116690816181,
+              "system_idle_percent_mean": 22.075019754234873,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.628182182333653,
+              "external_cpu_percent_machine_max": 8.472116690816181,
+              "system_idle_percent_mean": 23.079219139576065,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.86869802477586,
+              "external_cpu_percent_machine_max": 8.764750710947444,
+              "system_idle_percent_mean": 22.751241191968884,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.318275343761421,
+              "external_cpu_percent_machine_max": 9.024046180325337,
+              "system_idle_percent_mean": 23.192925647628297,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 6.317012549756659,
+              "external_cpu_percent_machine_max": 9.024046180325337,
+              "system_idle_percent_mean": 22.46673856526141,
+              "coverage_fraction": 0.8055579125273459,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 6780.830820729403,
+            "external_cpu_percent_machine_median": 5.541046801573386,
+            "external_cpu_percent_machine_peak": 14.34053179788224,
+            "elevated_samples": 0
+          },
+          "tls": {
+            "qps_median": 6869.365862450753,
+            "external_cpu_percent_machine_median": 5.9189779996993295,
+            "external_cpu_percent_machine_peak": 9.930131430639536,
+            "elevated_samples": 0
+          }
+        },
+        {
+          "case": {
+            "name": "rows20000-cache16777216",
+            "docs": 20000,
+            "cache": 16777216,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": -0.4077389394304243,
+          "server_cpu_change_percent": 0.6230416389029214,
+          "idle_gate": {
+            "interval_seconds": 60.421203042031266,
+            "idle_percent_mean": 90.8080174985259,
+            "idle_percent_min": 84.25324675324676,
+            "from_monotonic_seconds": 966227.435493791,
+            "to_monotonic_seconds": 966287.856696833
+          },
+          "sample_load": [
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.3400801893236896,
+              "external_cpu_percent_machine_max": 6.767561606703054,
+              "system_idle_percent_mean": 24.869473053949577,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.458677114015647,
+              "external_cpu_percent_machine_max": 7.6631786110107045,
+              "system_idle_percent_mean": 23.57778414156447,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 6.066078302120475,
+              "external_cpu_percent_machine_max": 7.65435479743428,
+              "system_idle_percent_mean": 22.70283583114281,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.79132059581173,
+              "external_cpu_percent_machine_max": 6.548407809371374,
+              "system_idle_percent_mean": 23.035651564614266,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.307473725256786,
+              "external_cpu_percent_machine_max": 7.842387849768684,
+              "system_idle_percent_mean": 23.483332426021782,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.761823007496008,
+              "external_cpu_percent_machine_max": 9.941591147430518,
+              "system_idle_percent_mean": 23.42540175307933,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 7.349852009886407,
+              "external_cpu_percent_machine_max": 9.941591147430518,
+              "system_idle_percent_mean": 22.064966969207124,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.454185943251188,
+              "external_cpu_percent_machine_max": 6.206808026500448,
+              "system_idle_percent_mean": 23.674209182068456,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.6200629866969605,
+              "external_cpu_percent_machine_max": 7.253858742776326,
+              "system_idle_percent_mean": 23.16919706336479,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.259114753395695,
+              "external_cpu_percent_machine_max": 6.905134690752107,
+              "system_idle_percent_mean": 23.66176794921753,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.1863662009903635,
+              "external_cpu_percent_machine_max": 6.610063825963208,
+              "system_idle_percent_mean": 23.60252762121851,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.3768423541673185,
+              "external_cpu_percent_machine_max": 6.941493018986468,
+              "system_idle_percent_mean": 23.383941924602766,
+              "coverage_fraction": 0.9285896669219853,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 7470.628753846775,
+            "external_cpu_percent_machine_median": 5.415514148709253,
+            "external_cpu_percent_machine_peak": 7.842387849768684,
+            "elevated_samples": 0
+          },
+          "tls": {
+            "qps_median": 7440.168091397056,
+            "external_cpu_percent_machine_median": 5.610250060755828,
+            "external_cpu_percent_machine_peak": 9.941591147430518,
+            "elevated_samples": 0
+          }
+        },
+        {
+          "case": {
+            "name": "rows20000-cache0",
+            "docs": 20000,
+            "cache": 0,
+            "clients": 8,
+            "batch": 256
+          },
+          "qps_change_percent": 9.074556205124829,
+          "server_cpu_change_percent": -6.9580571593133245,
+          "idle_gate": {
+            "interval_seconds": 60.452936582965776,
+            "idle_percent_mean": 91.11248863991152,
+            "idle_percent_min": 84.43017656500803,
+            "from_monotonic_seconds": 966350.596807583,
+            "to_monotonic_seconds": 966411.049744166
+          },
+          "sample_load": [
+            {
+              "arm": "tls",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 5.2858041720590885,
+              "external_cpu_percent_machine_max": 7.122108219116903,
+              "system_idle_percent_mean": 25.7647199488508,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 0,
+              "external_cpu_percent_machine_mean": 4.80682663019207,
+              "external_cpu_percent_machine_max": 6.205512967546617,
+              "system_idle_percent_mean": 26.30350799539765,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.2779251553235085,
+              "external_cpu_percent_machine_max": 6.970676227862512,
+              "system_idle_percent_mean": 25.311205602268448,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 1,
+              "external_cpu_percent_machine_mean": 5.4327274732683515,
+              "external_cpu_percent_machine_max": 9.138757436925843,
+              "system_idle_percent_mean": 23.48626079191079,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.856712941896356,
+              "external_cpu_percent_machine_max": 9.138757436925843,
+              "system_idle_percent_mean": 23.32822376905949,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 2,
+              "external_cpu_percent_machine_mean": 5.215827726675365,
+              "external_cpu_percent_machine_max": 8.651527272988,
+              "system_idle_percent_mean": 25.736690312377753,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 6.117904441133762,
+              "external_cpu_percent_machine_max": 8.651527272988,
+              "system_idle_percent_mean": 24.29533697805011,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 3,
+              "external_cpu_percent_machine_mean": 5.126938426367022,
+              "external_cpu_percent_machine_max": 6.145825476977477,
+              "system_idle_percent_mean": 24.638552722498325,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 5.816837107940461,
+              "external_cpu_percent_machine_max": 7.695148053329802,
+              "system_idle_percent_mean": 23.91944091909742,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 4,
+              "external_cpu_percent_machine_mean": 4.853693231160257,
+              "external_cpu_percent_machine_max": 6.046431027278501,
+              "system_idle_percent_mean": 25.916645343832876,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "reference",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 5.352129717085204,
+              "external_cpu_percent_machine_max": 6.383172472705129,
+              "system_idle_percent_mean": 25.23098190350683,
+              "coverage_fraction": 1.0,
+              "elevated_external_load": false
+            },
+            {
+              "arm": "tls",
+              "round": 5,
+              "external_cpu_percent_machine_mean": 4.922924818759876,
+              "external_cpu_percent_machine_max": 6.383172472705129,
+              "system_idle_percent_mean": 24.727102907705625,
+              "coverage_fraction": 0.9104005483378221,
+              "elevated_external_load": false
+            }
+          ],
+          "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "reference": {
+            "qps_median": 5856.644215612994,
+            "external_cpu_percent_machine_median": 5.246876440999436,
+            "external_cpu_percent_machine_peak": 8.651527272988,
+            "elevated_samples": 0
+          },
+          "tls": {
+            "qps_median": 6388.108686692988,
+            "external_cpu_percent_machine_median": 5.35926582266372,
+            "external_cpu_percent_machine_peak": 9.138757436925843,
+            "elevated_samples": 0
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -5,6 +5,64 @@ fixtures. They check every returned row/text/count. Eight independent client
 processes use persistent HTTP connections, eight server query workers and a
 fixed 8 MiB reader-buffer budget. Query cache is disabled.
 
+## #5045: both original-cache and latest-cache datasets
+
+The current [TLS report](../../TLS_REVIEW_2026-11-13.md) retains two datasets.
+For the latest pair, use `376fbf9` as the production baseline and apply only
+`git diff 047d2f9 019868e9 -- src/docstore.cpp` for the TLS candidate. Both arms
+therefore use #5042's shared sharded-LRU/XXH3 block cache, common alignment/CI
+repairs and native DocID code disabled at budget zero. The eight supplemental
+reader tests and CMake registration are identical in both builds. The exact
+production patch, complete source snapshots, flags, binary hashes and build
+commands are under `../../evidence/2026-11-13/tls-latest-block/`.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 tls_latest_block.py --selfcheck
+PYTHONDONTWRITEBYTECODE=1 python3 tls_latest_block.py \
+  LATEST_CACHE_NO_TLS_SEARCHD LATEST_CACHE_WITH_TLS_SEARCHD \
+  --fixtures /tmp/fixtures --output /tmp/tls-latest.json --rounds 6 --duration 3
+PYTHONDONTWRITEBYTECODE=1 python3 tls_latest_block.py \
+  LATEST_CACHE_NO_TLS_SEARCHD LATEST_CACHE_WITH_TLS_SEARCHD \
+  --fixtures /tmp/fixtures --output /tmp/tls-latest-repeat.json \
+  --rounds 6 --duration 5 --order-offset 0 \
+  --cases rows20000-cache16777216 rows1000000-cache16777216 rows5000000-cache16777216
+```
+
+Run `mixed-1000000` separately with the same repeat options. A five-second
+`aa-1000000` run with `--order-offset 1` was added after the 1M sign reversal;
+`additional-aa-plan.json` records that reason, and its samples are a separate
+phase. The archived
+measurement plan selected these repeats before initial results. Their starting
+orders reverse the corresponding initial cases. The matrix has 16 size/budget
+text cells plus two count, two point, one A/A and one mixed control. DocID used
+bytes must be zero before each post-timing lifecycle check. A/A uses the no-TLS
+binary twice. The original-cache matrix remains reproducible with
+`scale_benchmark.py` and upstream `047d2f9` / TLS `019868e9` binaries; it uses
+no DocID setting because that module is absent in those sources.
+
+The original and latest phases use the same fixture snapshots and text-query
+pools, with their SHA256s checked in the report. Their source contexts and
+measurement times differ. Compare TLS off/on ratios within each pair; do not
+attribute differences between separate absolute rates to TLS or multiply gains.
+Build and sanitizer runs must finish before starting either timed matrix.
+
+The latest build reuses supported MANTICORE_* overrides from an earlier
+upstream/Clang 21 build, equally in both arms; no new auto calibration was
+attempted. Both arms passed 529 tests with these overrides. Focused reader/block
+sanitizers use `sanitize_readers.py --with-block-cache` and passed 11 tests ×20
+for each of ASan+UBSan and TSan, with fail-fast alignment checks. Other libraries
+are reused and this is not whole-engine sanitizer coverage.
+
+After timing, render the English comparison figure (matplotlib required):
+
+```sh
+python3 plot_tls_cache_comparison.py --evidence ../../evidence/2026-11-13 \
+  --output ../../figures
+```
+
+The historical original-cache chart remains available in its historical report.
+The current PR description uses the paired original/latest figure and tables.
+
 ## #5042: no reader TLS
 
 The production candidate is commit `376fbf9988b2458ee196a5d92135c35a5121edc7`.
@@ -85,6 +143,67 @@ fail-fast sanitizer handling and alignment checks enabled. This is focused,
 not whole-engine, coverage. ASan+UBSan and TSan must be separate. Both final
 runs passed; the earlier failing alignment logs are retained. The native full
 suite/API smoke and standalone `test/docid-cache/test_integration.py` are separate.
+
+## #5045: latest shared block-cache context and load-recorded reruns
+
+The latest reference is `376fbf9988b2458ee196a5d92135c35a5121edc7` (#5042).
+The candidate has the same source plus **only** the production diff below:
+
+```sh
+git diff 047d2f99522d78e0aa1de7e7dc945a9abe1b673a \
+  019868e9f79d1bb2bd1f96dafb88ef20acd45418 -- src/docstore.cpp > reader-tls-only.patch
+```
+
+Build both with identical flags/dependencies and the same supplemental reader
+tests. Their full suites contain 529 tests each. Both use the latest shared
+shards/XXH3; DocID budget and SQL query-result cache are explicitly zero. No
+block-cache production diff is added to #5045. Use the original fixture snapshots
+(or rebuild with the generator above), then:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 tls_latest_block.py --selfcheck
+PYTHONDONTWRITEBYTECODE=1 python3 tls_latest_block.py BEFORE_SEARCHD TLS_SEARCHD \
+  --fixtures /tmp/tls-fixtures --output /tmp/latest-matrix.json --rounds 6 --duration 3
+PYTHONDONTWRITEBYTECODE=1 python3 load_telemetry.py
+PYTHONDONTWRITEBYTECODE=1 python3 tls_load_controlled.py --selfcheck
+PYTHONDONTWRITEBYTECODE=1 python3 tls_load_controlled.py BEFORE_SEARCHD TLS_SEARCHD \
+  --fixtures /tmp/tls-fixtures --output /tmp/load-controlled-1.json \
+  --rounds 6 --duration 5 --order-offset 0 --cases \
+  rows20000-cache0 rows20000-cache16777216 rows100000-cache16777216 \
+  rows500000-cache16777216 rows1000000-cache16777216 rows5000000-cache16777216 \
+  count-1000000 aa-1000000
+```
+
+For pass 2, use a new output filename, `--order-offset 1` and `--reverse-cases`.
+The macOS telemetry driver requires 60 seconds of mean >=90% and minimum >=80%
+system CPU idle before every case, with a 15-minute timeout. It logs one-second
+CPU deltas for external processes, excluding the benchmark process tree, and
+host CPU/load. Thermal/swap/VM snapshots bracket each case. These checks do not
+stop external applications or reject completed samples. External processes
+that exit within an interval can be missed. The published summary labels
+higher external load and retains all samples; the logs are not a formal
+attribution of performance differences.
+
+Normal `--nodetach` startup is retained; CPU placement/frequency and exclusive
+machine access are uncontrolled. The original driver/plan's exploratory UID
+note is superseded by the source-order audit: preloading precedes `SetUidShort`,
+so no startup-dependent shard-routing variability is established for these
+fixtures. Runtime index IDs were not instrumented.
+The [TLS report](../../TLS_REVIEW_2026-11-13.md) keeps the original,
+latest initial, earlier repeats and both load-recorded passes separate. The
+archived `driver/`, `load-controlled-driver/` and `load-controlled-reversed-driver/` directories preserve the exact
+helper versions used in those phases, with per-run hashes. Supported stack
+exports are inherited identically from the recorded build; calibrate your own
+build rather than treating those recorded values as portable defaults.
+
+After timing is complete, render both figures with matplotlib:
+
+```sh
+python3 plot_tls_cache_comparison.py --evidence ../../evidence/2026-11-13 \
+  --output ../../figures
+python3 plot_tls_load_controlled.py --evidence ../../evidence/2026-11-13 \
+  --output ../../figures
+```
 
 ## #5045: TLS-only historical follow-up
 

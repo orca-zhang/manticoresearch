@@ -1,0 +1,3545 @@
+{
+  "comparison": "Latest shared XXH3/sharded block cache in BOTH arms; only reader TLS differs",
+  "baseline_source_commit": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+  "reader_tls_patch_commit": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+  "block_cache_implementation": "shared sharded LRU with seeded XXH3-64, up to 16 shards",
+  "docid_lookup_cache_size": 0,
+  "qcache_max_bytes": 0,
+  "reader_buffer_budget_bytes": 8388608,
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "rounds": 6,
+  "seconds_per_arm": 5.0,
+  "server_threads": 8,
+  "payload_bytes": 128,
+  "block_bytes": 16384,
+  "compression": "lz4",
+  "aa_note": "A/A runs the reference binary in both arms.",
+  "calibration": {
+    "MANTICORE_KNOWN_CREATE_SIZE": "384",
+    "MANTICORE_START_KNOWN_CREATE_SIZE": "3280",
+    "MANTICORE_KNOWN_EXPR_SIZE": "32",
+    "MANTICORE_START_KNOWN_EXPR_SIZE": "160",
+    "MANTICORE_NONE": "32",
+    "MANTICORE_START_NONE": "160",
+    "MANTICORE_KNOWN_FILTER_SIZE": "224",
+    "MANTICORE_START_KNOWN_FILTER_SIZE": "30896",
+    "MANTICORE_KNOWN_MATCH_SIZE": "208",
+    "MANTICORE_START_KNOWN_MATCH_SIZE": "16288"
+  },
+  "scripts_sha256": {
+    "tls_load_controlled.py": "baac4804a6715a217aeaeed0e85254d9c2c49485e3b94ff3d00641f9a5f294b2",
+    "benchmark.py": "58efd94de75c3cf7105be0d0b42bb390cdbb14adcd44cfc75ef39f8e4b3ded86",
+    "scale_benchmark.py": "014a519948d8125198fd44c6bf844af142b7be14d97a25182ea60d1b5f5bcaec",
+    "support.py": "254a1156fbf2ac19595ef7b5ad46764ed6ee8b5afa9ecea1eddf30f4543b92af",
+    "compare_blockcache.py": "65e15590b06dc23475e820738328a4de3593d78b55ed6c63793f56058b71a4b2",
+    "load_telemetry.py": "c19f7bbbe73ed54b295b02b09a8abb047a26eb6b24fbad1d869c91d245513e95"
+  },
+  "binaries": {
+    "reference": {
+      "path": "/private/tmp/manticore-5045-latest-block-review-20261113/reference-searchd",
+      "sha256": "6e5c5a39bbf742db64117693f9edf0931e2383e8a4294ee0d278594cabc69e67"
+    },
+    "tls": {
+      "path": "/private/tmp/manticore-5045-latest-block-review-20261113/tls-searchd",
+      "sha256": "228cb102306141c28e9a6724628594ba81332065ea3b7e7f9022b12d2fa1ae0a"
+    }
+  },
+  "fixtures": {
+    "20000": {
+      "docs": 20000,
+      "logical_stored_text_bytes": 2560000,
+      "disk_chunks": 1,
+      "spds_bytes": 111801,
+      "disk_bytes": 399178
+    },
+    "100000": {
+      "docs": 100000,
+      "logical_stored_text_bytes": 12800000,
+      "disk_chunks": 1,
+      "spds_bytes": 558997,
+      "disk_bytes": 1925131
+    },
+    "500000": {
+      "docs": 500000,
+      "logical_stored_text_bytes": 64000000,
+      "disk_chunks": 2,
+      "spds_bytes": 2794627,
+      "disk_bytes": 9571547
+    },
+    "1000000": {
+      "docs": 1000000,
+      "logical_stored_text_bytes": 128000000,
+      "disk_chunks": 4,
+      "spds_bytes": 5588786,
+      "disk_bytes": 19142014
+    },
+    "5000000": {
+      "docs": 5000000,
+      "logical_stored_text_bytes": 640000000,
+      "disk_chunks": 8,
+      "spds_bytes": 27942954,
+      "disk_bytes": 95501835
+    }
+  },
+  "cases": [
+    {
+      "case": {
+        "name": "rows20000-cache0",
+        "docs": 20000,
+        "cache": 0,
+        "clients": 8,
+        "batch": 256
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 30856,
+              "elapsed_seconds": 5.001022457960062,
+              "qps": 6169.938299494518,
+              "server_cpu_ms_per_query": 1.079055575350013,
+              "client_cpu_cores": 1.1701923055124852,
+              "rss_bytes": 29048832,
+              "p50_ms": 1.2645,
+              "p95_ms": 1.621917,
+              "p99_ms": 1.819375
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 28270,
+              "elapsed_seconds": 5.0011339579941705,
+              "qps": 5652.718011044517,
+              "server_cpu_ms_per_query": 1.1342685311284046,
+              "client_cpu_cores": 1.1523064665740987,
+              "rss_bytes": 30670848,
+              "p50_ms": 1.351667,
+              "p95_ms": 1.832875,
+              "p99_ms": 2.514041
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 28633,
+              "elapsed_seconds": 5.0011413330212235,
+              "qps": 5725.293106784209,
+              "server_cpu_ms_per_query": 1.1649980878706387,
+              "client_cpu_cores": 1.1537336411395342,
+              "rss_bytes": 30752768,
+              "p50_ms": 1.371542,
+              "p95_ms": 1.733584,
+              "p99_ms": 1.922875
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 28315,
+              "elapsed_seconds": 5.001544499886222,
+              "qps": 5661.251239620906,
+              "server_cpu_ms_per_query": 1.1790898816881512,
+              "client_cpu_cores": 1.145826254296122,
+              "rss_bytes": 30818304,
+              "p50_ms": 1.386125,
+              "p95_ms": 1.742584,
+              "p99_ms": 1.93675
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 27695,
+              "elapsed_seconds": 5.0015180419432,
+              "qps": 5537.318823554595,
+              "server_cpu_ms_per_query": 1.1847713727026539,
+              "client_cpu_cores": 1.1703864608525345,
+              "rss_bytes": 31588352,
+              "p50_ms": 1.402708,
+              "p95_ms": 1.802791,
+              "p99_ms": 2.056083
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 29040,
+              "elapsed_seconds": 5.0013841659529135,
+              "qps": 5806.392597811372,
+              "server_cpu_ms_per_query": 1.1537690426997245,
+              "client_cpu_cores": 1.1825248378761875,
+              "rss_bytes": 32161792,
+              "p50_ms": 1.34975,
+              "p95_ms": 1.705,
+              "p99_ms": 1.903875
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            }
+          ],
+          "qps_median": 5693.2721732025575,
+          "server_cpu_ms_per_query_median": 1.1593835652851816,
+          "p50_ms_median": 1.3616044999999999,
+          "p95_ms_median": 1.738084,
+          "p99_ms_median": 1.9298125,
+          "rss_bytes_median": 30785536.0,
+          "docid_cache_used_bytes": 0
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 27289,
+              "elapsed_seconds": 5.002389500034042,
+              "qps": 5455.192963245724,
+              "server_cpu_ms_per_query": 1.0425761112536187,
+              "client_cpu_cores": 1.1609006055926834,
+              "rss_bytes": 33456128,
+              "p50_ms": 1.244208,
+              "p95_ms": 2.325417,
+              "p99_ms": 5.245166
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 20939,
+              "elapsed_seconds": 5.001153084100224,
+              "qps": 4186.834445554112,
+              "server_cpu_ms_per_query": 1.0395543881751754,
+              "client_cpu_cores": 0.9340407944821844,
+              "rss_bytes": 34865152,
+              "p50_ms": 1.395291,
+              "p95_ms": 3.366416,
+              "p99_ms": 12.902291
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 32024,
+              "elapsed_seconds": 5.000865208101459,
+              "qps": 6403.691894778678,
+              "server_cpu_ms_per_query": 1.055216311734949,
+              "client_cpu_cores": 1.3317841459135122,
+              "rss_bytes": 35078144,
+              "p50_ms": 1.2135,
+              "p95_ms": 1.571666,
+              "p99_ms": 1.783334
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 32001,
+              "elapsed_seconds": 5.001109875040129,
+              "qps": 6398.779630840089,
+              "server_cpu_ms_per_query": 1.0618860803724883,
+              "client_cpu_cores": 1.3394706709870574,
+              "rss_bytes": 35225600,
+              "p50_ms": 1.214792,
+              "p95_ms": 1.569792,
+              "p99_ms": 1.777792
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 29398,
+              "elapsed_seconds": 5.000797708984464,
+              "qps": 5878.662107684014,
+              "server_cpu_ms_per_query": 1.088792308728485,
+              "client_cpu_cores": 1.2955631035344741,
+              "rss_bytes": 35717120,
+              "p50_ms": 1.255417,
+              "p95_ms": 1.844666,
+              "p99_ms": 2.936542
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 31331,
+              "elapsed_seconds": 5.001034041983075,
+              "qps": 6264.904365173292,
+              "server_cpu_ms_per_query": 1.0672570843254285,
+              "client_cpu_cores": 1.319769860511247,
+              "rss_bytes": 35848192,
+              "p50_ms": 1.22825,
+              "p95_ms": 1.614292,
+              "p99_ms": 1.9565
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            }
+          ],
+          "qps_median": 6071.783236428653,
+          "server_cpu_ms_per_query_median": 1.0585511960537186,
+          "p50_ms_median": 1.236229,
+          "p95_ms_median": 1.729479,
+          "p99_ms_median": 2.446521,
+          "rss_bytes_median": 35151872.0,
+          "docid_cache_used_bytes": 0
+        }
+      },
+      "query_pool_sizes": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "query_set_sha256": "203065c2de0ecab3e1be3b4161283e2a489239d45787451d8caa53bd06a23232",
+      "qps_change_percent": 6.6483922024261455,
+      "server_cpu_change_percent": -8.697067325312702,
+      "p95_change_percent": -0.4950853928808896,
+      "paired_qps_changes_percent": [
+        -11.58431902483289,
+        -25.932366741562205,
+        11.849153839662762,
+        13.027656961371159,
+        6.164414493841597,
+        7.896671808495159
+      ],
+      "load_control": {
+        "idle_gate": {
+          "interval_seconds": 60.41701550001744,
+          "idle_percent_mean": 90.82921766496932,
+          "idle_percent_min": 86.84640522875817,
+          "from_monotonic_seconds": 962536.326071083,
+          "to_monotonic_seconds": 962596.743086583
+        },
+        "timed_sample_markers": [
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962597.652018916,
+            "wall_time_ns": 1794568854445114000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962602.653530875,
+            "wall_time_ns": 1794568859446609000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962602.693579541,
+            "wall_time_ns": 1794568859486658000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962607.696416083,
+            "wall_time_ns": 1794568864489479000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962607.74622825,
+            "wall_time_ns": 1794568864539291000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962612.747990875,
+            "wall_time_ns": 1794568869541037000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962612.788815083,
+            "wall_time_ns": 1794568869581862000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962617.790294791,
+            "wall_time_ns": 1794568874583325000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962617.836266375,
+            "wall_time_ns": 1794568874629297000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962622.838122291,
+            "wall_time_ns": 1794568879631137000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962622.877201125,
+            "wall_time_ns": 1794568879670216000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962627.878545041,
+            "wall_time_ns": 1794568884671544000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962627.919185833,
+            "wall_time_ns": 1794568884712184000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962632.920933208,
+            "wall_time_ns": 1794568889713916000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962632.964286541,
+            "wall_time_ns": 1794568889757269000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962637.966246541,
+            "wall_time_ns": 1794568894759213000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962638.008631583,
+            "wall_time_ns": 1794568894801598000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962643.010502875,
+            "wall_time_ns": 1794568899803454000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962643.053161625,
+            "wall_time_ns": 1794568899846112000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962648.054641541,
+            "wall_time_ns": 1794568904847576000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962648.094430833,
+            "wall_time_ns": 1794568904887365000
+          },
+          {
+            "pid": 29501,
+            "monotonic_seconds": 962653.09589325,
+            "wall_time_ns": 1794568909888812000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962653.140871375,
+            "wall_time_ns": 1794568909933790000
+          },
+          {
+            "pid": 29468,
+            "monotonic_seconds": 962658.142568291,
+            "wall_time_ns": 1794568914935471000
+          }
+        ],
+        "telemetry": "load-controlled-1-rows20000-cache0-load.jsonl",
+        "thermal_before": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   150020.\nPages active:                                 423929.\nPages inactive:                               380540.\nPages speculative:                             42585.\nPages throttled:                                   0.\nPages wired down:                             255563.\nPages purgeable:                               17929.\n\"Translation faults\":                     6306415818.\nPages copy-on-write:                       792960106.\nPages zero filled:                        4444850469.\nPages reactivated:                         222062840.\nPages purged:                               46582017.\nFile-backed pages:                            355766.\nAnonymous pages:                              491288.\nPages stored in compressor:                   889059.\nPages occupied by compressor:                 284808.\nDecompressions:                            169466789.\nCompressions:                              221194271.\nPageins:                                   105167152.\nPageouts:                                    1477458.\nSwapins:                                     1213712.\nSwapouts:                                    2156871.\n"
+        },
+        "thermal_after": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    98095.\nPages active:                                 451156.\nPages inactive:                               420872.\nPages speculative:                             29872.\nPages throttled:                                   0.\nPages wired down:                             255926.\nPages purgeable:                               12566.\n\"Translation faults\":                     6308124023.\nPages copy-on-write:                       793091964.\nPages zero filled:                        4446226320.\nPages reactivated:                         222063961.\nPages purged:                               46586044.\nFile-backed pages:                            392500.\nAnonymous pages:                              509400.\nPages stored in compressor:                   887212.\nPages occupied by compressor:                 281464.\nDecompressions:                            169468489.\nCompressions:                              221194271.\nPageins:                                   105236994.\nPageouts:                                    1477528.\nSwapins:                                     1213712.\nSwapouts:                                    2156871.\n"
+        }
+      },
+      "lifecycle_checks_passed": true
+    },
+    {
+      "case": {
+        "name": "rows20000-cache16777216",
+        "docs": 20000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 40733,
+              "elapsed_seconds": 5.000450790976174,
+              "qps": 8145.86558346037,
+              "server_cpu_ms_per_query": 0.8226770840841579,
+              "client_cpu_cores": 1.3540419220240378,
+              "rss_bytes": 30310400,
+              "p50_ms": 0.986166,
+              "p95_ms": 1.218209,
+              "p99_ms": 1.312167
+            },
+            {
+              "round": 1,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 40314,
+              "elapsed_seconds": 5.000775999971665,
+              "qps": 8061.548847664527,
+              "server_cpu_ms_per_query": 0.8254371485836186,
+              "client_cpu_cores": 1.3878824006592827,
+              "rss_bytes": 31965184,
+              "p50_ms": 0.990916,
+              "p95_ms": 1.238959,
+              "p99_ms": 1.362458
+            },
+            {
+              "round": 2,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 40135,
+              "elapsed_seconds": 5.0009951669489965,
+              "qps": 8025.402676900712,
+              "server_cpu_ms_per_query": 0.82737524811262,
+              "client_cpu_cores": 1.3962171061764619,
+              "rss_bytes": 32030720,
+              "p50_ms": 0.996,
+              "p95_ms": 1.253417,
+              "p99_ms": 1.39475
+            },
+            {
+              "round": 3,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 35850,
+              "elapsed_seconds": 5.0011909999884665,
+              "qps": 7168.29251274,
+              "server_cpu_ms_per_query": 0.8737040179079498,
+              "client_cpu_cores": 1.508376504720055,
+              "rss_bytes": 32817152,
+              "p50_ms": 1.061708,
+              "p95_ms": 1.603375,
+              "p99_ms": 2.118416
+            },
+            {
+              "round": 4,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 36842,
+              "elapsed_seconds": 5.0010738329729065,
+              "qps": 7366.817853616678,
+              "server_cpu_ms_per_query": 0.87372434202812,
+              "client_cpu_cores": 1.5290326148723001,
+              "rss_bytes": 33030144,
+              "p50_ms": 1.063958,
+              "p95_ms": 1.436416,
+              "p99_ms": 1.636542
+            },
+            {
+              "round": 5,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 36543,
+              "elapsed_seconds": 5.00099908397533,
+              "qps": 7307.13991072194,
+              "server_cpu_ms_per_query": 0.870332214788058,
+              "client_cpu_cores": 1.5246437505721433,
+              "rss_bytes": 34193408,
+              "p50_ms": 1.063125,
+              "p95_ms": 1.448459,
+              "p99_ms": 1.689417
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.001"
+            }
+          ],
+          "qps_median": 7696.110265258695,
+          "server_cpu_ms_per_query_median": 0.848853731450339,
+          "p50_ms_median": 1.028854,
+          "p95_ms_median": 1.3449165,
+          "p99_ms_median": 1.5156459999999998,
+          "rss_bytes_median": 32423936.0,
+          "docid_cache_used_bytes": 0
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 40290,
+              "elapsed_seconds": 5.000832541030832,
+              "qps": 8056.658500245429,
+              "server_cpu_ms_per_query": 0.834217915934475,
+              "client_cpu_cores": 1.3351734826584818,
+              "rss_bytes": 28999680,
+              "p50_ms": 0.997458,
+              "p95_ms": 1.232542,
+              "p99_ms": 1.321375
+            },
+            {
+              "round": 1,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 40308,
+              "elapsed_seconds": 5.000550625030883,
+              "qps": 8060.712314006632,
+              "server_cpu_ms_per_query": 0.8316387162597996,
+              "client_cpu_cores": 1.3405447724986488,
+              "rss_bytes": 29540352,
+              "p50_ms": 0.995667,
+              "p95_ms": 1.230792,
+              "p99_ms": 1.33225
+            },
+            {
+              "round": 2,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 40264,
+              "elapsed_seconds": 5.000850250013173,
+              "qps": 8051.4308541620385,
+              "server_cpu_ms_per_query": 0.8365745703357838,
+              "client_cpu_cores": 1.3487182504579565,
+              "rss_bytes": 30081024,
+              "p50_ms": 0.993417,
+              "p95_ms": 1.243667,
+              "p99_ms": 1.340333
+            },
+            {
+              "round": 3,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 35969,
+              "elapsed_seconds": 5.000702082994394,
+              "qps": 7192.790012889941,
+              "server_cpu_ms_per_query": 0.8790488279351664,
+              "client_cpu_cores": 1.5257311620194258,
+              "rss_bytes": 31457280,
+              "p50_ms": 1.069834,
+              "p95_ms": 1.563833,
+              "p99_ms": 1.987041
+            },
+            {
+              "round": 4,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 35729,
+              "elapsed_seconds": 5.001186207984574,
+              "qps": 7144.105121092544,
+              "server_cpu_ms_per_query": 0.8771967297713342,
+              "client_cpu_cores": 1.4965031671988256,
+              "rss_bytes": 31670272,
+              "p50_ms": 1.067208,
+              "p95_ms": 1.518959,
+              "p99_ms": 2.036
+            },
+            {
+              "round": 5,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 36925,
+              "elapsed_seconds": 5.000799708999693,
+              "qps": 7383.819018695728,
+              "server_cpu_ms_per_query": 0.8769940713067028,
+              "client_cpu_cores": 1.5107689648924636,
+              "rss_bytes": 32342016,
+              "p50_ms": 1.064166,
+              "p95_ms": 1.428042,
+              "p99_ms": 1.64275
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.001"
+            }
+          ],
+          "qps_median": 7717.624936428883,
+          "server_cpu_ms_per_query_median": 0.8567843208212433,
+          "p50_ms_median": 1.030812,
+          "p95_ms_median": 1.3358545,
+          "p99_ms_median": 1.4915414999999999,
+          "rss_bytes_median": 30769152.0,
+          "docid_cache_used_bytes": 0
+        }
+      },
+      "query_pool_sizes": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "query_set_sha256": "203065c2de0ecab3e1be3b4161283e2a489239d45787451d8caa53bd06a23232",
+      "qps_change_percent": 0.2795525327555115,
+      "server_cpu_change_percent": 0.9342704257604195,
+      "p95_change_percent": -0.6737964773277816,
+      "paired_qps_changes_percent": [
+        -1.0951209825518005,
+        -0.010376835440706333,
+        0.3243223836760567,
+        0.34174805375759565,
+        -3.0231877175406874,
+        1.049372379763458
+      ],
+      "load_control": {
+        "idle_gate": {
+          "interval_seconds": 61.789974292041734,
+          "idle_percent_mean": 92.7439266539468,
+          "idle_percent_min": 80.06509357200976,
+          "from_monotonic_seconds": 963256.926050833,
+          "to_monotonic_seconds": 963318.716025125
+        },
+        "timed_sample_markers": [
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963319.905402791,
+            "wall_time_ns": 1794569576696210000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963324.906823583,
+            "wall_time_ns": 1794569581697615000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963324.94601875,
+            "wall_time_ns": 1794569581736810000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963329.947457166,
+            "wall_time_ns": 1794569586738233000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963329.982718166,
+            "wall_time_ns": 1794569586773493000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963334.984278291,
+            "wall_time_ns": 1794569591775038000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963335.022463333,
+            "wall_time_ns": 1794569591813223000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963340.023718666,
+            "wall_time_ns": 1794569596814462000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963340.060038666,
+            "wall_time_ns": 1794569596850782000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963345.061307958,
+            "wall_time_ns": 1794569601852035000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963345.09813825,
+            "wall_time_ns": 1794569601888866000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963350.099579958,
+            "wall_time_ns": 1794569606890291000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963350.137728833,
+            "wall_time_ns": 1794569606928440000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963355.139696375,
+            "wall_time_ns": 1794569611930392000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963355.177242833,
+            "wall_time_ns": 1794569611967938000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963360.178559416,
+            "wall_time_ns": 1794569616969239000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963360.2146285,
+            "wall_time_ns": 1794569617005308000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963365.2163925,
+            "wall_time_ns": 1794569622007056000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963365.255925,
+            "wall_time_ns": 1794569622046589000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963370.257453791,
+            "wall_time_ns": 1794569627048101000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963370.294493583,
+            "wall_time_ns": 1794569627085141000
+          },
+          {
+            "pid": 31061,
+            "monotonic_seconds": 963375.2959265,
+            "wall_time_ns": 1794569632086558000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963375.333718166,
+            "wall_time_ns": 1794569632124350000
+          },
+          {
+            "pid": 31062,
+            "monotonic_seconds": 963380.33549675,
+            "wall_time_ns": 1794569637126113000
+          }
+        ],
+        "telemetry": "load-controlled-1-rows20000-cache16777216-load.jsonl",
+        "thermal_before": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    99621.\nPages active:                                 452339.\nPages inactive:                               421759.\nPages speculative:                             30019.\nPages throttled:                                   0.\nPages wired down:                             252758.\nPages purgeable:                               16763.\n\"Translation faults\":                     6308162825.\nPages copy-on-write:                       793099104.\nPages zero filled:                        4446239989.\nPages reactivated:                         222064297.\nPages purged:                               46586044.\nFile-backed pages:                            392916.\nAnonymous pages:                              511201.\nPages stored in compressor:                   887212.\nPages occupied by compressor:                 281464.\nDecompressions:                            169468489.\nCompressions:                              221194271.\nPageins:                                   105237272.\nPageouts:                                    1477528.\nSwapins:                                     1213712.\nSwapouts:                                    2156871.\n"
+        },
+        "thermal_after": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    41634.\nPages active:                                 498662.\nPages inactive:                               499546.\nPages speculative:                              1119.\nPages throttled:                                   0.\nPages wired down:                             252849.\nPages purgeable:                               27177.\n\"Translation faults\":                     6321905420.\nPages copy-on-write:                       794188355.\nPages zero filled:                        4456905231.\nPages reactivated:                         222394495.\nPages purged:                               46645789.\nFile-backed pages:                            407066.\nAnonymous pages:                              592261.\nPages stored in compressor:                   823536.\nPages occupied by compressor:                 243830.\nDecompressions:                            169679510.\nCompressions:                              221441979.\nPageins:                                   105594619.\nPageouts:                                    1478876.\nSwapins:                                     1213716.\nSwapouts:                                    2156871.\n"
+        }
+      },
+      "lifecycle_checks_passed": true
+    },
+    {
+      "case": {
+        "name": "rows100000-cache16777216",
+        "docs": 100000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 35403,
+              "elapsed_seconds": 5.001167916925624,
+              "qps": 7078.946475719084,
+              "server_cpu_ms_per_query": 0.9433006407366608,
+              "client_cpu_cores": 1.4269284932122244,
+              "rss_bytes": 48480256,
+              "p50_ms": 1.09825,
+              "p95_ms": 1.519291,
+              "p99_ms": 1.738041
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 34906,
+              "elapsed_seconds": 5.000817290972918,
+              "qps": 6980.059052149249,
+              "server_cpu_ms_per_query": 0.9575839373460149,
+              "client_cpu_cores": 1.4413973917846614,
+              "rss_bytes": 49168384,
+              "p50_ms": 1.115542,
+              "p95_ms": 1.538292,
+              "p99_ms": 1.72825
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 34436,
+              "elapsed_seconds": 5.001319790957496,
+              "qps": 6885.382546875147,
+              "server_cpu_ms_per_query": 0.971718397897549,
+              "client_cpu_cores": 1.4369353091544943,
+              "rss_bytes": 49414144,
+              "p50_ms": 1.1335,
+              "p95_ms": 1.554458,
+              "p99_ms": 1.744625
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 33743,
+              "elapsed_seconds": 5.001039042021148,
+              "qps": 6747.197875576455,
+              "server_cpu_ms_per_query": 0.9898672144444775,
+              "client_cpu_cores": 1.4454806169796406,
+              "rss_bytes": 49594368,
+              "p50_ms": 1.15375,
+              "p95_ms": 1.590084,
+              "p99_ms": 1.808375
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 33863,
+              "elapsed_seconds": 5.001218290999532,
+              "qps": 6770.950202462012,
+              "server_cpu_ms_per_query": 0.9874839020464813,
+              "client_cpu_cores": 1.4455655760938824,
+              "rss_bytes": 49922048,
+              "p50_ms": 1.150959,
+              "p95_ms": 1.575917,
+              "p99_ms": 1.779625
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 33849,
+              "elapsed_seconds": 5.00136604194995,
+              "qps": 6767.950939020418,
+              "server_cpu_ms_per_query": 0.9863751637271412,
+              "client_cpu_cores": 1.4503023652257978,
+              "rss_bytes": 51150848,
+              "p50_ms": 1.154417,
+              "p95_ms": 1.581791,
+              "p99_ms": 1.789417
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.001"
+            }
+          ],
+          "qps_median": 6828.16637466858,
+          "server_cpu_ms_per_query_median": 0.9790467808123451,
+          "p50_ms_median": 1.1422295,
+          "p95_ms_median": 1.5651875,
+          "p99_ms_median": 1.7621250000000002,
+          "rss_bytes_median": 49504256.0,
+          "docid_cache_used_bytes": 0
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 35347,
+              "elapsed_seconds": 5.000866707996465,
+              "qps": 7068.174791277597,
+              "server_cpu_ms_per_query": 0.9444900899086203,
+              "client_cpu_cores": 1.4432774199837966,
+              "rss_bytes": 47923200,
+              "p50_ms": 1.099292,
+              "p95_ms": 1.522791,
+              "p99_ms": 1.733375
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 34895,
+              "elapsed_seconds": 5.001148457988165,
+              "qps": 6977.397350455253,
+              "server_cpu_ms_per_query": 0.9500057553517697,
+              "client_cpu_cores": 1.4360237574089216,
+              "rss_bytes": 48611328,
+              "p50_ms": 1.106541,
+              "p95_ms": 1.564458,
+              "p99_ms": 1.851916
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 34147,
+              "elapsed_seconds": 5.000695417053066,
+              "qps": 6828.450275846432,
+              "server_cpu_ms_per_query": 0.9786578079187045,
+              "client_cpu_cores": 1.4546828777440026,
+              "rss_bytes": 48807936,
+              "p50_ms": 1.141458,
+              "p95_ms": 1.56475,
+              "p99_ms": 1.77375
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 34008,
+              "elapsed_seconds": 5.001071708044037,
+              "qps": 6800.1424465278915,
+              "server_cpu_ms_per_query": 0.984005877293578,
+              "client_cpu_cores": 1.4496202860557268,
+              "rss_bytes": 49266688,
+              "p50_ms": 1.146166,
+              "p95_ms": 1.576416,
+              "p99_ms": 1.786083
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 32408,
+              "elapsed_seconds": 5.001054208027199,
+              "qps": 6480.233697123674,
+              "server_cpu_ms_per_query": 1.004893471519378,
+              "client_cpu_cores": 1.441070562369078,
+              "rss_bytes": 49627136,
+              "p50_ms": 1.177416,
+              "p95_ms": 1.697708,
+              "p99_ms": 2.07975
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 33225,
+              "elapsed_seconds": 5.001194958924316,
+              "qps": 6643.41227904185,
+              "server_cpu_ms_per_query": 0.996695282167043,
+              "client_cpu_cores": 1.4546343543393332,
+              "rss_bytes": 49971200,
+              "p50_ms": 1.164625,
+              "p95_ms": 1.630541,
+              "p99_ms": 1.901292
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.002"
+            }
+          ],
+          "qps_median": 6814.296361187162,
+          "server_cpu_ms_per_query_median": 0.9813318426061413,
+          "p50_ms_median": 1.143812,
+          "p95_ms_median": 1.570583,
+          "p99_ms_median": 1.8189994999999999,
+          "rss_bytes_median": 49037312.0,
+          "docid_cache_used_bytes": 0
+        }
+      },
+      "query_pool_sizes": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "query_set_sha256": "88d0c819a68796b5c3e4c7766b204aefe19a470d22b7ddf0dc1caa73386593ce",
+      "qps_change_percent": -0.2031294013700946,
+      "server_cpu_change_percent": 0.23339658927228335,
+      "p95_change_percent": 0.34471908317694755,
+      "paired_qps_changes_percent": [
+        -0.1521650782137507,
+        -0.03813293947958485,
+        -0.8268570502964034,
+        0.7846897619986137,
+        -4.293585045606008,
+        -1.8401235632567126
+      ],
+      "load_control": {
+        "idle_gate": {
+          "interval_seconds": 62.5395045831101,
+          "idle_percent_mean": 90.02415541232952,
+          "idle_percent_min": 85.65640194489465,
+          "from_monotonic_seconds": 963390.05924375,
+          "to_monotonic_seconds": 963452.598748333
+        },
+        "timed_sample_markers": [
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963453.102076458,
+            "wall_time_ns": 1794569709892462000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963458.103687416,
+            "wall_time_ns": 1794569714894057000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963458.145096791,
+            "wall_time_ns": 1794569714935466000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963463.146406666,
+            "wall_time_ns": 1794569719936760000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963463.186710666,
+            "wall_time_ns": 1794569719977064000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963468.188651541,
+            "wall_time_ns": 1794569724978989000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963468.228976583,
+            "wall_time_ns": 1794569725019314000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963473.23057425,
+            "wall_time_ns": 1794569730020896000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963473.273255791,
+            "wall_time_ns": 1794569730063577000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963478.27505175,
+            "wall_time_ns": 1794569735065358000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963478.316354875,
+            "wall_time_ns": 1794569735106661000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963483.317857958,
+            "wall_time_ns": 1794569740108148000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963483.359234791,
+            "wall_time_ns": 1794569740149524000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963488.36091825,
+            "wall_time_ns": 1794569745151192000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963488.401196833,
+            "wall_time_ns": 1794569745191471000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963493.403013208,
+            "wall_time_ns": 1794569750193271000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963493.442586375,
+            "wall_time_ns": 1794569750232844000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963498.444221166,
+            "wall_time_ns": 1794569755234463000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963498.484164041,
+            "wall_time_ns": 1794569755274406000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963503.485650708,
+            "wall_time_ns": 1794569760275876000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963503.533995791,
+            "wall_time_ns": 1794569760324222000
+          },
+          {
+            "pid": 41811,
+            "monotonic_seconds": 963508.5362565,
+            "wall_time_ns": 1794569765326466000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963508.577993041,
+            "wall_time_ns": 1794569765368203000
+          },
+          {
+            "pid": 41810,
+            "monotonic_seconds": 963513.579722041,
+            "wall_time_ns": 1794569770369916000
+          }
+        ],
+        "telemetry": "load-controlled-1-rows100000-cache16777216-load.jsonl",
+        "thermal_before": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    31984.\nPages active:                                 484055.\nPages inactive:                               491624.\nPages speculative:                              1270.\nPages throttled:                                   0.\nPages wired down:                             285578.\nPages purgeable:                               18550.\n\"Translation faults\":                     6321919745.\nPages copy-on-write:                       794190098.\nPages zero filled:                        4456932925.\nPages reactivated:                         222394497.\nPages purged:                               46645789.\nFile-backed pages:                            407448.\nAnonymous pages:                              569501.\nPages stored in compressor:                   821609.\nPages occupied by compressor:                 242834.\nDecompressions:                            169679884.\nCompressions:                              221441979.\nPageins:                                   105594795.\nPageouts:                                    1478876.\nSwapins:                                     1213716.\nSwapouts:                                    2156871.\n"
+        },
+        "thermal_after": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    18644.\nPages active:                                 505455.\nPages inactive:                               490586.\nPages speculative:                             18082.\nPages throttled:                                   0.\nPages wired down:                             263099.\nPages purgeable:                               24439.\n\"Translation faults\":                     6322999370.\nPages copy-on-write:                       794333696.\nPages zero filled:                        4458089263.\nPages reactivated:                         222394869.\nPages purged:                               46646761.\nFile-backed pages:                            431722.\nAnonymous pages:                              582401.\nPages stored in compressor:                   819246.\nPages occupied by compressor:                 241694.\nDecompressions:                            169681919.\nCompressions:                              221441979.\nPageins:                                   105607242.\nPageouts:                                    1478881.\nSwapins:                                     1213716.\nSwapouts:                                    2156871.\n"
+        }
+      },
+      "lifecycle_checks_passed": true
+    },
+    {
+      "case": {
+        "name": "rows500000-cache16777216",
+        "docs": 500000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 16844,
+              "elapsed_seconds": 5.001883541001007,
+              "qps": 3367.531423298408,
+              "server_cpu_ms_per_query": 2.0480481947280933,
+              "client_cpu_cores": 0.71675399289335,
+              "rss_bytes": 78331904,
+              "p50_ms": 2.377834,
+              "p95_ms": 2.735375,
+              "p99_ms": 2.99125
+            },
+            {
+              "round": 1,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 16658,
+              "elapsed_seconds": 5.001971499994397,
+              "qps": 3330.286867891722,
+              "server_cpu_ms_per_query": 2.064680766478569,
+              "client_cpu_cores": 0.7022467041253503,
+              "rss_bytes": 89784320,
+              "p50_ms": 2.407,
+              "p95_ms": 2.727083,
+              "p99_ms": 2.923417
+            },
+            {
+              "round": 2,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 15276,
+              "elapsed_seconds": 5.001248582964763,
+              "qps": 3054.4372563349607,
+              "server_cpu_ms_per_query": 2.2041560562974603,
+              "client_cpu_cores": 0.7589878681354768,
+              "rss_bytes": 90177536,
+              "p50_ms": 2.571708,
+              "p95_ms": 3.252833,
+              "p99_ms": 4.045625
+            },
+            {
+              "round": 3,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 15030,
+              "elapsed_seconds": 5.001836000010371,
+              "qps": 3004.896601961527,
+              "server_cpu_ms_per_query": 2.2312914365934797,
+              "client_cpu_cores": 0.7720277114227643,
+              "rss_bytes": 90341376,
+              "p50_ms": 2.61475,
+              "p95_ms": 3.427542,
+              "p99_ms": 4.20975
+            },
+            {
+              "round": 4,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 16102,
+              "elapsed_seconds": 5.001762124942616,
+              "qps": 3219.2654504105863,
+              "server_cpu_ms_per_query": 2.1555556038380326,
+              "client_cpu_cores": 0.7242977393775125,
+              "rss_bytes": 90636288,
+              "p50_ms": 2.498666,
+              "p95_ms": 2.888583,
+              "p99_ms": 3.10275
+            },
+            {
+              "round": 5,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 16257,
+              "elapsed_seconds": 5.001937624998391,
+              "qps": 3250.140489307927,
+              "server_cpu_ms_per_query": 2.1371554971396938,
+              "client_cpu_cores": 0.7184723739934994,
+              "rss_bytes": 90701824,
+              "p50_ms": 2.475917,
+              "p95_ms": 2.833541,
+              "p99_ms": 3.010416
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.010"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 3234.702969859257,
+          "server_cpu_ms_per_query_median": 2.146355550488863,
+          "p50_ms_median": 2.4872915,
+          "p95_ms_median": 2.861062,
+          "p99_ms_median": 3.056583,
+          "rss_bytes_median": 90259456.0,
+          "docid_cache_used_bytes": 0
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 17202,
+              "elapsed_seconds": 5.001326874946244,
+              "qps": 3439.487246109042,
+              "server_cpu_ms_per_query": 2.0177283310080223,
+              "client_cpu_cores": 0.7255192653327626,
+              "rss_bytes": 80560128,
+              "p50_ms": 2.345833,
+              "p95_ms": 2.678791,
+              "p99_ms": 2.85225
+            },
+            {
+              "round": 1,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 16670,
+              "elapsed_seconds": 5.002281124936417,
+              "qps": 3332.4796395188387,
+              "server_cpu_ms_per_query": 2.0520350454709058,
+              "client_cpu_cores": 0.7392367417269062,
+              "rss_bytes": 81526784,
+              "p50_ms": 2.38975,
+              "p95_ms": 2.822916,
+              "p99_ms": 3.237209
+            },
+            {
+              "round": 2,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 14974,
+              "elapsed_seconds": 5.0021996250143275,
+              "qps": 2993.4830919421997,
+              "server_cpu_ms_per_query": 2.1738767363429945,
+              "client_cpu_cores": 0.8018252570215072,
+              "rss_bytes": 82345984,
+              "p50_ms": 2.56725,
+              "p95_ms": 3.61675,
+              "p99_ms": 4.824875
+            },
+            {
+              "round": 3,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 15452,
+              "elapsed_seconds": 5.00251775002107,
+              "qps": 3088.8446122824685,
+              "server_cpu_ms_per_query": 2.1810300150142377,
+              "client_cpu_cores": 0.7696350502671947,
+              "rss_bytes": 84361216,
+              "p50_ms": 2.539667,
+              "p95_ms": 3.253417,
+              "p99_ms": 3.984
+            },
+            {
+              "round": 4,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 16367,
+              "elapsed_seconds": 5.002621125080623,
+              "qps": 3271.6849009300554,
+              "server_cpu_ms_per_query": 2.1101918214089324,
+              "client_cpu_cores": 0.7359414011071379,
+              "rss_bytes": 84508672,
+              "p50_ms": 2.459667,
+              "p95_ms": 2.794583,
+              "p99_ms": 3.021792
+            },
+            {
+              "round": 5,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 7848,
+              "elapsed_seconds": 5.009818791993894,
+              "qps": 1566.5237258764241,
+              "server_cpu_ms_per_query": 2.073301175458716,
+              "client_cpu_cores": 0.44851662171711115,
+              "rss_bytes": 84525056,
+              "p50_ms": 2.527167,
+              "p95_ms": 18.176291,
+              "p99_ms": 47.2415
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.010"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 3180.264756606262,
+          "server_cpu_ms_per_query_median": 2.091746498433824,
+          "p50_ms_median": 2.493417,
+          "p95_ms_median": 3.0381665,
+          "p99_ms_median": 3.6106045,
+          "rss_bytes_median": 83353600.0,
+          "docid_cache_used_bytes": 0
+        }
+      },
+      "query_pool_sizes": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "query_set_sha256": "58a54725100ad3a1fc95283fb950cd7355808c4b0d6e51b1ec8362c626dcbe41",
+      "qps_change_percent": -1.6829431870637457,
+      "server_cpu_change_percent": -2.5442686810487225,
+      "p95_change_percent": 6.190166448682333,
+      "paired_qps_changes_percent": [
+        2.136752824719168,
+        0.06584332563832618,
+        -1.995593927043049,
+        2.7937071201099783,
+        1.6283046964264303,
+        -51.80135347903088
+      ],
+      "load_control": {
+        "idle_gate": {
+          "interval_seconds": 62.65778179198969,
+          "idle_percent_mean": 90.64928395668302,
+          "idle_percent_min": 85.553772070626,
+          "from_monotonic_seconds": 963664.869353791,
+          "to_monotonic_seconds": 963727.527135583
+        },
+        "timed_sample_markers": [
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963728.063484083,
+            "wall_time_ns": 1794569984834614000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963733.065309041,
+            "wall_time_ns": 1794569989836410000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963733.122060583,
+            "wall_time_ns": 1794569989893162000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963738.124299083,
+            "wall_time_ns": 1794569994895371000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963738.182299583,
+            "wall_time_ns": 1794569994953371000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963743.184633125,
+            "wall_time_ns": 1794569999955676000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963743.243193666,
+            "wall_time_ns": 1794570000014236000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963748.245798625,
+            "wall_time_ns": 1794570005016812000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963748.310916916,
+            "wall_time_ns": 1794570005081930000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963753.313479958,
+            "wall_time_ns": 1794570010084465000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963753.384360166,
+            "wall_time_ns": 1794570010155344000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963758.385913791,
+            "wall_time_ns": 1794570015156869000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963758.444068875,
+            "wall_time_ns": 1794570015215024000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963763.446340291,
+            "wall_time_ns": 1794570020217266000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963763.503411416,
+            "wall_time_ns": 1794570020274337000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963768.506734625,
+            "wall_time_ns": 1794570025277631000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963768.56110625,
+            "wall_time_ns": 1794570025332003000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963773.564486583,
+            "wall_time_ns": 1794570030335354000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963773.623732125,
+            "wall_time_ns": 1794570030394600000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963778.625730916,
+            "wall_time_ns": 1794570035396570000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963778.684396083,
+            "wall_time_ns": 1794570035455234000
+          },
+          {
+            "pid": 43560,
+            "monotonic_seconds": 963783.6869415,
+            "wall_time_ns": 1794570040457751000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963783.744060833,
+            "wall_time_ns": 1794570040514870000
+          },
+          {
+            "pid": 43561,
+            "monotonic_seconds": 963788.754612958,
+            "wall_time_ns": 1794570045525394000
+          }
+        ],
+        "telemetry": "load-controlled-1-rows500000-cache16777216-load.jsonl",
+        "thermal_before": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    25525.\nPages active:                                 511361.\nPages inactive:                               492296.\nPages speculative:                             18439.\nPages throttled:                                   0.\nPages wired down:                             248500.\nPages purgeable:                               32599.\n\"Translation faults\":                     6323010498.\nPages copy-on-write:                       794335437.\nPages zero filled:                        4458096634.\nPages reactivated:                         222394970.\nPages purged:                               46647721.\nFile-backed pages:                            433284.\nAnonymous pages:                              588812.\nPages stored in compressor:                   819242.\nPages occupied by compressor:                 241693.\nDecompressions:                            169681933.\nCompressions:                              221441979.\nPageins:                                   105607719.\nPageouts:                                    1478881.\nSwapins:                                     1213716.\nSwapouts:                                    2156871.\n"
+        },
+        "thermal_after": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    37512.\nPages active:                                 504601.\nPages inactive:                               474320.\nPages speculative:                             28446.\nPages throttled:                                   0.\nPages wired down:                             250356.\nPages purgeable:                               15744.\n\"Translation faults\":                     6327904692.\nPages copy-on-write:                       794788727.\nPages zero filled:                        4461868773.\nPages reactivated:                         222458446.\nPages purged:                               46666375.\nFile-backed pages:                            387510.\nAnonymous pages:                              619857.\nPages stored in compressor:                   823151.\nPages occupied by compressor:                 242177.\nDecompressions:                            169692316.\nCompressions:                              221456973.\nPageins:                                   105731675.\nPageouts:                                    1479025.\nSwapins:                                     1213716.\nSwapouts:                                    2156871.\n"
+        }
+      },
+      "lifecycle_checks_passed": true
+    },
+    {
+      "case": {
+        "name": "rows1000000-cache16777216",
+        "docs": 1000000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 15369,
+              "elapsed_seconds": 5.002233542036265,
+              "qps": 3072.427520795785,
+              "server_cpu_ms_per_query": 2.35692644550719,
+              "client_cpu_cores": 0.6204792267129015,
+              "rss_bytes": 85475328,
+              "p50_ms": 2.619958,
+              "p95_ms": 3.115458,
+              "p99_ms": 3.4085
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 14687,
+              "elapsed_seconds": 5.003927499987185,
+              "qps": 2935.0944832908976,
+              "server_cpu_ms_per_query": 2.442052963505141,
+              "client_cpu_cores": 0.640822833665798,
+              "rss_bytes": 89784320,
+              "p50_ms": 2.713917,
+              "p95_ms": 3.332917,
+              "p99_ms": 3.652334
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 13815,
+              "elapsed_seconds": 5.000614374992438,
+              "qps": 2762.6605380905607,
+              "server_cpu_ms_per_query": 2.571765200868621,
+              "client_cpu_cores": 0.6823435570364612,
+              "rss_bytes": 91734016,
+              "p50_ms": 2.897042,
+              "p95_ms": 3.474667,
+              "p99_ms": 3.728667
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 13852,
+              "elapsed_seconds": 5.0029114169301465,
+              "qps": 2768.7877808757553,
+              "server_cpu_ms_per_query": 2.568043453436327,
+              "client_cpu_cores": 0.6751196890215015,
+              "rss_bytes": 92307456,
+              "p50_ms": 2.843875,
+              "p95_ms": 3.585416,
+              "p99_ms": 3.99225
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 12671,
+              "elapsed_seconds": 5.0011024590348825,
+              "qps": 2533.641352839882,
+              "server_cpu_ms_per_query": 2.717825306447794,
+              "client_cpu_cores": 0.7067137754026463,
+              "rss_bytes": 92618752,
+              "p50_ms": 3.089167,
+              "p95_ms": 3.965167,
+              "p99_ms": 4.98575
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 12762,
+              "elapsed_seconds": 5.002203084062785,
+              "qps": 2551.2758649604275,
+              "server_cpu_ms_per_query": 2.7189831727002036,
+              "client_cpu_cores": 0.6943190713438869,
+              "rss_bytes": 92946432,
+              "p50_ms": 3.048708,
+              "p95_ms": 3.992583,
+              "p99_ms": 5.046917
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.020"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 2765.724159483158,
+          "server_cpu_ms_per_query_median": 2.569904327152474,
+          "p50_ms_median": 2.8704585,
+          "p95_ms_median": 3.5300415000000003,
+          "p99_ms_median": 3.8604585,
+          "rss_bytes_median": 92020736.0,
+          "docid_cache_used_bytes": 0
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 15624,
+              "elapsed_seconds": 5.001950499950908,
+              "qps": 3123.581490891072,
+              "server_cpu_ms_per_query": 2.328394691884281,
+              "client_cpu_cores": 0.6273492710555209,
+              "rss_bytes": 82034688,
+              "p50_ms": 2.551167,
+              "p95_ms": 3.086208,
+              "p99_ms": 3.392458
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 15136,
+              "elapsed_seconds": 5.002363040926866,
+              "qps": 3025.7699963326763,
+              "server_cpu_ms_per_query": 2.3788345776294926,
+              "client_cpu_cores": 0.6414614400728204,
+              "rss_bytes": 86179840,
+              "p50_ms": 2.64325,
+              "p95_ms": 3.210125,
+              "p99_ms": 3.480833
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 13668,
+              "elapsed_seconds": 5.002385208965279,
+              "qps": 2732.2965803401544,
+              "server_cpu_ms_per_query": 2.5890002224904887,
+              "client_cpu_cores": 0.6861013010051505,
+              "rss_bytes": 87277568,
+              "p50_ms": 2.896958,
+              "p95_ms": 3.496375,
+              "p99_ms": 4.031416
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 13637,
+              "elapsed_seconds": 5.00187375000678,
+              "qps": 2726.3782897322258,
+              "server_cpu_ms_per_query": 2.6070641850113665,
+              "client_cpu_cores": 0.7074058996381514,
+              "rss_bytes": 87293952,
+              "p50_ms": 2.908917,
+              "p95_ms": 3.594417,
+              "p99_ms": 3.952875
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 12696,
+              "elapsed_seconds": 5.003088374971412,
+              "qps": 2537.632567818182,
+              "server_cpu_ms_per_query": 2.6336726593415247,
+              "client_cpu_cores": 0.6618999609454075,
+              "rss_bytes": 88211456,
+              "p50_ms": 2.91625,
+              "p95_ms": 4.124542,
+              "p99_ms": 9.44975
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 12461,
+              "elapsed_seconds": 5.000626375083812,
+              "qps": 2491.8878287104885,
+              "server_cpu_ms_per_query": 2.751160972233368,
+              "client_cpu_cores": 0.7168202003373871,
+              "rss_bytes": 88915968,
+              "p50_ms": 3.150041,
+              "p95_ms": 4.032709,
+              "p99_ms": 5.327916
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.019"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 2729.33743503619,
+          "server_cpu_ms_per_query_median": 2.5980322037509276,
+          "p50_ms_median": 2.9029375,
+          "p95_ms_median": 3.545396,
+          "p99_ms_median": 3.9921455000000003,
+          "rss_bytes_median": 87285760.0,
+          "docid_cache_used_bytes": 0
+        }
+      },
+      "query_pool_sizes": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "query_set_sha256": "87dfe163a1bc8283425670c42ef0559f95800a5a8ad20c1f8f440c9c22e800db",
+      "qps_change_percent": -1.315631001096207,
+      "server_cpu_change_percent": 1.0945106516716097,
+      "p95_change_percent": 0.43496655775858706,
+      "paired_qps_changes_percent": [
+        1.6649365932654314,
+        3.089355847247255,
+        -1.0990839204368053,
+        -1.531698869680631,
+        0.15752880627031285,
+        -2.3277779194944115
+      ],
+      "load_control": {
+        "idle_gate": {
+          "interval_seconds": 61.65278399991803,
+          "idle_percent_mean": 93.23601798649537,
+          "idle_percent_min": 80.66612510154346,
+          "from_monotonic_seconds": 963926.728115041,
+          "to_monotonic_seconds": 963988.380899041
+        },
+        "timed_sample_markers": [
+          {
+            "pid": 47936,
+            "monotonic_seconds": 963989.222872375,
+            "wall_time_ns": 1794570245992497000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 963994.225449,
+            "wall_time_ns": 1794570250995045000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 963994.287048958,
+            "wall_time_ns": 1794570251056644000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 963999.289332666,
+            "wall_time_ns": 1794570256058899000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 963999.34715525,
+            "wall_time_ns": 1794570256116721000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 964004.34983025,
+            "wall_time_ns": 1794570261119368000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 964004.413871625,
+            "wall_time_ns": 1794570261183409000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 964009.418195166,
+            "wall_time_ns": 1794570266187703000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 964009.480213916,
+            "wall_time_ns": 1794570266249722000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 964014.481107,
+            "wall_time_ns": 1794570271250586000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 964014.547670958,
+            "wall_time_ns": 1794570271317149000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 964019.55045175,
+            "wall_time_ns": 1794570276319901000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 964019.622776708,
+            "wall_time_ns": 1794570276392226000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 964024.625105,
+            "wall_time_ns": 1794570281394525000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 964024.695062,
+            "wall_time_ns": 1794570281464482000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 964029.69835975,
+            "wall_time_ns": 1794570286467751000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 964029.76948575,
+            "wall_time_ns": 1794570286538876000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 964034.771045916,
+            "wall_time_ns": 1794570291540408000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 964034.839072458,
+            "wall_time_ns": 1794570291608434000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 964039.842717208,
+            "wall_time_ns": 1794570296612050000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 964039.944431916,
+            "wall_time_ns": 1794570296713764000
+          },
+          {
+            "pid": 47941,
+            "monotonic_seconds": 964044.945553,
+            "wall_time_ns": 1794570301714856000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 964045.018961291,
+            "wall_time_ns": 1794570301788264000
+          },
+          {
+            "pid": 47936,
+            "monotonic_seconds": 964050.021493583,
+            "wall_time_ns": 1794570306790767000
+          }
+        ],
+        "telemetry": "load-controlled-1-rows1000000-cache16777216-load.jsonl",
+        "thermal_before": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    16624.\nPages active:                                 503016.\nPages inactive:                               478984.\nPages speculative:                             22950.\nPages throttled:                                   0.\nPages wired down:                             273852.\nPages purgeable:                                4578.\n\"Translation faults\":                     6328209750.\nPages copy-on-write:                       794800002.\nPages zero filled:                        4462076254.\nPages reactivated:                         222458446.\nPages purged:                               46669132.\nFile-backed pages:                            383987.\nAnonymous pages:                              620963.\nPages stored in compressor:                   823140.\nPages occupied by compressor:                 242177.\nDecompressions:                            169692337.\nCompressions:                              221456973.\nPageins:                                   105732766.\nPageouts:                                    1479025.\nSwapins:                                     1213716.\nSwapouts:                                    2156871.\n"
+        },
+        "thermal_after": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    56843.\nPages active:                                 495071.\nPages inactive:                               485532.\nPages speculative:                              8814.\nPages throttled:                                   0.\nPages wired down:                             276014.\nPages purgeable:                               17078.\n\"Translation faults\":                     6337802244.\nPages copy-on-write:                       795270335.\nPages zero filled:                        4468950269.\nPages reactivated:                         222472311.\nPages purged:                               46677255.\nFile-backed pages:                            392399.\nAnonymous pages:                              597018.\nPages stored in compressor:                   768290.\nPages occupied by compressor:                 214927.\nDecompressions:                            169727504.\nCompressions:                              221464418.\nPageins:                                   105774884.\nPageouts:                                    1479248.\nSwapins:                                     1213736.\nSwapouts:                                    2156871.\n"
+        }
+      },
+      "lifecycle_checks_passed": true
+    },
+    {
+      "case": {
+        "name": "rows5000000-cache16777216",
+        "docs": 5000000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 8038,
+              "elapsed_seconds": 5.0045337080955505,
+              "qps": 1606.143642712883,
+              "server_cpu_ms_per_query": 4.634406465041055,
+              "client_cpu_cores": 0.501391767217185,
+              "rss_bytes": 135757824,
+              "p50_ms": 4.902667,
+              "p95_ms": 6.166875,
+              "p99_ms": 8.289625
+            },
+            {
+              "round": 1,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 8233,
+              "elapsed_seconds": 5.004435374983586,
+              "qps": 1645.1406368749447,
+              "server_cpu_ms_per_query": 4.59773848135552,
+              "client_cpu_cores": 0.497042286215587,
+              "rss_bytes": 137101312,
+              "p50_ms": 4.851792,
+              "p95_ms": 6.012583,
+              "p99_ms": 6.705375
+            },
+            {
+              "round": 2,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 6463,
+              "elapsed_seconds": 5.005459042033181,
+              "qps": 1291.1902676112552,
+              "server_cpu_ms_per_query": 5.280690707411419,
+              "client_cpu_cores": 0.5007684567890994,
+              "rss_bytes": 139837440,
+              "p50_ms": 5.920875,
+              "p95_ms": 8.960208,
+              "p99_ms": 11.545541
+            },
+            {
+              "round": 3,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 7159,
+              "elapsed_seconds": 5.004821333917789,
+              "qps": 1430.4206928393812,
+              "server_cpu_ms_per_query": 5.043300623969828,
+              "client_cpu_cores": 0.4990479846050439,
+              "rss_bytes": 139853824,
+              "p50_ms": 5.404958,
+              "p95_ms": 7.157334,
+              "p99_ms": 9.309542
+            },
+            {
+              "round": 4,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 7083,
+              "elapsed_seconds": 5.012749291956425,
+              "qps": 1412.9970575958284,
+              "server_cpu_ms_per_query": 4.883323115205421,
+              "client_cpu_cores": 0.4420540248353722,
+              "rss_bytes": 140247040,
+              "p50_ms": 5.31325,
+              "p95_ms": 8.234916,
+              "p99_ms": 15.000417
+            },
+            {
+              "round": 5,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 5845,
+              "elapsed_seconds": 5.006014583050273,
+              "qps": 1167.5954800032794,
+              "server_cpu_ms_per_query": 5.252658297690333,
+              "client_cpu_cores": 0.412065519542112,
+              "rss_bytes": 140820480,
+              "p50_ms": 6.344917,
+              "p95_ms": 10.842958,
+              "p99_ms": 18.318042
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.030"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 1421.7088752176048,
+          "server_cpu_ms_per_query_median": 4.963311869587624,
+          "p50_ms_median": 5.359104,
+          "p95_ms_median": 7.696125,
+          "p99_ms_median": 10.4275415,
+          "rss_bytes_median": 139845632.0,
+          "docid_cache_used_bytes": 0
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 8359,
+              "elapsed_seconds": 5.004220041097142,
+              "qps": 1670.3901769609924,
+              "server_cpu_ms_per_query": 4.537241770307452,
+              "client_cpu_cores": 0.502147783143659,
+              "rss_bytes": 134299648,
+              "p50_ms": 4.7955,
+              "p95_ms": 5.915708,
+              "p99_ms": 6.621208
+            },
+            {
+              "round": 1,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 8121,
+              "elapsed_seconds": 5.004002541070804,
+              "qps": 1622.900854535176,
+              "server_cpu_ms_per_query": 4.649077710011083,
+              "client_cpu_cores": 0.5142895070251696,
+              "rss_bytes": 145047552,
+              "p50_ms": 4.915375,
+              "p95_ms": 6.145791,
+              "p99_ms": 7.117708
+            },
+            {
+              "round": 2,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 8084,
+              "elapsed_seconds": 5.004751334083267,
+              "qps": 1615.2650672065342,
+              "server_cpu_ms_per_query": 4.68771296190005,
+              "client_cpu_cores": 0.49916106380490083,
+              "rss_bytes": 145047552,
+              "p50_ms": 4.961584,
+              "p95_ms": 6.110459,
+              "p99_ms": 6.836166
+            },
+            {
+              "round": 3,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 7672,
+              "elapsed_seconds": 5.004790375009179,
+              "qps": 1532.9313368066748,
+              "server_cpu_ms_per_query": 4.860942257559958,
+              "client_cpu_cores": 0.5046247316592891,
+              "rss_bytes": 145047552,
+              "p50_ms": 5.227333,
+              "p95_ms": 6.47025,
+              "p99_ms": 7.349792
+            },
+            {
+              "round": 4,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 7757,
+              "elapsed_seconds": 5.00396416708827,
+              "qps": 1550.170972649806,
+              "server_cpu_ms_per_query": 4.8062668450431865,
+              "client_cpu_cores": 0.4783983098330152,
+              "rss_bytes": 145047552,
+              "p50_ms": 5.176875,
+              "p95_ms": 6.442917,
+              "p99_ms": 7.121709
+            },
+            {
+              "round": 5,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 4976,
+              "elapsed_seconds": 5.0190910421079025,
+              "qps": 991.4145725298888,
+              "server_cpu_ms_per_query": 5.407744105104502,
+              "client_cpu_cores": 0.3580243882655931,
+              "rss_bytes": 137478144,
+              "p50_ms": 7.142834,
+              "p95_ms": 14.008458,
+              "p99_ms": 26.679667
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.031"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 1582.7180199281702,
+          "server_cpu_ms_per_query_median": 4.7469899034716185,
+          "p50_ms_median": 5.0692295000000005,
+          "p95_ms_median": 6.294354,
+          "p99_ms_median": 7.1197085,
+          "rss_bytes_median": 145047552.0,
+          "docid_cache_used_bytes": 0
+        }
+      },
+      "query_pool_sizes": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "query_set_sha256": "68cf249cfb43712256280001c8fb93e2a0f9f7d297f6af12730a5ca1331d7022",
+      "qps_change_percent": 11.325043229115494,
+      "server_cpu_change_percent": -4.35841977695387,
+      "p95_change_percent": -18.213984310286023,
+      "paired_qps_changes_percent": [
+        4.00004909520999,
+        -1.3518468780890802,
+        25.098919014842647,
+        7.166468192221842,
+        9.70801137317121,
+        -15.08920773424849
+      ],
+      "load_control": {
+        "idle_gate": {
+          "interval_seconds": 62.51839295902755,
+          "idle_percent_mean": 90.45865577595316,
+          "idle_percent_min": 86.37820512820514,
+          "from_monotonic_seconds": 964304.033501291,
+          "to_monotonic_seconds": 964366.55189425
+        },
+        "timed_sample_markers": [
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964367.079091416,
+            "wall_time_ns": 1794570623846538000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964372.083594291,
+            "wall_time_ns": 1794570628851012000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964372.196850125,
+            "wall_time_ns": 1794570628964267000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964377.201623208,
+            "wall_time_ns": 1794570633969011000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964377.303406291,
+            "wall_time_ns": 1794570634070794000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964382.30805075,
+            "wall_time_ns": 1794570639075409000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964382.415561416,
+            "wall_time_ns": 1794570639182919000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964387.419782,
+            "wall_time_ns": 1794570644187111000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964387.526300458,
+            "wall_time_ns": 1794570644293629000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964392.531277958,
+            "wall_time_ns": 1794570649298577000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964392.637263125,
+            "wall_time_ns": 1794570649404562000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964397.642995458,
+            "wall_time_ns": 1794570654410265000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964397.763073208,
+            "wall_time_ns": 1794570654530343000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964402.768096208,
+            "wall_time_ns": 1794570659535337000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964402.881890541,
+            "wall_time_ns": 1794570659649130000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964407.8869605,
+            "wall_time_ns": 1794570664654171000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964407.99361575,
+            "wall_time_ns": 1794570664760826000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964412.997863416,
+            "wall_time_ns": 1794570669765045000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964413.108019666,
+            "wall_time_ns": 1794570669875200000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964418.121026291,
+            "wall_time_ns": 1794570674888178000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964418.287994875,
+            "wall_time_ns": 1794570675055146000
+          },
+          {
+            "pid": 53058,
+            "monotonic_seconds": 964423.294243375,
+            "wall_time_ns": 1794570680061365000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964423.500782875,
+            "wall_time_ns": 1794570680267904000
+          },
+          {
+            "pid": 53059,
+            "monotonic_seconds": 964428.520104208,
+            "wall_time_ns": 1794570685287196000
+          }
+        ],
+        "telemetry": "load-controlled-1-rows5000000-cache16777216-load.jsonl",
+        "thermal_before": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3605.44M  free = 1514.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    77934.\nPages active:                                 478256.\nPages inactive:                               483172.\nPages speculative:                             12280.\nPages throttled:                                   0.\nPages wired down:                             271417.\nPages purgeable:                               22710.\n\"Translation faults\":                     6337824080.\nPages copy-on-write:                       795272102.\nPages zero filled:                        4468965388.\nPages reactivated:                         222472311.\nPages purged:                               46677255.\nFile-backed pages:                            407738.\nAnonymous pages:                              565970.\nPages stored in compressor:                   768286.\nPages occupied by compressor:                 214923.\nDecompressions:                            169727518.\nCompressions:                              221464418.\nPageins:                                   105780010.\nPageouts:                                    1479248.\nSwapins:                                     1213736.\nSwapouts:                                    2156871.\n"
+        },
+        "thermal_after": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    15562.\nPages active:                                 481272.\nPages inactive:                               472754.\nPages speculative:                              6994.\nPages throttled:                                   0.\nPages wired down:                             287797.\nPages purgeable:                               11462.\n\"Translation faults\":                     6344398672.\nPages copy-on-write:                       795877714.\nPages zero filled:                        4475175965.\nPages reactivated:                         222920346.\nPages purged:                               46700582.\nFile-backed pages:                            281528.\nAnonymous pages:                              679492.\nPages stored in compressor:                   879308.\nPages occupied by compressor:                 273153.\nDecompressions:                            169773961.\nCompressions:                              221663169.\nPageins:                                   105912452.\nPageouts:                                    1479770.\nSwapins:                                     1214002.\nSwapouts:                                    2156871.\n"
+        }
+      },
+      "lifecycle_checks_passed": true
+    },
+    {
+      "case": {
+        "name": "count-1000000",
+        "docs": 1000000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256,
+        "count": true
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 49657,
+              "elapsed_seconds": 5.0009504170157015,
+              "qps": 9929.512564460223,
+              "server_cpu_ms_per_query": 0.7429712074833358,
+              "client_cpu_cores": 0.9409285451000354,
+              "rss_bytes": 42811392,
+              "p50_ms": 0.791833,
+              "p95_ms": 1.024667,
+              "p99_ms": 1.255583
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 49482,
+              "elapsed_seconds": 5.000712750013918,
+              "qps": 9894.98946922362,
+              "server_cpu_ms_per_query": 0.7453199252455438,
+              "client_cpu_cores": 0.9436700798274938,
+              "rss_bytes": 43155456,
+              "p50_ms": 0.794958,
+              "p95_ms": 1.026833,
+              "p99_ms": 1.255833
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 48712,
+              "elapsed_seconds": 5.000783458002843,
+              "qps": 9740.873686911062,
+              "server_cpu_ms_per_query": 0.756091536315487,
+              "client_cpu_cores": 0.9308113496797912,
+              "rss_bytes": 43417600,
+              "p50_ms": 0.80675,
+              "p95_ms": 1.032917,
+              "p99_ms": 1.258
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 47348,
+              "elapsed_seconds": 5.000910250004381,
+              "qps": 9467.876373097983,
+              "server_cpu_ms_per_query": 0.7775249500084481,
+              "client_cpu_cores": 0.9413466278455759,
+              "rss_bytes": 44122112,
+              "p50_ms": 0.831875,
+              "p95_ms": 1.0725,
+              "p99_ms": 1.312417
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 47482,
+              "elapsed_seconds": 5.000808499986306,
+              "qps": 9494.864680407183,
+              "server_cpu_ms_per_query": 0.776582149551409,
+              "client_cpu_cores": 0.9323488391952557,
+              "rss_bytes": 44138496,
+              "p50_ms": 0.83225,
+              "p95_ms": 1.0635,
+              "p99_ms": 1.280166
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 46493,
+              "elapsed_seconds": 5.000874665915035,
+              "qps": 9296.973650806933,
+              "server_cpu_ms_per_query": 0.7869935402533715,
+              "client_cpu_cores": 0.9288719094802688,
+              "rss_bytes": 44580864,
+              "p50_ms": 0.837541,
+              "p95_ms": 1.09675,
+              "p99_ms": 1.372458
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 9617.869183659122,
+          "server_cpu_ms_per_query_median": 0.7663368429334481,
+          "p50_ms_median": 0.8193125,
+          "p95_ms_median": 1.0482084999999999,
+          "p99_ms_median": 1.269083,
+          "rss_bytes_median": 43769856.0,
+          "docid_cache_used_bytes": 0
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 49707,
+              "elapsed_seconds": 5.0007596670184284,
+              "qps": 9939.889798710621,
+              "server_cpu_ms_per_query": 0.7395216552397047,
+              "client_cpu_cores": 0.9472776768783164,
+              "rss_bytes": 43532288,
+              "p50_ms": 0.788833,
+              "p95_ms": 1.021167,
+              "p99_ms": 1.28075
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 49947,
+              "elapsed_seconds": 5.000899749924429,
+              "qps": 9987.602731039504,
+              "server_cpu_ms_per_query": 0.7383679625402928,
+              "client_cpu_cores": 0.9454226712046061,
+              "rss_bytes": 43925504,
+              "p50_ms": 0.787333,
+              "p95_ms": 1.015709,
+              "p99_ms": 1.255084
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 47595,
+              "elapsed_seconds": 5.000816583982669,
+              "qps": 9517.445641266684,
+              "server_cpu_ms_per_query": 0.772749385439647,
+              "client_cpu_cores": 0.9410059179279646,
+              "rss_bytes": 45301760,
+              "p50_ms": 0.826875,
+              "p95_ms": 1.068375,
+              "p99_ms": 1.319667
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 47305,
+              "elapsed_seconds": 5.000830875011161,
+              "qps": 9459.428079517771,
+              "server_cpu_ms_per_query": 0.7780093497727513,
+              "client_cpu_cores": 0.9417205095922164,
+              "rss_bytes": 45531136,
+              "p50_ms": 0.832459,
+              "p95_ms": 1.079583,
+              "p99_ms": 1.301417
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 47215,
+              "elapsed_seconds": 5.000944000086747,
+              "qps": 9441.217497972582,
+              "server_cpu_ms_per_query": 0.7791556179180344,
+              "client_cpu_cores": 0.9320592272017336,
+              "rss_bytes": 45711360,
+              "p50_ms": 0.8325,
+              "p95_ms": 1.072,
+              "p99_ms": 1.299292
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 47609,
+              "elapsed_seconds": 5.00083666597493,
+              "qps": 9520.206953353567,
+              "server_cpu_ms_per_query": 0.775270825033082,
+              "client_cpu_cores": 0.934944952673933,
+              "rss_bytes": 45727744,
+              "p50_ms": 0.829292,
+              "p95_ms": 1.059709,
+              "p99_ms": 1.284958
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.001"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 9518.826297310126,
+          "server_cpu_ms_per_query_median": 0.7740101052363645,
+          "p50_ms_median": 0.8280835,
+          "p95_ms_median": 1.0640420000000002,
+          "p99_ms_median": 1.292125,
+          "rss_bytes_median": 45416448.0,
+          "docid_cache_used_bytes": 0
+        }
+      },
+      "query_pool_sizes": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "query_set_sha256": "e1a26f48630fdf9a839455c4b9083c0b11d88074eb6bb31e21dc545738ae611b",
+      "qps_change_percent": -1.029779927941532,
+      "server_cpu_change_percent": 1.0012910606704173,
+      "p95_change_percent": 1.5105296322249107,
+      "paired_qps_changes_percent": [
+        0.10450899964153937,
+        0.9359611963604353,
+        -2.2937166913949536,
+        -0.0892311353390407,
+        -0.5650126067125782,
+        2.4011394560342625
+      ],
+      "load_control": {
+        "idle_gate": {
+          "interval_seconds": 62.49523212504573,
+          "idle_percent_mean": 90.03482211587833,
+          "idle_percent_min": 82.33387358184766,
+          "from_monotonic_seconds": 964847.886861125,
+          "to_monotonic_seconds": 964910.38209325
+        },
+        "timed_sample_markers": [
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964911.024724833,
+            "wall_time_ns": 1794571167789056000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964916.026280916,
+            "wall_time_ns": 1794571172790583000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964916.05801975,
+            "wall_time_ns": 1794571172822322000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964921.059502666,
+            "wall_time_ns": 1794571177823776000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964921.112268666,
+            "wall_time_ns": 1794571177876541000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964926.114419166,
+            "wall_time_ns": 1794571182878663000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964926.189922791,
+            "wall_time_ns": 1794571182954166000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964931.191496333,
+            "wall_time_ns": 1794571187955711000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964931.223008833,
+            "wall_time_ns": 1794571187987223000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964936.22466625,
+            "wall_time_ns": 1794571192988852000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964936.257847875,
+            "wall_time_ns": 1794571193022033000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964941.259261,
+            "wall_time_ns": 1794571198023417000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964941.361383875,
+            "wall_time_ns": 1794571198125540000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964946.363064916,
+            "wall_time_ns": 1794571203127192000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964946.417377291,
+            "wall_time_ns": 1794571203181504000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964951.418897375,
+            "wall_time_ns": 1794571208182995000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964951.449298083,
+            "wall_time_ns": 1794571208213396000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964956.450883666,
+            "wall_time_ns": 1794571213214953000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964956.481240166,
+            "wall_time_ns": 1794571213245309000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964961.483027708,
+            "wall_time_ns": 1794571218247068000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964961.566382416,
+            "wall_time_ns": 1794571218330422000
+          },
+          {
+            "pid": 60071,
+            "monotonic_seconds": 964966.568233375,
+            "wall_time_ns": 1794571223332244000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964966.6018405,
+            "wall_time_ns": 1794571223365851000
+          },
+          {
+            "pid": 60070,
+            "monotonic_seconds": 964971.603322291,
+            "wall_time_ns": 1794571228367304000
+          }
+        ],
+        "telemetry": "load-controlled-1-count-1000000-load.jsonl",
+        "thermal_before": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    31711.\nPages active:                                 479344.\nPages inactive:                               472548.\nPages speculative:                              8506.\nPages throttled:                                   0.\nPages wired down:                             272792.\nPages purgeable:                               12572.\n\"Translation faults\":                     6344441818.\nPages copy-on-write:                       795879949.\nPages zero filled:                        4475211841.\nPages reactivated:                         222920358.\nPages purged:                               46700582.\nFile-backed pages:                            277303.\nAnonymous pages:                              683095.\nPages stored in compressor:                   877119.\nPages occupied by compressor:                 272659.\nDecompressions:                            169774789.\nCompressions:                              221663169.\nPageins:                                   105918290.\nPageouts:                                    1479770.\nSwapins:                                     1214002.\nSwapouts:                                    2156871.\n"
+        },
+        "thermal_after": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    97775.\nPages active:                                 465802.\nPages inactive:                               450016.\nPages speculative:                             29388.\nPages throttled:                                   0.\nPages wired down:                             245774.\nPages purgeable:                               24839.\n\"Translation faults\":                     6355745320.\nPages copy-on-write:                       796549016.\nPages zero filled:                        4484252008.\nPages reactivated:                         222971163.\nPages purged:                               46709592.\nFile-backed pages:                            305888.\nAnonymous pages:                              639318.\nPages stored in compressor:                   826470.\nPages occupied by compressor:                 249329.\nDecompressions:                            169813530.\nCompressions:                              221673388.\nPageins:                                   105974025.\nPageouts:                                    1479822.\nSwapins:                                     1214029.\nSwapouts:                                    2156871.\n"
+        }
+      },
+      "lifecycle_checks_passed": true
+    },
+    {
+      "case": {
+        "name": "aa-1000000",
+        "docs": 1000000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256,
+        "aa": true
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 14533,
+              "elapsed_seconds": 5.0016797500429675,
+              "qps": 2905.623855640728,
+              "server_cpu_ms_per_query": 2.4718443944127158,
+              "client_cpu_cores": 0.6418173814451881,
+              "rss_bytes": 84344832,
+              "p50_ms": 2.763792,
+              "p95_ms": 3.293125,
+              "p99_ms": 3.493667
+            },
+            {
+              "round": 1,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 14488,
+              "elapsed_seconds": 5.002079917001538,
+              "qps": 2896.3951476978264,
+              "server_cpu_ms_per_query": 2.4806460950441744,
+              "client_cpu_cores": 0.6477499467745916,
+              "rss_bytes": 85524480,
+              "p50_ms": 2.773208,
+              "p95_ms": 3.307375,
+              "p99_ms": 3.564708
+            },
+            {
+              "round": 2,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 13932,
+              "elapsed_seconds": 5.003472207929008,
+              "qps": 2784.466350771759,
+              "server_cpu_ms_per_query": 2.579300187194947,
+              "client_cpu_cores": 0.6402070136262161,
+              "rss_bytes": 89128960,
+              "p50_ms": 2.889416,
+              "p95_ms": 3.391416,
+              "p99_ms": 3.608084
+            },
+            {
+              "round": 3,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 14120,
+              "elapsed_seconds": 5.002620790968649,
+              "qps": 2822.5205527253183,
+              "server_cpu_ms_per_query": 2.5407784672804534,
+              "client_cpu_cores": 0.6599970571346654,
+              "rss_bytes": 89456640,
+              "p50_ms": 2.828708,
+              "p95_ms": 3.401917,
+              "p99_ms": 3.694625
+            },
+            {
+              "round": 4,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 13971,
+              "elapsed_seconds": 5.002524750074372,
+              "qps": 2792.789780758665,
+              "server_cpu_ms_per_query": 2.57650441986973,
+              "client_cpu_cores": 0.6504989305553404,
+              "rss_bytes": 89587712,
+              "p50_ms": 2.8725,
+              "p95_ms": 3.415209,
+              "p99_ms": 3.656
+            },
+            {
+              "round": 5,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 7832,
+              "elapsed_seconds": 5.0182391670532525,
+              "qps": 1560.706801584949,
+              "server_cpu_ms_per_query": 2.602473250766088,
+              "client_cpu_cores": 0.43278547070033524,
+              "rss_bytes": 90112000,
+              "p50_ms": 2.966,
+              "p95_ms": 18.273459,
+              "p99_ms": 45.199167
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.002"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 2807.6551667419917,
+          "server_cpu_ms_per_query_median": 2.558641443575092,
+          "p50_ms_median": 2.8506039999999997,
+          "p95_ms_median": 3.3966665000000003,
+          "p99_ms_median": 3.632042,
+          "rss_bytes_median": 89292800.0,
+          "docid_cache_used_bytes": 0
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 14348,
+              "elapsed_seconds": 5.00172745808959,
+              "qps": 2868.6089196631715,
+              "server_cpu_ms_per_query": 2.4989625528296626,
+              "client_cpu_cores": 0.6339949600554985,
+              "rss_bytes": 88997888,
+              "p50_ms": 2.802583,
+              "p95_ms": 3.303125,
+              "p99_ms": 3.554833
+            },
+            {
+              "round": 1,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 12847,
+              "elapsed_seconds": 5.002143874997273,
+              "qps": 2568.2987776929954,
+              "server_cpu_ms_per_query": 2.6252865617653924,
+              "client_cpu_cores": 0.7479852826108565,
+              "rss_bytes": 90652672,
+              "p50_ms": 2.987167,
+              "p95_ms": 4.144458,
+              "p99_ms": 5.441833
+            },
+            {
+              "round": 2,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 13152,
+              "elapsed_seconds": 5.002798707922921,
+              "qps": 2628.928479407178,
+              "server_cpu_ms_per_query": 2.5634064717913625,
+              "client_cpu_cores": 0.6970562286420356,
+              "rss_bytes": 90783744,
+              "p50_ms": 2.860167,
+              "p95_ms": 3.853416,
+              "p99_ms": 8.669667
+            },
+            {
+              "round": 3,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 14220,
+              "elapsed_seconds": 5.001782958977856,
+              "qps": 2842.9862144410085,
+              "server_cpu_ms_per_query": 2.5349881417018283,
+              "client_cpu_cores": 0.6617410285784161,
+              "rss_bytes": 90783744,
+              "p50_ms": 2.80975,
+              "p95_ms": 3.371791,
+              "p99_ms": 3.614875
+            },
+            {
+              "round": 4,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 14198,
+              "elapsed_seconds": 5.002539917011745,
+              "qps": 2838.158262709304,
+              "server_cpu_ms_per_query": 2.5317550769826735,
+              "client_cpu_cores": 0.6689367912128432,
+              "rss_bytes": 90816512,
+              "p50_ms": 2.812333,
+              "p95_ms": 3.400125,
+              "p99_ms": 3.669833
+            },
+            {
+              "round": 5,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 3252,
+              "elapsed_seconds": 5.018809458939359,
+              "qps": 647.9624354352867,
+              "server_cpu_ms_per_query": 2.7868018271832717,
+              "client_cpu_cores": 0.31338647399704045,
+              "rss_bytes": 91078656,
+              "p50_ms": 8.19075,
+              "p95_ms": 33.722834,
+              "p99_ms": 54.8635
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.002"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 2733.543371058241,
+          "server_cpu_ms_per_query_median": 2.5491973067465956,
+          "p50_ms_median": 2.83625,
+          "p95_ms_median": 3.6267705,
+          "p99_ms_median": 4.555833,
+          "rss_bytes_median": 90783744.0,
+          "docid_cache_used_bytes": 0
+        }
+      },
+      "query_pool_sizes": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "query_set_sha256": "87dfe163a1bc8283425670c42ef0559f95800a5a8ad20c1f8f440c9c22e800db",
+      "qps_change_percent": -2.6396331202506618,
+      "server_cpu_change_percent": -0.3691074750708512,
+      "p95_change_percent": 6.774406613071959,
+      "paired_qps_changes_percent": [
+        -1.273906665713076,
+        -11.327748918016777,
+        -5.585913125560705,
+        0.7250845948997275,
+        1.6244861057288285,
+        -58.482756993353306
+      ],
+      "load_control": {
+        "idle_gate": {
+          "interval_seconds": 60.50659850006923,
+          "idle_percent_mean": 91.00379129242599,
+          "idle_percent_min": 81.95669607056936,
+          "from_monotonic_seconds": 964973.041244666,
+          "to_monotonic_seconds": 965033.547843166
+        },
+        "timed_sample_markers": [
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965034.3865945,
+            "wall_time_ns": 1794571291150214000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965039.38893,
+            "wall_time_ns": 1794571296152521000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965039.453309708,
+            "wall_time_ns": 1794571296216900000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965044.455417333,
+            "wall_time_ns": 1794571301218979000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965044.5197705,
+            "wall_time_ns": 1794571301283332000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965049.522128333,
+            "wall_time_ns": 1794571306285661000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965049.590942958,
+            "wall_time_ns": 1794571306354475000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965054.593355041,
+            "wall_time_ns": 1794571311356858000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965054.663256958,
+            "wall_time_ns": 1794571311426760000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965059.666361666,
+            "wall_time_ns": 1794571316429836000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965059.730089291,
+            "wall_time_ns": 1794571316493563000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965064.733919958,
+            "wall_time_ns": 1794571321497365000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965064.796594291,
+            "wall_time_ns": 1794571321560039000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965069.79960725,
+            "wall_time_ns": 1794571326563023000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965069.86628575,
+            "wall_time_ns": 1794571326629701000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965074.868323083,
+            "wall_time_ns": 1794571331631709000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965074.934339583,
+            "wall_time_ns": 1794571331697726000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965079.9372715,
+            "wall_time_ns": 1794571336700629000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965080.007870833,
+            "wall_time_ns": 1794571336771227000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965085.010757,
+            "wall_time_ns": 1794571341774085000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965085.095420666,
+            "wall_time_ns": 1794571341858748000
+          },
+          {
+            "pid": 67710,
+            "monotonic_seconds": 965090.114206083,
+            "wall_time_ns": 1794571346877505000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965090.271327041,
+            "wall_time_ns": 1794571347034625000
+          },
+          {
+            "pid": 67711,
+            "monotonic_seconds": 965095.290652333,
+            "wall_time_ns": 1794571352053921000
+          }
+        ],
+        "telemetry": "load-controlled-1-aa-1000000-load.jsonl",
+        "thermal_before": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    98154.\nPages active:                                 467019.\nPages inactive:                               447390.\nPages speculative:                             30117.\nPages throttled:                                   0.\nPages wired down:                             245769.\nPages purgeable:                               23190.\n\"Translation faults\":                     6355758361.\nPages copy-on-write:                       796550771.\nPages zero filled:                        4484259261.\nPages reactivated:                         222971163.\nPages purged:                               46709592.\nFile-backed pages:                            306577.\nAnonymous pages:                              637949.\nPages stored in compressor:                   826470.\nPages occupied by compressor:                 249329.\nDecompressions:                            169813540.\nCompressions:                              221673388.\nPageins:                                   105974102.\nPageouts:                                    1479822.\nSwapins:                                     1214029.\nSwapouts:                                    2156871.\n"
+        },
+        "thermal_after": {
+          "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+          "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    49129.\nPages active:                                 491067.\nPages inactive:                               488292.\nPages speculative:                              1169.\nPages throttled:                                   0.\nPages wired down:                             262488.\nPages purgeable:                               18959.\n\"Translation faults\":                     6358055222.\nPages copy-on-write:                       796684850.\nPages zero filled:                        4485850846.\nPages reactivated:                         222971424.\nPages purged:                               46718511.\nFile-backed pages:                            257574.\nAnonymous pages:                              722954.\nPages stored in compressor:                   815112.\nPages occupied by compressor:                 245699.\nDecompressions:                            169824549.\nCompressions:                              221673388.\nPageins:                                   105982964.\nPageouts:                                    1479869.\nSwapins:                                     1214029.\nSwapouts:                                    2156871.\n"
+        }
+      },
+      "lifecycle_checks_passed": true
+    }
+  ],
+  "load_control": {
+    "idle_gate": "60 seconds, >=90% system idle on average and no interval below 80%",
+    "idle_timeout_seconds": 900,
+    "no_samples_discarded": true,
+    "source_unchanged": true,
+    "test_mode": false,
+    "uid_seed_note": "Normal --nodetach startup; index UID includes startup time and PID-derived server ID. Shard routing is not pinned."
+  },
+  "completed": true
+}

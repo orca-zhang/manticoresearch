@@ -9,7 +9,9 @@ remains reader TLS only at `019868e9f79d1bb2bd1f96dafb88ef20acd45418`.
 Neither PR depends on the other.
 
 - [Shared block cache: final no-TLS results, design and CI fixes](BLOCK_CACHE_2026-11-13.md).
-- [Reader TLS: default-cache/large-data results and maintainer answers](TLS_REVIEW_2026-11-13.md).
+- [Reader TLS: original and latest block-cache datasets side by side](TLS_REVIEW_2026-11-13.md), with default-cache/large-data results and maintainer answers.
+- [Historical original-cache TLS report](TLS_ORIGINAL_CACHE_2026-11-13.md).
+- [Latest-context TLS evidence ZIP](attachments/reader-tls-latest-block-cache-evidence.zip).
 - [Performance](PERFORMANCE.md), [validation](VALIDATION.md) and
   [design notes](DESIGN_NOTES.md) retain and distinguish the earlier evidence.
 - [Current reproduction guide](repro/2026-11-13/README.md) and
@@ -23,12 +25,16 @@ Neither PR depends on the other.
 - The original [DocID ZIP](attachments/docid-cache-evidence.zip) and
   [reader TLS ZIP](attachments/reader-tls-evidence.zip) are dated snapshots.
 
-The new #5042 local native suites passed 521/521 in both comparison arms, API
+The #5042 local native suites passed 521/521 in both comparison arms, API
 smoke and DocID SQL lifecycle passed, and focused 26-test sanitizer runs passed
 20 repeats each. Upstream CI for the pushed commit is awaiting maintainer
-approval (`action_required`), not a passing run. See the report for actual scope.
+approval (`action_required`), not a passing run. The latest TLS-context pair
+separately passed 529/529 each and focused reader/block sanitizers (11 tests ×20
+per sanitizer). See the reports for the distinct source and validation scopes.
 
 Directory microbenchmark throughput, TLS QPS at a fixed budget, block-cache
 implementation changes and cache on/off comparisons answer different questions.
+The #5042 and historical ZIPs remain dated snapshots; the new reader-TLS ZIP
+contains the latest-cache context and the paired original/latest report.
 Their gains must not be added or multiplied. All negative/control samples are
 retained. MANIFEST.json hashes this published snapshot, excluding itself.

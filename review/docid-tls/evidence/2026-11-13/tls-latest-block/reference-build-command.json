@@ -1,0 +1,11 @@
+[
+  "cmake",
+  "--build",
+  "/private/tmp/manticore-5045-latest-block-build-20261113",
+  "--target",
+  "searchd",
+  "gmanticoretest",
+  "indexer",
+  "-j",
+  "4"
+]

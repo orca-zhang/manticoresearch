@@ -1,0 +1,18 @@
+[
+  "/Users/orca/.pyenv/versions/3.12.8/bin/python3",
+  "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/repro/2026-11-13/tls_latest_block.py",
+  "/private/tmp/manticore-5045-latest-block-review-20261113/reference-searchd",
+  "/private/tmp/manticore-5045-latest-block-review-20261113/tls-searchd",
+  "--fixtures",
+  "/private/tmp/manticore-5045-review-20261113/sql",
+  "--output",
+  "/private/tmp/manticore-5045-latest-block-review-20261113/repeat-aa.json",
+  "--rounds",
+  "6",
+  "--duration",
+  "5",
+  "--order-offset",
+  "1",
+  "--cases",
+  "aa-1000000"
+]

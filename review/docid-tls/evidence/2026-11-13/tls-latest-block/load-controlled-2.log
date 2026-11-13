@@ -1,0 +1,24 @@
+waiting for idle gate aa-1000000
+starting aa-1000000 idle gate: 90.34
+aa-1000000: 2786.2 -> 2763.1 QPS (-0.83%), CPU/query +1.35%
+waiting for idle gate count-1000000
+starting count-1000000 idle gate: 90.08
+count-1000000: 9261.8 -> 9341.3 QPS (+0.86%), CPU/query -0.48%
+waiting for idle gate rows5000000-cache16777216
+starting rows5000000-cache16777216 idle gate: 90.92
+rows5000000-cache16777216: 1707.6 -> 1720.7 QPS (+0.77%), CPU/query -0.32%
+waiting for idle gate rows1000000-cache16777216
+starting rows1000000-cache16777216 idle gate: 92.7
+rows1000000-cache16777216: 3100.5 -> 3104.9 QPS (+0.14%), CPU/query +0.04%
+waiting for idle gate rows500000-cache16777216
+starting rows500000-cache16777216 idle gate: 93.62
+rows500000-cache16777216: 3541.2 -> 3519.3 QPS (-0.62%), CPU/query +0.15%
+waiting for idle gate rows100000-cache16777216
+starting rows100000-cache16777216 idle gate: 91.21
+rows100000-cache16777216: 6780.8 -> 6869.4 QPS (+1.31%), CPU/query -1.19%
+waiting for idle gate rows20000-cache16777216
+starting rows20000-cache16777216 idle gate: 90.81
+rows20000-cache16777216: 7470.6 -> 7440.2 QPS (-0.41%), CPU/query +0.62%
+waiting for idle gate rows20000-cache0
+starting rows20000-cache0 idle gate: 91.11
+rows20000-cache0: 5856.6 -> 6388.1 QPS (+9.07%), CPU/query -6.96%

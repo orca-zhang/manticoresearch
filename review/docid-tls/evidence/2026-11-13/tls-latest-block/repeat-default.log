@@ -1,0 +1,6 @@
+starting rows20000-cache16777216
+rows20000-cache16777216: 7591.8 -> 7478.4 QPS (-1.49%), CPU/query +1.93%
+starting rows1000000-cache16777216
+rows1000000-cache16777216: 2784.0 -> 2602.2 QPS (-6.53%), CPU/query +4.09%
+starting rows5000000-cache16777216
+rows5000000-cache16777216: 1697.0 -> 1704.7 QPS (+0.46%), CPU/query -0.58%

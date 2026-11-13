@@ -1,0 +1,7 @@
+{
+  "added_after_initial_plan": true,
+  "reason": "1M/default16MiB TLS QPS changed from +3.32% initial to -6.53% in the preselected longer repeat; add a matching longer A/A control without discarding either TLS result.",
+  "comparison": "Both arms use the same latest-cache no-TLS binary",
+  "rounds": 6,
+  "seconds_per_arm": 5
+}

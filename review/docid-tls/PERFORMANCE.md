@@ -28,9 +28,61 @@ negative results remain. At 5M, 512 MiB has higher absolute QPS than 16 MiB,
 with higher memory usage, even though the relative implementation gain is
 smaller. See the [full tables/methods/limits](BLOCK_CACHE_2026-11-13.md).
 
-The [TLS follow-up](TLS_REVIEW_2026-11-13.md) measured −1.11% to +0.85% QPS
-at default 16 MiB across 20k–5M rows, without a clear default-cache gain.
-The older TLS cache-off results below are kept as separate dated evidence.
+## Reader TLS: original and latest block-cache datasets
+
+The [current TLS report](TLS_REVIEW_2026-11-13.md) presents both datasets side by
+side. In the original dataset both arms use the single-LRU/CRC32 block cache;
+in the latest dataset both use #5042's shared sharded-LRU/XXH3 implementation
+at `376fbf9`, with DocID caching disabled, and only the reader TLS patch differs.
+Each percentage is controlled within its own pair. Source contexts and times
+differ between datasets, so their absolute-QPS gap is not a TLS gain.
+
+![Original/latest block-cache TLS comparison](figures/reader-tls-cache-comparison.png)
+
+| Rows, block cache 16 MiB | TLS QPS change, original cache | TLS QPS change, latest cache |
+| ---: | ---: | ---: |
+| 20,000 | -0.84% | -0.77% |
+| 100,000 | +0.85% | +0.51% |
+| 500,000 | +0.81% | +2.23% |
+| 1,000,000 | -0.65% | +3.32% |
+| 5,000,000 | -1.11% | +2.92% |
+
+Fresh load-recorded reruns use two independent six-round × five-second
+passes, with a 60-second idle gate before each case and continuous CPU telemetry.
+
+| Rows, default 16 MiB | Rerun 1 QPS change | Rerun 2 QPS change | Rerun 1 CPU/query change | Rerun 2 CPU/query change |
+| ---: | ---: | ---: | ---: | ---: |
+| 20,000 | +0.28% | -0.41% | +0.93% | +0.62% |
+| 100,000 | -0.20% | +1.31% | +0.23% | -1.19% |
+| 500,000 | -1.68% | -0.62% | -2.54% | +0.15% |
+| 1,000,000 | -1.32% | +0.14% | +1.09% | +0.04% |
+| 5,000,000 | +11.33% | +0.77% | -4.36% | -0.32% |
+
+A/A: -2.64% / -0.83%. Every completed sample is retained. See the [TLS report](TLS_REVIEW_2026-11-13.md) for load measurements and limits.
+
+The quieter second pass places all five default-cache QPS changes between
+**−0.62% and +1.31%**; no default-cache sample in that pass meets the recorded
+higher-load flag. Its A/A control is −0.83%. This is descriptive evidence of
+small effects, not a formal noise band or confidence interval. At 1M, the fresh
+passes give **−1.32% / +0.14%**, rather than the earlier unmonitored −6.53%.
+The older regression remains in the record; its cause is not established.
+
+At 5M, the first pass's **+11.33%** accompanies unequal external CPU medians
+(**18.77% / 13.27%** of the machine for no TLS / TLS). It becomes **+0.77%** in
+the second pass, where those CPU medians are **3.72% / 3.37%** and no sample
+meets the higher-load flag. The large first-pass gain is not repeatable evidence.
+By contrast, the 20k **cache-off** case gives **+6.65% / +9.07% QPS** and
+**−8.70% / −6.96% CPU/query** across the two passes; the first pass is load-affected.
+Cache-off gains must not be substituted for the default-cache result.
+
+These runs do **not establish a consistent default-cache throughput benefit**.
+They demonstrate real workstation-load interference and do not identify the
+cause of every prior positive or negative result. No A/A subtraction is applied.
+
+
+The original-cache results below remain historical evidence. Fresh source/binary
+hashes, 529-test validation per arm, focused 11-test ×20 sanitizers and complete
+latest matrix/repeats are in the current report and linked raw evidence.
 
 ## 1. DocID cache-line directory isolation
 
@@ -66,9 +118,9 @@ memory beside existing mapped data (about 11.58 MiB per million entries on N100)
 Its default budget is zero; budgets include handles and alignment slack. No
 overall memory saving is claimed for alignment or for adding the native cache.
 
-## 2. TLS on an independent upstream baseline
+## 2. Historical TLS on upstream with the original block cache
 
-Primary comparison: upstream `047d2f9` versus the same source plus patch 2.
+Historical comparison: upstream `047d2f9` versus the same source plus patch 2.
 The DocID prototype is absent from both binaries. Same copied 20k-row disk
 snapshot, 128 B stored text, 16 KiB blocks, LZ4, `threads=8`, 1/8 persistent
 HTTP connections, four alternating two-second rounds per arm. Every returned

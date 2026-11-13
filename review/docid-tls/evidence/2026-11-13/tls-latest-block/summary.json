@@ -1,0 +1,72 @@
+{
+  "datasets": {
+    "original": {
+      "baseline_commit": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+      "tls_commit": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+      "block_cache": "single LRU, chained CRC32",
+      "native_docid_cache": "module absent",
+      "source": "../tls/scale-matrix.json",
+      "comparisons": 23
+    },
+    "latest": {
+      "baseline_commit": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+      "tls_production_patch_commit": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+      "block_cache": "shared sharded LRU, seeded XXH3-64",
+      "native_docid_cache": "present, disabled; used bytes verified zero",
+      "comparisons": 43,
+      "timed_arm_samples": 516,
+      "checked_timed_queries": 14268346
+    }
+  },
+  "matched_text_query_pool_hashes": 16,
+  "matched_fixture_metadata": true,
+  "no_samples_discarded": true,
+  "native_tests_per_latest_arm": 529,
+  "focused_sanitizer_tests": 11,
+  "focused_sanitizer_repeats": 20,
+  "default16m_comparison": [
+    {
+      "rows": 20000,
+      "original_qps_change_percent": -0.8396808119252364,
+      "latest_qps_change_percent": -0.7685983792642292,
+      "latest_cpu_change_percent": 0.8116895206766062,
+      "latest_repeat_qps_change_percent": -1.4944091151852357
+    },
+    {
+      "rows": 100000,
+      "original_qps_change_percent": 0.8459943065964204,
+      "latest_qps_change_percent": 0.5135425251767689,
+      "latest_cpu_change_percent": -0.5754602028380407,
+      "latest_repeat_qps_change_percent": null
+    },
+    {
+      "rows": 500000,
+      "original_qps_change_percent": 0.8125630359310243,
+      "latest_qps_change_percent": 2.2278512142063667,
+      "latest_cpu_change_percent": -2.0578973955880375,
+      "latest_repeat_qps_change_percent": null
+    },
+    {
+      "rows": 1000000,
+      "original_qps_change_percent": -0.6456328049468385,
+      "latest_qps_change_percent": 3.3173131475230155,
+      "latest_cpu_change_percent": -2.701864638713014,
+      "latest_repeat_qps_change_percent": -6.530154468498839
+    },
+    {
+      "rows": 5000000,
+      "original_qps_change_percent": -1.109822399758742,
+      "latest_qps_change_percent": 2.9161388131489163,
+      "latest_cpu_change_percent": -1.5754942041732667,
+      "latest_repeat_qps_change_percent": 0.4576571185934686
+    }
+  ],
+  "load_recorded_reruns": {
+    "comparisons": 16,
+    "timed_arm_samples": 192,
+    "elevated_load_samples": 38,
+    "all_completed_samples_retained": true,
+    "summary": "load-controlled-summary.json",
+    "minimum_telemetry_sample_coverage": 0.8048674602269966
+  }
+}

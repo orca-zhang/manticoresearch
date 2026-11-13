@@ -1,0 +1,8 @@
+[
+  "/private/tmp/manticore-review-plots-venv/bin/python",
+  "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/repro/2026-11-13/plot_tls_load_controlled.py",
+  "--evidence",
+  "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/evidence/2026-11-13",
+  "--output",
+  "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/figures"
+]

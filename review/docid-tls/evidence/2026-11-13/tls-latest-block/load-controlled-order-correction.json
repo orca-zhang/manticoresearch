@@ -1,0 +1,7 @@
+{
+  "reason": "With eight reversed cases, a naive global order offset of 1 would preserve each case starting arm. The reverse driver adjusts parity so the planned per-case reversal is honored.",
+  "phase_1_driver": "load-controlled-driver",
+  "phase_2_driver": "load-controlled-reversed-driver",
+  "corrected_before_phase_2_started": true,
+  "production_changes": false
+}

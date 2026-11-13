@@ -1,0 +1,40 @@
+{
+  "scope": "Reader TLS on/off with the final shared XXH3/sharded block cache in BOTH arms",
+  "baseline_source_commit": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+  "tls_production_patch_commit": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+  "extra_tests": "Identical eight public reader tests added in both arms; production baseline unchanged.",
+  "mcl_commit": "88b5412a243ab0439957203acfe86c09944280d3",
+  "optimization": "-O2 -DNDEBUG",
+  "docid_lookup_cache_size": 0,
+  "qcache_max_bytes": 0,
+  "calibration": {
+    "automatic_calibration_attempted_in_this_build": false,
+    "override_source": "Supported MANTICORE_* values inherited from the earlier upstream/Clang 21 build; same values used in both current native arms, both timed arms and focused sanitizers.",
+    "previous_calibration_issue": "An earlier Apple native build failed auto calibration before tests; the archived original record retains that failure. No fresh calibrated-stack claim is made.",
+    "current_validation": "Both current arms passed 529/529 full GoogleTests with these explicit overrides."
+  },
+  "arms": {
+    "reference": {
+      "binary_sha256": "6e5c5a39bbf742db64117693f9edf0931e2383e8a4294ee0d278594cabc69e67",
+      "gtests_sha256": "daba366bf6305dd77e5c76d55cc3fe6c078964e648efd4dfdbc8ea62c6488b2a",
+      "sources": {
+        "src/docstore.cpp": "8f5e949a0f8a06e3f527e45ea2a0320f808453146df32dcfd3a1bf2883c95c2b",
+        "src/gtests/CMakeLists.txt": "7e3351535c0828e81b32ead0799ba85be44ef862886359933f0382661c37238a",
+        "src/gtests/gtests_docstore_readers.cpp": "641cf4a5cc015336ccd00a66c423b9561cb6999d343543d106bb3cb73ef8d610",
+        "src/std/lrucache.h": "e2e9186e4ae94d0f6470e61e6090db070f50a307457f2c535d41d81d960b5bd6",
+        "src/std/lrucache_impl.h": "4f961fd8c4afef78678cd8a4327bd77bfd4b11d411f83f5c64b3d6f812409eb5"
+      }
+    },
+    "tls": {
+      "binary_sha256": "228cb102306141c28e9a6724628594ba81332065ea3b7e7f9022b12d2fa1ae0a",
+      "gtests_sha256": "14e12913404b3e90484d32caa210f7040905a0df44e6968d592f3729087cf008",
+      "sources": {
+        "src/docstore.cpp": "9f0898407f453d91c9292e9411506f9775d09afd080504b0168c0bc5bdafdc4b",
+        "src/gtests/CMakeLists.txt": "7e3351535c0828e81b32ead0799ba85be44ef862886359933f0382661c37238a",
+        "src/gtests/gtests_docstore_readers.cpp": "641cf4a5cc015336ccd00a66c423b9561cb6999d343543d106bb3cb73ef8d610",
+        "src/std/lrucache.h": "e2e9186e4ae94d0f6470e61e6090db070f50a307457f2c535d41d81d960b5bd6",
+        "src/std/lrucache_impl.h": "4f961fd8c4afef78678cd8a4327bd77bfd4b11d411f83f5c64b3d6f812409eb5"
+      }
+    }
+  }
+}

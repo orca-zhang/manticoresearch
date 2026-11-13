@@ -24,6 +24,31 @@ review separately passed 499/499 tests per arm and eight focused reader tests
 ×20 per sanitizer; production source remains unchanged. These are distinct
 source trees/test counts, not one combined validation claim.
 
+## Reader TLS on the latest block-cache context (2026-11-13)
+
+The latest [two-dataset TLS report](TLS_REVIEW_2026-11-13.md) builds reference
+`376fbf9` and the same source plus only #5045's reader production diff. Both
+use the shared XXH3/sharded block cache, disabled native DocID cache, identical
+CI/alignment repairs and eight supplemental reader tests. Both full suites
+passed **529/529**. Focused ASan+UBSan and TSan each passed **11 tests ×20**
+(eight reader plus three block-cache cases), instrumenting docstore, file I/O
+and tests while reusing other engine archives. Alignment remains fail-fast.
+
+The current build uses identical inherited supported stack-calibration exports
+in both arms; no fresh automatic calibration was attempted. These are a local
+Apple workaround, not a production change or a newly calibrated-stack claim.
+Source snapshots, exact TLS-only patch, flags, test logs and binary hashes are
+under `evidence/2026-11-13/tls-latest-block/`. The original-cache 499-test results
+remain separately identified. #5045 source still contains only its TLS patch;
+the latest block-cache code is benchmark context, not a PR dependency.
+
+The load-recorded reruns reuse these exact validated binaries; no recompilation
+or production edit occurred between phases. The driver checks every timed
+response and repeats the same post-timing REPLACE/flush and DROP/recreate
+lifecycle checks. The new harness selfchecks cover telemetry CPU parsing,
+benchmark-descendant exclusion and query-pool shape; per-case load records
+and startup/binary/script hashes are archived with the timing data.
+
 ## Original snapshot
 
 Prepared locally on 2026-10-27. Upstream base:

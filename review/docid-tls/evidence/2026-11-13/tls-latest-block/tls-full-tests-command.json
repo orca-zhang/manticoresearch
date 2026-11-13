@@ -1,0 +1,4 @@
+[
+  "/private/tmp/manticore-5045-latest-block-review-20261113/tls-tests",
+  "--gtest_output=json:/private/tmp/manticore-5045-latest-block-review-20261113/tls-full-tests.json"
+]

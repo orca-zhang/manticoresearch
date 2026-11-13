@@ -1,0 +1,31 @@
+{
+  "reason": "Final rendering after adding an explicit load-interference annotation. All benchmarks had completed.",
+  "commands": [
+    [
+      "/private/tmp/manticore-review-plots-venv/bin/python",
+      "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/repro/2026-11-13/plot_tls_cache_comparison.py",
+      "--evidence",
+      "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/evidence/2026-11-13",
+      "--output",
+      "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/figures"
+    ],
+    [
+      "/private/tmp/manticore-review-plots-venv/bin/python",
+      "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/repro/2026-11-13/plot_tls_load_controlled.py",
+      "--evidence",
+      "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/evidence/2026-11-13",
+      "--output",
+      "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/figures"
+    ]
+  ],
+  "scripts_sha256": {
+    "plot_tls_cache_comparison.py": "c29cd00d922d31e35fd91bd964d2e426fb2b07ee063af780bb1dd4718e390fb4",
+    "plot_tls_load_controlled.py": "ead3778984f4943241e713e277d23d67faa3b121ed88528aba0070ebe74fcf6e"
+  },
+  "outputs_sha256": {
+    "reader-tls-cache-comparison.png": "b6359fa5a39da0732c3c3a8a53d03b44f9b2b855dca3077b34810fdd18cb19d1",
+    "reader-tls-cache-comparison.svg": "a4fc841ba95245354eda4f45eff09bf43a80968d47cc79a62d369515d181c008",
+    "reader-tls-load-controlled.png": "3a5a84c0da86b3c092876c0af315cf338fa4e88922001d9d6cbfa510a7c095e8",
+    "reader-tls-load-controlled.svg": "01f74701cf5ce4b8bc619117cc6c45894a487f7a32899745e8d433f44f24e79b"
+  }
+}

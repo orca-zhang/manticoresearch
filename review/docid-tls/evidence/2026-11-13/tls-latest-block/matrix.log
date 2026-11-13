@@ -1,0 +1,44 @@
+starting rows20000-cache0
+rows20000-cache0: 5949.9 -> 6473.2 QPS (+8.79%), CPU/query -6.82%
+starting rows20000-cache16777216
+rows20000-cache16777216: 7505.4 -> 7447.7 QPS (-0.77%), CPU/query +0.81%
+starting rows20000-cache134217728
+rows20000-cache134217728: 7421.3 -> 7456.8 QPS (+0.48%), CPU/query -0.15%
+starting rows100000-cache0
+rows100000-cache0: 5156.6 -> 5409.6 QPS (+4.91%), CPU/query -2.44%
+starting rows100000-cache16777216
+rows100000-cache16777216: 7030.0 -> 7066.1 QPS (+0.51%), CPU/query -0.58%
+starting rows100000-cache134217728
+rows100000-cache134217728: 7035.5 -> 7079.8 QPS (+0.63%), CPU/query +0.12%
+starting rows500000-cache0
+rows500000-cache0: 3951.3 -> 4172.5 QPS (+5.60%), CPU/query -4.78%
+starting rows500000-cache16777216
+rows500000-cache16777216: 3353.1 -> 3427.8 QPS (+2.23%), CPU/query -2.06%
+starting rows500000-cache134217728
+rows500000-cache134217728: 6406.0 -> 6422.6 QPS (+0.26%), CPU/query -0.24%
+starting rows1000000-cache0
+rows1000000-cache0: 3538.9 -> 3479.0 QPS (-1.69%), CPU/query -0.45%
+starting rows1000000-cache16777216
+rows1000000-cache16777216: 3001.0 -> 3100.5 QPS (+3.32%), CPU/query -2.70%
+starting rows1000000-cache134217728
+rows1000000-cache134217728: 5541.1 -> 5501.2 QPS (-0.72%), CPU/query +0.86%
+starting rows5000000-cache0
+rows5000000-cache0: 1885.9 -> 1882.0 QPS (-0.20%), CPU/query -0.33%
+starting rows5000000-cache16777216
+rows5000000-cache16777216: 1664.3 -> 1712.9 QPS (+2.92%), CPU/query -1.58%
+starting rows5000000-cache134217728
+rows5000000-cache134217728: 1697.3 -> 1661.2 QPS (-2.13%), CPU/query +0.73%
+starting rows5000000-cache536870912
+rows5000000-cache536870912: 2226.5 -> 2238.4 QPS (+0.53%), CPU/query -0.33%
+starting count-20000
+count-20000: 22623.9 -> 22894.3 QPS (+1.20%), CPU/query -1.84%
+starting point-20000
+point-20000: 43654.7 -> 44055.7 QPS (+0.92%), CPU/query -2.71%
+starting count-1000000
+count-1000000: 9537.9 -> 9770.8 QPS (+2.44%), CPU/query -0.86%
+starting point-1000000
+point-1000000: 32519.3 -> 32971.0 QPS (+1.39%), CPU/query -1.63%
+starting aa-1000000
+aa-1000000: 2783.1 -> 2801.1 QPS (+0.65%), CPU/query -0.73%
+starting mixed-1000000
+mixed-1000000: 18247.4 -> 18616.5 QPS (+2.02%), CPU/query -0.19%
