@@ -1,6 +1,6 @@
 # Design boundaries: DocID, shared blocks and reader TLS
 
-## Experimental adaptive cold-entry reclamation
+## Adaptive cache and mapped payload ownership
 
 A separate [opt-in experiment](ADAPTIVE_CACHE_2026-11-13.md) keeps
 `docstore_cache_size` as the hard cached-entry ceiling. Both modes already
@@ -8,10 +8,25 @@ allocate on demand. Per-shard lookup epochs, updated under existing locks,
 identify a stable smaller hot set and gradually delete cold unreferenced
 entries. It uses XXH3, fixed shard mapping, no TLS and no global counter.
 Idle shards do not advance epochs. The target floor is not a guarantee of
-final occupancy or an RSS bound. Two memory passes reclaim entries but show
-no process-RSS drop, so the prototype remains outside both production PRs.
-Generic LRU node metadata changes even in manual mode; SkipCache performance
-is unmeasured. See the report before treating this as a production extension.
+final occupancy or an RSS bound.
+
+Decoded payloads in adaptive mode use a per-shard system-mapped pool. Blocks
+up to 31 KiB share 64 KiB regions using 256-byte size classes; larger blocks
+have dedicated page-rounded mappings. Decoding writes directly into this
+storage. A region returns to the OS when its final live block is freed,
+except for one completely empty reusable region per shard (at most 1 MiB
+across 16 shards). Dedicated mappings return immediately. Referenced blocks
+remain alive; rejected admissions and duplicate reads release through their
+own allocator. Mapping failures and oversized blocks fall back to the heap.
+
+Charged entries, pool virtual mappings and process RSS have separate metrics.
+Partially occupied regions retain unused slots, so mapped bytes/RSS can exceed
+the entry ceiling. Metadata and query output remain on the heap. The
+[report](ADAPTIVE_CACHE_2026-11-13.md#process-memory-returned-to-the-os) measures
+RSS and physical footprint through broad/hot/broad transitions. Defaults stay
+manual 16 MiB; the 512 MiB adaptive experiment is opt-in and remains outside
+both production PRs. Generic LRU node metadata changes even in manual mode;
+SkipCache performance and adaptive-plus-TLS performance are unmeasured.
 
 PR #5042 covers row resolution and the shared docstore block cache. PR #5045
 only covers reader-map TLS; the two PRs remain independently applicable.

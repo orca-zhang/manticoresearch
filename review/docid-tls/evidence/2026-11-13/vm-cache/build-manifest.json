@@ -1,0 +1,36 @@
+{
+  "base_source_commit": "ad885be366eda4e897c828f05cb93ff04702d02c",
+  "reader_tls": false,
+  "scope": "Recompile all six affected translation units using recorded Clang 21 -O2 commands; copy engine archive, replace changed objects, reuse unchanged engine/dependency objects. gtests_searchd.cpp includes searchd.cpp.",
+  "reused_base_archive_sha256": "fedf6fe6ad34b7ed3ef99d734a96d2c5f32d7774198bbf7c9dada7a36fa3bdba",
+  "sources": {
+    "api/libsphinxclient/smoke_ref.txt": "899d573a2a95ff04a674dc9be4377e657ab3d1e9d82800f83628f4cd3e3b849d",
+    "manual/english/References.md": "88e7c4175dcb70a766d05fd867360b01693f5f22784b595c862e469f798cea34",
+    "manual/english/Server_settings/Searchd.md": "243ac3fa24d868c3160222d99664e411ab9ee0f26683a8996b93bf6c384cc167",
+    "src/docstore.cpp": "e4c954274d8850345c0c31d787456c40bc3e4c0ac91da8c7e0391b600bd0adf4",
+    "src/docstore.h": "b7f7692ad906a4a7f9fda6a6b26be6b76dcbbf605e773bf0e4cf52c104221e30",
+    "src/docstore_blockpool.h": "0279891d788c9440e599439cff89fa4af5ea7be5ae4f627cf5345cf13edd4d99",
+    "src/gtests/gtests_docstore_blockcache.cpp": "7c62eac0287f74ea2bc384816f8a5f109e16a22973248002daccd4c5616a3b63",
+    "src/searchd.cpp": "bf58c545fb64395711e0ccf075c914f174dd990ad560f3cd4ff43c8009e90e64",
+    "src/sphinxutils.cpp": "fc247d63702f129f0ceef953c44aa55a4c93e3998389d6c0d033a7fb9f286989",
+    "src/std/lrucache.h": "ab2f65e86449d0699237e64bfcbf43d406ba1042e56c52f4c64e304015b2acde",
+    "src/std/lrucache_impl.h": "1921160056b7bf20a6087c20ac073ad271f4c956718bb34acdecb54fdeb22a64",
+    "test/clt-tests/buddy-plugins/test-prometheus-exporter.rec": "8b45376c2e98b484906fa32fca32a4c5798aa7da59835b94045ec1f7474f1de7",
+    "test/docid-cache/README.md": "09cfb39a484f873c6299e7cf4af3b1982df8f505783b1e769513c06bc22265bc"
+  },
+  "binaries": {
+    "searchd": "96403c25079f46ea3cc1603a4e0f52aa1e542944589e0d69ef10e74f4bb87e50",
+    "gmanticoretest": "f32688a9611b23986107764c93ee874ef092fe745c103563336dd4c5dc5ce4fb"
+  },
+  "source_commit": "f5cf080a497d2986336ab514a0fab78536198837",
+  "validation": {
+    "native_full_tests": 537,
+    "focused_tests": 19,
+    "native_repeats": 20,
+    "asan_ubsan_repeats": 20,
+    "tsan_repeats": 20,
+    "leak_detection": false,
+    "api_smoke": "passed"
+  },
+  "source_patch_sha256": "cb31de4a0edf00af3737e3c6c878dbde1cecc3c4cfb50330c256bcc9f1b76551"
+}

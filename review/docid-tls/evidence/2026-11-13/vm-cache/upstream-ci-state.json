@@ -1,0 +1,11 @@
+{
+  "checked_time_ns": 1794585782955104000,
+  "run": {
+    "id": 43408089087,
+    "status": "completed",
+    "conclusion": "action_required",
+    "head_sha": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+    "html_url": "https://github.com/manticoresoftware/manticoresearch/actions/runs/43408089087"
+  },
+  "total_jobs": 0
+}

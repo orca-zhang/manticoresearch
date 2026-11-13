@@ -1,0 +1,59 @@
+{
+  "written_before_results": true,
+  "source_commit": "cb39971aec73d7bf3b4cc7af1536f14a26872420",
+  "source_patch_sha256": "28ae15c191c75e4e39b3da608b3f0ca952c8dfd935afa07dcb725ee5e0ce0424",
+  "reader_tls": false,
+  "native_docid_budget": 0,
+  "query_cache": 0,
+  "matrix_rows": [
+    20000,
+    100000,
+    500000,
+    1000000,
+    5000000
+  ],
+  "arms": [
+    "default16",
+    "heap_manual512",
+    "heap_adaptive512",
+    "vm_adaptive16",
+    "vm_adaptive512",
+    "cache_off"
+  ],
+  "rounds": 6,
+  "seconds_per_arm": 3,
+  "order": "Six balanced Williams rounds; rotate server creation order by size.",
+  "longer_repeats": {
+    "rows": [
+      20000,
+      500000
+    ],
+    "rounds": 6,
+    "seconds_per_arm": 5,
+    "fresh_servers": true
+  },
+  "memory_transitions": {
+    "passes": 2,
+    "reverse_arm_order": true,
+    "arms": [
+      "heap_adaptive512",
+      "vm_adaptive512"
+    ],
+    "table_rows": 5000000,
+    "phases": [
+      "5M ID range",
+      "20k hot prefix",
+      "5M ID range again"
+    ],
+    "seconds_per_stage": 8,
+    "probe_interval_seconds": 0.2
+  },
+  "load_control": {
+    "idle_gate_seconds": 30,
+    "mean_idle_min": 90,
+    "interval_idle_min": 80,
+    "telemetry_seconds": 1,
+    "retain_every_sample": true
+  },
+  "interpretation": "Equal-16 compares original default against proposed adaptive mode; equal-512 compares heap and VM adaptation. Default16 to adaptive512 includes a ceiling change. Entry charges include page rounding for VM blocks; spare mappings are additional. No reader TLS."
+}

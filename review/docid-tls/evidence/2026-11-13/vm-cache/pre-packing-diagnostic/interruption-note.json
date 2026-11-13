@@ -1,0 +1,13 @@
+{
+  "reason": "Stopped after repeated 100k regression from 16 KiB page rounding of slightly larger decoded blocks. Replace per-entry mappings with packed slabs before final comparison.",
+  "completed_cases": [
+    20000,
+    100000,
+    500000,
+    1000000
+  ],
+  "interrupted_case": 5000000,
+  "partial_interrupted_case_samples_persisted": false,
+  "exit_code": -2,
+  "all_completed_case_data_retained": true
+}

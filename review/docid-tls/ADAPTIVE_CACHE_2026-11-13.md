@@ -1,330 +1,266 @@
-# Adaptive docstore block-cache experiment — 2026-11-13
+# Adaptive docstore cache: current implementation and process-memory return
 
-The opt-in prototype can release cold cache entries when an active workload
-contracts and refill them when it expands. **It did not reduce process RSS in
-either memory-transition pass.** At an equal 512 MiB ceiling, steady-workload
-QPS changes range from -0.40% to +1.23%, with both signs and substantial
-individual-round variation. No consistent extra throughput benefit is established.
+The current experimental adaptive cache stores decoded payloads in its own
+system-mapped regions and releases fully empty regions to the OS. The tables
+below compare the current implementation with the published #5042 default
+configuration. It reports throughput, CPU per query and observed process
+memory through a shrinking and expanding working set.
 
-Raising the manual cache ceiling from 16 to 512 MiB is a separate capacity
-change: it improves QPS by 87.37%, 76.59% and 37.67% at 500k, 1M and 5M rows
-for these query pools. Those gains do not come from the adaptive policy.
-The strongest sampled capacity benefit is at 500k, not at the largest dataset.
+**Observed result:** two fresh-server passes reduce RSS by about 478 MiB
+when the queried range shrinks, then refill successfully. At 500k rows the
+longer default-16→adaptive-512 comparison gives +82.26% QPS and -45.00%
+CPU/query; this also raises capacity. Small datasets show no established
+throughput benefit. Equal-16 changes reverse sign between primary and repeat
+runs. **External-load flags affect 78/180 primary samples and 6/72 longer
+repeat samples**, so these are descriptive results, not a universal gain or
+precise optimum. Every flagged sample remains.
 
-Status: **experimental follow-up, not included in either production PR**.
-[#5042](https://github.com/manticoresoftware/manticoresearch/pull/5042) remains
-`376fbf9988b2458ee196a5d92135c35a5121edc7`, with no reader TLS.
-[#5045](https://github.com/manticoresoftware/manticoresearch/pull/5045) remains
-TLS-only at `019868e9f79d1bb2bd1f96dafb88ef20acd45418`.
-The experiment is [source commit ad885be366eda4e897c828f05cb93ff04702d02c](https://github.com/orca-zhang/manticoresearch/commit/ad885be366eda4e897c828f05cb93ff04702d02c),
-based on #5042. No adaptive-plus-reader-TLS measurement exists.
+[Current source commit `f5cf080`](https://github.com/orca-zhang/manticoresearch/commit/f5cf080a497d2986336ab514a0fab78536198837),
+[raw evidence and plans](evidence/2026-11-13/vm-cache/),
+[QPS/CPU comparison CSV](evidence/2026-11-13/vm-cache/summary.csv),
+[download evidence](attachments/adaptive-cache-evidence.zip).
+The source is a separate opt-in experiment. Production [#5042](https://github.com/manticoresoftware/manticoresearch/pull/5042)
+remains `376fbf9`, with no reader TLS; [#5045](https://github.com/manticoresoftware/manticoresearch/pull/5045)
+remains TLS-only at `019868e9`. No adaptive-plus-TLS measurement exists.
 
-[Raw samples, plans, snapshots and validation logs](evidence/2026-11-13/adaptive-cache/),
-[derived CSV](evidence/2026-11-13/adaptive-cache/summary.csv),
-[final experimental patch](evidence/2026-11-13/adaptive-cache/final-validation/adaptive-cache-final.patch),
-[download experiment evidence](attachments/adaptive-cache-evidence.zip).
-The earlier [0/8/16 MiB and TLS budget report](BLOCK_CACHE_BUDGETS_2026-11-13.md)
-remains a separate phase with its original samples and archive.
+## What the current implementation improves
 
-## What is adaptive here
+- **Decoded payloads bypass heap retention.** POSIX uses anonymous mappings;
+  Windows uses `VirtualAlloc`. Compressed blocks decode directly into their
+  destination; uncompressed small/large fields are also supported. Metadata,
+  temporary compressed input and query output still use the process heap.
+- **Small blocks share mapped regions.** Payloads up to 31 KiB use 256-byte
+  size classes packed into 64 KiB regions. This avoids rounding each slightly
+  over-16-KiB block to 32 KiB on Apple hardware with 16 KiB memory pages.
+  Larger payloads use dedicated page-rounded mappings.
+- **Empty regions return to the OS.** The last live block frees its region via
+  `munmap`/`VirtualFree`, apart from one reusable empty 64 KiB region per shard.
+  Sixteen shards retain at most 1 MiB of completely empty spare regions.
+  Dedicated large mappings are released immediately. Allocation reuses free
+  slots and the empty spare before requesting more mappings.
+- **Ownership covers all read paths.** Cache references protect active blocks;
+  rejected or duplicate admissions release through the correct allocator.
+  Oversized payloads and mapping failures fall back to the process heap.
+- **Accounting separates entries, mappings and process memory.** The existing
+  used-byte metric charges small slots or large mappings plus LRU nodes.
+  New mapped/spare metrics expose backing-region overhead and empty retention.
+  RSS and physical footprint are measured independently in the diagnostic.
 
-The existing LRU already allocates on demand. A `512m` setting is a ceiling,
-not a reservation: at 20k rows, manual 16 MiB, manual 512 MiB and adaptive
-512 MiB all retain only **2.509 MiB** of charged cache entries. Raising the
-ceiling alone already allows demand growth without allocating unused capacity.
+The cache retains seeded XXH3-64, fixed shard mapping, no reader TLS and no
+process-wide generation counter. Each shard observes 4096-lookup windows
+under its existing lock. Four windows with >=99% hits and touched bytes below
+one quarter of retained bytes permit cold-entry reclamation. It targets twice
+recent touched bytes, with a floor totaling up to 16 MiB. At most 32 entries
+are inspected per 64 lookups. Referenced or recently touched entries survive.
+The floor is a target, not a minimum allocation or guaranteed final occupancy.
+Idle shards do not advance this lookup-driven policy.
 
-The prototype adds opt-in cold-entry reclamation after a smaller hot set is
-observed. Existing defaults remain `docstore_cache_size=16m` and
-`docstore_cache_adaptive=0`. An explicit experimental configuration is:
+The experiment remains explicit opt-in:
 
 ```ini
-searchd {
-    # Other required searchd settings omitted.
-    docstore_cache_size = 512m
-    docstore_cache_adaptive = 1
-}
+docstore_cache_size = 512m
+docstore_cache_adaptive = 1
 ```
 
-The limit covers decoded cached payload plus LRU entries, not total process
-memory. Hash tables, allocator overhead, reader buffers, other engine state and
-in-flight decompression are additional. Allocation failure behavior is unchanged.
-The policy does not raise the configured ceiling, resize shard mappings, add
-TLS, or bypass an inefficient low-hit-rate cache.
+Default settings remain 16 MiB/manual. Allocation is already on demand;
+`512m` does not reserve 512 MiB at startup. The entry ceiling is not a process
+RSS or mapped-address-space ceiling. Partially occupied regions retain unused
+slots; these can keep a region mapped until its final live block is freed.
+In-flight blocks, bounded empty spares, hash tables, metadata, heap fallbacks
+and other engine memory are additional. Virtual mapped bytes are not resident
+physical bytes.
 
-Each shard uses its existing mutex and a local access epoch. After four
-4096-lookup windows with at least 99% hits and touched bytes below one quarter
-of retained bytes, it targets twice the recently touched bytes, with a floor
-of up to 16 MiB across shards. Every 64 lookups it examines at most 32 tail
-entries. Referenced entries and entries touched in the current or previous
-epoch survive. Normal admission can grow again to the hard entry ceiling.
-The floor is a target, not a minimum allocation or guaranteed final occupancy;
-the activity threshold and pinned entries can stop reclamation above it.
+## Default configuration versus current adaptive mode
 
-Reclamation is lookup-driven. Fully idle shards do not advance epochs, and
-there is no wall-clock idle trim. Low-hit-rate workloads keep normal LRU
-admission/eviction. There is no process-global generation counter or atomic
-update on this path. The shared cache retains seeded **XXH3-64**.
+Baseline: the published #5042 shared-cache binary `376fbf9`, manual 16 MiB,
+with native DocID and SQL query caches off. Adaptive 16 MiB changes implementation and mode
+at the same configured entry ceiling. Adaptive 512 MiB also raises capacity;
+its gain must not be attributed solely to the adaptive policy.
 
-`SHOW STATUS LIKE 'docstore_cache_used_bytes'` reports charged entry bytes,
-summed from separately locked shard snapshots. It is neither process RSS nor
-an atomic snapshot across all shards. Production-rate monitoring overhead was
-not benchmarked; this study polls it between primary timed samples and during
-a separate diagnostic.
+Apple M4 Pro / Clang 21 `-O2 -DNDEBUG`; eight clients and eight server workers,
+256 returned rows, 128-byte rowwise text, 16 KiB/LZ4, persistent HTTP and an
+8 MiB reader-buffer budget. Both cache ceilings use 16 shards. Six balanced
+Williams rounds ×3 seconds per arm; one queried arm at a time. Every returned
+ID and text value is checked. Each client warms and cycles through 20 fixed
+random 256-ID queries (seed 513). These finite pools are not a cold full-table
+scan, even on the 5M-row table.
 
-## Preselected measurement design
+All six server instances remain alive during a matrix group. The transition
+diagnostic uses one server at a time; its RSS snapshots and the primary memory
+medians therefore describe different process/system states.
 
-The [plan](evidence/2026-11-13/adaptive-cache/measurement-plan.json) was saved
-before results. Apple M4 Pro, Clang 21 `-O2 -DNDEBUG`, rowwise 128-byte text,
-16 KiB/LZ4 blocks, eight clients and eight query workers, 256 returned rows,
-persistent HTTP, an 8 MiB reader-buffer budget. Native DocID and SQL query
-caches are both disabled. There is no reader TLS in any arm.
+Values are medians of six arm samples; changes are ratios of medians. Lower
+server CPU milliseconds per completed query is better. Ranges are min/max of
+six within-round QPS changes, not confidence intervals. No control subtraction
+is applied.
 
-All arms use the same fixtures and deterministic seed-513 query pools: eight
-clients each cycle through 20 random 256-ID queries. Each client warms its
-pool before each timed interval; every returned ID and text value is checked.
-The 5M-row table is not a claim that all 5M rows are touched. The actual finite
-pool's decoded block working set is what determines residency.
+![Current adaptive throughput and sampled size range](figures/adaptive-cache-capacity.png)
 
-Six arms run in six balanced Williams rounds, three seconds per arm, at each
-of 20k/100k/500k/1M/5M rows. Only one arm is queried at a time; server creation
-order rotates by size. Both 16 and 512 MiB configurations use **16 shards**.
-The source/binary change and the capacity change therefore have separate
-comparisons:
+### Equal 16 MiB
 
-| Label | Binary | Entry ceiling | Adaptive flag | Purpose |
-| --- | --- | --- | --- | --- |
-| reference16 | Original #5042 `376fbf9` | 16 MiB | Absent | Default-mode source comparison |
-| manual16 | Experimental | 16 MiB | 0 | Default-mode source comparison; capacity baseline |
-| manual512 | Experimental | 512 MiB | 0 | Capacity candidate; policy baseline |
-| adaptive512 | Same experimental binary | 512 MiB | 1 | Equal-ceiling policy effect |
-| off0 | Same experimental binary | 0 | 0 | Cache-disabled baseline |
-| off1 | Same experimental binary | 0 | 1 | Same effective disabled-cache path control |
-
-Every group waits for a continuous 30-second gate with mean idle >=90% and
-minimum interval idle >=80%. The first gate required several minutes;
-thresholds were not relaxed. One-second CPU telemetry covers every timed
-interval fully. Build, tests, sanitizer work and plot rendering were outside
-timed collection. No CPU affinity/frequency controls or confidence intervals
-are claimed.
-
-Rates below are medians of six arm samples. Changes are ratios of those
-medians; plotted and tabulated paired ranges are min/max of six within-round
-ratios, not confidence intervals. No control subtraction is used. The adaptive
-phase adds **180 primary timed arm samples / 2,481,672 checked timed queries**,
-plus **12 diagnostic stage samples / 401,428 checked queries**. All samples,
-including seven load-flagged primary samples, remain in the results.
-
-## Throughput and capacity sweet spot
-
-![Capacity versus sampled dataset size](figures/adaptive-cache-capacity.png)
-
-| Rows | Original 16 MiB QPS | New manual 16 MiB | Manual 512 MiB | Adaptive 512 MiB | Cache off, flag 0 | Cache off, flag 1 |
+| Rows | Default QPS | Adaptive QPS | QPS change | Default CPU ms/query | Adaptive CPU ms/query | CPU/query change |
 | --- | --- | --- | --- | --- | --- | --- |
-| 20,000 | 7,373.6 | 7,386.4 | 7,308.5 | 7,321.2 | 5,731.1 | 5,688.1 |
-| 100,000 | 6,738.1 | 6,821.9 | 6,783.2 | 6,813.1 | 5,132.9 | 5,031.2 |
-| 500,000 | 3,236.4 | 3,240.0 | 6,070.9 | 6,046.9 | 3,870.1 | 3,886.5 |
-| 1,000,000 | 2,748.6 | 2,810.9 | 4,964.0 | 5,024.9 | 3,231.1 | 3,243.7 |
-| 5,000,000 | 1,609.0 | 1,602.4 | 2,205.9 | 2,202.1 | 1,716.4 | 1,733.3 |
+| 20,000 | 7,404.1 | 7,456.3 | +0.70% | 0.8810 | 0.8759 | -0.59% |
+| 100,000 | 6,819.4 | 6,772.2 | -0.69% | 0.9783 | 0.9729 | -0.55% |
+| 500,000 | 3,073.7 | 2,888.4 | -6.03% | 2.1843 | 2.2415 | +2.62% |
+| 1,000,000 | 2,690.7 | 2,619.7 | -2.64% | 2.6302 | 2.6592 | +1.10% |
+| 5,000,000 | 1,116.3 | 1,155.1 | +3.48% | 5.5137 | 5.4818 | -0.58% |
 
-| Rows | Manual 16→512 MiB QPS | CPU/query | Off→manual 512 MiB QPS | CPU/query |
-| --- | --- | --- | --- | --- |
-| 20,000 | -1.05% | +1.30% | +27.53% | -22.83% |
-| 100,000 | -0.57% | +0.76% | +32.15% | -25.35% |
-| 500,000 | +87.37% | -46.86% | +56.87% | -38.14% |
-| 1,000,000 | +76.59% | -44.37% | +53.63% | -36.46% |
-| 5,000,000 | +37.67% | -26.76% | +28.52% | -21.76% |
+### Adaptive 512 MiB ceiling
 
-At 20k/100k the smaller ceiling already contains the touched blocks; increasing
-it has no established throughput benefit. At 500k/1M a 16 MiB cache churns
-while the 512 MiB ceiling can retain the pool's working set. The relative
-capacity gain peaks at 500k among the sampled sizes and is smaller at 5M.
-These sampled points do not locate a universal optimum or justify choosing
-cache size from total row count alone. Projection width, decoded block reuse,
-concurrency and memory headroom also matter.
-
-The 5M pool retains about 408 MiB, rather than filling the ceiling. This
-supports an explicit larger ceiling for this workload; it does not demonstrate
-that every workload needs 512 MiB or that a 512 MiB cache bounds process RSS.
-
-## Equal-ceiling policy and default-mode comparisons
-
-![Policy, default-mode and disabled-cache controls](figures/adaptive-cache-policy.png)
-
-| Rows | Adaptive vs manual 512 QPS | CPU/query | Paired QPS min…max | Original→new manual 16 QPS | CPU/query | Cache-off flag 0→1 QPS | CPU/query |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 20,000 | +0.17% | -0.42% | -24.74% … +1.87% | +0.17% | -0.88% | -0.75% | +1.16% |
-| 100,000 | +0.44% | -0.97% | -6.15% … +2.47% | +1.24% | -0.98% | -1.98% | +1.66% |
-| 500,000 | -0.40% | +0.26% | -2.72% … +2.20% | +0.11% | -0.15% | +0.42% | -0.35% |
-| 1,000,000 | +1.23% | -1.28% | -0.58% … +3.07% | +2.27% | -1.31% | +0.39% | -0.47% |
-| 5,000,000 | -0.17% | +0.04% | -2.29% … +2.35% | -0.41% | +0.48% | +0.98% | -0.76% |
-
-The medians show small changes in both directions, while individual rounds
-vary more. In particular, the 20k adaptive round-0 sample is load-flagged and
-the paired policy range reaches -24.74%. It remains included. These data do
-not prove zero overhead or a universal positive result. The disabled-cache
-flag comparison executes the same effective cache-disabled path; it is a
-control observation, not an adjustment or a formal noise band. This new phase
-has no separate count-query control.
-
-Server CPU is measured for the server process, divided by completed checked
-queries; lower CPU/query is better. Client CPU and latency remain in raw JSON.
-The absolute CPU/query medians are:
-
-| Rows | reference16 CPU ms/query | manual16 CPU ms/query | manual512 CPU ms/query | adaptive512 CPU ms/query | off0 CPU ms/query | off1 CPU ms/query |
+| Rows | Default QPS | Adaptive QPS | QPS change | Default CPU ms/query | Adaptive CPU ms/query | CPU/query change |
 | --- | --- | --- | --- | --- | --- | --- |
-| 20,000 | 0.8826 | 0.8749 | 0.8863 | 0.8825 | 1.1484 | 1.1618 |
-| 100,000 | 0.9861 | 0.9765 | 0.9839 | 0.9744 | 1.3180 | 1.3399 |
-| 500,000 | 2.1150 | 2.1119 | 1.1222 | 1.1251 | 1.8142 | 1.8079 |
-| 1,000,000 | 2.5816 | 2.5477 | 1.4172 | 1.3991 | 2.2305 | 2.2201 |
-| 5,000,000 | 4.7309 | 4.7533 | 3.4815 | 3.4828 | 4.4497 | 4.4157 |
+| 20,000 | 7,404.1 | 7,456.3 | +0.70% | 0.8810 | 0.8693 | -1.34% |
+| 100,000 | 6,819.4 | 6,755.3 | -0.94% | 0.9783 | 0.9898 | +1.18% |
+| 500,000 | 3,073.7 | 5,784.0 | +88.18% | 2.1843 | 1.1625 | -46.78% |
+| 1,000,000 | 2,690.7 | 4,545.0 | +68.92% | 2.6302 | 1.5271 | -41.94% |
+| 5,000,000 | 1,116.3 | 1,732.5 | +55.20% | 5.5137 | 3.9468 | -28.42% |
 
-## Occupancy and process memory
+The 512 MiB comparison changes capacity as well as mode. Its sampled curve
+locates useful operating points for this query pool, not a universal dataset
+size optimum. Projection width, decoded-block reuse and concurrency determine
+the working set. Internal equal-512 controls and the VM-16→512 comparison are
+retained in the CSV for attribution. Gains from separate comparisons must not
+be added or multiplied. All negative results remain.
 
-Primary-sample medians, MiB. Charged cache entry bytes exclude hash tables and
-allocator overhead. RSS includes additional process memory. The original
-binary lacks the new cache-used metric; its RSS is still recorded in raw JSON.
+![Current server CPU/query and longer checks](figures/adaptive-cache-policy.png)
 
-| Rows | Manual 16 cache / RSS | Manual 512 cache / RSS | Adaptive 512 cache / RSS | Cache off RSS |
-| --- | --- | --- | --- | --- |
-| 20,000 | 2.509 / 33.16 | 2.509 / 32.85 | 2.509 / 34.37 | 29.23 |
-| 100,000 | 12.547 / 46.56 | 12.547 / 47.16 | 12.547 / 47.73 | 29.36 |
-| 500,000 | 15.931 / 78.62 | 62.730 / 116.52 | 62.730 / 116.62 | 36.08 |
-| 1,000,000 | 15.931 / 84.20 | 125.001 / 207.39 | 125.001 / 207.96 | 43.88 |
-| 5,000,000 | 15.931 / 131.35 | 407.917 / 633.09 | 407.917 / 633.08 | 100.67 |
+### Preselected longer repeats
 
-The separate transition diagnostic uses one 5M-row table. Each fresh server
-queries the full 5M ID range, then a 20k hot prefix, then the 5M range again.
-Each stage warms its query pool and runs for eight timed seconds. Two passes
-reverse manual/adaptive order. Cache-used and RSS probes run every 0.2 seconds,
-so these are memory diagnostics rather than primary throughput comparisons.
-The figure normalizes phase widths; raw timestamps remain in JSON.
+Fresh servers, six balanced rounds ×5 seconds per arm at 20k and 500k. These
+sizes were selected before the final packed-region run, not from its results.
 
-![Cached-entry reclamation and unchanged RSS](figures/adaptive-cache-working-set.png)
+| Rows | Adaptive 16 QPS change | CPU/query change | Adaptive 16 paired QPS range | Adaptive 512 QPS change | CPU/query change |
+| --- | --- | --- | --- | --- | --- |
+| 20,000 | -2.18% | +1.71% | -7.98% … +0.91% | -0.33% | +0.90% |
+| 500,000 | +1.35% | -0.97% | -1.06% … +3.08% | +82.26% | -45.00% |
 
-| Pass | Mode | Large: cache / RSS MiB | Hot: cache / RSS MiB | Large again: cache / RSS MiB |
-| --- | --- | --- | --- | --- |
-| 1 | manual512 | 407.92 / 632.28 | 408.86 / 635.11 | 408.86 / 635.27 |
-| 1 | adaptive512 | 407.92 / 633.02 | 15.93 / 635.08 | 408.86 / 635.38 |
-| 2 | adaptive512 | 407.92 / 632.39 | 15.93 / 634.52 | 408.86 / 635.20 |
-| 2 | manual512 | 407.92 / 632.38 | 408.86 / 635.06 | 408.86 / 635.27 |
+## Process memory returned to the OS
 
-Both passes reproduce **407.92→15.93→408.86 MiB** of adaptive cached entries.
-Manual mode retains **407.92→408.86→408.86 MiB**. However, adaptive RSS stays
-roughly 632–635 MiB and does not fall when entries are freed. The experiment
-therefore demonstrates entry reclamation and refill, **not lower process RSS
-or memory returned to the operating system**. All diagnostic stage intervals
-have full telemetry coverage and none meets the external-load flag.
+The diagnostic uses the same 5M-row table, first querying a broad 5M ID range,
+then a 20k hot prefix, then the broad range again. Each stage warms its pool
+and runs eight timed seconds. Two fresh-server passes reverse internal
+control/current arm order. Status/RSS/footprint probes run every 0.2 seconds;
+this is a memory diagnostic, not the primary QPS comparison. Phase widths in
+the figure are normalized; raw timestamps remain in JSON.
 
-Cold-entry deletion uses the existing payload `delete[]` and node deletion
-paths. Allocator retention/fragmentation is a plausible explanation for the
-RSS behavior; these measurements do not isolate its internals. This Apple
-build has `HAVE_MALLOC_TRIM=0`; the existing `PerformMallocTrim` implementation
-is a no-op here. No platform-specific allocator purge was added or invoked.
-Linux/glibc or another allocator might behave differently and has not been
-measured for this prototype. Released storage may be reusable inside the
-process, but this experiment does not quantify that benefit under another
-allocation workload or memory pressure.
+![Current adaptive cache and process-memory return](figures/adaptive-cache-working-set.png)
 
-## Load annotations and uncertainty
+| Pass | Stage | Charged entries MiB | Mapped regions MiB | Empty spares MiB | Process RSS MiB | Physical footprint MiB |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | large | 411.21 | 529.62 | 0.00 | 633.19 | 555.42 |
+| 1 | hot | 15.80 | 50.75 | 1.00 | 155.33 | 77.56 |
+| 1 | large-again | 412.17 | 530.81 | 0.00 | 635.52 | 557.77 |
+| 2 | large | 411.21 | 529.62 | 0.00 | 631.05 | 553.27 |
+| 2 | hot | 15.80 | 50.19 | 1.00 | 153.11 | 75.33 |
+| 2 | large-again | 412.17 | 530.81 | 0.00 | 633.89 | 556.11 |
 
-The monitoring flag is sample-average external CPU >10% of the machine or
-any overlapping interval >20%. External CPU estimates surviving processes
-outside benchmark process trees; short-lived external processes can be missed.
-These flags are annotations, not exclusion criteria or proof of causation.
-The seven flagged primary samples are:
+Pass 1: broad→hot RSS changes by -477.86 MiB; mapped address space changes by -478.88 MiB. The final broad stage reaches 635.52 MiB RSS after refilling.
 
-| Rows | Arm | Round (zero-based) | Mean external CPU | Peak interval external CPU |
-| --- | --- | --- | --- | --- |
-| 20,000 | adaptive512 | 0 | 29.27% | 35.08% |
-| 20,000 | off0 | 0 | 8.16% | 24.52% |
-| 100,000 | adaptive512 | 2 | 11.44% | 15.35% |
-| 100,000 | off1 | 1 | 10.67% | 13.96% |
-| 500,000 | off0 | 0 | 10.20% | 14.41% |
-| 500,000 | off0 | 4 | 11.95% | 13.86% |
-| 1,000,000 | off0 | 1 | 10.80% | 14.96% |
+Pass 2: broad→hot RSS changes by -477.94 MiB; mapped address space changes by -479.44 MiB. The final broad stage reaches 633.89 MiB RSS after refilling.
 
-All initial gates pass and all timed telemetry coverage is 100%, but a gate
-cannot prevent later desktop activity. No claim is made that the machine was
-isolated, all differences are caused by the code, or median changes around
-1% are statistically significant. The earlier workstation-load and negative
-results are retained in their original reports; they are not superseded by
-selecting only favorable cells from this run.
+These are observed process RSS/footprint values, separate from cache-entry
+counters. The kernel release calls are checked, and no process-global heap
+trim/purge is invoked. The pool cannot release a partially occupied region;
+remaining fragmentation and unrelated heap allocations explain why entry bytes,
+mapping bytes and RSS need not converge to the same value. The run does not
+establish behavior under memory pressure, after a fully idle workload, or on
+Linux/Windows allocators.
 
-## Implementation and validation boundaries
+`docstore_cache_used_bytes` reports charged retained entries;
+`docstore_cache_mapped_bytes` reports all pool virtual mappings, including
+partially occupied regions and in-flight blocks; `docstore_cache_spare_bytes`
+reports only completely empty retained regions. Snapshots use separate locks
+and are not globally atomic. Heap-fallback storage is absent from mapped/spare
+metrics. Monitoring overhead at production polling rates is unmeasured.
 
-The measured production binary SHA256 is
-`51c674f1ddbb1b676932bb9846708f55536063cd347deeadfa2605f38f3ce4a2`.
-All six affected translation units were rebuilt using the recorded Clang 21
-commands. A copy of the engine archive received the changed objects;
-unchanged engine/dependency objects were reused. Exact commands, source
-snapshots, patches and hashes are archived. This was not a fresh dependency
-rebuild or whole-engine sanitizer build.
+### Primary memory medians
 
-The generic LRU node adds a 32-bit access epoch and alignment padding even
-when adaptive mode is off. Thus opt-in configuration does not make the default
-binary layout identical to the old source. The original→new manual-16 arm
-comparison measures the default SQL path; **SkipCache performance was not
-benchmarked**, although its affected translation unit was rebuilt and focused
-sanitizer coverage includes it. This is a reason to keep the change experimental
-until the generic metadata cost and allocator behavior are assessed further.
+| Rows | Default RSS MiB | Adaptive 16: entry / mapped / RSS MiB | Adaptive 512: entry / mapped / RSS MiB |
+| --- | --- | --- | --- |
+| 20,000 | 31.77 | 2.53 / 3.62 / 32.40 | 2.53 / 3.62 / 33.16 |
+| 100,000 | 47.23 | 12.65 / 16.75 / 48.05 | 12.65 / 16.75 / 46.48 |
+| 500,000 | 81.54 | 15.80 / 22.00 / 55.45 | 63.24 / 81.69 / 112.49 |
+| 1,000,000 | 76.04 | 15.81 / 22.00 / 67.05 | 126.01 / 162.81 / 207.38 |
+| 5,000,000 | 121.04 | 15.80 / 22.00 / 115.84 | 411.21 / 529.62 / 513.42 |
 
-Final tests strengthen the public stored-field concurrent case to exercise
-real cold-block reclamation: about 24 MiB of decoded fields, a 32 MiB entry
-ceiling, eight readers, followed by a smaller hot range. Every returned field
-is checked and retained bytes must shrink. Other tests cover same-key
-replacement, clear/recreate, tiny-budget fallback, pinned references, hard
-limits, growth and concurrent admission/reclamation.
+## Load control, raw data and interpretation limits
 
-- Full native suite: **529/529 passed** on final test source.
-- Focused native tests: **11 tests ×20 passed**.
-- ASan+UBSan: **11 tests ×20 passed**, fail-fast alignment/UB checks.
-- TSan: **11 tests ×20 passed**, including real stored-field reclamation.
-- API smoke: passed with the additional status metric golden. Initial fixture
-  setup failure is retained separately.
-- Every timed SQL response and post-timing REPLACE/flush/DROP/recreate
-  lifecycle check passed. Native DocID used bytes were checked as zero.
-- The driver scheduling/query-pool and telemetry-weighting selfchecks passed;
-  the summarizer verifies exact driver/source hashes, medians, ratio formulas,
-  paired ranges, ceiling bounds, lifecycle checks and complete timed coverage.
+Each group waits for a continuous 30-second idle gate: mean >=90%, minimum
+interval >=80%. One-second CPU telemetry covers every timed interval fully.
+External CPU is estimated for surviving processes outside benchmark process
+trees; short-lived processes can be missed. A flag means sample-average
+external CPU >10% of machine capacity or any overlapping interval >20%.
+Flags are annotations, not exclusion rules or proof of causation. CPU placement,
+frequency and desktop activity remain uncontrolled. No confidence interval or
+universal no-regression guarantee is claimed.
+
+| Phase | Timed arm samples | Checked timed queries | Load-flagged samples | Diagnostic stage samples | Checked diagnostic queries | Diagnostic flags |
+| --- | --- | --- | --- | --- | --- | --- |
+| matrix | 180 | 2,536,939 | 78 | 12 | 381,473 | 7 |
+| repeat | 72 | 2,225,439 | 6 | 0 | 0 | 0 |
+
+| Phase | Rows | Flagged arm samples / total |
+| --- | --- | --- |
+| matrix | 20,000 | 1 / 36 |
+| matrix | 100,000 | 2 / 36 |
+| matrix | 500,000 | 17 / 36 |
+| matrix | 1,000,000 | 25 / 36 |
+| matrix | 5,000,000 | 33 / 36 |
+| repeat | 20,000 | 4 / 36 |
+| repeat | 500,000 | 2 / 36 |
+
+Per-arm/per-round external-CPU means, peaks, flags and telemetry coverage are retained in `summary.json` and the raw logs. No flagged sample is excluded. In particular, the primary 5M group is heavily load-affected and does not establish a precise gain or optimum.
+
+The primary table has six internal arms: published default 16 MiB; equal-512
+manual/adaptive heap controls; current adaptive 16/512 MiB; and current cache
+off. Those controls help separate capacity and allocator effects, and remain
+in raw JSON/CSV. They are not presented as separate versions in the main
+comparison. Every completed final sample is retained, including per-arm
+journals that survive an interrupted case. The plan was written before final
+results. The summarizer checks exact driver/source hashes, journals, medians,
+ratios, paired ranges, ceiling bounds, lifecycle checks and full telemetry.
+
+An initial per-entry mapping diagnostic exposed page-rounding amplification:
+slightly over-16-KiB blocks consumed 32-KiB mappings on this machine. Its four
+fully completed case groups and interruption record are retained under
+`pre-packing-diagnostic/`. It was stopped during the 5M group; that interrupted
+group's partial samples were not persisted. Final results were fully recollected
+after packing, with a regression test for a 100k-row working set at 16 MiB.
+This diagnostic is not pooled into the final comparisons.
+
+## Validation and source scope
+
+Current source is `f5cf080a497d2986336ab514a0fab78536198837`. The measured searchd SHA256 is
+`96403c25079f46ea3cc1603a4e0f52aa1e542944589e0d69ef10e74f4bb87e50`. All six affected translation units were
+recompiled with the recorded Clang 21 commands; changed archive objects replace
+original objects and unchanged engine/dependencies are reused. Exact commands,
+source snapshots, patch, hashes and calibration exports are in the evidence.
+
+- Full native suite: **537/537 passed**.
+- Focused native, ASan+UBSan and TSan: **19 tests ×20 each passed**.
+- Tests cover packing above a page boundary, reuse, excess-region release,
+  concurrent allocation/release, pinned cache references, stored-field
+  reclamation, uncompressed small/large fields, tiny-budget fallback and the
+  full 100k-row/128-byte working set fitting the default 16 MiB entry budget.
+- API smoke passes with the mapped/spare metric golden. The pinned-Buddy exact
+  metric exclusions are extended for metrics that Buddy does not yet export.
+- Every timed response and post-timing REPLACE/flush/DROP/recreate check passes;
+  native DocID used bytes are checked as zero.
 
 Sanitizers instrument docstore, SkipCache, file I/O and focused tests; other
-linked libraries are reused uninstrumented. LeakSanitizer is unsupported on
-this macOS runtime: the failed startup log remains and passing ASan runs use
-`detect_leaks=0`. No leak-detection claim is made. Supported stack-calibration
-overrides are inherited from the earlier Clang 21 build; no fresh automatic
-calibration was attempted.
+linked libraries are reused uninstrumented. This is not whole-engine sanitizer
+coverage. Custom mapped slots do not acquire normal per-allocation heap redzones.
+LeakSanitizer is unsupported on this macOS runtime; ASan uses `detect_leaks=0`.
+Supported stack-calibration overrides are inherited from the earlier Clang 21
+build; no fresh automatic calibration is claimed. Generic LRU epoch metadata
+remains part of the experiment even in manual mode; SkipCache throughput is
+unmeasured. Mapped-region fields add metadata to cached block values.
 
-One strengthened-test ASan repeat failed a **test assertion**, with 17,280
-retained bytes versus an asserted 16,384-byte floor. Thread phases overlap;
-the policy can stop shrinking when touched bytes reach a quarter of retained
-bytes. The test incorrectly treated the floor as guaranteed final occupancy.
-It now asserts contraction below 32 KiB for the four-entry hot set and still
-checks all read values. The failed log remains under `asan-ubsan-final/`;
-passing final reruns are under `*-validated/`. No production logic changed to
-make the test pass.
+The experimental branch is separate from production #5042/#5045. Local test
+success is not upstream CI success. [#5042 run 43408089087](https://github.com/manticoresoftware/manticoresearch/actions/runs/43408089087)
+was rechecked during this review: `action_required`, zero jobs, awaiting
+maintainer fork-workflow approval. No new Linux/Windows CI result,
+adaptive-plus-TLS result or cold-storage/memory-pressure result is established.
 
-Measured `candidate-source/`, `adaptive-cache.patch` and `build-manifest.json`
-remain untouched. After timing, only the stronger test and two English
-documents changed. `final-validation/manifest.json` proves that production
-sources and the measured searchd binary are unchanged and records the final
-source patch separately. Tests do not link into searchd. The experiment source
-commit contains those final test/document changes.
-
-#5042 CI fixes remain pushed at `376fbf9`; upstream
-[run 43408089087](https://github.com/manticoresoftware/manticoresearch/actions/runs/43408089087)
-is completed with conclusion **`action_required`**, with **zero jobs**, awaiting
-maintainer fork-workflow approval. It is not a green CI result. That run does
-not validate this separate experimental branch. No Windows/Linux production
-throughput or prototype cross-platform CI success is claimed.
-
-## Practical interpretation
-
-A larger explicit ceiling is already useful when reused decoded blocks outgrow
-16 MiB. The tested manual `512m` mode provides the observed capacity benefits
-without requiring a new adaptive setting. The prototype adds cold-entry
-reclamation, with no demonstrated steady-state throughput advantage or RSS
-saving on this machine. Keep it separate from the production PR until its
-memory benefit is established for the intended allocator and workloads.
-
-Reproduce using the [adaptive section of the guide](repro/2026-11-13/README.md#adaptive-cache-follow-up),
-and keep capacity, policy, default-mode and reader-TLS comparisons separate.
+[Reproduction guide](repro/2026-11-13/README.md#adaptive-cache-follow-up).

@@ -1,0 +1,584 @@
+diff --git a/api/libsphinxclient/smoke_ref.txt b/api/libsphinxclient/smoke_ref.txt
+index ac8192c..c649153 100644
+--- a/api/libsphinxclient/smoke_ref.txt
++++ b/api/libsphinxclient/smoke_ref.txt
+@@ -355,6 +355,8 @@ qcache_used_bytes: 0
+ qcache_hits: 0
+ docid_lookup_cache_used_bytes: 0
+ docstore_cache_used_bytes: 0
++docstore_cache_mapped_bytes: 0
++docstore_cache_spare_bytes: 0
+ 
+ 
+ ***************************
+diff --git a/manual/english/Server_settings/Searchd.md b/manual/english/Server_settings/Searchd.md
+index 85fbd29..32b9691 100755
+--- a/manual/english/Server_settings/Searchd.md
++++ b/manual/english/Server_settings/Searchd.md
+@@ -719,10 +719,21 @@ docstore_cache_size = 8m
+ 
+ Enable adaptive cold-block reclamation with `1`; the default is `0`. The
+ `docstore_cache_size` setting remains the hard limit for cached decoded blocks
+-and LRU entries. Memory is already allocated on demand in either mode: a
++and LRU entries. Mapped payloads are charged at their page-rounded size.
++Memory is already allocated on demand in either mode: a
+ 512 MiB limit does not reserve 512 MiB at startup. Hash tables and allocator
+ metadata, reader buffers and in-flight decompression remain additional memory.
+ 
++Adaptive mode allocates decoded payloads through a per-partition virtual-memory
++pool. POSIX uses anonymous mappings; Windows uses `VirtualAlloc`. Compressed
++data is decoded directly into the allocated storage. Each pool retains at most
++64 KiB of free mappings for reuse; excess mappings are released with `munmap`
++or `VirtualFree`. Sixteen partitions therefore retain at most 1 MiB of spare
++payload storage, in addition to the configured cached-entry limit. Mapping
++failure or a payload too large for its partition falls back to the process
++heap. Manual mode continues to use the process heap. Metadata, temporary input
++buffers and output values still use the process heap in either mode.
++
+ Adaptive mode keeps the partition count and block-to-partition mapping fixed.
+ Each partition observes windows of 4096 block lookups under its existing lock.
+ After four windows with at least 99% hits and touched bytes below one quarter
+@@ -738,12 +749,15 @@ and adaptive mode does not bypass cache lookup costs or exceed an undersized
+ configured limit. Choose the limit for the active decoded working set and
+ available memory. It is independent of DocID caching and requires no reader TLS.
+ 
+-`SHOW STATUS LIKE 'docstore_cache_used_bytes'` reports retained decoded payload
+-and LRU entry bytes, summed from separately locked partition snapshots. It
++`SHOW STATUS LIKE 'docstore_cache_used_bytes'` reports retained payload
++allocation and LRU entry bytes, summed from separately locked snapshots. It
+ excludes hash tables, allocator metadata, reader buffers and in-flight blocks;
+ it is not process RSS or an atomic cross-partition snapshot.
+-Freeing cached blocks does not guarantee lower process RSS: the allocator can
+-retain released storage. The target floor is a policy target, not a guaranteed
++`docstore_cache_mapped_bytes` reports all live pool mappings, including active
++and in-flight payloads plus spare mappings. `docstore_cache_spare_bytes` reports
++the reusable subset. These metrics do not include heap-fallback payloads.
++Released mappings bypass heap retention, but other process allocations can
++still prevent a net RSS decrease. The target floor is a policy target, not a guaranteed
+ final occupancy; the activity threshold and pinned blocks can stop reclamation
+ above it.
+ 
+diff --git a/src/docstore.cpp b/src/docstore.cpp
+index 6b98363..8bb5f86 100644
+--- a/src/docstore.cpp
++++ b/src/docstore.cpp
+@@ -9,6 +9,7 @@
+ //
+ 
+ #include "docstore.h"
++#include "docstore_blockpool.h"
+ 
+ #include "std/lrucache.h"
+ #include "std/hash.h"
+@@ -292,6 +293,7 @@ struct BlockData_t
+ 	DWORD	m_uNumDocs = 0;
+ 	BYTE *	m_pData = nullptr;
+ 	DWORD	m_uSize = 0;
++	DocstoreBlockPool_c * m_pPool = nullptr;
+ };
+ 
+ 
+@@ -312,14 +314,29 @@ struct BlockUtil_t
+ 	}
+ 	static bool Equal ( const HashKey_t & a, const HashKey_t & b ) { return a==b; }
+ 
+-	static DWORD GetSize ( const BlockData_t & tValue )	{ return tValue.m_uSize; }
+-	static void Reset ( BlockData_t & tValue )			{ SafeDeleteArray ( tValue.m_pData ); }
++	static DWORD GetSize ( const BlockData_t & tValue ) { return tValue.m_pPool ? DWORD(DocstoreBlockPool_c::AllocationSize(tValue.m_uSize)) : tValue.m_uSize; }
++	static void Reset ( BlockData_t & tValue )
++	{
++		if ( tValue.m_pPool ) tValue.m_pPool->Free ( tValue.m_pData, tValue.m_uSize );
++		else SafeDeleteArray ( tValue.m_pData );
++		tValue.m_pData = nullptr;
++	}
+ };
+ 
+ 
+ class BlockCache_c
+ {
+-	using Shard_t = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
++	using Cache_t = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
++	struct Shard_t
++	{
++		// Destroy cached entries before the pool that owns their mappings.
++		std::unique_ptr<DocstoreBlockPool_c> m_pPool;
++		Cache_t m_tCache;
++		int64_t m_iBudget;
++		Shard_t ( int64_t iBudget, int64_t iMaxBlock, int64_t iFloor )
++			: m_pPool ( iFloor ? std::make_unique<DocstoreBlockPool_c>() : nullptr )
++			, m_tCache ( iBudget, iMaxBlock, iFloor ), m_iBudget(iBudget) {}
++	};
+ 
+ public:
+ 	explicit BlockCache_c ( int64_t iCacheSize, bool bAdaptive )
+@@ -335,25 +352,43 @@ public:
+ 		}
+ 	}
+ 
+-	bool Find ( HashKey_t tKey, BlockData_t & tData ) { return Shard(tKey).Find ( tKey, tData ); }
+-	bool Add ( HashKey_t tKey, const BlockData_t & tData ) { return Shard(tKey).Add ( tKey, tData ); }
+-	void Release ( HashKey_t tKey ) { Shard(tKey).Release(tKey); }
+-	int64_t GetUsedBytes()
++	bool Find ( HashKey_t tKey, BlockData_t & tData ) { return Shard(tKey).m_tCache.Find ( tKey, tData ); }
++	bool Add ( HashKey_t tKey, const BlockData_t & tData ) { return Shard(tKey).m_tCache.Add ( tKey, tData ); }
++	void Release ( HashKey_t tKey ) { Shard(tKey).m_tCache.Release(tKey); }
++	void Allocate ( HashKey_t tKey, BlockData_t & tData )
+ 	{
+-		int64_t iUsed = 0;
+-		for ( int i=0; i<m_iShards; ++i ) iUsed += m_dShards[i]->GetUsedBytes();
+-		return iUsed;
++		if ( !AllocateMapped ( tKey, tData ) ) tData.m_pData = new BYTE[tData.m_uSize];
++	}
++	bool AllocateMapped ( HashKey_t tKey, BlockData_t & tData )
++	{
++		auto & tShard = Shard(tKey);
++		if ( tShard.m_pPool && DocstoreBlockPool_c::AllocationSize(tData.m_uSize)<=uint64_t(tShard.m_iBudget) )
++		{
++			tData.m_pData = tShard.m_pPool->Allocate(tData.m_uSize);
++			if ( tData.m_pData ) tData.m_pPool = tShard.m_pPool.get();
++		}
++		return tData.m_pData!=nullptr;
++	}
++	DocstoreCacheStats_t GetStats()
++	{
++		DocstoreCacheStats_t tStats;
++		for ( int i=0; i<m_iShards; ++i )
++		{
++			tStats.m_iUsedBytes += m_dShards[i]->m_tCache.GetUsedBytes();
++			if ( m_dShards[i]->m_pPool ) m_dShards[i]->m_pPool->GetStats ( tStats.m_iMappedBytes, tStats.m_iSpareBytes );
++		}
++		return tStats;
+ 	}
+ 
+ 	void ClearByIndexId ( int64_t iIndexId )
+ 	{
+ 		for ( int i=0; i<m_iShards; ++i )
+-			m_dShards[i]->Delete ( [iIndexId]( const HashKey_t & tKey ){ return tKey.m_iIndexId==iIndexId; } );
++			m_dShards[i]->m_tCache.Delete ( [iIndexId]( const HashKey_t & tKey ){ return tKey.m_iIndexId==iIndexId; } );
+ 	}
+ 	void ClearAll()
+ 	{
+ 		for ( int i=0; i<m_iShards; ++i )
+-			m_dShards[i]->Delete ( []( const HashKey_t & ){ return true; } );
++			m_dShards[i]->m_tCache.Delete ( []( const HashKey_t & ){ return true; } );
+ 	}
+ 
+ 	static void Init ( int64_t iCacheSize, bool bAdaptive );
+@@ -735,11 +770,15 @@ struct ScopedBlock_t
+ {
+ 	int64_t		m_iIndexId = INT64_MAX;
+ 	SphOffset_t	m_tOffset = 0;
++	BlockData_t m_tUncached;
+ 
+ 	~ScopedBlock_t()
+ 	{
+ 		if ( m_iIndexId==INT64_MAX )
++		{
++			if ( m_tUncached.m_pData ) BlockUtil_t::Reset(m_tUncached);
+ 			return;
++		}
+ 
+ 		BlockCache_c * pBlockCache = BlockCache_c::Get();
+ 		assert ( pBlockCache );
+@@ -783,17 +822,15 @@ BlockData_t Docstore_c::UncompressSmallBlock ( const Block_t & tBlock, int64_t i
+ 
+ 	const BYTE * pBody = dBlock.Begin() + tBlockReader.GetPos();
+ 
+-	CSphFixedVector<BYTE> dDecompressed(0);
++	if ( auto * pCache = BlockCache_c::Get() ) pCache->Allocate ( { m_iIndexId, tBlock.m_tOffset }, tResult );
++	else tResult.m_pData = new BYTE[tResult.m_uSize];
+ 	if ( bCompressed )
+ 	{
+-		dDecompressed.Reset ( tResult.m_uSize );
+-		Verify ( m_pCompressor->Decompress ( VecTraits_T<const BYTE> (pBody, uCompressedLength), dDecompressed) );
+-		tResult.m_pData = dDecompressed.LeakData();
++		VecTraits_T<BYTE> dDecoded ( tResult.m_pData, tResult.m_uSize );
++		Verify ( m_pCompressor->Decompress ( VecTraits_T<const BYTE> (pBody, uCompressedLength), dDecoded ) );
+ 	}
+ 	else
+ 	{
+-		// we can't just pass tResult.m_pData because it doesn't point to the start of the allocated block
+-		tResult.m_pData = new BYTE[tResult.m_uSize];
+ 		memcpy ( tResult.m_pData, pBody, tResult.m_uSize );
+ 	}
+ 
+@@ -853,14 +890,13 @@ DocstoreDoc_t Docstore_c::ReadDocFromSmallBlock ( const Block_t & tBlock, RowID_
+ 	}
+ 
+ 	ScopedBlock_t tScopedBlock;
+-	CSphFixedVector<BYTE> tDataPtr {0};	// scoped array ptr
+ 	if ( bFromCache )
+ 	{
+ 		tScopedBlock.m_iIndexId = m_iIndexId;
+ 		tScopedBlock.m_tOffset = tBlock.m_tOffset;
+ 	}
+ 	else
+-		tDataPtr.Set ( tBlockData.m_pData, 0 );
++		tScopedBlock.m_tUncached = tBlockData;
+ 
+ 	CSphFixedVector<int> dFieldInRset (	m_tFields.GetNumFields() );
+ 	CreateFieldRemap ( dFieldInRset, pFieldIds );
+@@ -893,15 +929,20 @@ BlockData_t Docstore_c::UncompressBigBlockField ( SphOffset_t tOffset, const Fie
+ 
+ 	tResult.m_uSize = tInfo.m_uUncompressedLen;
+ 
+-	CSphFixedVector<BYTE> dDecompressed(0);
+-	if ( bCompressed )
++	// Uncompressed fields can reuse their input buffer without an extra copy.
++	if ( !bCompressed )
+ 	{
+-		dDecompressed.Reset ( tResult.m_uSize );
+-		Verify ( m_pCompressor->Decompress ( dField, dDecompressed ) );
+-		tResult.m_pData = dDecompressed.LeakData();
++		auto * pCache = BlockCache_c::Get();
++		if ( pCache && pCache->AllocateMapped ( { m_iIndexId, tOffset }, tResult ) )
++			memcpy ( tResult.m_pData, dField.Begin(), tResult.m_uSize );
++		else
++			tResult.m_pData = dField.LeakData();
++		return tResult;
+ 	}
+-	else
+-		tResult.m_pData = dField.LeakData();
++	if ( auto * pCache = BlockCache_c::Get() ) pCache->Allocate ( { m_iIndexId, tOffset }, tResult );
++	else tResult.m_pData = new BYTE[tResult.m_uSize];
++	VecTraits_T<BYTE> dDecoded ( tResult.m_pData, tResult.m_uSize );
++	Verify ( m_pCompressor->Decompress ( dField, dDecoded ) );
+ 
+ 	return tResult;
+ }
+@@ -931,14 +972,13 @@ void Docstore_c::ProcessBigBlockField ( int iField, const FieldInfo_t & tInfo, i
+ 	}
+ 
+ 	ScopedBlock_t tScopedBlock;
+-	CSphFixedVector<BYTE> tDataPtr {0};	// scoped array ptr
+ 	if ( bFromCache )
+ 	{
+ 		tScopedBlock.m_iIndexId = m_iIndexId;
+ 		tScopedBlock.m_tOffset = tOffset;
+ 	}
+ 	else
+-		tDataPtr.Set ( tBlockData.m_pData, 0 );
++		tScopedBlock.m_tUncached = tBlockData;
+ 
+ 	PackData ( tResult.m_dFields[iFieldInRset], tBlockData.m_pData, tBlockData.m_uSize, m_tFields.GetField(iField).m_eType==DOCSTORE_TEXT, bPack );
+ 
+@@ -2027,9 +2067,14 @@ void InitDocstore ( int64_t iCacheSize, bool bAdaptive )
+ }
+ 
+ int64_t GetDocstoreCacheUsedBytes()
++{
++	return GetDocstoreCacheStats().m_iUsedBytes;
++}
++
++DocstoreCacheStats_t GetDocstoreCacheStats()
+ {
+ 	auto * pCache = BlockCache_c::Get();
+-	return pCache ? pCache->GetUsedBytes() : 0;
++	return pCache ? pCache->GetStats() : DocstoreCacheStats_t{};
+ }
+ 
+ 
+diff --git a/src/docstore.h b/src/docstore.h
+index 8c64fc4..57c4185 100644
+--- a/src/docstore.h
++++ b/src/docstore.h
+@@ -139,6 +139,13 @@ std::unique_ptr<DocstoreFields_i>	CreateDocstoreFields();
+ 
+ void				InitDocstore ( int64_t iCacheSize, bool bAdaptive = false );
+ int64_t				GetDocstoreCacheUsedBytes();
++struct DocstoreCacheStats_t
++{
++	int64_t m_iUsedBytes = 0;
++	int64_t m_iMappedBytes = 0;
++	int64_t m_iSpareBytes = 0;
++};
++DocstoreCacheStats_t GetDocstoreCacheStats();
+ void				ShutdownDocstore();
+ void				ClearDocstoreCache();
+ 
+diff --git a/src/docstore_blockpool.h b/src/docstore_blockpool.h
+new file mode 100644
+index 0000000..1a3c097
+--- /dev/null
++++ b/src/docstore_blockpool.h
+@@ -0,0 +1,94 @@
++// Copyright (c) 2026, Manticore Software LTD (https://manticoresearch.com)
++// Distributed under the GNU General Public License, version 3 or later.
++
++#pragma once
++
++#include "std/mm.h"
++#include "std/mutex.h"
++#include "std/scopedlock.h"
++#include "std/sys.h"
++#include "std/vector.h"
++
++#include <cstdlib>
++
++// One pool per cache shard; cached payloads bypass the process heap.
++class DocstoreBlockPool_c
++{
++public:
++	explicit DocstoreBlockPool_c ( int64_t iSpareLimit = 64*1024 ) : m_iSpareLimit(iSpareLimit) {}
++	~DocstoreBlockPool_c()
++	{
++		for ( const auto & tBlock : m_dFree ) Unmap ( tBlock.m_pData, tBlock.m_uSize );
++		assert ( !m_iMappedBytes );
++	}
++
++	static uint64_t AllocationSize ( DWORD uSize )
++	{
++		const uint64_t uPage = GetMemPageSize();
++		return (uint64_t(uSize)+uPage-1)/uPage*uPage;
++	}
++
++	BYTE * Allocate ( DWORD uSize )
++	{
++		const auto uMappedSize = AllocationSize(uSize);
++		if ( !uMappedSize || uMappedSize>UINT32_MAX ) return nullptr;
++		ScopedMutex_t tLock(m_tLock);
++		for ( int i=0; i<m_dFree.GetLength(); ++i )
++			if ( m_dFree[i].m_uSize==uMappedSize )
++			{
++				auto * pData = m_dFree[i].m_pData;
++				m_dFree.RemoveFast(i);
++				m_iSpareBytes -= uMappedSize;
++				return pData;
++			}
++#if _WIN32
++		auto * pData = (BYTE *)VirtualAlloc ( nullptr, uMappedSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE );
++		if ( !pData ) return nullptr;
++#else
++		auto * pData = (BYTE *)mmalloc(uMappedSize);
++		if ( !mmapvalid(pData) ) return nullptr;
++#endif
++		m_iMappedBytes += uMappedSize;
++		return pData;
++	}
++
++	void Free ( BYTE * pData, DWORD uSize )
++	{
++		const auto uMappedSize = AllocationSize(uSize);
++		ScopedMutex_t tLock(m_tLock);
++		// Reuse a few evicted blocks without retaining an old working set.
++		if ( m_iSpareBytes+uMappedSize<=uint64_t(m_iSpareLimit) )
++		{
++			m_dFree.Add ( { pData, DWORD(uMappedSize) } );
++			m_iSpareBytes += uMappedSize;
++		}
++		else
++			Unmap ( pData, DWORD(uMappedSize) );
++	}
++
++	void GetStats ( int64_t & iMapped, int64_t & iSpare )
++	{
++		ScopedMutex_t tLock(m_tLock);
++		iMapped += m_iMappedBytes;
++		iSpare += m_iSpareBytes;
++	}
++
++private:
++	struct FreeBlock_t { BYTE * m_pData; DWORD m_uSize; };
++	CSphMutex m_tLock;
++	CSphVector<FreeBlock_t> m_dFree;
++	int64_t m_iSpareLimit;
++	int64_t m_iMappedBytes = 0;
++	int64_t m_iSpareBytes = 0;
++
++	void Unmap ( BYTE * pData, DWORD uSize )
++	{
++#if _WIN32
++		const bool bFreed = !!VirtualFree ( pData, 0, MEM_RELEASE );
++#else
++		const bool bFreed = mmfree ( pData, uSize )==0;
++#endif
++		if ( !bFreed ) std::abort();
++		m_iMappedBytes -= uSize;
++	}
++};
+diff --git a/src/gtests/gtests_docstore_blockcache.cpp b/src/gtests/gtests_docstore_blockcache.cpp
+index 037ff6e..a334dcb 100644
+--- a/src/gtests/gtests_docstore_blockcache.cpp
++++ b/src/gtests/gtests_docstore_blockcache.cpp
+@@ -6,6 +6,7 @@
+ #include "indexsettings.h"
+ #include "threadutils.h"
+ #include "std/lrucache.h"
++#include "docstore_blockpool.h"
+ 
+ #include <atomic>
+ #include <string>
+@@ -14,6 +15,75 @@
+ 
+ namespace
+ {
++TEST ( DocstoreBlockPool, ReuseAndReturnExcessMappings )
++{
++	DocstoreBlockPool_c tPool;
++	std::vector<BYTE *> dBlocks;
++	for ( int i=0; i<32; ++i )
++	{
++		auto * p = tPool.Allocate(16381);
++		ASSERT_NE ( p, nullptr );
++		memset ( p, i, 16381 );
++		dBlocks.push_back(p);
++	}
++	int64_t iMapped = 0, iSpare = 0;
++	tPool.GetStats ( iMapped, iSpare );
++	ASSERT_EQ ( iMapped, 32*DocstoreBlockPool_c::AllocationSize(16381) );
++	ASSERT_EQ ( iSpare, 0 );
++	for ( auto * p : dBlocks ) tPool.Free ( p, 16381 );
++	iMapped = iSpare = 0;
++	tPool.GetStats ( iMapped, iSpare );
++	ASSERT_LE ( iMapped, 64*1024 );
++	ASSERT_EQ ( iMapped, iSpare );
++	auto * p = tPool.Allocate(16381);
++	ASSERT_NE ( p, nullptr );
++	int64_t iMappedAfter = 0, iSpareAfter = 0;
++	tPool.GetStats ( iMappedAfter, iSpareAfter );
++	ASSERT_EQ ( iMappedAfter, iMapped );
++	ASSERT_LT ( iSpareAfter, iSpare );
++	tPool.Free ( p, 16381 );
++}
++
++TEST ( DocstoreBlockPool, LargeMappingAndNoSpareBudget )
++{
++	DocstoreBlockPool_c tPool(0);
++	ASSERT_EQ ( tPool.Allocate(0), nullptr );
++	ASSERT_EQ ( tPool.Allocate(UINT32_MAX), nullptr );
++	auto * p = tPool.Allocate(70001);
++	ASSERT_NE ( p, nullptr );
++	memset ( p, 0x67, 70001 );
++	tPool.Free ( p, 70001 );
++	int64_t iMapped = 0, iSpare = 0;
++	tPool.GetStats ( iMapped, iSpare );
++	ASSERT_EQ ( iMapped, 0 );
++	ASSERT_EQ ( iSpare, 0 );
++}
++
++TEST ( DocstoreBlockPool, ConcurrentAllocateAndRelease )
++{
++	DocstoreBlockPool_c tPool;
++	std::atomic<int> iFailures {0};
++	std::vector<std::thread> dThreads;
++	for ( int i=0; i<8; ++i )
++		dThreads.emplace_back ( [&,i] {
++			for ( int j=0; j<2000; ++j )
++			{
++				const DWORD uSize = j%2 ? 16381 : 32765;
++				auto * p = tPool.Allocate(uSize);
++				if ( !p ) { ++iFailures; continue; }
++				memset ( p, i, uSize );
++				for ( DWORD k=0; k<uSize; ++k ) if ( p[k]!=i ) { ++iFailures; break; }
++				tPool.Free ( p, uSize );
++			}
++		} );
++	for ( auto & t : dThreads ) t.join();
++	ASSERT_EQ ( iFailures.load(), 0 );
++	int64_t iMapped = 0, iSpare = 0;
++	tPool.GetStats ( iMapped, iSpare );
++	ASSERT_EQ ( iMapped, iSpare );
++	ASSERT_LE ( iMapped, 64*1024 );
++}
++
+ struct CacheTestData_t
+ {
+ 	BYTE * m_pData;
+@@ -164,12 +234,12 @@ protected:
+ 		return sPrefix+std::string ( iSize-sPrefix.size(), char('a'+iRow%26) );
+ 	}
+ 
+-	void Write ( int iFile, int iVersion, int iRows, int iSize )
++	void Write ( int iFile, int iVersion, int iRows, int iSize, Compression_e eCompression = Compression_e::LZ4 )
+ 	{
+ 		CSphString sError;
+ 		DocstoreSettings_t tSettings;
+ 		tSettings.m_uBlockSize = 16384;
+-		tSettings.m_eCompression = Compression_e::LZ4;
++		tSettings.m_eCompression = eCompression;
+ 		auto pBuilder = CreateDocstoreBuilder ( m_dFiles[iFile], tSettings, 65536, sError );
+ 		ASSERT_TRUE(pBuilder) << sError.cstr();
+ 		ASSERT_EQ ( pBuilder->AddField ( "body", DOCSTORE_TEXT ), 0 );
+@@ -278,5 +348,28 @@ TEST_P ( DocstoreBlockCacheTest, LargeFieldsAndTinyBudgetFallback )
+ 	ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
+ }
+ 
++TEST_P ( DocstoreBlockCacheTest, UncompressedFieldsAndMappedClear )
++{
++	for ( int iFile=0; iFile<2; ++iFile )
++	{
++		const int iSize = iFile ? 70000 : 128;
++		Write ( iFile, 3, 40, iSize, Compression_e::NONE );
++		auto pStore = Open ( iFile, 810+iFile );
++		ASSERT_TRUE(pStore);
++		DocstoreSession_c tSession;
++		pStore->CreateReader(tSession.GetUID());
++		for ( int k=0; k<2; ++k )
++			for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 3, i, iSize ) );
++		const auto tStats = GetDocstoreCacheStats();
++		if ( GetParam() ) ASSERT_GT ( tStats.m_iMappedBytes, 0 );
++		else ASSERT_EQ ( tStats.m_iMappedBytes, 0 );
++	}
++	ClearDocstoreCache();
++	const auto tStats = GetDocstoreCacheStats();
++	ASSERT_EQ ( tStats.m_iUsedBytes, 0 );
++	ASSERT_EQ ( tStats.m_iMappedBytes, tStats.m_iSpareBytes );
++	ASSERT_LE ( tStats.m_iSpareBytes, 16*64*1024 );
++}
++
+ INSTANTIATE_TEST_SUITE_P ( Modes, DocstoreBlockCacheTest, ::testing::Values ( false, true ) );
+ }
+diff --git a/src/searchd.cpp b/src/searchd.cpp
+index 489a44b..ca95b3f 100644
+--- a/src/searchd.cpp
++++ b/src/searchd.cpp
+@@ -2947,7 +2947,10 @@ void BuildStatus ( VectorLike & dStatus )
+ 	dStatus.MatchTupletf ( "qcache_used_bytes", "%l", s.m_iUsedBytes );
+ 	dStatus.MatchTupletf ( "qcache_hits", "%l", s.m_iHits );
+ 	dStatus.MatchTupletf ( "docid_lookup_cache_used_bytes", "%l", (int64_t)DocidLookupCache_c::GetUsed() );
+-	dStatus.MatchTupletf ( "docstore_cache_used_bytes", "%l", GetDocstoreCacheUsedBytes() );
++	const auto tDocstoreCache = GetDocstoreCacheStats();
++	dStatus.MatchTupletf ( "docstore_cache_used_bytes", "%l", tDocstoreCache.m_iUsedBytes );
++	dStatus.MatchTupletf ( "docstore_cache_mapped_bytes", "%l", tDocstoreCache.m_iMappedBytes );
++	dStatus.MatchTupletf ( "docstore_cache_spare_bytes", "%l", tDocstoreCache.m_iSpareBytes );
+ 
+ 	// clusters
+ 	ReplicateClustersStatus ( dStatus );
+diff --git a/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec b/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
+index 0da49c2..3400ad5 100644
+--- a/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
++++ b/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
+@@ -13,10 +13,10 @@ curl -s 0:9308/metrics > /tmp/exporter_unfiltered_output.txt
+ cat /tmp/exporter_unfiltered_output.txt | grep -e "^manticore" | cut -d" " -f1 | sed 's/^manticore_//' | sed 's/qcache_thresh_microseconds/qcache_thresh_msec/' | sort > /tmp/exporter_output.txt
+ ––– output –––
+ ––– input –––
+-searchd --iostats --cpustats --status | cut -d":" -f1 | tail -n +10 | grep -v -e "^command_optimize$" -e "^command_shard_write$" -e "^docid_lookup_cache_used_bytes$" -e "^docstore_cache_used_bytes$" | sort > /tmp/searchd_output.txt
++searchd --iostats --cpustats --status | cut -d":" -f1 | tail -n +10 | grep -v -e "^command_optimize$" -e "^command_shard_write$" -e "^docid_lookup_cache_used_bytes$" -e "^docstore_cache_used_bytes$" -e "^docstore_cache_mapped_bytes$" -e "^docstore_cache_spare_bytes$" | sort > /tmp/searchd_output.txt
+ ––– output –––
+ ––– comment –––
+-command_optimize, command_shard_write, docid_lookup_cache_used_bytes and docstore_cache_used_bytes are public daemon metrics, but the pinned Buddy version does not export them yet. Keep this filter until Buddy metric_definitions.json is updated in the Buddy repo.
++command_optimize, command_shard_write, docid_lookup_cache_used_bytes, docstore_cache_used_bytes, docstore_cache_mapped_bytes and docstore_cache_spare_bytes are public daemon metrics, but the pinned Buddy version does not export them yet. Keep this filter until Buddy metric_definitions.json is updated in the Buddy repo.
+ ––– input –––
+ ls -1 /tmp | grep -E "^(exporter|searchd).*\.txt$"
+ ––– output –––
+diff --git a/test/docid-cache/README.md b/test/docid-cache/README.md
+index 6824c40..c16f993 100644
+--- a/test/docid-cache/README.md
++++ b/test/docid-cache/README.md
+@@ -68,5 +68,14 @@ under admission/reclamation pressure. The `docstore_cache_used_bytes` status
+ metric reports charged cached entry bytes, separately from process RSS. Compare
+ manual/adaptive at the same ceiling before attributing an effect to the new
+ policy; raising 16 MiB to 512 MiB is a separate capacity comparison.
+-Releasing cached entries does not guarantee that the allocator returns memory
+-to the operating system or that process RSS falls.
++The adaptive follow-up uses per-shard virtual-memory pools for decoded payloads,
++with direct decompression and page-rounded cache charges. At most 64 KiB of free
++mappings is retained per shard; excess storage is unmapped, bypassing process
++heap retention. Manual mode and oversized/mapping-failure fallbacks still use
++the heap. Metadata and temporary/input/output buffers also remain on the heap.
++The mapped/spare status metrics account for pool mappings, including in-flight
++blocks; the entry ceiling does not bound total mappings or process RSS.
++Pool tests cover reuse, excess unmapping, rounding, no-spare mode and concurrent
++allocation/release. Stored-field tests also cover uncompressed small/large
++fields and clear/recreate in both modes. Measure process RSS and footprint
++alongside entry counters before claiming physical memory savings.

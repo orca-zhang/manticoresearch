@@ -1,21 +1,32 @@
 # Performance evidence and reporting boundaries
 
-## Adaptive follow-up: capacity and policy are separate
+## Current adaptive cache: default comparison and process-memory return
 
-The [512 MiB opt-in experiment](ADAPTIVE_CACHE_2026-11-13.md) is outside both
-production PRs. On the same experimental binary, manual 16→512 MiB raises QPS
-by 87.37% at 500k, 76.59% at 1M and 37.67% at 5M, while 20k/100k show no
-established benefit. Adaptive versus manual at the same 512 MiB ceiling gives
--0.40% to +1.23%; no consistent extra throughput gain is established.
+The [opt-in adaptive experiment](ADAPTIVE_CACHE_2026-11-13.md) uses system-mapped
+decoded payloads, packed small-block regions and release of fully empty regions
+to the OS. It remains outside both production PRs, with unchanged manual
+16 MiB defaults and an explicit 512 MiB experimental entry ceiling.
 
-The existing cache already allocates on demand: 20k retains 2.509 MiB with
-16 MiB or 512 MiB ceilings. Two reversed-order memory diagnostics reproduce
-adaptive entries 407.92→15.93→408.86 MiB as the hot set shrinks and expands,
-but RSS stays about 632–635 MiB. This is entry reclamation, not a demonstrated
-process-memory saving. All 180 primary samples and 12 diagnostic samples,
-including seven primary load flags, remain. No adaptive-plus-TLS run exists.
+The report gives absolute QPS and CPU/query for default 16 MiB versus current
+adaptive 16/512 MiB at five sizes. Equal-16 QPS changes range from
+-6.03% to +3.48% in the primary run; this does not establish a
+universal gain. The 512 MiB gain peaks at +88.18% for
+500,000 rows among these samples; this comparison also changes capacity.
+Fresh-server, longer repeats at 20k/500k were preselected. The finite warmed
+query pools do not constitute a cold full-table scan.
 
-![Separate capacity comparison](figures/adaptive-cache-capacity.png)
+Two broad/hot/broad passes on the same 5M table observe process RSS drops of
+477.86 and 477.94 MiB from broad to hot. The report plots charged entries,
+virtual mappings, RSS and physical footprint separately. Partial-region slack
+and bounded empty spares remain; the entry ceiling is not an RSS cap. Idle
+shards do not advance lookup-driven reclamation.
+
+All 252 primary/repeat arm samples and 12 diagnostic stage samples remain,
+including 84 primary/repeat external-load flags. No adaptive-plus-TLS result
+exists. Exact absolute values, negative results, controls and load limits are
+in the report and CSV.
+
+![Default and current adaptive throughput](figures/adaptive-cache-capacity.png)
 
 Updated review (2026-11-13): [#5042 shared-block-cache results and CI fixes,
 without TLS](BLOCK_CACHE_2026-11-13.md); [#5045 default-cache/large-data,

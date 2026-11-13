@@ -1,0 +1,5 @@
+[
+  "/private/tmp/manticore-vm-cache-review-20261113/gmanticoretest",
+  "--gtest_filter=DocstoreBlockPool.*:AdaptiveLru.*:Modes/DocstoreBlockCacheTest.*",
+  "--gtest_output=json:/private/tmp/manticore-vm-cache-review-20261113/focused-tests.json"
+]

@@ -8,8 +8,8 @@ PR [#5045](https://github.com/manticoresoftware/manticoresearch/pull/5045)
 remains reader TLS only at `019868e9f79d1bb2bd1f96dafb88ef20acd45418`.
 Neither PR depends on the other.
 
-- [Opt-in adaptive-cache experiment, 512 MiB ceiling](ADAPTIVE_CACHE_2026-11-13.md): separates capacity gains from policy effects and shows reclaimed entries alongside unchanged process RSS. This follow-up is on a separate experimental branch, outside both production PRs.
-- [Adaptive experiment ZIP](attachments/adaptive-cache-evidence.zip), including all six-arm samples, both memory passes, source snapshots and validation logs.
+- [Current opt-in adaptive cache, 512 MiB ceiling](ADAPTIVE_CACHE_2026-11-13.md): system-mapped payloads, packed small-block regions, default/adaptive QPS and CPU tables, and measured process-memory return. This follow-up is on a separate experimental branch, outside both production PRs.
+- [Adaptive experiment ZIP](attachments/adaptive-cache-evidence.zip), including every primary/repeat sample, both memory passes, source snapshots and validation logs.
 - [Added cache OFF / 8 / 16 MiB matrix, with separate reader-TLS combinations](BLOCK_CACHE_BUDGETS_2026-11-13.md): absolute QPS, negative results, controls and load telemetry.
 - [Budget supplement ZIP](attachments/block-cache-budget-evidence.zip), including exact archived drivers and every new sample.
 - [Shared block cache: final no-TLS results, design and CI fixes](BLOCK_CACHE_2026-11-13.md).

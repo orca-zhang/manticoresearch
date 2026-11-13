@@ -1,29 +1,37 @@
 # Validation record
 
-## Separate adaptive prototype validation
+## Current adaptive cache validation
 
-The [adaptive report](ADAPTIVE_CACHE_2026-11-13.md) uses source experiment
-`ad885be366eda4e897c828f05cb93ff04702d02c`, based on #5042 `376fbf9`, with no TLS.
-It is outside both production PRs. Final native tests pass 529/529; focused
-native, ASan+UBSan and TSan each pass 11 tests ×20. The final public
-stored-field case checks real concurrent cold-entry reclamation. Instrumented
-scope is docstore, SkipCache, file I/O and focused tests; other linked objects
-are reused. LeakSanitizer is unsupported on this macOS runtime and passing
-ASan runs disable leak detection. Inherited stack-calibration overrides are
-recorded; no fresh automatic calibration is claimed.
+The [adaptive report](ADAPTIVE_CACHE_2026-11-13.md) uses source
+`f5cf080a497d2986336ab514a0fab78536198837`, based on #5042 `376fbf9`, with no reader TLS. It remains outside
+both production PRs.
 
-The original measured searchd/source snapshot is preserved. Later changes
-are confined to stronger tests and two English documents; production hashes
-remain identical. A prior strengthened-test floor assertion failure and its
-correction are retained, along with setup and unsupported-LeakSanitizer logs.
-The final-validation manifest distinguishes these scopes. API smoke and all
-192 timed sample/stage response checks and lifecycle checks pass. Primary
-samples cover 2,481,672 queries; memory diagnostics cover 401,428. All timed
-telemetry coverage is complete; seven primary samples are flagged and retained.
+- Full native GoogleTests: **537/537 passed**.
+- Focused native, ASan+UBSan and TSan: **19 tests ×20 each passed**.
+- Coverage includes mapped-region packing/reuse/release, concurrency, pinned
+  references, real stored-field cold-entry reclamation, uncompressed small/large
+  fields, tiny-budget fallback and the 100k-row working set fitting 16 MiB.
+- API smoke matches the updated metric golden. All 264 timed arm/stage
+  response checks and post-timing SQL lifecycle checks pass: 4,762,378 primary/repeat
+  queries plus 381,473 diagnostic queries.
+- Every timed telemetry interval has full coverage. All 84 primary/repeat
+  load-flagged samples remain; flags are annotations, not exclusions.
 
-No upstream CI result validates this prototype; SkipCache performance,
-adaptive-plus-TLS performance and lower process RSS are not established.
-#5042's separate CI gate remains `action_required`, with zero jobs.
+All affected translation units were rebuilt; unchanged engine/dependency
+objects were reused. Sanitizers instrument docstore, SkipCache, file I/O and
+focused tests, not the entire engine. Custom mapped slots lack ordinary
+per-allocation heap redzones. LeakSanitizer is unsupported on this macOS runtime
+and ASan uses `detect_leaks=0`. Supported inherited stack-calibration overrides
+are recorded; no fresh automatic calibration is claimed. Exact commands,
+source snapshots, binary hashes and the plan are in
+[evidence](evidence/2026-11-13/vm-cache/).
+
+Observed process-memory return is specific to the recorded M4 Pro workload;
+Linux/Windows runtime behavior, memory pressure, idle-timer reclamation,
+SkipCache throughput and adaptive-plus-TLS are unmeasured. Upstream #5042 CI
+was rechecked: run 43408089087 remains `action_required`, zero jobs, awaiting
+maintainer fork-workflow approval. Experimental local test success does not
+establish upstream CI success.
 
 Updated review (2026-11-13): [#5042 shared-block-cache results and CI fixes,
 without TLS](BLOCK_CACHE_2026-11-13.md); [#5045 default-cache/large-data,
@@ -180,7 +188,9 @@ is recorded in its archived log; no N100 service was modified in this preparatio
 
 Full UberTest/CLT, Windows, Linux full-engine/SQL, full-engine sanitizer coverage,
 long mixed read/write endurance and production traffic are not established by
-these local runs. No process-RSS saving or universal QPS gain is claimed.
+these local runs. The original PR measurements do not establish process-RSS
+savings or a universal QPS gain; the current opt-in mapped-pool memory
+diagnostic has the separate scope described above.
 The complete negative/control samples are retained in PERFORMANCE.md and raw JSON.
 
 CONTRIBUTING.md recommends discussing changes with maintainers and rebasing on

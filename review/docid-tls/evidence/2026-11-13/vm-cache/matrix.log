@@ -1,0 +1,23 @@
+waiting for matrix idle gate 20000
+starting matrix 20000
+matrix 20000 {'default16': 7404.1, 'heap_manual512': 7498.7, 'heap_adaptive512': 7443.6, 'vm_adaptive16': 7456.3, 'vm_adaptive512': 7456.3, 'cache_off': 5887.4}
+waiting for matrix idle gate 100000
+starting matrix 100000
+matrix 100000 {'heap_manual512': 6843.0, 'heap_adaptive512': 6795.9, 'vm_adaptive16': 6772.2, 'vm_adaptive512': 6755.3, 'cache_off': 5000.1, 'default16': 6819.4}
+waiting for matrix idle gate 500000
+starting matrix 500000
+matrix 500000 {'heap_adaptive512': 6003.4, 'vm_adaptive16': 2888.4, 'vm_adaptive512': 5784.0, 'cache_off': 3915.1, 'default16': 3073.7, 'heap_manual512': 5679.3}
+waiting for matrix idle gate 1000000
+starting matrix 1000000
+matrix 1000000 {'vm_adaptive16': 2619.7, 'vm_adaptive512': 4545.0, 'cache_off': 3056.1, 'default16': 2690.7, 'heap_manual512': 4545.5, 'heap_adaptive512': 4596.3}
+waiting for matrix idle gate 5000000
+starting matrix 5000000
+matrix 5000000 {'vm_adaptive512': 1732.5, 'cache_off': 1361.7, 'default16': 1116.3, 'heap_manual512': 1605.3, 'heap_adaptive512': 1691.1, 'vm_adaptive16': 1155.1}
+waiting for transition idle gate 1 heap_adaptive512
+transition 1 heap_adaptive512 [('large', 407.92, 633.48), ('hot', 15.93, 636.86), ('large-again', 408.86, 637.33)]
+waiting for transition idle gate 1 vm_adaptive512
+transition 1 vm_adaptive512 [('large', 411.21, 633.19), ('hot', 15.8, 155.33), ('large-again', 412.17, 635.52)]
+waiting for transition idle gate 2 vm_adaptive512
+transition 2 vm_adaptive512 [('large', 411.21, 631.05), ('hot', 15.8, 153.11), ('large-again', 412.17, 633.89)]
+waiting for transition idle gate 2 heap_adaptive512
+transition 2 heap_adaptive512 [('large', 407.92, 633.03), ('hot', 15.93, 635.33), ('large-again', 408.86, 636.61)]

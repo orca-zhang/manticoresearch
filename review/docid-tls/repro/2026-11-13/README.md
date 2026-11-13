@@ -316,19 +316,26 @@ infer unmeasured optima. The 5M budget chart shows both QPS and RSS.
 
 The [experimental report](../../ADAPTIVE_CACHE_2026-11-13.md) is separate from
 both production PRs. Build original #5042 `376fbf9` and experimental source
-`ad885be366eda4e897c828f05cb93ff04702d02c` with equal build configuration.
-The experiment adds `docstore_cache_adaptive`, default 0, and a status metric.
-Its manual512/adaptive512 arms run the same binary at an equal 512 MiB entry
-ceiling. There is no reader TLS. Existing defaults remain unchanged.
+`f5cf080a497d2986336ab514a0fab78536198837` with equal build configuration.
+The experiment adds `docstore_cache_adaptive`, default 0, and used/mapped/spare
+status metrics. It packs small decoded payloads into 64 KiB system-mapped
+regions with 256-byte size classes. Large payloads use dedicated mappings.
+Fully empty regions return to the OS, apart from one empty spare per shard.
+Partial-region slack, spares and in-flight payloads are additional to charged
+entry bytes; mapped virtual bytes and process RSS are distinct measurements.
+There is no reader TLS. Existing defaults remain manual 16 MiB.
 
 The recorded build recompiled all six affected translation units and replaced
 changed archive objects; unchanged engine/dependency objects were reused.
-`../../evidence/2026-11-13/adaptive-cache/` includes exact native/sanitizer
+`../../evidence/2026-11-13/vm-cache/` includes exact native/sanitizer
 commands, the measured driver snapshot, source/binary hashes, calibration
-exports, raw timing/CPU/RSS data and the plan saved before results. Final
-validation strengthened only tests and English docs; the timed production
-sources/searchd hash remained unchanged. Use `final-validation/` for the
-final source/test snapshot and `candidate-source/` for the timed-build snapshot.
+exports, raw timing/CPU/RSS/physical-footprint data and the plan saved before
+results. Native GoogleTests pass 537/537; focused native, ASan+UBSan and TSan
+each pass 19 tests ×20. The full 100k-row/128-byte working set fits the default
+16 MiB entry budget. LeakSanitizer is unsupported on this macOS runtime;
+ASan uses `detect_leaks=0`. Instrumented objects cover docstore, SkipCache,
+file I/O and focused tests, not the entire engine. No fresh automatic stack
+calibration is claimed. API smoke passes against the updated metric golden.
 Absolute local paths in archived commands describe this machine; rebuild with
 normal upstream CMake/dependency setup in another checkout rather than running
 those commands against an unrelated build directory.
@@ -336,34 +343,50 @@ those commands against an unrelated build directory.
 Using fixtures prepared with the earlier guide:
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 python3 adaptive_cache.py --selfcheck
-PYTHONDONTWRITEBYTECODE=1 python3 adaptive_cache.py \
-  ORIGINAL_376FBF9_SEARCHD EXPERIMENTAL_AD885BE_SEARCHD \
-  --fixtures /tmp/fixtures --output /tmp/adaptive/sql
+PYTHONDONTWRITEBYTECODE=1 python3 vm_cache.py --selfcheck
+PYTHONDONTWRITEBYTECODE=1 python3 vm_cache.py \
+  ORIGINAL_376FBF9_SEARCHD HEAP_CONTROL_SEARCHD CURRENT_F5CF080_SEARCHD \
+  --fixtures /tmp/fixtures --output /tmp/vm-cache/matrix
+PYTHONDONTWRITEBYTECODE=1 python3 vm_cache.py \
+  ORIGINAL_376FBF9_SEARCHD HEAP_CONTROL_SEARCHD CURRENT_F5CF080_SEARCHD \
+  --fixtures /tmp/fixtures --output /tmp/vm-cache/repeat \
+  --rows 20000 500000 --duration 5 --matrix-only
 ```
 
-Six arms cover original manual16, new manual16, new manual512, adaptive512,
-and cache off with the adaptive flag 0/1. Five sizes, six balanced Williams
-rounds, three seconds per arm, full idle gates and CPU telemetry. Each client
-warms its 20-query pool before timing. Both 16 and 512 MiB use 16 shards.
-The two memory passes use fresh servers, reverse arm order and query a broad
-range, then a small hot range, then broad again on the same 5M table, with
-concurrent 0.2-second status/RSS probes. Do not treat diagnostic QPS as the
-primary throughput comparison.
+Six arms cover published default16, current adaptive16/adaptive512/cache-off,
+and internal equal-512 manual/adaptive heap controls. The control source is
+`ad885be366eda4e897c828f05cb93ff04702d02c`; its binary and source hashes are
+recorded in the linked evidence. Main tables focus on default versus current.
+Five sizes, six balanced Williams rounds, three seconds per arm, full idle
+gates and CPU telemetry. Each client warms its 20-query pool before timing.
+Both 16 and 512 MiB use 16 shards. Longer repeats were preselected at 20k and
+500k and use fresh servers, six rounds and five seconds per arm.
+
+The two memory passes use fresh servers, reverse control/current order and
+query a broad range, then a small hot range, then broad again on the same 5M
+table. Each stage runs eight timed seconds after warmup, with concurrent
+0.2-second status/RSS/footprint probes. Do not treat diagnostic QPS as the
+primary throughput comparison. No compilation, other tests or rendering ran
+during timing. Exact commands are in `timing-commands.json`; the archived
+`review-context/run-vm-cache-matrix.py` records setup, calibration and planning.
 
 To regenerate the published summary/figures from archived evidence:
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 python3 summarize_adaptive_cache.py \
-  ../../evidence/2026-11-13/adaptive-cache
-python3 plot_adaptive_cache.py ../../evidence/2026-11-13/adaptive-cache \
+PYTHONDONTWRITEBYTECODE=1 python3 summarize_vm_cache.py \
+  ../../evidence/2026-11-13/vm-cache
+python3 plot_vm_cache.py ../../evidence/2026-11-13/vm-cache \
   --output ../../figures
 ```
 
 The summarizer checks driver/source hashes, all median/ratio/paired-range
 formulas, ceilings, lifecycle checks, idle gates and full telemetry overlap.
-It retains all flagged samples. The plots separate the capacity comparison
-from equal-ceiling adaptive policy and graph both entry occupancy and RSS.
-Released entries do not prove RSS savings. The experiment's known gaps include
-SkipCache throughput, a fully idle timer, Linux allocator/RSS behavior,
-production-rate metric polling and adaptive-plus-TLS measurements.
+It validates the 36-sample journal for every matrix group and retains all
+flagged samples. The plots distinguish equal-16 comparisons from the 16→512
+capacity change and graph charged entries, pool mappings, RSS and footprint.
+The entry ceiling is not a process-memory cap. An interrupted page-rounding
+diagnostic is archived separately and excluded from final comparisons; its
+interruption note records that the partial 5M group was not persisted.
+The experiment's known gaps include SkipCache throughput, a fully idle timer,
+Linux/Windows runtime behavior, memory pressure, production-rate metric
+polling and adaptive-plus-TLS measurements.

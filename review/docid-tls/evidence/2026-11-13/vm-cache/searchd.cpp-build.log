@@ -1,0 +1,4 @@
+/private/tmp/manticore-vm-cache-source-20261113/src/searchd.cpp:17419:23: warning: variable 'cTopOfMainStack' is uninitialized when passed as a const pointer argument here [-Wuninitialized-const-pointer]
+ 17419 |         PrepareMainThread ( &cTopOfMainStack );
+       |                              ^~~~~~~~~~~~~~~
+1 warning generated.

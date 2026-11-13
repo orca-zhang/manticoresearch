@@ -1,0 +1,6 @@
+waiting for matrix idle gate 20000
+starting matrix 20000
+matrix 20000 {'default16': 7690.7, 'heap_manual512': 7633.1, 'heap_adaptive512': 7497.7, 'vm_adaptive16': 7523.4, 'vm_adaptive512': 7665.1, 'cache_off': 5930.2}
+waiting for matrix idle gate 500000
+starting matrix 500000
+matrix 500000 {'heap_manual512': 6578.2, 'heap_adaptive512': 6606.1, 'vm_adaptive16': 3544.2, 'vm_adaptive512': 6373.8, 'cache_off': 4116.2, 'default16': 3497.1}

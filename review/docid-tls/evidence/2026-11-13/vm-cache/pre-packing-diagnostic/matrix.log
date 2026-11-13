@@ -1,0 +1,37 @@
+waiting for matrix idle gate 20000
+starting matrix 20000
+matrix 20000 {'default16': 7795.2, 'heap_manual512': 7808.5, 'heap_adaptive512': 7822.9, 'vm_adaptive16': 7764.2, 'vm_adaptive512': 7730.1, 'cache_off': 5847.5}
+waiting for matrix idle gate 100000
+starting matrix 100000
+matrix 100000 {'heap_manual512': 7157.1, 'heap_adaptive512': 7310.4, 'vm_adaptive16': 5271.8, 'vm_adaptive512': 7159.7, 'cache_off': 5487.8, 'default16': 7082.1}
+waiting for matrix idle gate 500000
+starting matrix 500000
+matrix 500000 {'heap_adaptive512': 6706.2, 'vm_adaptive16': 3662.9, 'vm_adaptive512': 6666.1, 'cache_off': 4131.7, 'default16': 3556.6, 'heap_manual512': 6750.2}
+waiting for matrix idle gate 1000000
+starting matrix 1000000
+matrix 1000000 {'vm_adaptive16': 3138.7, 'vm_adaptive512': 5409.4, 'cache_off': 3499.3, 'default16': 3054.2, 'heap_manual512': 5437.8, 'heap_adaptive512': 5521.8}
+waiting for matrix idle gate 5000000
+starting matrix 5000000
+Traceback (most recent call last):
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 203, in <module>
+    main()
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 190, in main
+    data['cases'].append(matrix_case(rows, number, binaries, args, ctx))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/vm_cache.py", line 91, in matrix_case
+    sample = measure(servers[label], pools, ctx, args.duration)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/manticore-vm-cache-review-20261113/driver/adaptive_cache.py", line 74, in measure
+    replies = [job.get(timeout=duration + 30) for job in jobs]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/multiprocessing/pool.py", line 768, in get
+    self.wait(timeout)
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/multiprocessing/pool.py", line 765, in wait
+    self._event.wait(timeout)
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/threading.py", line 655, in wait
+    signaled = self._cond.wait(timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/threading.py", line 359, in wait
+    gotit = waiter.acquire(True, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

@@ -1,0 +1,16 @@
+{
+  "cwd": "/private/tmp/manticore-vm-cache-review-20261113/smoke-build/api/libsphinxclient",
+  "args": [
+    "cmake",
+    "-D",
+    "SEARCHD=/private/tmp/manticore-vm-cache-review-20261113/searchd",
+    "-D",
+    "INDEXER=/private/tmp/manticore-5042-publish-build-20261113/src/indexer",
+    "-D",
+    "CLI=/private/tmp/manticore-5042-publish-build-20261113/api/libsphinxclient/testcli",
+    "-D",
+    "SRCDIR=/private/tmp/manticore-vm-cache-source-20261113/api/libsphinxclient",
+    "-P",
+    "/private/tmp/manticore-vm-cache-source-20261113/api/libsphinxclient/smoke.cmake"
+  ]
+}
