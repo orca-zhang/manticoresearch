@@ -13,10 +13,12 @@
 #include "scopedlock.h"
 
 template <typename KEY, typename VALUE, typename HELPER>
-LRUCache_T<KEY,VALUE,HELPER>::LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize )
+LRUCache_T<KEY,VALUE,HELPER>::LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize, int64_t iAdaptiveFloor )
 	: m_iCacheSize ( iCacheSize )
 	, m_uMaxBlockSize ( DWORD(iMaxBlockSize<0 ? iCacheSize/64 : iMaxBlockSize) )
 	, m_tHash ( 1024 )
+	, m_iAdaptiveFloor ( Min ( iCacheSize, iAdaptiveFloor ) )
+	, m_iAdaptiveTarget ( iCacheSize )
 {}
 
 template <typename KEY, typename VALUE, typename HELPER>
@@ -38,12 +40,16 @@ bool LRUCache_T<KEY,VALUE,HELPER>::Find ( KEY tKey, VALUE & tData )
 
 	LinkedEntry_t ** ppEntry = m_tHash.Find(tKey);
 	if ( !ppEntry )
+	{
+		if ( m_iAdaptiveFloor ) Observe(nullptr);
 		return false;
+	}
 
 	MoveToHead ( *ppEntry );
 
 	(*ppEntry)->m_iRefcount++;
 	tData = (*ppEntry)->m_tValue;
+	if ( m_iAdaptiveFloor ) Observe(*ppEntry);
 	return true;
 }
 
@@ -76,7 +82,72 @@ bool LRUCache_T<KEY,VALUE,HELPER>::Add ( KEY tKey, const VALUE & tData )
 	pEntry->m_uSize = uSize;
 
 	Add ( pEntry );
+	if ( m_iAdaptiveFloor ) Touch(pEntry);
 	return true;
+}
+
+template <typename KEY, typename VALUE, typename HELPER>
+int64_t LRUCache_T<KEY,VALUE,HELPER>::GetUsedBytes()
+{
+	ScopedMutex_t tLock(m_tLock);
+	return m_iMemUsed;
+}
+
+template <typename KEY, typename VALUE, typename HELPER>
+void LRUCache_T<KEY,VALUE,HELPER>::Touch ( LinkedEntry_t * pEntry )
+{
+	if ( pEntry->m_uAccessEpoch==m_uAccessEpoch )
+		return;
+	pEntry->m_uAccessEpoch = m_uAccessEpoch;
+	m_iActiveBytes += pEntry->m_uSize + sizeof(LinkedEntry_t);
+}
+
+template <typename KEY, typename VALUE, typename HELPER>
+void LRUCache_T<KEY,VALUE,HELPER>::Observe ( LinkedEntry_t * pEntry )
+{
+	if ( pEntry )
+	{
+		Touch(pEntry);
+		++m_iWindowHits;
+	}
+	if ( ++m_iWindowAccesses==4096 )
+	{
+		// Require four stable windows and retain twice the recently touched bytes.
+		if ( m_iWindowHits>=4056 && m_iActiveBytes<m_iMemUsed/4 )
+		{
+			m_iStableWindows = Min ( m_iStableWindows+1, 4 );
+			if ( m_iStableWindows==4 )
+				m_iAdaptiveTarget = Min ( m_iCacheSize, Max ( m_iAdaptiveFloor, m_iActiveBytes*2 ) );
+		}
+		else
+		{
+			m_iStableWindows = 0;
+			m_iAdaptiveTarget = m_iCacheSize;
+		}
+		m_iWindowAccesses = m_iWindowHits = 0;
+		m_iActiveBytes = 0;
+		if ( !++m_uAccessEpoch )
+		{
+			m_uAccessEpoch = 1;
+			for ( auto * p = m_pHead; p; p=p->m_pNext ) p->m_uAccessEpoch = 0;
+		}
+	}
+	// Bound each lock hold while a smaller hot set releases cold storage.
+	if ( !(m_iWindowAccesses%64) && m_iMemUsed>m_iAdaptiveTarget ) TrimCold();
+}
+
+template <typename KEY, typename VALUE, typename HELPER>
+void LRUCache_T<KEY,VALUE,HELPER>::TrimCold()
+{
+	auto * pEntry = m_pTail;
+	for ( int i=0; pEntry && i<32 && m_iMemUsed>m_iAdaptiveTarget; ++i )
+	{
+		auto * pPrevious = pEntry->m_pPrev;
+		if ( !pEntry->m_iRefcount && pEntry->m_uAccessEpoch!=m_uAccessEpoch
+			&& pEntry->m_uAccessEpoch!=m_uAccessEpoch-1 )
+			Delete(pEntry);
+		pEntry = pPrevious;
+	}
 }
 
 template <typename KEY, typename VALUE, typename HELPER>

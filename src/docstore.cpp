@@ -322,7 +322,7 @@ class BlockCache_c
 	using Shard_t = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
 
 public:
-	explicit BlockCache_c ( int64_t iCacheSize )
+	explicit BlockCache_c ( int64_t iCacheSize, bool bAdaptive )
 	{
 		while ( m_iShards<16 && iCacheSize/(m_iShards*2)>=1024*1024 )
 			m_iShards *= 2;
@@ -330,13 +330,20 @@ public:
 		{
 			const int64_t iBudget = iCacheSize/m_iShards + (i<iCacheSize%m_iShards);
 			// Sharding must not shrink the original maximum-block admission threshold.
-			m_dShards[i] = std::make_unique<Shard_t> ( iBudget, iCacheSize/64 );
+			const int64_t iFloor = bAdaptive ? Min ( iBudget, int64_t(16*1024*1024)/m_iShards ) : 0;
+			m_dShards[i] = std::make_unique<Shard_t> ( iBudget, iCacheSize/64, iFloor );
 		}
 	}
 
 	bool Find ( HashKey_t tKey, BlockData_t & tData ) { return Shard(tKey).Find ( tKey, tData ); }
 	bool Add ( HashKey_t tKey, const BlockData_t & tData ) { return Shard(tKey).Add ( tKey, tData ); }
 	void Release ( HashKey_t tKey ) { Shard(tKey).Release(tKey); }
+	int64_t GetUsedBytes()
+	{
+		int64_t iUsed = 0;
+		for ( int i=0; i<m_iShards; ++i ) iUsed += m_dShards[i]->GetUsedBytes();
+		return iUsed;
+	}
 
 	void ClearByIndexId ( int64_t iIndexId )
 	{
@@ -349,7 +356,7 @@ public:
 			m_dShards[i]->Delete ( []( const HashKey_t & ){ return true; } );
 	}
 
-	static void Init ( int64_t iCacheSize );
+	static void Init ( int64_t iCacheSize, bool bAdaptive );
 	static void Done() { SafeDelete(m_pBlockCache); }
 	static BlockCache_c * Get() { return m_pBlockCache; }
 
@@ -364,11 +371,11 @@ private:
 
 BlockCache_c * BlockCache_c::m_pBlockCache = nullptr;
 
-void BlockCache_c::Init ( int64_t iCacheSize )
+void BlockCache_c::Init ( int64_t iCacheSize, bool bAdaptive )
 {
 	assert ( !m_pBlockCache );
 	if ( iCacheSize > 0 )
-		m_pBlockCache = new BlockCache_c(iCacheSize);
+		m_pBlockCache = new BlockCache_c ( iCacheSize, bAdaptive );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -2013,10 +2020,16 @@ std::unique_ptr<DocstoreFields_i> CreateDocstoreFields()
 }
 
 
-void InitDocstore ( int64_t iCacheSize )
+void InitDocstore ( int64_t iCacheSize, bool bAdaptive )
 {
-	BlockCache_c::Init(iCacheSize);
+	BlockCache_c::Init ( iCacheSize, bAdaptive );
 	DocstoreReaders_c::Init();
+}
+
+int64_t GetDocstoreCacheUsedBytes()
+{
+	auto * pCache = BlockCache_c::Get();
+	return pCache ? pCache->GetUsedBytes() : 0;
 }
 
 

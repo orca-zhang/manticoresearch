@@ -137,7 +137,8 @@ std::unique_ptr<DocstoreBuilder_i>	CreateDocstoreBuilder ( const CSphString & sF
 std::unique_ptr<DocstoreRT_i>		CreateDocstoreRT();
 std::unique_ptr<DocstoreFields_i>	CreateDocstoreFields();
 
-void				InitDocstore ( int64_t iCacheSize );
+void				InitDocstore ( int64_t iCacheSize, bool bAdaptive = false );
+int64_t				GetDocstoreCacheUsedBytes();
 void				ShutdownDocstore();
 void				ClearDocstoreCache();
 

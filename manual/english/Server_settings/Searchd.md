@@ -715,6 +715,43 @@ docstore_cache_size = 8m
 ```
 <!-- end -->
 
+### docstore_cache_adaptive
+
+Enable adaptive cold-block reclamation with `1`; the default is `0`. The
+`docstore_cache_size` setting remains the hard limit for cached decoded blocks
+and LRU entries. Memory is already allocated on demand in either mode: a
+512 MiB limit does not reserve 512 MiB at startup. Hash tables and allocator
+metadata, reader buffers and in-flight decompression remain additional memory.
+
+Adaptive mode keeps the partition count and block-to-partition mapping fixed.
+Each partition observes windows of 4096 block lookups under its existing lock.
+After four windows with at least 99% hits and touched bytes below one quarter
+of retained bytes, it gradually frees cold, unreferenced entries. It retains
+headroom of twice the touched bytes, with a target floor totaling up to 16 MiB
+across partitions. This floor is not a minimum allocation. Each reclamation
+step examines at most 32 entries per 64 lookups. Recently touched and referenced
+blocks survive reclamation; normal admission can grow again up to the limit.
+
+Reclamation is driven by lookups, not a wall-clock timer. Idle partitions do
+not advance their windows. Low hit rates do not trigger this cold-block trim,
+and adaptive mode does not bypass cache lookup costs or exceed an undersized
+configured limit. Choose the limit for the active decoded working set and
+available memory. It is independent of DocID caching and requires no reader TLS.
+
+`SHOW STATUS LIKE 'docstore_cache_used_bytes'` reports retained decoded payload
+and LRU entry bytes, summed from separately locked partition snapshots. It
+excludes hash tables, allocator metadata, reader buffers and in-flight blocks;
+it is not process RSS or an atomic cross-partition snapshot.
+Freeing cached blocks does not guarantee lower process RSS: the allocator can
+retain released storage. The target floor is a policy target, not a guaranteed
+final occupancy; the activity threshold and pinned blocks can stop reclamation
+above it.
+
+```ini
+docstore_cache_size = 512m
+docstore_cache_adaptive = 1
+```
+
 ### engine
 
 <!-- example conf engine -->

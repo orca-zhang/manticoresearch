@@ -21,12 +21,13 @@ template <typename KEY, typename VALUE, typename HELPER>
 class LRUCache_T
 {
 public:
-			LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize = -1 );
+			LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize = -1, int64_t iAdaptiveFloor = 0 );
 			~LRUCache_T();
 
 	bool	Find ( KEY tKey, VALUE & tData );
 	bool	Add ( KEY tKey, const VALUE & tData );
 	void	Release ( KEY tKey );
+	int64_t GetUsedBytes();
 
 	template <typename COND>
 	void	Delete ( COND && fnCond );
@@ -37,6 +38,7 @@ protected:
 		VALUE			m_tValue;
 		DWORD			m_uSize = 0;
 		int				m_iRefcount = 0;
+		uint32_t		m_uAccessEpoch = 0;
 		LinkedEntry_t *	m_pPrev = nullptr;
 		LinkedEntry_t *	m_pNext = nullptr;
 		KEY				m_tKey;
@@ -66,6 +68,18 @@ protected:
 	void	Delete ( LinkedEntry_t * pEntry );
 
 private:
+	// Access epochs advance under the existing shard lock, without a global counter.
+	int64_t m_iAdaptiveFloor = 0;
+	int64_t m_iAdaptiveTarget = 0;
+	int64_t m_iActiveBytes = 0;
+	uint32_t m_uAccessEpoch = 1;
+	int m_iWindowAccesses = 0;
+	int m_iWindowHits = 0;
+	int m_iStableWindows = 0;
+
+	void	Observe ( LinkedEntry_t * pEntry );
+	void	Touch ( LinkedEntry_t * pEntry );
+	void	TrimCold();
 	void	MoveToHead ( LinkedEntry_t * pEntry );
 	void	Add ( LinkedEntry_t * pEntry );
 	void	SweepUnused ( DWORD uSpaceNeeded );
