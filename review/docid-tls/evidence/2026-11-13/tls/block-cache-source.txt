@@ -1,0 +1,144 @@
+Exact-source excerpts used for block-cache profile interpretation.
+PR commit: 019868e9f79d1bb2bd1f96dafb88ef20acd45418
+
+src/std/lrucache_impl.h:33-96
+full-file sha256: 88b7ca6a82ddf8a2d1811567faebfd127a7e40ee1ea20b44e77ee4be3b009cf1
+33: template <typename KEY, typename VALUE, typename HELPER>
+34: bool LRUCache_T<KEY,VALUE,HELPER>::Find ( KEY tKey, VALUE & tData )
+35: {
+36: 	ScopedMutex_t tLock(m_tLock);
+37: 
+38: 	LinkedEntry_t ** ppEntry = m_tHash.Find(tKey);
+39: 	if ( !ppEntry )
+40: 		return false;
+41: 
+42: 	MoveToHead ( *ppEntry );
+43: 
+44: 	(*ppEntry)->m_iRefcount++;
+45: 	tData = (*ppEntry)->m_tValue;
+46: 	return true;
+47: }
+48: 
+49: template <typename KEY, typename VALUE, typename HELPER>
+50: bool LRUCache_T<KEY,VALUE,HELPER>::Add ( KEY tKey, const VALUE & tData )
+51: {
+52: 	ScopedMutex_t tLock(m_tLock);
+53: 
+54: 	// if another thread managed to add a similar block while we were uncompressing ours, let it be
+55: 	LinkedEntry_t ** ppEntry = m_tHash.Find(tKey);
+56: 	if ( ppEntry )
+57: 		return false;
+58: 
+59: 	DWORD uSize = HELPER::GetSize(tData);
+60: 	DWORD uSpaceNeeded = uSize + sizeof(LinkedEntry_t);
+61: 	if ( !HaveSpaceFor ( uSpaceNeeded ) )
+62: 	{
+63: 		DWORD MAX_BLOCK_SIZE = m_iCacheSize/64;
+64: 		if ( uSpaceNeeded>MAX_BLOCK_SIZE )
+65: 			return false;
+66: 
+67: 		SweepUnused ( uSpaceNeeded );
+68: 		if ( !HaveSpaceFor ( uSpaceNeeded ) )
+69: 			return false;
+70: 	}
+71: 
+72: 	LinkedEntry_t * pEntry = new LinkedEntry_t;
+73: 	*(VALUE*)pEntry = tData;
+74: 	pEntry->m_iRefcount++;
+75: 	pEntry->m_tKey = tKey;
+76: 	pEntry->m_uSize = uSize;
+77: 
+78: 	Add ( pEntry );
+79: 	return true;
+80: }
+81: 
+82: template <typename KEY, typename VALUE, typename HELPER>
+83: void LRUCache_T<KEY,VALUE,HELPER>::Release ( KEY tKey )
+84: {
+85: 	ScopedMutex_t tLock(m_tLock);
+86: 
+87: 	LinkedEntry_t ** ppEntry = m_tHash.Find(tKey);
+88: 	assert(ppEntry);
+89: 
+90: 	LinkedEntry_t * pEntry = *ppEntry;
+91: 	pEntry->m_iRefcount--;
+92: 	assert ( pEntry->m_iRefcount>=0 );
+93: }
+94: 
+95: template <typename KEY, typename VALUE, typename HELPER>
+96: template <typename COND>
+
+src/docstore.cpp:322-348
+full-file sha256: caeebeaa8cf3f077039353c82d2d97da5dd87193347f3a868f3adf0f01903b19
+322: class BlockCache_c : public LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>
+323: {
+324: 	using BASE = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
+325: 	using BASE::BASE;
+326: 
+327: public:
+328: 	void					ClearByIndexId ( int64_t iIndexId ) { BASE::Delete ( [iIndexId]( const HashKey_t & tKey ){ return tKey.m_iIndexId==iIndexId; } ); }
+329: 	void					ClearAll() { BASE::Delete ( []( const HashKey_t & ){ return true; } ); }
+330: 
+331: 	static void				Init ( int64_t iCacheSize );
+332: 	static void				Done()	{ SafeDelete(m_pBlockCache); }
+333: 	static BlockCache_c *	Get()	{ return m_pBlockCache; }
+334: 
+335: private:
+336: 	static BlockCache_c *	m_pBlockCache;
+337: };
+338: 
+339: BlockCache_c * BlockCache_c::m_pBlockCache = nullptr;
+340: 
+341: void BlockCache_c::Init ( int64_t iCacheSize )
+342: {
+343: 	assert ( !m_pBlockCache );
+344: 	if ( iCacheSize > 0 )
+345: 		m_pBlockCache = new BlockCache_c(iCacheSize);
+346: }
+347: 
+348: //////////////////////////////////////////////////////////////////////////
+
+src/docstore.cpp:833-874
+full-file sha256: caeebeaa8cf3f077039353c82d2d97da5dd87193347f3a868f3adf0f01903b19
+833: DocstoreDoc_t Docstore_c::ReadDocFromSmallBlock ( const Block_t & tBlock, RowID_t tRowID, const VecTraits_T<int> * pFieldIds, int64_t iSessionId, bool bPack ) const
+834: {
+835: 	BlockCache_c * pBlockCache = BlockCache_c::Get();
+836: 
+837: 	BlockData_t tBlockData;
+838: 	bool bFromCache = pBlockCache && pBlockCache->Find ( { m_iIndexId, tBlock.m_tOffset }, tBlockData );
+839: 	if ( !bFromCache )
+840: 	{
+841: 		tBlockData = UncompressSmallBlock ( tBlock, iSessionId );
+842: 		bFromCache = pBlockCache && pBlockCache->Add ( { m_iIndexId, tBlock.m_tOffset }, tBlockData );
+843: 	}
+844: 
+845: 	ScopedBlock_t tScopedBlock;
+846: 	CSphFixedVector<BYTE> tDataPtr {0};	// scoped array ptr
+847: 	if ( bFromCache )
+848: 	{
+849: 		tScopedBlock.m_iIndexId = m_iIndexId;
+850: 		tScopedBlock.m_tOffset = tBlock.m_tOffset;
+851: 	}
+852: 	else
+853: 		tDataPtr.Set ( tBlockData.m_pData, 0 );
+854: 
+855: 	CSphFixedVector<int> dFieldInRset (	m_tFields.GetNumFields() );
+856: 	CreateFieldRemap ( dFieldInRset, pFieldIds );
+857: 
+858: 	DocstoreDoc_t tResult;
+859: 
+860: 	RowID_t tCurDocRowID = tBlock.m_tRowID;
+861: 	MemoryReader2_c tReader ( tBlockData.m_pData, tBlockData.m_uSize );
+862: 	CSphBitvec tEmptyFields ( m_tFields.GetNumFields() );
+863: 	for ( int i = 0; i < (int)tBlockData.m_uNumDocs; i++ )
+864: 	{
+865: 		if ( ProcessSmallBlockDoc ( tCurDocRowID, tRowID, pFieldIds, dFieldInRset, bPack, tReader, tEmptyFields, tResult ) )
+866: 			break;
+867: 
+868: 		tCurDocRowID++;
+869: 	}
+870: 
+871: 	return tResult;
+872: }
+873: 
+874: 

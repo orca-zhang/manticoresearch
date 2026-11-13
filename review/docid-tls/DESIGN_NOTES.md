@@ -1,6 +1,9 @@
-# Design boundaries of the two optimizations
+# Design boundaries: DocID, shared blocks and reader TLS
 
-The optimizations affect row resolution and stored-field retrieval respectively.
+PR #5042 covers row resolution and the shared docstore block cache. PR #5045
+only covers reader-map TLS; the two PRs remain independently applicable.
+The diagram shows the optional combined flow. #5042 alone always uses the
+locked reader registry on a block-cache miss.
 They can operate independently or execute sequentially within one query. COUNT
 queries typically need only row resolution. Stored fields served by the block
 cache bypass the reader map.
@@ -16,7 +19,10 @@ flowchart TD
     F -->|No, for example COUNT| R[Return results]
     F -->|Yes| BC{Docstore block cache hit?}
     BC -->|Yes| DATA[Read block data]
-    BC -->|No| TLS{TLS key and generation match?}
+    BC -->|No| ENABLED{Reader TLS patch #5045 present?}
+    ENABLED -->|No, including #5042 alone| LOCKED[Lock shared reader registry]
+    LOCKED --> IO
+    ENABLED -->|Yes| TLS{TLS key and generation match?}
     TLS -->|Yes| BORROW[Reuse borrowed reader pointer]
     TLS -->|No| MAP[Lock shared reader map and refill TLS]
     BORROW --> IO[Read through reader or use pread for a null pointer]
@@ -59,6 +65,26 @@ The N100 directory throughput changes include node width, depth, comparison
 count and compiler code generation. Hardware counters have not isolated reduced
 L1 misses as the sole cause. SQL QPS for this directory change on N100 remains
 unmeasured. PERFORMANCE.md records allocation sizes and differences.
+
+## Shared docstore blocks in #5042
+
+- Up to 16 independently locked shared LRU shards, power-of-two count with
+  roughly at least 1 MiB entry budget each. Budgets below 2 MiB retain one shard.
+  Budgets sum exactly to `docstore_cache_size`; hash-table/mutex/allocator metadata
+  are extra, and a block must fit its shard. Skew can leave capacity underused.
+- Existing seeded XXH3-64 hashes the offset bytes with index ID as seed, then
+  truncates to 32 bits. High four bits route shards; low bits select table
+  buckets. Full key equality still checks index and offset.
+- Find/Add/Release and LRU accounting remain locked per shard. This adds no TLS
+  block pointers, reader TLS, generation counter or memory-reclamation protocol.
+  Clear/drop/shutdown keep the existing lifecycle preconditions.
+- The original global-budget/64 admission threshold is retained when a full
+  shard needs space; available shard capacity still limits an individual block.
+- Naturally aligned LRU-specific entries fix misaligned packed key/value
+  references. Generic OpenHash's default layout remains unchanged. Packed numeric
+  and UUID lookup values are read with memcpy to avoid misaligned references.
+
+[Measurements, CI repairs and limitations](BLOCK_CACHE_2026-11-13.md).
 
 ## TLS cache for the reader map
 

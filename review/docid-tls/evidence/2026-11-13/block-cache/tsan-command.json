@@ -1,0 +1,12 @@
+[
+  "python3",
+  "/private/tmp/manticore-block-cache-evidence-20261113/review/docid-tls/repro/2026-11-13/sanitize_caches.py",
+  "/private/tmp/manticore-5042-cache-publish-20261113",
+  "/private/tmp/manticore-5042-publish-build-20261113",
+  "--output",
+  "/private/tmp/manticore-5042-publish-review-20261113/tsan",
+  "--sanitizer",
+  "thread",
+  "--repeat",
+  "20"
+]

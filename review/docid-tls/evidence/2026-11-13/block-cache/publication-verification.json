@@ -1,0 +1,38 @@
+{
+  "source_snapshot_comparison": "Both arms match their respective commits byte-for-byte for saved production files",
+  "patch_chain_tree_verified": true,
+  "reader_tls_in_5042": false,
+  "all_published_markdown_narratives": "English",
+  "local_markdown_links_checked": true,
+  "figures_visually_reviewed": 3,
+  "native_tests_per_arm": 521,
+  "focused_tests_times_repeats": "26 x 20, ASan+UBSan and TSan separately",
+  "benchmarks": {
+    "candidate_commit": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+    "reader_tls": false,
+    "comparisons": 22,
+    "timed_arm_samples": 264,
+    "checked_timed_queries": 14623451,
+    "no_samples_discarded": true,
+    "phases": [
+      "compare-docid0",
+      "compare-extra-docid0",
+      "compare-docid128m",
+      "toggle-docid0",
+      "toggle-docid128m",
+      "compare-repeat-docid0",
+      "toggle-repeat-docid0"
+    ],
+    "native_gtests_per_arm": 521,
+    "focused_sanitizer_tests": 26,
+    "focused_sanitizer_repeats": 20,
+    "ci": {
+      "state": "action_required",
+      "test_run": 43408089087,
+      "jobs": 0,
+      "author_upstream_permission": "READ"
+    }
+  },
+  "ci_state": "action_required; zero jobs; upstream maintainer approval needed",
+  "production_merged_or_deployed": false
+}

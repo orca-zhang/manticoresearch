@@ -1,0 +1,61 @@
+{
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+  "baseline_sha": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+  "pr_sha": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+  "mcl_sha": "88b5412a243ab0439957203acfe86c09944280d3",
+  "production_flags": "-O2 -DNDEBUG",
+  "note": "Fresh clean upstream build; symbols omitted for local disk budget; 3 additional reader tests are identical in both arms.",
+  "binaries": {
+    "reference-searchd": {
+      "path": "/private/tmp/manticore-5045-review-20261113/binaries/reference-searchd",
+      "sha256": "ba256405dd6d3bd21f47f88e23b0d42f71bf3a2a7a5c99141ec6f91dcf0f3bc0"
+    },
+    "reference-tests": {
+      "path": "/private/tmp/manticore-5045-review-20261113/binaries/reference-tests",
+      "sha256": "1bddb62944715c47886a273fa9f073e391ecdb4468f7a18bd1900c90e2cff66e"
+    },
+    "tls-searchd": {
+      "path": "/private/tmp/manticore-5045-review-20261113/binaries/tls-searchd",
+      "sha256": "8fce3d583c5079f4f376b48359fdcd65373567c379695c304f56e2568e581e22"
+    },
+    "tls-tests": {
+      "path": "/private/tmp/manticore-5045-review-20261113/binaries/tls-tests",
+      "sha256": "faf132d1047f8fff891d5104f2b4fb762878e482f04832e4199ad10fc7cc892e"
+    }
+  },
+  "calibration": {
+    "MANTICORE_KNOWN_CREATE_SIZE": "384",
+    "MANTICORE_START_KNOWN_CREATE_SIZE": "3280",
+    "MANTICORE_KNOWN_EXPR_SIZE": "32",
+    "MANTICORE_START_KNOWN_EXPR_SIZE": "160",
+    "MANTICORE_NONE": "32",
+    "MANTICORE_START_NONE": "160",
+    "MANTICORE_KNOWN_FILTER_SIZE": "224",
+    "MANTICORE_START_KNOWN_FILTER_SIZE": "30896",
+    "MANTICORE_KNOWN_MATCH_SIZE": "208",
+    "MANTICORE_START_KNOWN_MATCH_SIZE": "16288"
+  },
+  "reference_full_exit": 0,
+  "tls_full_exit": 0,
+  "source_hashes": {
+    "src/docstore.cpp": "caeebeaa8cf3f077039353c82d2d97da5dd87193347f3a868f3adf0f01903b19",
+    "src/gtests/gtests_docstore_readers.cpp": "641cf4a5cc015336ccd00a66c423b9561cb6999d343543d106bb3cb73ef8d610",
+    "src/gtests/CMakeLists.txt": "30925baf96bc29f2139cb9d409133a982b938316ababd965def7395cd8cc205b"
+  },
+  "tls_docstore_matches_pr": true,
+  "cpu_unit_selfcheck": {
+    "child_process_cpu_ns": 398023000,
+    "rusage_raw_delta": 9554038,
+    "mach_timebase_numer": 125,
+    "mach_timebase_denom": 3,
+    "converted_cpu_ns": 398084916,
+    "note": "Busy child process_time_ns cross-check; ratio 1.00016 confirms raw rusage ticks need the recorded conversion on this host."
+  },
+  "host": {
+    "cpu": "Apple M4 Pro",
+    "logical_cpus": 12,
+    "physical_cpus": 12,
+    "memory_bytes": 25769803776
+  }
+}

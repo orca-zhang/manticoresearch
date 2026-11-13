@@ -1,0 +1,6 @@
+starting small-default
+small-default: 3352.0 -> 9064.9 QPS (+170.43%), CPU/query -63.11%
+starting 1m-default
+1m-default: 1325.3 -> 3202.8 QPS (+141.66%), CPU/query -55.47%
+starting 5m-default
+5m-default: 1328.2 -> 2890.2 QPS (+117.60%), CPU/query -49.40%

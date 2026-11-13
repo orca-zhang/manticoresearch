@@ -1,0 +1,1027 @@
+﻿2026-11-04T09:12:38.1199482Z Current runner version: '2.338.2'
+2026-11-04T09:12:38.1228840Z ##[group]Runner Image Provisioner
+2026-11-04T09:12:38.1229764Z Hosted Compute Agent
+2026-11-04T09:12:38.1230553Z Version: 20261028.624
+2026-11-04T09:12:38.1231230Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+2026-11-04T09:12:38.1232416Z Build Date: 2026-10-28T21:51:42Z
+2026-11-04T09:12:38.1233317Z Worker ID: {c6a53f88-d78e-443f-8424-31bf62faa7e4}
+2026-11-04T09:12:38.1234093Z Region: eastus2
+2026-11-04T09:12:38.1234735Z Cloud: Azure
+2026-11-04T09:12:38.1235333Z ##[endgroup]
+2026-11-04T09:12:38.1236974Z ##[group]Operating System
+2026-11-04T09:12:38.1237781Z Ubuntu
+2026-11-04T09:12:38.1238356Z 22.04.5
+2026-11-04T09:12:38.1239024Z LTS
+2026-11-04T09:12:38.1239577Z ##[endgroup]
+2026-11-04T09:12:38.1240191Z ##[group]Runner Image
+2026-11-04T09:12:38.1241038Z Image: ubuntu-22.04
+2026-11-04T09:12:38.1242056Z Version: 20261101.347.1
+2026-11-04T09:12:38.1243723Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20261101.347/images/ubuntu/Ubuntu2204-Readme.md
+2026-11-04T09:12:38.1245453Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20261101.347
+2026-11-04T09:12:38.1246503Z ##[endgroup]
+2026-11-04T09:12:38.1247833Z ##[group]GITHUB_TOKEN Permissions
+2026-11-04T09:12:38.1250239Z Contents: read
+2026-11-04T09:12:38.1250904Z Metadata: read
+2026-11-04T09:12:38.1251627Z Packages: read
+2026-11-04T09:12:38.1252779Z ##[endgroup]
+2026-11-04T09:12:38.1254954Z Secret source: None
+2026-11-04T09:12:38.1256134Z Cache mode: write
+2026-11-04T09:12:38.1257461Z Prepare workflow directory
+2026-11-04T09:12:38.1850183Z Prepare all required actions
+2026-11-04T09:12:38.1901695Z Getting action download info
+2026-11-04T09:12:38.4026611Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-11-04T09:12:38.5786005Z Download action repository 'actions/download-artifact@v7' (SHA:37930b1c2abaa49bbe596cd826c3c89aef350131)
+2026-11-04T09:12:38.7859935Z Download action repository 'actions/cache@v5' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+2026-11-04T09:12:38.8984136Z Download action repository 'actions/upload-artifact@v6' (SHA:b7c566a772e6b6bfb58ed0dc250532a479d7789f)
+2026-11-04T09:12:39.1876276Z Uses: manticoresoftware/manticoresearch/.github/workflows/build_template.yml@refs/pull/5042/merge (f2164bd6579ba8b6eeaabfe319b979a1ab2c8b86)
+2026-11-04T09:12:39.1883072Z ##[group] Inputs
+2026-11-04T09:12:39.1884090Z   arch: x64
+2026-11-04T09:12:39.1884969Z   DISTR: windows
+2026-11-04T09:12:39.1885990Z   CTEST_CMAKE_GENERATOR: Ninja Multi-Config
+2026-11-04T09:12:39.1887307Z   CTEST_CONFIGURATION_TYPE: Debug
+2026-11-04T09:12:39.1888967Z   WITH_COVERAGE: 0
+2026-11-04T09:12:39.1889967Z   UNITY_BUILD: 1
+2026-11-04T09:12:39.1890874Z   version: 
+2026-11-04T09:12:39.1891933Z   build_tag: 
+2026-11-04T09:12:39.1893689Z   cmake_command: export MCL_LOCAL_RUNTIME=OFF
+ctest -VV -S misc/ctest/gltest.cmake --no-compress-output
+
+2026-11-04T09:12:39.1895779Z   cache_key: build_windows_x64
+2026-11-04T09:12:39.1896873Z   boost_url_key: boost_80
+2026-11-04T09:12:39.1897983Z   sysroot_url_key: roots_mysql83_jan17_vc1429
+2026-11-04T09:12:39.1902914Z   artifact_list: build/xml build/src/Debug/indexer.exe build/src/Debug/indexer.pdb build/src/Debug/searchd.exe build/src/Debug/searchd.pdb build/src/gtests/Debug/gmanticoretest.exe build/src/gtests/Debug/gmanticoretest.pdb build/src/Debug/*.dll build/src/gtests/Debug/*.dll build/config/*.c build/config/*.h
+2026-11-04T09:12:39.1907662Z   artifact_name: 
+2026-11-04T09:12:39.1908585Z   HOMEBREW_PREFIX: 
+2026-11-04T09:12:39.1909541Z   PACK_GALERA: 0
+2026-11-04T09:12:39.1910486Z   MCL_PACKAGE_ARTIFACT_NAME: 
+2026-11-04T09:12:39.1911563Z   MCL_PACKAGE_SHA: 
+2026-11-04T09:12:39.1912617Z   MCL_REPO_TYPE: dev
+2026-11-04T09:12:39.1913550Z   ref: 
+2026-11-04T09:12:39.1914381Z ##[endgroup]
+2026-11-04T09:12:39.1915353Z Complete job name: Windows x64 build / build
+2026-11-04T09:12:39.2648213Z ##[group]Checking docker version
+2026-11-04T09:12:39.2662318Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-11-04T09:12:39.3590803Z '1.48'
+2026-11-04T09:12:39.3608951Z Docker daemon API version: '1.48'
+2026-11-04T09:12:39.3610546Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-11-04T09:12:39.3817782Z '1.48'
+2026-11-04T09:12:39.3835027Z Docker client API version: '1.48'
+2026-11-04T09:12:39.3840959Z ##[endgroup]
+2026-11-04T09:12:39.3845386Z ##[group]Clean up resources from previous jobs
+2026-11-04T09:12:39.3851238Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=922cc7"
+2026-11-04T09:12:39.4037135Z ##[command]/usr/bin/docker network prune --force --filter "label=922cc7"
+2026-11-04T09:12:39.4212080Z ##[endgroup]
+2026-11-04T09:12:39.4213182Z ##[group]Create local container network
+2026-11-04T09:12:39.4224561Z ##[command]/usr/bin/docker network create --label 922cc7 github_network_b6aea027c70c4d3b9209bf4f0c71b788
+2026-11-04T09:12:39.4813387Z ff8a2608df80403689c57d08ea626cb3d970b4d1d1e763ae9981a3475a5cb977
+2026-11-04T09:12:39.4839067Z ##[endgroup]
+2026-11-04T09:12:39.4865573Z ##[group]Starting job container
+2026-11-04T09:12:39.4888300Z ##[command]/usr/bin/docker pull manticoresearch/external_toolchain:vcpkg331_20260310
+2026-11-04T09:12:39.7967930Z vcpkg331_20260310: Pulling from manticoresearch/external_toolchain
+2026-11-04T09:12:39.8849751Z 13b7e930469f: Pulling fs layer
+2026-11-04T09:12:39.8851156Z 503a71a8fa3f: Pulling fs layer
+2026-11-04T09:12:39.8937915Z b7867a5aa06f: Pulling fs layer
+2026-11-04T09:12:39.8938630Z faab0d0b547a: Pulling fs layer
+2026-11-04T09:12:39.8938964Z dcb52975e313: Pulling fs layer
+2026-11-04T09:12:39.8939340Z 0b15e62debc9: Pulling fs layer
+2026-11-04T09:12:39.8939659Z faab0d0b547a: Waiting
+2026-11-04T09:12:39.8939972Z dcb52975e313: Waiting
+2026-11-04T09:12:39.8940262Z 0b15e62debc9: Waiting
+2026-11-04T09:12:40.1201581Z 13b7e930469f: Verifying Checksum
+2026-11-04T09:12:40.1202419Z 13b7e930469f: Download complete
+2026-11-04T09:12:40.4440545Z faab0d0b547a: Verifying Checksum
+2026-11-04T09:12:40.4443138Z faab0d0b547a: Download complete
+2026-11-04T09:12:40.6461413Z 503a71a8fa3f: Verifying Checksum
+2026-11-04T09:12:40.6463011Z 503a71a8fa3f: Download complete
+2026-11-04T09:12:40.6998362Z 0b15e62debc9: Verifying Checksum
+2026-11-04T09:12:40.7000193Z 0b15e62debc9: Download complete
+2026-11-04T09:12:41.0192053Z dcb52975e313: Verifying Checksum
+2026-11-04T09:12:41.0193720Z dcb52975e313: Download complete
+2026-11-04T09:12:41.0963966Z b7867a5aa06f: Verifying Checksum
+2026-11-04T09:12:41.0966326Z b7867a5aa06f: Download complete
+2026-11-04T09:12:41.6489394Z 13b7e930469f: Pull complete
+2026-11-04T09:12:47.9719776Z 503a71a8fa3f: Pull complete
+2026-11-04T09:12:54.5794266Z b7867a5aa06f: Pull complete
+2026-11-04T09:12:57.3832960Z faab0d0b547a: Pull complete
+2026-11-04T09:13:01.8779528Z dcb52975e313: Pull complete
+2026-11-04T09:13:01.8873515Z 0b15e62debc9: Pull complete
+2026-11-04T09:13:01.8909806Z Digest: sha256:906fb60a6adc78338a823427c8648817a9073d14bcc02b3d8f3b3965e346aab9
+2026-11-04T09:13:01.8922744Z Status: Downloaded newer image for manticoresearch/external_toolchain:vcpkg331_20260310
+2026-11-04T09:13:01.8935589Z docker.io/manticoresearch/external_toolchain:vcpkg331_20260310
+2026-11-04T09:13:01.9042969Z ##[command]/usr/bin/docker create --name 3af80a0fb1664bd5a6d02117f893521a_manticoresearchexternal_toolchainvcpkg331_20260310_b9965f --label 922cc7 --workdir /__w/manticoresearch/manticoresearch --network github_network_b6aea027c70c4d3b9209bf4f0c71b788  -e "CACHEB=../cache" -e "DIAGNOSTIC=1" -e "PACK_ICUDATA=0" -e "NO_TESTS=1" -e "DISTR=windows" -e "boost=boost_80" -e "sysroot=roots_mysql83_jan17_vc1429" -e "arch=x64" -e "CTEST_CMAKE_GENERATOR=Ninja Multi-Config" -e "CTEST_CONFIGURATION_TYPE=Debug" -e "WITH_COVERAGE=0" -e "UNITY_BUILD=1" -e "SYSROOT_URL=https://repo.manticoresearch.com/repository/sysroots" -e "HOMEBREW_PREFIX" -e "PACK_GALERA=0" -e "MCL_PACKAGE_ARTIFACT_NAME" -e "MCL_PACKAGE_SHA" -e "MCL_REPO_TYPE=dev" -e "BUILD_TAG" -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.2/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" manticoresearch/external_toolchain:vcpkg331_20260310 "-f" "/dev/null"
+2026-11-04T09:13:01.9339072Z 702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577
+2026-11-04T09:13:01.9367905Z ##[command]/usr/bin/docker start 702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577
+2026-11-04T09:13:02.1570642Z 702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577
+2026-11-04T09:13:02.1593272Z ##[command]/usr/bin/docker ps --all --filter id=702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-11-04T09:13:02.1742436Z 702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577 Up Less than a second
+2026-11-04T09:13:02.1766654Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577
+2026-11-04T09:13:02.1920518Z arch=x64
+2026-11-04T09:13:02.1920935Z MCL_PACKAGE_ARTIFACT_NAME
+2026-11-04T09:13:02.1921370Z CACHEB=../cache
+2026-11-04T09:13:02.1936487Z DISTR=windows
+2026-11-04T09:13:02.1936842Z boost=boost_80
+2026-11-04T09:13:02.1937137Z UNITY_BUILD=1
+2026-11-04T09:13:02.1937490Z SYSROOT_URL=https://repo.manticoresearch.com/repository/sysroots
+2026-11-04T09:13:02.1937961Z MCL_REPO_TYPE=dev
+2026-11-04T09:13:02.1938206Z CTEST_CMAKE_GENERATOR=Ninja Multi-Config
+2026-11-04T09:13:02.1938620Z CTEST_CONFIGURATION_TYPE=Debug
+2026-11-04T09:13:02.1938887Z PACK_GALERA=0
+2026-11-04T09:13:02.1939086Z MCL_PACKAGE_SHA
+2026-11-04T09:13:02.1939308Z HOME=/github/home
+2026-11-04T09:13:02.1939519Z GITHUB_ACTIONS=true
+2026-11-04T09:13:02.1939781Z BUILD_TAG
+2026-11-04T09:13:02.1939958Z CI=true
+2026-11-04T09:13:02.1940149Z DIAGNOSTIC=1
+2026-11-04T09:13:02.1940361Z PACK_ICUDATA=0
+2026-11-04T09:13:02.1940554Z NO_TESTS=1
+2026-11-04T09:13:02.1940761Z sysroot=roots_mysql83_jan17_vc1429
+2026-11-04T09:13:02.1941010Z WITH_COVERAGE=0
+2026-11-04T09:13:02.1941209Z HOMEBREW_PREFIX
+2026-11-04T09:13:02.1941958Z PATH=/vcpkg:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/llvm-16/bin:/cmake-3.31.2-linux-x86_64/bin
+2026-11-04T09:13:02.1942605Z DEBIAN_FRONTEND=noninteractive
+2026-11-04T09:13:02.1942843Z llvm=16
+2026-11-04T09:13:02.1943026Z CMAKE_GENERATOR=Ninja
+2026-11-04T09:13:02.1943295Z CMAKE_TOOLCHAIN_FILE=/sysroot/root/toolchain.cmake
+2026-11-04T09:13:02.1943591Z VCPKG_ROOT=/vcpkg
+2026-11-04T09:13:02.1943808Z VCPKG_DISABLE_METRICS=1
+2026-11-04T09:13:02.1944232Z VCPKG_FORCE_SYSTEM_BINARIES=1
+2026-11-04T09:13:02.1954171Z ##[endgroup]
+2026-11-04T09:13:02.1963661Z ##[group]Waiting for all services to be ready
+2026-11-04T09:13:02.1965540Z ##[endgroup]
+2026-11-04T09:13:02.2291131Z ##[group]Run actions/checkout@v5
+2026-11-04T09:13:02.2292031Z with:
+2026-11-04T09:13:02.2294600Z   token: ***
+2026-11-04T09:13:02.2294855Z   ref: f2164bd6579ba8b6eeaabfe319b979a1ab2c8b86
+2026-11-04T09:13:02.2295167Z   set-safe-directory: true
+2026-11-04T09:13:02.2295400Z   submodules: recursive
+2026-11-04T09:13:02.2295651Z   repository: manticoresoftware/manticoresearch
+2026-11-04T09:13:02.2295933Z   ssh-strict: true
+2026-11-04T09:13:02.2296126Z   ssh-user: git
+2026-11-04T09:13:02.2296333Z   persist-credentials: true
+2026-11-04T09:13:02.2296560Z   clean: true
+2026-11-04T09:13:02.2296780Z   sparse-checkout-cone-mode: true
+2026-11-04T09:13:02.2297029Z   fetch-depth: 1
+2026-11-04T09:13:02.2297223Z   fetch-tags: false
+2026-11-04T09:13:02.2297421Z   show-progress: true
+2026-11-04T09:13:02.2297624Z   lfs: false
+2026-11-04T09:13:02.2297821Z   allow-unsafe-pr-checkout: false
+2026-11-04T09:13:02.2298503Z ##[endgroup]
+2026-11-04T09:13:02.2363550Z ##[command]/usr/bin/docker exec  702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577 sh -c "cat /etc/*release | grep ^ID"
+2026-11-04T09:13:02.6402010Z Syncing repository: manticoresoftware/manticoresearch
+2026-11-04T09:13:02.6404177Z ##[group]Getting Git version info
+2026-11-04T09:13:02.6404876Z Working directory is '/__w/manticoresearch/manticoresearch'
+2026-11-04T09:13:02.6405888Z [command]/usr/bin/git version
+2026-11-04T09:13:02.6406361Z git version 2.25.1
+2026-11-04T09:13:02.6428370Z ##[endgroup]
+2026-11-04T09:13:02.6444789Z Temporarily overriding HOME='/__w/_temp/a2f2aa38-1c8d-4508-afb5-3254a6018441' before making global git config changes
+2026-11-04T09:13:02.6446047Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T09:13:02.6450941Z [command]/usr/bin/git config --global --add safe.directory /__w/manticoresearch/manticoresearch
+2026-11-04T09:13:02.6488707Z Deleting the contents of '/__w/manticoresearch/manticoresearch'
+2026-11-04T09:13:02.6494134Z ##[group]Initializing the repository
+2026-11-04T09:13:02.6499572Z [command]/usr/bin/git init /__w/manticoresearch/manticoresearch
+2026-11-04T09:13:02.6546665Z Initialized empty Git repository in /__w/manticoresearch/manticoresearch/.git/
+2026-11-04T09:13:02.6558582Z [command]/usr/bin/git remote add origin https://github.com/manticoresoftware/manticoresearch
+2026-11-04T09:13:02.6594158Z ##[endgroup]
+2026-11-04T09:13:02.6594827Z ##[group]Disabling automatic garbage collection
+2026-11-04T09:13:02.6599527Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-04T09:13:02.6631445Z ##[endgroup]
+2026-11-04T09:13:02.6632219Z ##[group]Setting up auth
+2026-11-04T09:13:02.6639156Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T09:13:02.6674491Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T09:13:02.6975612Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T09:13:02.7011728Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T09:13:02.7306291Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T09:13:02.7344911Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T09:13:02.7649699Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-04T09:13:02.7691032Z ##[endgroup]
+2026-11-04T09:13:02.7691579Z ##[group]Fetching the repository
+2026-11-04T09:13:02.7701443Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin f2164bd6579ba8b6eeaabfe319b979a1ab2c8b86
+2026-11-04T09:13:04.6460716Z From https://github.com/manticoresoftware/manticoresearch
+2026-11-04T09:13:04.6461298Z  * branch            f2164bd6579ba8b6eeaabfe319b979a1ab2c8b86 -> FETCH_HEAD
+2026-11-04T09:13:04.6483022Z ##[endgroup]
+2026-11-04T09:13:04.6483977Z ##[group]Determining the checkout info
+2026-11-04T09:13:04.6491491Z ##[endgroup]
+2026-11-04T09:13:04.6492966Z ##[group]Checking out the ref
+2026-11-04T09:13:04.6493742Z [command]/usr/bin/git checkout --progress --force f2164bd6579ba8b6eeaabfe319b979a1ab2c8b86
+2026-11-04T09:13:05.0735547Z Note: switching to 'f2164bd6579ba8b6eeaabfe319b979a1ab2c8b86'.
+2026-11-04T09:13:05.0736051Z 
+2026-11-04T09:13:05.0736397Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-04T09:13:05.0737217Z changes and commit them, and you can discard any commits you make in this
+2026-11-04T09:13:05.0738127Z state without impacting any branches by switching back to a branch.
+2026-11-04T09:13:05.0738604Z 
+2026-11-04T09:13:05.0738942Z If you want to create a new branch to retain commits you create, you may
+2026-11-04T09:13:05.0739680Z do so (now or later) by using -c with the switch command. Example:
+2026-11-04T09:13:05.0740431Z 
+2026-11-04T09:13:05.0740648Z   git switch -c <new-branch-name>
+2026-11-04T09:13:05.0740949Z 
+2026-11-04T09:13:05.0741114Z Or undo this operation with:
+2026-11-04T09:13:05.0741376Z 
+2026-11-04T09:13:05.0741518Z   git switch -
+2026-11-04T09:13:05.0741970Z 
+2026-11-04T09:13:05.0742338Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-04T09:13:05.0742862Z 
+2026-11-04T09:13:05.0743460Z HEAD is now at f2164bd Merge 9144f7656dfb995da50df7817b9f8f43ada4b399 into 047d2f99522d78e0aa1de7e7dc945a9abe1b673a
+2026-11-04T09:13:05.0768244Z ##[endgroup]
+2026-11-04T09:13:05.0768891Z ##[group]Setting up auth for fetching submodules
+2026-11-04T09:13:05.0769850Z [command]/usr/bin/git config --global http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-04T09:13:05.0806268Z [command]/usr/bin/git config --global --unset-all url.https://github.com/.insteadOf
+2026-11-04T09:13:05.0841030Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf git@github.com:
+2026-11-04T09:13:05.0874644Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf org-28798446@github.com:
+2026-11-04T09:13:05.0904576Z ##[endgroup]
+2026-11-04T09:13:05.0905284Z ##[group]Fetching submodules
+2026-11-04T09:13:05.0908836Z [command]/usr/bin/git submodule sync --recursive
+2026-11-04T09:13:05.1211506Z [command]/usr/bin/git -c protocol.version=2 submodule update --init --force --depth=1 --recursive
+2026-11-04T09:13:05.1517471Z Submodule 'mcl' (https://github.com/manticoresoftware/columnar.git) registered for path 'mcl'
+2026-11-04T09:13:05.1571153Z Cloning into '/__w/manticoresearch/manticoresearch/mcl'...
+2026-11-04T09:13:06.1283116Z From https://github.com/manticoresoftware/columnar
+2026-11-04T09:13:06.1283805Z  * branch            88b5412a243ab0439957203acfe86c09944280d3 -> FETCH_HEAD
+2026-11-04T09:13:06.1876502Z Submodule path 'mcl': checked out '88b5412a243ab0439957203acfe86c09944280d3'
+2026-11-04T09:13:06.1960148Z [command]/usr/bin/git submodule foreach --recursive git config --local gc.auto 0
+2026-11-04T09:13:06.2248861Z Entering 'mcl'
+2026-11-04T09:13:06.2301078Z ##[endgroup]
+2026-11-04T09:13:06.2301510Z ##[group]Persisting credentials for submodules
+2026-11-04T09:13:06.2307974Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'url\.https\:\/\/github\.com\/\.insteadOf' && git config --local --unset-all 'url.https://github.com/.insteadOf' || :"
+2026-11-04T09:13:06.2593785Z Entering 'mcl'
+2026-11-04T09:13:06.2655714Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local 'http.https://github.com/.extraheader' 'AUTHORIZATION: basic ***' && git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-11-04T09:13:06.2943387Z Entering 'mcl'
+2026-11-04T09:13:06.2990762Z file:/__w/manticoresearch/manticoresearch/.git/modules/mcl/config	remote.origin.url
+2026-11-04T09:13:06.3038228Z [command]/usr/bin/git submodule foreach --recursive git config --local --add 'url.https://github.com/.insteadOf' 'git@github.com:'
+2026-11-04T09:13:06.3326433Z Entering 'mcl'
+2026-11-04T09:13:06.3386589Z [command]/usr/bin/git submodule foreach --recursive git config --local --add 'url.https://github.com/.insteadOf' 'org-28798446@github.com:'
+2026-11-04T09:13:06.3678197Z Entering 'mcl'
+2026-11-04T09:13:06.3734146Z ##[endgroup]
+2026-11-04T09:13:06.3771539Z [command]/usr/bin/git log -1 --format=%H
+2026-11-04T09:13:06.3799042Z f2164bd6579ba8b6eeaabfe319b979a1ab2c8b86
+2026-11-04T09:13:06.4054199Z ##[group]Run bash /sysroot/root/entry_point.sh
+2026-11-04T09:13:06.4054608Z [36;1mbash /sysroot/root/entry_point.sh[0m
+2026-11-04T09:13:06.4055071Z [36;1mgit config --global --add safe.directory /__w/manticoresearch/manticoresearch[0m
+2026-11-04T09:13:06.4055516Z [36;1mgit config --global core.abbrev 9[0m
+2026-11-04T09:13:06.4059311Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-11-04T09:13:06.4059632Z ##[endgroup]
+2026-11-04T09:13:06.5103271Z Arch is x64
+2026-11-04T09:13:06.5103932Z Distr is windows
+2026-11-04T09:13:06.5105043Z Sysroot URL is https://repo.manticoresearch.com/repository/sysroots (configured most probably in gitlab variable)
+2026-11-04T09:13:06.5106258Z Will use Boost from dir boost_80 on the server; may be set to 'none', or other value with boost=XYZ clause
+2026-11-04T09:13:06.5106984Z Will use sysroot from dir roots_mysql83_jan17_vc1429 on the server; may be set to other value with sysroot=XYZ clause
+2026-11-04T09:13:06.5121707Z Fetching and unpacking boost headers...
+2026-11-04T09:13:08.7608748Z Fetching and unpacking boost libraries...
+2026-11-04T09:13:11.9022338Z Fetching and unpacking sysroot...
+2026-11-04T09:13:18.5771602Z Preparing boost and sysroot done
+2026-11-04T09:13:18.5901321Z ##[group]Run USER_INPUT=
+2026-11-04T09:13:18.5901612Z [36;1mUSER_INPUT=[0m
+2026-11-04T09:13:18.5902290Z [36;1mecho "value=${USER_INPUT:-"build_windows_Debug_x64"}" >> "$GITHUB_OUTPUT"[0m
+2026-11-04T09:13:18.5902849Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-11-04T09:13:18.5903162Z ##[endgroup]
+2026-11-04T09:13:18.6542701Z ##[group]Run set -euo pipefail
+2026-11-04T09:13:18.6543026Z [36;1mset -euo pipefail[0m
+2026-11-04T09:13:18.6543273Z [36;1mif [[ -n "" ]]; then[0m
+2026-11-04T09:13:18.6543590Z [36;1m  echo "MCL_PACKAGE_DIR=$(pwd)/mcl-package" >> "$GITHUB_ENV"[0m
+2026-11-04T09:13:18.6543928Z [36;1mfi[0m
+2026-11-04T09:13:18.6544115Z [36;1mif [[ -n "" ]]; then[0m
+2026-11-04T09:13:18.6544445Z [36;1m  echo "MCL_PACKAGE_SHA=" >> "$GITHUB_ENV"[0m
+2026-11-04T09:13:18.6545000Z [36;1mfi[0m
+2026-11-04T09:13:18.6545391Z [36;1mecho "MCL_REPO_TYPE=dev" >> "$GITHUB_ENV"[0m
+2026-11-04T09:13:18.6546055Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-11-04T09:13:18.6546521Z ##[endgroup]
+2026-11-04T09:13:18.7244601Z ##[group]Run actions/cache@v5
+2026-11-04T09:13:18.7244861Z with:
+2026-11-04T09:13:18.7245045Z   path: cache
+2026-11-04T09:13:18.7245250Z   enableCrossOsArchive: true
+2026-11-04T09:13:18.7245482Z   key: build_windows_x64
+2026-11-04T09:13:18.7245720Z   fail-on-cache-miss: false
+2026-11-04T09:13:18.7245943Z   lookup-only: false
+2026-11-04T09:13:18.7246150Z   save-always: false
+2026-11-04T09:13:18.7246341Z env:
+2026-11-04T09:13:18.7246517Z   MCL_REPO_TYPE: dev
+2026-11-04T09:13:18.7246710Z ##[endgroup]
+2026-11-04T09:13:18.7250354Z ##[command]/usr/bin/docker exec  702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577 sh -c "cat /etc/*release | grep ^ID"
+2026-11-04T09:13:19.0526771Z Cache hit for: build_windows_x64
+2026-11-04T09:13:19.4286639Z Received 33292089 of 33292089 (100.0%), 103.1 MBs/sec
+2026-11-04T09:13:19.4287912Z Cache Size: ~32 MB (33292089 B)
+2026-11-04T09:13:19.4316758Z [command]/usr/bin/tar -xf /__w/_temp/16bf0c82-f551-4b2c-b152-a4e890d5423f/cache.tgz -P -C /__w/manticoresearch/manticoresearch -z
+2026-11-04T09:13:20.1291651Z Cache restored successfully
+2026-11-04T09:13:20.1554939Z Cache restored from key: build_windows_x64
+2026-11-04T09:13:20.1748851Z ##[group]Run export MCL_LOCAL_RUNTIME=OFF
+2026-11-04T09:13:20.1749487Z [36;1mexport MCL_LOCAL_RUNTIME=OFF[0m
+2026-11-04T09:13:20.1750164Z [36;1mctest -VV -S misc/ctest/gltest.cmake --no-compress-output[0m
+2026-11-04T09:13:20.1751010Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-11-04T09:13:20.1751543Z env:
+2026-11-04T09:13:20.1752135Z   MCL_REPO_TYPE: dev
+2026-11-04T09:13:20.1752585Z ##[endgroup]
+2026-11-04T09:13:20.2377618Z * Extra verbosity turned on
+2026-11-04T09:13:20.2378114Z Reading Script: /__w/manticoresearch/manticoresearch/misc/ctest/gltest.cmake
+2026-11-04T09:13:20.2455568Z SetCTestConfiguration:SourceDirectory:/__w/manticoresearch
+2026-11-04T09:13:20.2456479Z SetCTestConfiguration:BuildDirectory:/__w/manticoresearch/manticoresearch/build
+2026-11-04T09:13:20.2457233Z Run dashboard with model Continuous
+2026-11-04T09:13:20.2457683Z    Source directory: ..
+2026-11-04T09:13:20.2458060Z    Build directory: build
+2026-11-04T09:13:20.2461769Z    Reading ctest configuration file: /__w/manticoresearch/manticoresearch/build/CTestConfig.cmake
+2026-11-04T09:13:20.2463667Z SetCTestConfigurationFromCMakeVariable:NightlyStartTime:CTEST_NIGHTLY_START_TIME
+2026-11-04T09:13:20.2464666Z SetCTestConfiguration:NightlyStartTime:01:00:00 UTC
+2026-11-04T09:13:20.2465218Z SetCTestConfigurationFromCMakeVariable:Site:CTEST_SITE
+2026-11-04T09:13:20.2465645Z SetCTestConfiguration:Site: Debug
+2026-11-04T09:13:20.2466023Z SetCTestConfigurationFromCMakeVariable:BuildName:CTEST_BUILD_NAME
+2026-11-04T09:13:20.2466463Z SetCTestConfiguration:BuildName:
+2026-11-04T09:13:20.2466719Z    Site:  Debug
+2026-11-04T09:13:20.2467189Z    Build name: (empty)
+2026-11-04T09:13:20.2467677Z    Use Continuous tag: 20261104-0913
+2026-11-04T09:13:20.2468515Z SetCTestConfiguration:BuildDirectory:/__w/manticoresearch/manticoresearch/build
+2026-11-04T09:13:20.2469527Z SetCTestConfiguration:SourceDirectory:/__w/manticoresearch
+2026-11-04T09:13:20.2470408Z SetCTestConfiguration:SourceDirectory:/__w/manticoresearch
+2026-11-04T09:13:20.2471416Z SetCTestConfigurationFromCMakeVariable:UpdateCommand:CTEST_UPDATE_COMMAND
+2026-11-04T09:13:20.2472526Z SetCTestConfiguration:UpdateCommand:/usr/bin/git
+2026-11-04T09:13:20.2473284Z SetCTestConfigurationFromCMakeVariable:GITCommand:CTEST_GIT_COMMAND
+2026-11-04T09:13:20.2474044Z SetCTestConfiguration:GITCommand:/usr/bin/git
+2026-11-04T09:13:20.2474870Z SetCTestConfigurationFromCMakeVariable:UpdateVersionOnly:CTEST_UPDATE_VERSION_ONLY
+2026-11-04T09:13:20.2475709Z SetCTestConfiguration:UpdateVersionOnly:ON
+2026-11-04T09:13:20.2476249Z    Updating the repository: /__w/manticoresearch
+2026-11-04T09:13:20.2476769Z    Use GIT repository type
+2026-11-04T09:13:20.2485733Z    New revision of repository is: 
+2026-11-04T09:13:20.2486325Z    Gathering version information (one . per revision):
+2026-11-04T09:13:20.2508394Z     
+2026-11-04T09:13:20.2542244Z SetCTestConfiguration:BuildDirectory:/__w/manticoresearch/manticoresearch/build
+2026-11-04T09:13:20.2543206Z SetCTestConfiguration:SourceDirectory:/__w/manticoresearch
+2026-11-04T09:13:20.2545244Z SetCTestConfiguration:ConfigureCommand:"/cmake-3.31.2-linux-x86_64/bin/cmake" -G "Ninja Multi-Config" -DCMAKE_BUILD_TYPE:STRING=Debug -DWITH_ODBC=1 -DWITH_RE2=1 -DWITH_STEMMER=1 -DWITH_POSTGRESQL= -DWITH_EXPAT=1 -DWITH_SSL=1 -DCMAKE_UNITY_BUILD=1 -DMCL_LOCAL_RUNTIME=OFF ..
+2026-11-04T09:13:20.2546430Z Configure project
+2026-11-04T09:13:20.2547704Z Configure with command: "/cmake-3.31.2-linux-x86_64/bin/cmake" -G "Ninja Multi-Config" -DCMAKE_BUILD_TYPE:STRING=Debug -DWITH_ODBC=1 -DWITH_RE2=1 -DWITH_STEMMER=1 -DWITH_POSTGRESQL= -DWITH_EXPAT=1 -DWITH_SSL=1 -DCMAKE_UNITY_BUILD=1 -DMCL_LOCAL_RUNTIME=OFF ..
+2026-11-04T09:13:20.2549430Z Run command: "/cmake-3.31.2-linux-x86_64/bin/cmake" "-G" "Ninja Multi-Config" "-DCMAKE_BUILD_TYPE:STRING=Debug" "-DWITH_ODBC=1" "-DWITH_RE2=1" "-DWITH_STEMMER=1" "-DWITH_POSTGRESQL=" "-DWITH_EXPAT=1" "-DWITH_SSL=1" "-DCMAKE_UNITY_BUILD=1" "-DMCL_LOCAL_RUNTIME=OFF" ".."
+2026-11-04T09:13:20.6327547Z -- generate_winsdk_lib_symlinks is /sysroot/root/sdk/Windows Kits/10/Lib/10.0.18362.0/um/x64 to /__w/manticoresearch/manticoresearch/build/winsdk_lib_symlinks
+2026-11-04T09:13:21.4096476Z -- The C compiler identification is Clang 16.0.6 with MSVC-like command-line
+2026-11-04T09:13:21.5264016Z -- The CXX compiler identification is Clang 16.0.6 with MSVC-like command-line
+2026-11-04T09:13:21.5366140Z -- Detecting C compiler ABI info
+2026-11-04T09:13:21.6518734Z -- Detecting C compiler ABI info - done
+2026-11-04T09:13:21.7087893Z -- Check for working C compiler: /usr/lib/llvm-16/bin/clang-cl - skipped
+2026-11-04T09:13:21.7090892Z -- Detecting C compile features
+2026-11-04T09:13:21.7097181Z -- Detecting C compile features - done
+2026-11-04T09:13:21.7157682Z -- Detecting CXX compiler ABI info
+2026-11-04T09:13:21.8329833Z -- Detecting CXX compiler ABI info - done
+2026-11-04T09:13:21.8910319Z -- Check for working CXX compiler: /usr/lib/llvm-16/bin/clang-cl - skipped
+2026-11-04T09:13:21.8913987Z -- Detecting CXX compile features
+2026-11-04T09:13:22.1281582Z -- Detecting CXX compile features - done
+2026-11-04T09:13:22.1337494Z -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+2026-11-04T09:13:22.1946857Z -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+2026-11-04T09:13:22.1948783Z -- Looking for pthread_create in pthreads
+2026-11-04T09:13:22.2801207Z -- Looking for pthread_create in pthreads - not found
+2026-11-04T09:13:22.2802141Z -- Looking for pthread_create in pthread
+2026-11-04T09:13:22.3674124Z -- Looking for pthread_create in pthread - not found
+2026-11-04T09:13:22.3683833Z -- Found Threads: TRUE
+2026-11-04T09:13:22.3699041Z -- Looking for strnlen
+2026-11-04T09:13:22.4844317Z -- Looking for strnlen - found
+2026-11-04T09:13:22.4849297Z -- Performing Test HAVE_SYNC_FETCH
+2026-11-04T09:13:22.5997756Z -- Performing Test HAVE_SYNC_FETCH - Success
+2026-11-04T09:13:22.5998336Z -- Looking for syslog.h
+2026-11-04T09:13:22.6604543Z -- Looking for syslog.h - not found
+2026-11-04T09:13:22.6611773Z -- Performing Test UNALIGNED_RAM_ACCESS
+2026-11-04T09:13:22.8012667Z -- Performing Test UNALIGNED_RAM_ACCESS - Success
+2026-11-04T09:13:22.8023055Z -- DIAGNOSTIC="1"
+2026-11-04T09:13:22.8023794Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8052841Z -- WRITEB is not set, bundle will NOT be modified...
+2026-11-04T09:13:22.8053572Z -- WRITEB=""
+2026-11-04T09:13:22.8054087Z -- LIBS_BUNDLE="/__w/manticoresearch/bundle"
+2026-11-04T09:13:22.8054837Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8055549Z -- HAVE_BBUILD="TRUE"
+2026-11-04T09:13:22.8056092Z -- CMAKE_FIND_ROOT_PATH was /sysroot/root/diskc
+2026-11-04T09:13:22.8057279Z -- CMAKE_FIND_ROOT_PATH was renewed and became /__w/manticoresearch/manticoresearch/build/../cache/windows-amd64;/sysroot/root/diskc
+2026-11-04T09:13:22.8063451Z -- re2::re2 found ready (no need to build) at /__w/manticoresearch/manticoresearch/cache/windows-amd64/re2/lib/re2d.lib
+2026-11-04T09:13:22.8064686Z -- =========== Trace properties for re2::re2 =============
+2026-11-04T09:13:22.8065349Z -- TYPE = 'STATIC_LIBRARY'
+2026-11-04T09:13:22.8066258Z -- INTERFACE_INCLUDE_DIRECTORIES = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/re2/include'
+2026-11-04T09:13:22.8084711Z -- INTERFACE_LINK_LIBRARIES = '$<LINK_ONLY:Threads::Threads>'
+2026-11-04T09:13:22.8085183Z -- IMPORTED_CONFIGURATIONS = 'DEBUG;RELWITHDEBINFO'
+2026-11-04T09:13:22.8085554Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG = 'CXX'
+2026-11-04T09:13:22.8085936Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_RELWITHDEBINFO = 'CXX'
+2026-11-04T09:13:22.8086521Z -- IMPORTED_LOCATION_DEBUG = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/re2/lib/re2d.lib'
+2026-11-04T09:13:22.8087291Z -- IMPORTED_LOCATION_RELWITHDEBINFO = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/re2/lib/re2.lib'
+2026-11-04T09:13:22.8087880Z -- MAP_IMPORTED_CONFIG_RELEASE = 'RelWithDebInfo'
+2026-11-04T09:13:22.8088244Z -- MAP_IMPORTED_CONFIG_MINSIZEREL = 'RelWithDebInfo'
+2026-11-04T09:13:22.8089034Z -- LOCATION = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/re2/lib/re2d.lib'
+2026-11-04T09:13:22.8089589Z -- =========== Trace properties for re2::re2 finished =============
+2026-11-04T09:13:22.8089926Z -- DIAGNOSTIC="1"
+2026-11-04T09:13:22.8090231Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8090635Z -- WRITEB is not set, bundle will NOT be modified...
+2026-11-04T09:13:22.8090928Z -- WRITEB=""
+2026-11-04T09:13:22.8091150Z -- LIBS_BUNDLE="/__w/manticoresearch/bundle"
+2026-11-04T09:13:22.8091531Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8092249Z -- HAVE_BBUILD="TRUE"
+2026-11-04T09:13:22.8092709Z -- CMAKE_FIND_ROOT_PATH was /sysroot/root/diskc
+2026-11-04T09:13:22.8093721Z -- CMAKE_FIND_ROOT_PATH was renewed and became /__w/manticoresearch/manticoresearch/build/../cache/windows-amd64;/sysroot/root/diskc
+2026-11-04T09:13:22.8095296Z -- stemmer::stemmer ready (no need to build) at /__w/manticoresearch/manticoresearch/cache/windows-amd64/stemmer/lib/stemmerd.lib
+2026-11-04T09:13:22.8096531Z -- =========== Trace properties for stemmer::stemmer =============
+2026-11-04T09:13:22.8097439Z -- TYPE = 'STATIC_LIBRARY'
+2026-11-04T09:13:22.8099221Z -- INTERFACE_INCLUDE_DIRECTORIES = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/stemmer/include/stemmer'
+2026-11-04T09:13:22.8100348Z -- IMPORTED_CONFIGURATIONS = 'DEBUG;RELWITHDEBINFO'
+2026-11-04T09:13:22.8101087Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG = 'C'
+2026-11-04T09:13:22.8101948Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_RELWITHDEBINFO = 'C'
+2026-11-04T09:13:22.8102926Z -- IMPORTED_LOCATION_DEBUG = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/stemmer/lib/stemmerd.lib'
+2026-11-04T09:13:22.8103867Z -- IMPORTED_LOCATION_RELWITHDEBINFO = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/stemmer/lib/stemmer.lib'
+2026-11-04T09:13:22.8104530Z -- MAP_IMPORTED_CONFIG_RELEASE = 'RelWithDebInfo'
+2026-11-04T09:13:22.8114509Z -- MAP_IMPORTED_CONFIG_MINSIZEREL = 'RelWithDebInfo'
+2026-11-04T09:13:22.8115599Z -- LOCATION = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/stemmer/lib/stemmerd.lib'
+2026-11-04T09:13:22.8116273Z -- =========== Trace properties for stemmer::stemmer finished =============
+2026-11-04T09:13:22.8116633Z -- DIAGNOSTIC="1"
+2026-11-04T09:13:22.8116927Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8117318Z -- WRITEB is not set, bundle will NOT be modified...
+2026-11-04T09:13:22.8117602Z -- WRITEB=""
+2026-11-04T09:13:22.8117815Z -- LIBS_BUNDLE="/__w/manticoresearch/bundle"
+2026-11-04T09:13:22.8118158Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8124099Z -- HAVE_BBUILD="TRUE"
+2026-11-04T09:13:22.8124566Z -- CMAKE_FIND_ROOT_PATH was /sysroot/root/diskc
+2026-11-04T09:13:22.8125176Z -- CMAKE_FIND_ROOT_PATH was renewed and became /__w/manticoresearch/manticoresearch/build/../cache/windows-amd64;/sysroot/root/diskc
+2026-11-04T09:13:22.8141372Z -- nlohmann_json::nlohmann_json found ready (no need to build) at LOC-NOTFOUND
+2026-11-04T09:13:22.8142780Z -- =========== Trace properties for nlohmann_json::nlohmann_json =============
+2026-11-04T09:13:22.8143602Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:22.8145715Z -- INTERFACE_COMPILE_DEFINITIONS = '$<$<NOT:$<BOOL:0>>:JSON_USE_GLOBAL_UDLS=0>;$<$<NOT:$<BOOL:ON>>:JSON_USE_IMPLICIT_CONVERSIONS=0>;$<$<BOOL:OFF>:JSON_DISABLE_ENUM_SERIALIZATION=1>;$<$<BOOL:OFF>:JSON_DIAGNOSTICS=1>;$<$<BOOL:OFF>:JSON_DIAGNOSTIC_POSITIONS=1>;$<$<BOOL:OFF>:JSON_USE_LEGACY_DISCARDED_VALUE_COMPARISON=1>'
+2026-11-04T09:13:22.8147948Z -- INTERFACE_COMPILE_FEATURES = 'cxx_std_11'
+2026-11-04T09:13:22.8154980Z -- INTERFACE_INCLUDE_DIRECTORIES = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/nlohmann_json/include;/__w/manticoresearch/manticoresearch/cache/windows-amd64/nlohmann_json/include'
+2026-11-04T09:13:22.8156963Z -- INTERFACE_SOURCES = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/nlohmann_json/nlohmann_json.natvis'
+2026-11-04T09:13:22.8158476Z -- =========== Trace properties for nlohmann_json::nlohmann_json finished =============
+2026-11-04T09:13:22.8159328Z -- DIAGNOSTIC="1"
+2026-11-04T09:13:22.8164041Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8164762Z -- WRITEB is not set, bundle will NOT be modified...
+2026-11-04T09:13:22.8165280Z -- WRITEB=""
+2026-11-04T09:13:22.8165661Z -- LIBS_BUNDLE="/__w/manticoresearch/bundle"
+2026-11-04T09:13:22.8166285Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8166878Z -- HAVE_BBUILD="TRUE"
+2026-11-04T09:13:22.8167308Z -- CMAKE_FIND_ROOT_PATH was /sysroot/root/diskc
+2026-11-04T09:13:22.8168401Z -- CMAKE_FIND_ROOT_PATH was renewed and became /__w/manticoresearch/manticoresearch/build/../cache/windows-amd64;/sysroot/root/diskc
+2026-11-04T09:13:22.8184438Z -- uni-algo::uni-algo found ready (no need to build) at /__w/manticoresearch/manticoresearch/cache/windows-amd64/uni-algo/lib/uni-algo-debug.lib
+2026-11-04T09:13:22.8185521Z -- =========== Trace properties for uni-algo::uni-algo =============
+2026-11-04T09:13:22.8194161Z -- TYPE = 'STATIC_LIBRARY'
+2026-11-04T09:13:22.8194663Z -- INTERFACE_COMPILE_FEATURES = 'cxx_std_17'
+2026-11-04T09:13:22.8195608Z -- INTERFACE_INCLUDE_DIRECTORIES = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/uni-algo/include'
+2026-11-04T09:13:22.8196597Z -- IMPORTED_CONFIGURATIONS = 'DEBUG;RELWITHDEBINFO'
+2026-11-04T09:13:22.8197203Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG = 'CXX'
+2026-11-04T09:13:22.8197870Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_RELWITHDEBINFO = 'CXX'
+2026-11-04T09:13:22.8198984Z -- IMPORTED_LOCATION_DEBUG = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/uni-algo/lib/uni-algo-debug.lib'
+2026-11-04T09:13:22.8200530Z -- IMPORTED_LOCATION_RELWITHDEBINFO = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/uni-algo/lib/uni-algo.lib'
+2026-11-04T09:13:22.8229595Z -- LOCATION = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/uni-algo/lib/uni-algo-debug.lib'
+2026-11-04T09:13:22.8230808Z -- =========== Trace properties for uni-algo::uni-algo finished =============
+2026-11-04T09:13:22.8231507Z -- DIAGNOSTIC="1"
+2026-11-04T09:13:22.8232308Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8233019Z -- WRITEB is not set, bundle will NOT be modified...
+2026-11-04T09:13:22.8233565Z -- WRITEB=""
+2026-11-04T09:13:22.8233962Z -- LIBS_BUNDLE="/__w/manticoresearch/bundle"
+2026-11-04T09:13:22.8234604Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8235200Z -- HAVE_BBUILD="TRUE"
+2026-11-04T09:13:22.8235624Z -- CMAKE_FIND_ROOT_PATH was /sysroot/root/diskc
+2026-11-04T09:13:22.8236681Z -- CMAKE_FIND_ROOT_PATH was renewed and became /__w/manticoresearch/manticoresearch/build/../cache/windows-amd64;/sysroot/root/diskc
+2026-11-04T09:13:22.8238145Z -- icu::icu ready (no need to build) at /__w/manticoresearch/manticoresearch/cache/windows-amd64/icu/lib/icud.lib
+2026-11-04T09:13:22.8239092Z -- =========== Trace properties for icu::icu =============
+2026-11-04T09:13:22.8239614Z -- TYPE = 'STATIC_LIBRARY'
+2026-11-04T09:13:22.8240455Z -- INTERFACE_COMPILE_DEFINITIONS = 'U_STATIC_IMPLEMENTATION;U_CHARSET_IS_UTF8=1;U_NO_DEFAULT_INCLUDE_UTF_HEADERS=1'
+2026-11-04T09:13:22.8241994Z -- INTERFACE_INCLUDE_DIRECTORIES = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/icu/include/icu'
+2026-11-04T09:13:22.8243010Z -- IMPORTED_CONFIGURATIONS = 'DEBUG;RELWITHDEBINFO'
+2026-11-04T09:13:22.8243670Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG = 'CXX'
+2026-11-04T09:13:22.8244336Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_RELWITHDEBINFO = 'CXX'
+2026-11-04T09:13:22.8245321Z -- IMPORTED_LOCATION_DEBUG = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/icu/lib/icud.lib'
+2026-11-04T09:13:22.8246648Z -- IMPORTED_LOCATION_RELWITHDEBINFO = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/icu/lib/icu.lib'
+2026-11-04T09:13:22.8247642Z -- MAP_IMPORTED_CONFIG_RELEASE = 'RelWithDebInfo'
+2026-11-04T09:13:22.8248537Z -- MAP_IMPORTED_CONFIG_MINSIZEREL = 'RelWithDebInfo'
+2026-11-04T09:13:22.8249384Z -- LOCATION = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/icu/lib/icud.lib'
+2026-11-04T09:13:22.8250275Z -- =========== Trace properties for icu::icu finished =============
+2026-11-04T09:13:22.8250850Z -- DIAGNOSTIC="1"
+2026-11-04T09:13:22.8253992Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8254875Z -- WRITEB is not set, bundle will NOT be modified...
+2026-11-04T09:13:22.8255405Z -- WRITEB=""
+2026-11-04T09:13:22.8255793Z -- LIBS_BUNDLE="/__w/manticoresearch/bundle"
+2026-11-04T09:13:22.8256431Z -- CACHEB="/__w/manticoresearch/manticoresearch/build/../cache"
+2026-11-04T09:13:22.8257026Z -- HAVE_BBUILD="TRUE"
+2026-11-04T09:13:22.8257477Z -- CMAKE_FIND_ROOT_PATH was /sysroot/root/diskc
+2026-11-04T09:13:22.8258559Z -- CMAKE_FIND_ROOT_PATH was renewed and became /__w/manticoresearch/manticoresearch/build/../cache/windows-amd64;/sysroot/root/diskc
+2026-11-04T09:13:22.8267110Z -- cctz::cctz found ready (no need to build) at /__w/manticoresearch/manticoresearch/cache/windows-amd64/cctz/lib/Debug/cctz.lib
+2026-11-04T09:13:22.8286092Z -- xxHash::xxhash found ready (no need to build) at /__w/manticoresearch/manticoresearch/cache/windows-amd64/xxhash/lib/xxhash.lib
+2026-11-04T09:13:22.8304581Z -- jieba::jieba found ready (no need to build) at LOC-NOTFOUND
+2026-11-04T09:13:22.8305363Z -- =========== Trace properties for jieba::jieba =============
+2026-11-04T09:13:22.8307295Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:22.8311605Z -- INTERFACE_INCLUDE_DIRECTORIES = '/__w/manticoresearch/manticoresearch/cache/windows-amd64/jieba/include'
+2026-11-04T09:13:22.8312943Z -- =========== Trace properties for jieba::jieba finished =============
+2026-11-04T09:13:22.8314100Z -- will NOT do cross-compile OpenSSL for windows
+2026-11-04T09:13:22.8325458Z -- Using config for configuring openssl - /sysroot/root/diskc/OpenSSLConfig.cmake
+2026-11-04T09:13:22.8326476Z Configure ssl installed from from https://slproweb.com/download/Win64OpenSSL-3_4_0.msi
+2026-11-04T09:13:22.8328835Z -- =========== Trace properties for OpenSSL::SSL =============
+2026-11-04T09:13:22.8329467Z -- TYPE = 'STATIC_LIBRARY'
+2026-11-04T09:13:22.8330190Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/OpenSSL-Win64/include'
+2026-11-04T09:13:22.8355667Z -- INTERFACE_LINK_LIBRARIES = 'OpenSSL::Crypto;ws2_32;crypt32'
+2026-11-04T09:13:22.8356564Z -- IMPORTED_CONFIGURATIONS = 'RELEASE;DEBUG'
+2026-11-04T09:13:22.8357321Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG = 'C'
+2026-11-04T09:13:22.8357908Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE = 'C'
+2026-11-04T09:13:22.8358562Z -- IMPORTED_LOCATION_DEBUG = '/sysroot/root/diskc/OpenSSL-Win64/lib/VC/x64/MDd/libssl_static.lib'
+2026-11-04T09:13:22.8359316Z -- IMPORTED_LOCATION_RELEASE = '/sysroot/root/diskc/OpenSSL-Win64/lib/VC/x64/MD/libssl_static.lib'
+2026-11-04T09:13:22.8359800Z -- MAP_IMPORTED_CONFIG_RELWITHDEBINFO = 'Release'
+2026-11-04T09:13:22.8360118Z -- MAP_IMPORTED_CONFIG_MINSIZEREL = 'Release'
+2026-11-04T09:13:22.8360535Z -- LOCATION = '/sysroot/root/diskc/OpenSSL-Win64/lib/VC/x64/MD/libssl_static.lib'
+2026-11-04T09:13:22.8361024Z -- =========== Trace properties for OpenSSL::SSL finished =============
+2026-11-04T09:13:22.8361425Z -- =========== Trace properties for OpenSSL::Crypto =============
+2026-11-04T09:13:22.8362063Z -- TYPE = 'STATIC_LIBRARY'
+2026-11-04T09:13:22.8362509Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/OpenSSL-Win64/include'
+2026-11-04T09:13:22.8362933Z -- IMPORTED_CONFIGURATIONS = 'RELEASE;DEBUG'
+2026-11-04T09:13:22.8363249Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG = 'C'
+2026-11-04T09:13:22.8363577Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE = 'C'
+2026-11-04T09:13:22.8364073Z -- IMPORTED_LOCATION_DEBUG = '/sysroot/root/diskc/OpenSSL-Win64/lib/VC/x64/MDd/libcrypto_static.lib'
+2026-11-04T09:13:22.8364714Z -- IMPORTED_LOCATION_RELEASE = '/sysroot/root/diskc/OpenSSL-Win64/lib/VC/x64/MD/libcrypto_static.lib'
+2026-11-04T09:13:22.8365203Z -- MAP_IMPORTED_CONFIG_RELWITHDEBINFO = 'Release'
+2026-11-04T09:13:22.8365743Z -- MAP_IMPORTED_CONFIG_MINSIZEREL = 'Release'
+2026-11-04T09:13:22.8366180Z -- LOCATION = '/sysroot/root/diskc/OpenSSL-Win64/lib/VC/x64/MD/libcrypto_static.lib'
+2026-11-04T09:13:22.8366664Z -- =========== Trace properties for OpenSSL::Crypto finished =============
+2026-11-04T09:13:22.8367059Z -- =========== Trace properties for ZLIB::ZLIB =============
+2026-11-04T09:13:22.8367364Z -- TYPE = 'SHARED_LIBRARY'
+2026-11-04T09:13:22.8367748Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/zlib-v1.3.1-win64/include'
+2026-11-04T09:13:22.8368260Z -- IMPORTED_LOCATION = '/sysroot/root/diskc/zlib-v1.3.1-win64/bin/zlib1.dll'
+2026-11-04T09:13:22.8368723Z -- IMPORTED_IMPLIB = '/sysroot/root/diskc/zlib-v1.3.1-win64/lib/zlib.lib'
+2026-11-04T09:13:22.8369417Z -- LOCATION = '/sysroot/root/diskc/zlib-v1.3.1-win64/bin/zlib1.dll'
+2026-11-04T09:13:22.8370079Z -- =========== Trace properties for ZLIB::ZLIB finished =============
+2026-11-04T09:13:22.8370979Z -- =========== Trace properties for ZSTD::ZSTD =============
+2026-11-04T09:13:22.8371512Z -- TYPE = 'SHARED_LIBRARY'
+2026-11-04T09:13:22.8384510Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/zstd-v1.5.2-win64/include'
+2026-11-04T09:13:22.8385446Z -- IMPORTED_LOCATION = '/sysroot/root/diskc/zstd-v1.5.2-win64/dll/libzstd.dll'
+2026-11-04T09:13:22.8386069Z -- IMPORTED_IMPLIB = '/sysroot/root/diskc/zstd-v1.5.2-win64/dll/libzstd.dll.a'
+2026-11-04T09:13:22.8386561Z -- LOCATION = '/sysroot/root/diskc/zstd-v1.5.2-win64/dll/libzstd.dll'
+2026-11-04T09:13:22.8386999Z -- =========== Trace properties for ZSTD::ZSTD finished =============
+2026-11-04T09:13:22.8387436Z -- ZSTD will be loaded dynamically in runtime as libzstd.dll (libzstd.dll)
+2026-11-04T09:13:22.8387857Z -- =========== Trace properties for ZSTD::ZSTD_ld =============
+2026-11-04T09:13:22.8388170Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:22.8388551Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/zstd-v1.5.2-win64/include'
+2026-11-04T09:13:22.8389041Z -- =========== Trace properties for ZSTD::ZSTD_ld finished =============
+2026-11-04T09:13:22.8397088Z -- =========== Trace properties for CURL::libcurl =============
+2026-11-04T09:13:22.8397848Z -- TYPE = 'SHARED_LIBRARY'
+2026-11-04T09:13:22.8398540Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/curl-7.85.0_1-win64-mingw/include'
+2026-11-04T09:13:22.8400199Z -- IMPORTED_LOCATION = '/sysroot/root/diskc/curl-7.85.0_1-win64-mingw/bin/libcurl-x64.dll'
+2026-11-04T09:13:22.8404314Z -- IMPORTED_IMPLIB = '/sysroot/root/diskc/curl-7.85.0_1-win64-mingw/lib/libcurl.dll.a'
+2026-11-04T09:13:22.8405334Z -- LOCATION = '/sysroot/root/diskc/curl-7.85.0_1-win64-mingw/bin/libcurl-x64.dll'
+2026-11-04T09:13:22.8406231Z -- =========== Trace properties for CURL::libcurl finished =============
+2026-11-04T09:13:22.8407644Z -- CURL will be loaded dynamically in runtime as libcurl-x64.dll (libcurl-x64.dll)
+2026-11-04T09:13:22.8408781Z -- =========== Trace properties for CURL::libcurl_ld =============
+2026-11-04T09:13:22.8409390Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:22.8434245Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/curl-7.85.0_1-win64-mingw/include'
+2026-11-04T09:13:22.8434827Z -- =========== Trace properties for CURL::libcurl_ld finished =============
+2026-11-04T09:13:22.8446458Z -- Found ODBC: odbc32.lib
+2026-11-04T09:13:22.8448439Z -- =========== Trace properties for ODBC::ODBC =============
+2026-11-04T09:13:22.8463981Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:22.8464543Z -- =========== Trace properties for ODBC::ODBC finished =============
+2026-11-04T09:13:22.8464917Z -- ODBC::ODBC: location is not determined
+2026-11-04T09:13:22.8465407Z -- imported soname of ODBC::ODBC is empty (no location, or no soname) - will not dynamically-load
+2026-11-04T09:13:22.8466150Z -- =========== Trace properties for EXPAT::EXPAT =============
+2026-11-04T09:13:22.8466551Z -- TYPE = 'SHARED_LIBRARY'
+2026-11-04T09:13:22.8468817Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/winbundle/Expat-1.95.8-x64/Source/lib'
+2026-11-04T09:13:22.8470071Z -- IMPORTED_LOCATION = '/sysroot/root/diskc/winbundle/Expat-1.95.8-x64/Libs/libexpat.dll'
+2026-11-04T09:13:22.8470684Z -- IMPORTED_IMPLIB = '/sysroot/root/diskc/winbundle/Expat-1.95.8-x64/Libs/libexpat.lib'
+2026-11-04T09:13:22.8471603Z -- LOCATION = '/sysroot/root/diskc/winbundle/Expat-1.95.8-x64/Libs/libexpat.dll'
+2026-11-04T09:13:22.8472869Z -- =========== Trace properties for EXPAT::EXPAT finished =============
+2026-11-04T09:13:22.8474014Z -- EXPAT will be loaded dynamically in runtime as libexpat.dll (libexpat.dll)
+2026-11-04T09:13:22.8474913Z -- =========== Trace properties for EXPAT::EXPAT_ld =============
+2026-11-04T09:13:22.8475254Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:22.8484536Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/winbundle/Expat-1.95.8-x64/Source/lib'
+2026-11-04T09:13:22.8485498Z -- =========== Trace properties for EXPAT::EXPAT_ld finished =============
+2026-11-04T09:13:22.8490981Z -- =========== Trace properties for Iconv::Iconv =============
+2026-11-04T09:13:22.8491625Z -- TYPE = 'SHARED_LIBRARY'
+2026-11-04T09:13:22.8492537Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/winbundle/libiconv-1.9.1-x64/include'
+2026-11-04T09:13:22.8495153Z -- IMPORTED_LOCATION = '/sysroot/root/diskc/winbundle/libiconv-1.9.1-x64/lib/iconv.dll'
+2026-11-04T09:13:22.8514411Z -- IMPORTED_IMPLIB = '/sysroot/root/diskc/winbundle/libiconv-1.9.1-x64/lib/iconv.lib'
+2026-11-04T09:13:22.8515373Z -- LOCATION = '/sysroot/root/diskc/winbundle/libiconv-1.9.1-x64/lib/iconv.dll'
+2026-11-04T09:13:22.8515970Z -- =========== Trace properties for Iconv::Iconv finished =============
+2026-11-04T09:13:22.8516417Z -- ICONV will be loaded dynamically in runtime as iconv.dll (iconv.dll)
+2026-11-04T09:13:22.8516842Z -- =========== Trace properties for Iconv::Iconv_ld =============
+2026-11-04T09:13:22.8517161Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:22.8517573Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/winbundle/libiconv-1.9.1-x64/include'
+2026-11-04T09:13:22.8518094Z -- =========== Trace properties for Iconv::Iconv_ld finished =============
+2026-11-04T09:13:22.8518466Z -- Performing Test ICONV_INBUF_CONST
+2026-11-04T09:13:23.0116890Z -- Performing Test ICONV_INBUF_CONST - Success
+2026-11-04T09:13:23.0118055Z -- Iconv_IS_BUILT_IN=""
+2026-11-04T09:13:23.0128849Z CMake Warning (dev) at /sysroot/root/diskc/winbundle/MysqlConfig.cmake:44 (set_target_properties):
+2026-11-04T09:13:23.0129646Z   Policy CMP0160 is not set: More read-only target properties now error when
+2026-11-04T09:13:23.0130193Z   trying to set them.  Run "cmake --help-policy CMP0160" for policy details.
+2026-11-04T09:13:23.0130708Z   Use the cmake_policy command to set the policy and suppress this warning.
+2026-11-04T09:13:23.0131021Z 
+2026-11-04T09:13:23.0131218Z   LOCATION property is read-only for target("Mysql::SSL")
+2026-11-04T09:13:23.0131479Z 
+2026-11-04T09:13:23.0131580Z Call Stack (most recent call first):
+2026-11-04T09:13:23.0132256Z   cmake/helpers.cmake:56 (find_package)
+2026-11-04T09:13:23.0132583Z   CMakeLists.txt:472 (with_menu)
+2026-11-04T09:13:23.0132955Z This warning is for project developers.  Use -Wno-dev to suppress it.
+2026-11-04T09:13:23.0133271Z 
+2026-11-04T09:13:23.0133565Z CMake Warning (dev) at /sysroot/root/diskc/winbundle/MysqlConfig.cmake:47 (set_target_properties):
+2026-11-04T09:13:23.0134168Z   Policy CMP0160 is not set: More read-only target properties now error when
+2026-11-04T09:13:23.0134683Z   trying to set them.  Run "cmake --help-policy CMP0160" for policy details.
+2026-11-04T09:13:23.0135183Z   Use the cmake_policy command to set the policy and suppress this warning.
+2026-11-04T09:13:23.0135490Z 
+2026-11-04T09:13:23.0135661Z   LOCATION property is read-only for target("Mysql::Crypto")
+2026-11-04T09:13:23.0135921Z 
+2026-11-04T09:13:23.0136026Z Call Stack (most recent call first):
+2026-11-04T09:13:23.0136313Z   cmake/helpers.cmake:56 (find_package)
+2026-11-04T09:13:23.0136599Z   CMakeLists.txt:472 (with_menu)
+2026-11-04T09:13:23.0137445Z This warning is for project developers.  Use -Wno-dev to suppress it.
+2026-11-04T09:13:23.0137762Z 
+2026-11-04T09:13:23.0154741Z -- =========== Trace properties for Mysql::Mysql =============
+2026-11-04T09:13:23.0155618Z -- TYPE = 'SHARED_LIBRARY'
+2026-11-04T09:13:23.0156295Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/winbundle/mysql-x64/include'
+2026-11-04T09:13:23.0157033Z -- INTERFACE_LINK_LIBRARIES = 'Mysql::SSL;Mysql::Crypto'
+2026-11-04T09:13:23.0157367Z -- IMPORTED_CONFIGURATIONS = 'RELEASE'
+2026-11-04T09:13:23.0157678Z -- IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE = 'C'
+2026-11-04T09:13:23.0158146Z -- IMPORTED_LOCATION_RELEASE = '/sysroot/root/diskc/winbundle/mysql-x64/lib/libmysql.dll'
+2026-11-04T09:13:23.0158718Z -- IMPORTED_IMPLIB_RELEASE = '/sysroot/root/diskc/winbundle/mysql-x64/lib/libmysql.lib'
+2026-11-04T09:13:23.0159148Z -- MAP_IMPORTED_CONFIG_DEBUG = 'Release'
+2026-11-04T09:13:23.0159450Z -- MAP_IMPORTED_CONFIG_RELWITHDEBINFO = 'Release'
+2026-11-04T09:13:23.0159763Z -- MAP_IMPORTED_CONFIG_MINSIZEREL = 'Release'
+2026-11-04T09:13:23.0160150Z -- LOCATION = '/sysroot/root/diskc/winbundle/mysql-x64/lib/libmysql.dll'
+2026-11-04T09:13:23.0160816Z -- =========== Trace properties for Mysql::Mysql finished =============
+2026-11-04T09:13:23.0161271Z -- MYSQL will be loaded dynamically in runtime as libmysql.dll (libmysql.dll)
+2026-11-04T09:13:23.0161966Z -- =========== Trace properties for Mysql::Mysql_ld =============
+2026-11-04T09:13:23.0162311Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:23.0162998Z -- INTERFACE_INCLUDE_DIRECTORIES = '/sysroot/root/diskc/winbundle/mysql-x64/include'
+2026-11-04T09:13:23.0163915Z -- INTERFACE_LINK_LIBRARIES = 'Mysql::SSL;Mysql::Crypto'
+2026-11-04T09:13:23.0164329Z -- MAP_IMPORTED_CONFIG_DEBUG = 'Release'
+2026-11-04T09:13:23.0164638Z -- MAP_IMPORTED_CONFIG_RELWITHDEBINFO = 'Release'
+2026-11-04T09:13:23.0164950Z -- MAP_IMPORTED_CONFIG_MINSIZEREL = 'Release'
+2026-11-04T09:13:23.0165307Z -- =========== Trace properties for Mysql::Mysql_ld finished =============
+2026-11-04T09:13:23.0165716Z -- =========== Trace properties for Mysql::SSL =============
+2026-11-04T09:13:23.0166039Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:23.0166401Z -- LOCATION = '/sysroot/root/diskc/winbundle/mysql-x64/bin/libssl-3-x64.dll'
+2026-11-04T09:13:23.0166848Z -- =========== Trace properties for Mysql::SSL finished =============
+2026-11-04T09:13:23.0167224Z -- =========== Trace properties for Mysql::Crypto =============
+2026-11-04T09:13:23.0167536Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:23.0167889Z -- LOCATION = '/sysroot/root/diskc/winbundle/mysql-x64/bin/libcrypto-3-x64.dll'
+2026-11-04T09:13:23.0168342Z -- =========== Trace properties for Mysql::Crypto finished =============
+2026-11-04T09:13:23.0168698Z -- =========== PostgreSQL::PostgreSQL is not found
+2026-11-04T09:13:23.0169017Z -- WITH_POSTGRESQL="" ; HAVE_DLOPEN="1" ; WIN32="1"
+2026-11-04T09:13:23.0169420Z -- can't make dl_POSTGRESQL - package not found, or no dlopen, or not windows
+2026-11-04T09:13:23.0169801Z -- COMPILER="Clang 16.0.6"
+2026-11-04T09:13:23.0170050Z -- OS_UNAME="Linux x86_64 for Windows amd64"
+2026-11-04T09:13:23.0170315Z -- SPLIT=""
+2026-11-04T09:13:23.1291670Z Parsing deps.txt line: backup 1.11.0+26090711-f5c09c1e-dev
+2026-11-04T09:13:23.1304523Z BACKUP version: >= 1.11.0-26090711-f5c09c1e & < 2.0.0
+2026-11-04T09:13:23.1305176Z Parsing deps.txt line: buddy 4.4.9+26102317-85bde9ce-dev
+2026-11-04T09:13:23.1305777Z BUDDY version: >= 4.4.9-26102317-85bde9ce & < 5.0.0
+2026-11-04T09:13:23.1306405Z Parsing deps.txt line: executor 1.4.6+26102310-445049b4-dev
+2026-11-04T09:13:23.1307043Z EXECUTOR version: >= 1.4.6-26102310-445049b4 & < 2.0.0
+2026-11-04T09:13:23.1307641Z Parsing deps.txt line: tzdata 1.0.1 250714 7eebffa
+2026-11-04T09:13:23.1308213Z TZDATA version: >= 1.0.1-250714-7eebffa & < 2.0.0
+2026-11-04T09:13:23.1308806Z Parsing deps.txt line: load 1.29.0+26101001-0d5796a7-dev
+2026-11-04T09:13:23.1309399Z LOAD version: >= 1.29.0-26101001-0d5796a7 & < 2.0.0
+2026-11-04T09:13:23.1309929Z Parsing deps.txt line: galera 3.37
+2026-11-04T09:13:23.1310775Z GALERA version: >= 3.37-- & < 4.0.0
+2026-11-04T09:13:23.1311369Z EXECUTOR image: manticoresearch/manticore-executor:1.4.6
+2026-11-04T09:13:23.1312913Z -- Provide distr with -DDISTR=<distr>, one of: bionic;bookworm;bullseye;buster;debian;default;focal;jammy;macos;rhel;rhel10;rhel8;rhel9;stretch;windows;xenial
+2026-11-04T09:13:23.1314097Z -- no distr selected 
+2026-11-04T09:13:23.1314467Z -- installed=""
+2026-11-04T09:13:23.1331754Z -- ICU_DATA="/__w/manticoresearch/manticoresearch/cache/windows-amd64/icu/data/icudt65l.dat"
+2026-11-04T09:13:23.1384693Z -- Inside directory src...
+2026-11-04T09:13:23.1389956Z -- Using MCL API from git submodule: /__w/manticoresearch/manticoresearch/mcl
+2026-11-04T09:13:23.1400024Z -- Only api will be installed
+2026-11-04T09:13:23.1610506Z -- Configured with these definitions: -DUSE_SYSLOG=0 -DWITH_RE2=1 -DWITH_RE2_FORCE_STATIC=1 -DWITH_STEMMER=1 -DWITH_STEMMER_FORCE_STATIC=1 -DWITH_NLJSON=1 -DWITH_UNIALGO=1 -DWITH_ICU=1 -DWITH_ICU_FORCE_STATIC=1 -DWITH_JIEBA=1 -DWITH_SSL=1 -DWITH_ZLIB=1 -DWITH_ZSTD=1 -DDL_ZSTD=1 -DZSTD_LIB=libzstd.dll -DWITH_CURL=1 -DDL_CURL=1 -DCURL_LIB=libcurl-x64.dll -DWITH_ODBC=1 -DWITH_EXPAT=1 -DDL_EXPAT=1 -DEXPAT_LIB=libexpat.dll -DWITH_ICONV=1 -DDL_ICONV=1 -DICONV_LIB=iconv.dll -DWITH_MYSQL=1 -DDL_MYSQL=1 -DMYSQL_LIB=libmysql.dll -DWITH_POSTGRESQL= -DLOCALDATADIR=/usr/local/var -DFULL_SHARE_DIR=/usr/local/share
+2026-11-04T09:13:23.1614250Z -- Generating config files...
+2026-11-04T09:13:23.1686347Z -- Inside directory src/stripper...
+2026-11-04T09:13:23.1698880Z -- Generate globalaliases.h from /__w/manticoresearch/manticoresearch/src/charsets/*.txt
+2026-11-04T09:13:23.1924209Z -- Inside directory src/indexing sources...
+2026-11-04T09:13:23.1949778Z -- roaring::roaring found ready (no need to build) at /__w/manticoresearch/manticoresearch/cache/windows-amd64/roaring/lib/roaring.lib
+2026-11-04T09:13:23.2209983Z -- LMANTICORE_BISON="sphinxexpr.y;sphinxselect.y;sphinxjson.y" ; SEARCHD_BISON="sphinxql.y;ddl.y;sphinxql_debug.y;sphinxql_second.y;sphinxql_extra.y" ; LMANTICORE_FLEX="sphinxjson.l;sphinxexpr.l" ; SEARCHD_FLEX="sphinxql.l;ddl.l;sphinxql_debug.l;sphinxql_second.l;sphinxql_extra.l"
+2026-11-04T09:13:23.2341460Z -- No Google perfetto library found
+2026-11-04T09:13:23.2352752Z -- =========== Trace properties for lextra =============
+2026-11-04T09:13:23.2354067Z -- TYPE = 'INTERFACE_LIBRARY'
+2026-11-04T09:13:23.2355197Z -- INTERFACE_COMPILE_DEFINITIONS = '_CRT_SECURE_NO_DEPRECATE=1;_CRT_NONSTDC_NO_DEPRECATE=1;BOOST_ALL_NO_LIB=1'
+2026-11-04T09:13:23.2359721Z -- INTERFACE_COMPILE_OPTIONS = '$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:-D_CRT_SECURE_NO_WARNINGS;-wd4996;-wd4706;-wd4244;-wd4702;-wd4577>;$<0:-D_FILE_OFFSET_BITS=64;-Wall;-Wstrict-aliasing>;$<1:-Wstrict-aliasing;-Wno-format;-Wno-uninitialized-const-reference;-Wno-unneeded-internal-declaration;-Wno-deprecated-declarations;-Wno-implicit-const-int-float-conversion;-Wno-missing-braces;-Wno-unused-function>;$<0:-fno-rtti>$<1:/GR->;$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:;-Wno-deprecated-register;-Wno-missing-exception-spec;-Wno-implicit-exception-spec-mismatch;-Wno-invalid-offsetof;-Wc++11-narrowing>'
+2026-11-04T09:13:23.2364279Z -- INTERFACE_INCLUDE_DIRECTORIES = '/__w/manticoresearch/manticoresearch/src'
+2026-11-04T09:13:23.2366217Z -- INTERFACE_LINK_LIBRARIES = 'Threads::Threads;cctz::cctz;xxHash::xxhash;::@(0x37a5bcf0);columnar::columnar_api;columnar::secondary_api;columnar::knn_api;::@;::@(0x37a5bcf0);generated_config;::@;::@(0x37a5bcf0);Boost::boost;Boost::context;::@'
+2026-11-04T09:13:23.2367963Z -- =========== Trace properties for lextra finished =============
+2026-11-04T09:13:23.2368599Z -- =========== Trace properties for lsearchd =============
+2026-11-04T09:13:23.2369122Z -- TYPE = 'OBJECT_LIBRARY'
+2026-11-04T09:13:23.2370986Z -- INTERFACE_LINK_LIBRARIES = 'sqlchecks;digest_sha1;digest_sha256;lextra;nlohmann_json::nlohmann_json;uni-algo::uni-algo;Boost::filesystem;$<LINK_ONLY:iphlpapi>;$<LINK_ONLY:WS2_32>;$<LINK_ONLY:wsock32>;$<LINK_ONLY:ZLIB::ZLIB>;$<LINK_ONLY:ZSTD::ZSTD_ld>;$<LINK_ONLY:CURL::libcurl_ld>;repli_stuff'
+2026-11-04T09:13:23.2400515Z -- INTERFACE_SOURCES = '/__w/manticoresearch/manticoresearch/src/searchdaemon.h;/__w/manticoresearch/manticoresearch/src/searchdconfig.h;/__w/manticoresearch/manticoresearch/src/searchdddl.h;/__w/manticoresearch/manticoresearch/src/searchdexpr.h;/__w/manticoresearch/manticoresearch/src/searchdha.h;/__w/manticoresearch/manticoresearch/src/searchdreplication.h;/__w/manticoresearch/manticoresearch/src/searchdsql.h;/__w/manticoresearch/manticoresearch/src/api_reply_stream.h;/__w/manticoresearch/manticoresearch/src/searchdtask.h;/__w/manticoresearch/manticoresearch/src/client_task_info.h;/__w/manticoresearch/manticoresearch/src/taskflushattrs.h;/__w/manticoresearch/manticoresearch/src/taskflushbinlog.h;/__w/manticoresearch/manticoresearch/src/taskflushmutable.h;/__w/manticoresearch/manticoresearch/src/taskglobalidf.h;/__w/manticoresearch/manticoresearch/src/taskmalloctrim.h;/__w/manticoresearch/manticoresearch/src/taskping.h;/__w/manticoresearch/manticoresearch/src/taskpreread.h;/__w/manticoresearch/manticoresearch/src/tasksavestate.h;/__w/manticoresearch/manticoresearch/src/net_action_accept.h;/__w/manticoresearch/manticoresearch/src/netreceive_api.h;/__w/manticoresearch/manticoresearch/src/netreceive_http.h;/__w/manticoresearch/manticoresearch/src/netreceive_ql.h;/__w/manticoresearch/manticoresearch/src/networking_daemon.h;/__w/manticoresearch/manticoresearch/src/query_status.h;/__w/manticoresearch/manticoresearch/src/compressed_zlib_mysql.h;/__w/manticoresearch/manticoresearch/src/sphinxql_debug.h;/__w/manticoresearch/manticoresearch/src/stackmock.h;/__w/manticoresearch/manticoresearch/src/searchdssl.h;/__w/manticoresearch/manticoresearch/src/digest_sha1.h;/__w/manticoresearch/manticoresearch/src/client_session.h;/__w/manticoresearch/manticoresearch/src/compressed_zstd_mysql.h;/__w/manticoresearch/manticoresearch/src/docs_collector.h;/__w/manticoresearch/manticoresearch/src/index_rotator.h;/__w/manticoresearch/manticoresearch/src/config_reloader.h;/__w/manticoresearch/manticoresearch/src/searchdhttp.h;/__w/manticoresearch/manticoresearch/src/timeout_queue.h;/__w/manticoresearch/manticoresearch/src/netpoll.h;/__w/manticoresearch/manticoresearch/src/pollable_event.h;/__w/manticoresearch/manticoresearch/src/netfetch.h;/__w/manticoresearch/manticoresearch/src/searchdbuddy.h;/__w/manticoresearch/manticoresearch/src/sphinxql_second.h;/__w/manticoresearch/manticoresearch/src/sphinxql_extra.h;/__w/manticoresearch/manticoresearch/src/sphinxjsonquery.h;/__w/manticoresearch/manticoresearch/src/frontendschema.h;/__w/manticoresearch/manticoresearch/src/debug_cmds.h;/__w/manticoresearch/manticoresearch/src/dynamic_idx.h;/__w/manticoresearch/manticoresearch/src/sphinxexcerpt.h;/__w/manticoresearch/manticoresearch/src/querystats.h;/__w/manticoresearch/manticoresearch/src/searchd_shard.h;/__w/manticoresearch/manticoresearch/src/facetutils.h;/__w/manticoresearch/manticoresearch/src/auth/auth.h;/__w/manticoresearch/manticoresearch/src/auth/auth_common.h;/__w/manticoresearch/manticoresearch/src/auth/auth_proto_http.h;/__w/manticoresearch/manticoresearch/src/auth/auth_proto_mysql.h;/__w/manticoresearch/manticoresearch/src/auth/auth_proto_api.h;/__w/manticoresearch/manticoresearch/src/digest_sha256.h;/__w/manticoresearch/manticoresearch/src/auth/auth_perms.h;/__w/manticoresearch/manticoresearch/src/auth/gcm_nonce.h;/__w/manticoresearch/manticoresearch/src/auth/auth_log.h;/__w/manticoresearch/manticoresearch/src/sphinxql.y;/__w/manticoresearch/manticoresearch/src/ddl.y;/__w/manticoresearch/manticoresearch/src/sphinxql_debug.y;/__w/manticoresearch/manticoresearch/src/sphinxql_second.y;/__w/manticoresearch/manticoresearch/src/sphinxql_extra.y;/__w/manticoresearch/manticoresearch/src/sphinxql.l;/__w/manticoresearch/manticoresearch/src/ddl.l;/__w/manticoresearch/manticoresearch/src/sphinxql_debug.l;/__w/manticoresearch/manticoresearch/src/sphinxql_second.l;/__w/manticoresearch/manticoresearch/src/sphinxql_extra.l'
+2026-11-04T09:13:23.2426972Z -- =========== Trace properties for lsearchd finished =============
+2026-11-04T09:13:23.2428335Z CMake Warning at /cmake-3.31.2-linux-x86_64/share/cmake-3.31/Modules/InstallRequiredSystemLibraries.cmake:625 (message):
+2026-11-04T09:13:23.2429382Z   system runtime library file does not exist:
+2026-11-04T09:13:23.2430033Z   'MSVC_REDIST_DIR-NOTFOUND/x64/Microsoft.VC140.CRT/msvcp140.dll'
+2026-11-04T09:13:23.2430667Z Call Stack (most recent call first):
+2026-11-04T09:13:23.2431140Z   src/CMakeLists.txt:330 (include)
+2026-11-04T09:13:23.2431443Z 
+2026-11-04T09:13:23.2431449Z 
+2026-11-04T09:13:23.2432343Z CMake Warning at /cmake-3.31.2-linux-x86_64/share/cmake-3.31/Modules/InstallRequiredSystemLibraries.cmake:625 (message):
+2026-11-04T09:13:23.2433353Z   system runtime library file does not exist:
+2026-11-04T09:13:23.2434022Z   'MSVC_REDIST_DIR-NOTFOUND/x64/Microsoft.VC140.CRT/vcruntime140.dll'
+2026-11-04T09:13:23.2434676Z Call Stack (most recent call first):
+2026-11-04T09:13:23.2435145Z   src/CMakeLists.txt:330 (include)
+2026-11-04T09:13:23.2435432Z 
+2026-11-04T09:13:23.2435437Z 
+2026-11-04T09:13:23.2436084Z CMake Warning at /cmake-3.31.2-linux-x86_64/share/cmake-3.31/Modules/InstallRequiredSystemLibraries.cmake:625 (message):
+2026-11-04T09:13:23.2437398Z   system runtime library file does not exist:
+2026-11-04T09:13:23.2438040Z   'MSVC_REDIST_DIR-NOTFOUND/x64/Microsoft.VC140.CRT/concrt140.dll'
+2026-11-04T09:13:23.2438658Z Call Stack (most recent call first):
+2026-11-04T09:13:23.2439112Z   src/CMakeLists.txt:330 (include)
+2026-11-04T09:13:23.2439400Z 
+2026-11-04T09:13:23.2439406Z 
+2026-11-04T09:13:23.2447832Z -- prebuilt googletest wasn't found. Will build it right now...
+2026-11-04T09:13:23.2448483Z -- NAME="gtests"
+2026-11-04T09:13:23.2454802Z -- BUNDLE_URL="/__w/manticoresearch/bundle/googletest-master.zip"
+2026-11-04T09:13:23.2455874Z -- REMOTE_URL="https://github.com/google/googletest/archive/main.zip"
+2026-11-04T09:13:23.2456875Z -- gtest build will be set to /__w/manticoresearch/manticoresearch/build/../cache/windows-amd64/gtest
+2026-11-04T09:13:23.2662885Z CMake Warning (dev) at /cmake-3.31.2-linux-x86_64/share/cmake-3.31/Modules/ExternalProject/shared_internal_commands.cmake:1276 (message):
+2026-11-04T09:13:23.2663769Z   The DOWNLOAD_EXTRACT_TIMESTAMP option was not given and policy CMP0135 is
+2026-11-04T09:13:23.2664291Z   not set.  The policy's OLD behavior will be used.  When using a URL
+2026-11-04T09:13:23.2664789Z   download, the timestamps of extracted files should preferably be that of
+2026-11-04T09:13:23.2665289Z   the time of extraction, otherwise code that depends on the extracted
+2026-11-04T09:13:23.2665762Z   contents might not be rebuilt if the URL changes.  The OLD behavior
+2026-11-04T09:13:23.2666270Z   preserves the timestamps from the archive instead, but this is usually not
+2026-11-04T09:13:23.2666781Z   what you want.  Update your project to the NEW behavior or specify the
+2026-11-04T09:13:23.2667270Z   DOWNLOAD_EXTRACT_TIMESTAMP option with a value of true to avoid this
+2026-11-04T09:13:23.2667650Z   robustness issue.
+2026-11-04T09:13:23.2667888Z Call Stack (most recent call first):
+2026-11-04T09:13:23.2668408Z   /cmake-3.31.2-linux-x86_64/share/cmake-3.31/Modules/ExternalProject.cmake:3041 (_ep_add_download_command)
+2026-11-04T09:13:23.2668952Z   CMakeLists.txt:6 (ExternalProject_Add)
+2026-11-04T09:13:23.2669345Z This warning is for project developers.  Use -Wno-dev to suppress it.
+2026-11-04T09:13:23.2669645Z 
+2026-11-04T09:13:23.2768619Z -- Configuring done (0.0s)
+2026-11-04T09:13:23.2843080Z -- Generating done (0.0s)
+2026-11-04T09:13:23.2846817Z -- Build files have been written to: /__w/manticoresearch/manticoresearch/build/gtestbuild
+2026-11-04T09:13:23.2968407Z [1/9] Creating directories for 'gtest_populate'
+2026-11-04T09:13:23.6802529Z [2/9] Performing download step (download, verify and extract) for 'gtest_populate'
+2026-11-04T09:13:23.6803120Z -- Downloading...
+2026-11-04T09:13:23.6803572Z    dst='/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/main.zip'
+2026-11-04T09:13:23.6804075Z    timeout='none'
+2026-11-04T09:13:23.6804596Z    inactivity timeout='none'
+2026-11-04T09:13:23.6804992Z -- Using src='https://github.com/google/googletest/archive/main.zip'
+2026-11-04T09:13:23.6805397Z -- Downloading... done
+2026-11-04T09:13:23.6805630Z -- extracting...
+2026-11-04T09:13:23.6806044Z      src='/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/main.zip'
+2026-11-04T09:13:23.6806736Z      dst='/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate'
+2026-11-04T09:13:23.6807220Z -- extracting... [tar xfz]
+2026-11-04T09:13:23.6807461Z -- extracting... [analysis]
+2026-11-04T09:13:23.6807692Z -- extracting... [rename]
+2026-11-04T09:13:23.6807919Z -- extracting... [clean up]
+2026-11-04T09:13:23.6808143Z -- extracting... done
+2026-11-04T09:13:23.6846646Z [3/9] No update step for 'gtest_populate'
+2026-11-04T09:13:23.6891678Z [4/9] No patch step for 'gtest_populate'
+2026-11-04T09:13:24.7978381Z [5/9] Performing configure step for 'gtest_populate'
+2026-11-04T09:13:24.7979327Z -- The C compiler identification is Clang 16.0.6 with MSVC-like command-line
+2026-11-04T09:13:24.7980625Z -- The CXX compiler identification is Clang 16.0.6 with MSVC-like command-line
+2026-11-04T09:13:24.7981362Z -- Detecting C compiler ABI info
+2026-11-04T09:13:24.7982073Z -- Detecting C compiler ABI info - done
+2026-11-04T09:13:24.7982739Z -- Check for working C compiler: /usr/lib/llvm-16/bin/clang-cl - skipped
+2026-11-04T09:13:24.7983413Z -- Detecting C compile features
+2026-11-04T09:13:24.7983871Z -- Detecting C compile features - done
+2026-11-04T09:13:24.7984359Z -- Detecting CXX compiler ABI info
+2026-11-04T09:13:24.7984682Z -- Detecting CXX compiler ABI info - done
+2026-11-04T09:13:24.7985071Z -- Check for working CXX compiler: /usr/lib/llvm-16/bin/clang-cl - skipped
+2026-11-04T09:13:24.7985458Z -- Detecting CXX compile features
+2026-11-04T09:13:24.7985726Z -- Detecting CXX compile features - done
+2026-11-04T09:13:24.7986032Z -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+2026-11-04T09:13:24.7986371Z -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+2026-11-04T09:13:24.7986697Z -- Looking for pthread_create in pthreads
+2026-11-04T09:13:24.7987022Z -- Looking for pthread_create in pthreads - not found
+2026-11-04T09:13:24.7987341Z -- Looking for pthread_create in pthread
+2026-11-04T09:13:24.7987657Z -- Looking for pthread_create in pthread - not found
+2026-11-04T09:13:24.7987952Z -- Found Threads: TRUE
+2026-11-04T09:13:24.7988173Z -- Configuring done (1.1s)
+2026-11-04T09:13:24.7988404Z -- Generating done (0.0s)
+2026-11-04T09:13:24.7988979Z -- Build files have been written to: /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate-build
+2026-11-04T09:13:41.7128485Z [6/9] Performing build step for 'gtest_populate'
+2026-11-04T09:13:41.7130214Z FAILED: gtest_populate-prefix/src/gtest_populate-stamp/Debug/gtest_populate-build /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate-stamp/Debug/gtest_populate-build 
+2026-11-04T09:13:41.7135716Z cd /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate-build && /cmake-3.31.2-linux-x86_64/bin/cmake -E echo "Starting build" && /cmake-3.31.2-linux-x86_64/bin/cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo . && /cmake-3.31.2-linux-x86_64/bin/cmake --build . --config RelWithDebInfo && /cmake-3.31.2-linux-x86_64/bin/cmake --install . --config RelWithDebInfo --prefix /__w/manticoresearch/manticoresearch/build/../cache/windows-amd64/gtest && /cmake-3.31.2-linux-x86_64/bin/cmake -DCMAKE_BUILD_TYPE=Debug . && /cmake-3.31.2-linux-x86_64/bin/cmake --build . --config Debug && /cmake-3.31.2-linux-x86_64/bin/cmake --install . --config Debug --prefix /__w/manticoresearch/manticoresearch/build/../cache/windows-amd64/gtest && /cmake-3.31.2-linux-x86_64/bin/cmake -E touch /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate-stamp/Debug/gtest_populate-build
+2026-11-04T09:13:41.7138934Z Starting build
+2026-11-04T09:13:41.7139153Z -- Configuring done (0.0s)
+2026-11-04T09:13:41.7139663Z -- Generating done (0.0s)
+2026-11-04T09:13:41.7139909Z CMake Warning:
+2026-11-04T09:13:41.7140196Z   Manually-specified variables were not used by the project:
+2026-11-04T09:13:41.7140450Z 
+2026-11-04T09:13:41.7140540Z     CMAKE_BUILD_TYPE
+2026-11-04T09:13:41.7140680Z 
+2026-11-04T09:13:41.7140683Z 
+2026-11-04T09:13:41.7141117Z -- Build files have been written to: /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate-build
+2026-11-04T09:13:41.7142333Z [1/11] Building CXX object googlemock/CMakeFiles/gmock_main.dir/RelWithDebInfo/src/gmock_main.cc.obj
+2026-11-04T09:13:41.7143390Z FAILED: googlemock/CMakeFiles/gmock_main.dir/RelWithDebInfo/src/gmock_main.cc.obj 
+2026-11-04T09:13:41.7149041Z /usr/lib/llvm-16/bin/clang-cl --target=x86_64-pc-windows-msvc  /nologo -TP -DCMAKE_INTDIR=\"RelWithDebInfo\" -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googletest/include -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googletest -D_WIN32_WINNT=0x0601 -D_CRT_SECURE_NO_WARNINGS -fms-compatibility-version=19 -vctoolsversion 14.29.30133 -winsdkversion 10.0.18362.0 -winsysroot /sysroot/root/sdk -Xclang -ivfsoverlay -Xclang /__w/manticoresearch/manticoresearch/build/winsdk_vfs_overlay.yaml /DWIN32 /D_WINDOWS /GR  /Zi /O2 /Ob1 /DNDEBUG -std:c++17 -MD -GS -W4 -wd4251 -wd4275 -nologo -J -D_UNICODE -DUNICODE -DWIN32 -D_WIN32 -DSTRICT -DWIN32_LEAN_AND_MEAN -wd4702 -DGTEST_HAS_PTHREAD=0 -EHsc -D_HAS_EXCEPTIONS=1 /showIncludes /Fogooglemock/CMakeFiles/gmock_main.dir/RelWithDebInfo/src/gmock_main.cc.obj /Fdlib/RelWithDebInfo/gmock_main.pdb -c -- /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/src/gmock_main.cc
+2026-11-04T09:13:41.7155696Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/src/gmock_main.cc:32:
+2026-11-04T09:13:41.7156759Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/gmock.h:56:
+2026-11-04T09:13:41.7157850Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/gmock-actions.h:146:
+2026-11-04T09:13:41.7159009Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/internal/gmock-internal-utils.h:51:
+2026-11-04T09:13:41.7160376Z /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/internal/gmock-port.h(69,2): error: "At least Visual C++ 2022 (17.0) is required to compile Google Mock."
+2026-11-04T09:13:41.7161446Z #error "At least Visual C++ 2022 (17.0) is required to compile Google Mock."
+2026-11-04T09:13:41.7162633Z  ^
+2026-11-04T09:13:41.7162823Z 1 error generated.
+2026-11-04T09:13:41.7163239Z [2/11] Building CXX object googlemock/CMakeFiles/gmock_main.dir/RelWithDebInfo/src/gmock-all.cc.obj
+2026-11-04T09:13:41.7163870Z FAILED: googlemock/CMakeFiles/gmock_main.dir/RelWithDebInfo/src/gmock-all.cc.obj 
+2026-11-04T09:13:41.7168737Z /usr/lib/llvm-16/bin/clang-cl --target=x86_64-pc-windows-msvc  /nologo -TP -DCMAKE_INTDIR=\"RelWithDebInfo\" -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googletest/include -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googletest -D_WIN32_WINNT=0x0601 -D_CRT_SECURE_NO_WARNINGS -fms-compatibility-version=19 -vctoolsversion 14.29.30133 -winsdkversion 10.0.18362.0 -winsysroot /sysroot/root/sdk -Xclang -ivfsoverlay -Xclang /__w/manticoresearch/manticoresearch/build/winsdk_vfs_overlay.yaml /DWIN32 /D_WINDOWS /GR  /Zi /O2 /Ob1 /DNDEBUG -std:c++17 -MD -GS -W4 -wd4251 -wd4275 -nologo -J -D_UNICODE -DUNICODE -DWIN32 -D_WIN32 -DSTRICT -DWIN32_LEAN_AND_MEAN -wd4702 -DGTEST_HAS_PTHREAD=0 -EHsc -D_HAS_EXCEPTIONS=1 /showIncludes /Fogooglemock/CMakeFiles/gmock_main.dir/RelWithDebInfo/src/gmock-all.cc.obj /Fdlib/RelWithDebInfo/gmock_main.pdb -c -- /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/src/gmock-all.cc
+2026-11-04T09:13:41.7173993Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/src/gmock-all.cc:39:
+2026-11-04T09:13:41.7175023Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/gmock.h:56:
+2026-11-04T09:13:41.7176240Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/gmock-actions.h:146:
+2026-11-04T09:13:41.7177385Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/internal/gmock-internal-utils.h:51:
+2026-11-04T09:13:41.7178731Z /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/internal/gmock-port.h(69,2): error: "At least Visual C++ 2022 (17.0) is required to compile Google Mock."
+2026-11-04T09:13:41.7179715Z #error "At least Visual C++ 2022 (17.0) is required to compile Google Mock."
+2026-11-04T09:13:41.7180071Z  ^
+2026-11-04T09:13:41.7180254Z 1 error generated.
+2026-11-04T09:13:41.7180655Z [3/11] Building CXX object googlemock/CMakeFiles/gmock.dir/RelWithDebInfo/src/gmock-all.cc.obj
+2026-11-04T09:13:41.7181259Z FAILED: googlemock/CMakeFiles/gmock.dir/RelWithDebInfo/src/gmock-all.cc.obj 
+2026-11-04T09:13:41.7186125Z /usr/lib/llvm-16/bin/clang-cl --target=x86_64-pc-windows-msvc  /nologo -TP -DCMAKE_INTDIR=\"RelWithDebInfo\" -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googletest/include -I/__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googletest -D_WIN32_WINNT=0x0601 -D_CRT_SECURE_NO_WARNINGS -fms-compatibility-version=19 -vctoolsversion 14.29.30133 -winsdkversion 10.0.18362.0 -winsysroot /sysroot/root/sdk -Xclang -ivfsoverlay -Xclang /__w/manticoresearch/manticoresearch/build/winsdk_vfs_overlay.yaml /DWIN32 /D_WINDOWS /GR  /Zi /O2 /Ob1 /DNDEBUG -std:c++17 -MD -GS -W4 -wd4251 -wd4275 -nologo -J -D_UNICODE -DUNICODE -DWIN32 -D_WIN32 -DSTRICT -DWIN32_LEAN_AND_MEAN -wd4702 -DGTEST_HAS_PTHREAD=0 -EHsc -D_HAS_EXCEPTIONS=1 /showIncludes /Fogooglemock/CMakeFiles/gmock.dir/RelWithDebInfo/src/gmock-all.cc.obj /Fdlib/RelWithDebInfo/gmock.pdb -c -- /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/src/gmock-all.cc
+2026-11-04T09:13:41.7191123Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/src/gmock-all.cc:39:
+2026-11-04T09:13:41.7192488Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/gmock.h:56:
+2026-11-04T09:13:41.7193562Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/gmock-actions.h:146:
+2026-11-04T09:13:41.7195069Z In file included from /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/internal/gmock-internal-utils.h:51:
+2026-11-04T09:13:41.7197339Z /__w/manticoresearch/manticoresearch/build/gtestbuild/gtest_populate-prefix/src/gtest_populate/googlemock/include/gmock/internal/gmock-port.h(69,2): error: "At least Visual C++ 2022 (17.0) is required to compile Google Mock."
+2026-11-04T09:13:41.7199021Z #error "At least Visual C++ 2022 (17.0) is required to compile Google Mock."
+2026-11-04T09:13:41.7199617Z  ^
+2026-11-04T09:13:41.7199900Z 1 error generated.
+2026-11-04T09:13:41.7200684Z [4/11] Building CXX object googlemock/CMakeFiles/gmock_main.dir/RelWithDebInfo/__/googletest/src/gtest-all.cc.obj
+2026-11-04T09:13:41.7202970Z [5/11] Building CXX object googlemock/CMakeFiles/gmock.dir/RelWithDebInfo/__/googletest/src/gtest-all.cc.obj
+2026-11-04T09:13:41.7203900Z [6/11] Building CXX object googletest/CMakeFiles/gtest.dir/RelWithDebInfo/src/gtest-all.cc.obj
+2026-11-04T09:13:41.7204395Z ninja: build stopped: subcommand failed.
+2026-11-04T09:13:41.7204688Z ninja: build stopped: subcommand failed.
+2026-11-04T09:13:41.7205213Z -- Could NOT find GTest (missing: GTest_DIR)
+2026-11-04T09:13:41.7205547Z -- =========== GTest::gmock_main is not found
+2026-11-04T09:13:41.7205973Z -- Generate rtestconfig.h from /__w/manticoresearch/manticoresearch/src/testrt.conf
+2026-11-04T09:13:41.7206403Z -- CYGPATH="CYGPATH-NOTFOUND"
+2026-11-04T09:13:41.7206764Z -- CMAKE_CURRENT_SOURCE_DIR="/__w/manticoresearch/manticoresearch/test"
+2026-11-04T09:13:41.7207228Z -- MANTICORE_BINARY_DIR="/__w/manticoresearch/manticoresearch/build"
+2026-11-04T09:13:41.7207685Z -- MANTICORE_SCRIPTING_DIR="/__w/manticoresearch/manticoresearch/build"
+2026-11-04T09:13:41.7208200Z -- JIEBA_DATA_DIR="/__w/manticoresearch/manticoresearch/cache/windows-amd64/jieba/dict"
+2026-11-04T09:13:41.7212869Z CMake Warning (dev) at test/CMakeLists.txt:50 (find_package):
+2026-11-04T09:13:41.7213709Z   Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+2026-11-04T09:13:41.7214379Z   are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+2026-11-04T09:13:41.7214887Z   the cmake_policy command to set the policy and suppress this warning.
+2026-11-04T09:13:41.7215173Z 
+2026-11-04T09:13:41.7215359Z This warning is for project developers.  Use -Wno-dev to suppress it.
+2026-11-04T09:13:41.7215631Z 
+2026-11-04T09:13:41.7382118Z -- Create ubertest.php proxies
+2026-11-04T09:13:41.7523801Z -- Skip adding test 043 -- unpack since it requires non-windows
+2026-11-04T09:13:41.7698809Z -- Skip adding test 105 -- rotation - *nix only since it requires non-windows
+2026-11-04T09:13:41.7785759Z -- Skip adding test 135 -- persistent MVA updates surviving after hard killing part 1 - *nix only since it requires non-windows
+2026-11-04T09:13:41.7812302Z -- Skip adding test 144 -- query vs stack overflow since it requires non-windows
+2026-11-04T09:13:41.7985128Z -- Skip adding test 202 -- adding indexes using rotation since it requires non-windows
+2026-11-04T09:13:41.8098760Z -- Skip adding test 241 -- agent of distributed index via unix socket since it requires non-windows
+2026-11-04T09:13:41.8246749Z -- Skip adding test 293 -- system.table since it requires Galera library for replication
+2026-11-04T09:13:41.8488799Z -- Skip adding test 372 -- replication base since it requires Galera library for replication
+2026-11-04T09:13:41.8499197Z -- Skip adding test 376 -- replication join at since it requires Galera library for replication
+2026-11-04T09:13:41.8514515Z -- Skip adding test 381 -- replication of transactions since it requires Galera library for replication
+2026-11-04T09:13:41.8520408Z -- Skip adding test 383 -- replication for RT since it requires Galera library for replication
+2026-11-04T09:13:41.8523815Z -- Skip adding test 384 -- replication for RT via HTTP since it requires Galera library for replication
+2026-11-04T09:13:41.8526957Z -- Skip adding test 385 -- replication for RT with different local index files since it requires Galera library for replication
+2026-11-04T09:13:41.8533806Z -- Skip adding test 387 -- cluster table lock since it requires Galera library for replication
+2026-11-04T09:13:41.8580244Z -- Skip adding test 402 -- replication for RT stored fields since it requires Galera library for replication
+2026-11-04T09:13:41.8602781Z -- Skip adding test 409 -- replication of external files since it requires Galera library for replication
+2026-11-04T09:13:41.8635246Z -- Skip adding test 420 -- prepared statements via mysql proto since it requires non-windows
+2026-11-04T09:13:41.8656522Z -- Skip adding test 427 -- stored fields over network since it requires non-windows
+2026-11-04T09:13:41.8745456Z -- Skip adding test 456 -- replication of update with blobs since it requires Galera library for replication
+2026-11-04T09:13:41.8835312Z -- Skip adding test 478 -- replication for RT with nodes restart since it requires Galera library for replication
+2026-11-04T09:13:41.8866885Z -- Skip adding test 487 -- replication node rejoin after cluster added \ droped table since it requires Galera library for replication
+2026-11-04T09:13:41.8869871Z -- Skip adding test 488 -- replication duplicates bulk on IST replay since it requires Galera library for replication
+2026-11-04T09:13:41.8933931Z -- Skip adding test 508 -- replication cluster create with long data_dir path since it requires Galera library for replication
+2026-11-04T09:13:41.8968316Z -- Skip adding test 519 -- replication for RT UUID document IDs since it requires Galera library for replication
+2026-11-04T09:13:41.8990960Z -- Skip adding test 526 -- plain table path creates missing parent directories since it requires non-windows
+2026-11-04T09:13:41.8996634Z -- Skip adding test 528 -- UTF-8 identifier policy in configured plain tables and sources since it requires non-windows
+2026-11-04T09:13:41.9050937Z -- Skip add indextool test on windows
+2026-11-04T09:13:41.9063398Z -- CMAKE_INSTALL_PREFIX="/usr/local"
+2026-11-04T09:13:41.9064102Z -- CMAKE_INSTALL_BINDIR="bin" ; CMAKE_INSTALL_FULL_BINDIR="/usr/local/bin"
+2026-11-04T09:13:41.9065009Z -- CMAKE_INSTALL_SBINDIR="sbin" ; CMAKE_INSTALL_FULL_SBINDIR="/usr/local/sbin"
+2026-11-04T09:13:41.9065998Z -- CMAKE_INSTALL_LIBEXECDIR="libexec" ; CMAKE_INSTALL_FULL_LIBEXECDIR="/usr/local/libexec"
+2026-11-04T09:13:41.9074435Z -- CMAKE_INSTALL_SYSCONFDIR="etc" ; CMAKE_INSTALL_FULL_SYSCONFDIR="/usr/local/etc"
+2026-11-04T09:13:41.9075455Z -- CMAKE_INSTALL_SHAREDSTATEDIR="com" ; CMAKE_INSTALL_FULL_SHAREDSTATEDIR="/usr/local/com"
+2026-11-04T09:13:41.9076458Z -- CMAKE_INSTALL_LOCALSTATEDIR="var" ; CMAKE_INSTALL_FULL_LOCALSTATEDIR="/usr/local/var"
+2026-11-04T09:13:41.9077466Z -- CMAKE_INSTALL_RUNSTATEDIR="var/run" ; CMAKE_INSTALL_FULL_RUNSTATEDIR="/usr/local/var/run"
+2026-11-04T09:13:41.9078385Z -- CMAKE_INSTALL_LIBDIR="lib" ; CMAKE_INSTALL_FULL_LIBDIR="/usr/local/lib"
+2026-11-04T09:13:41.9079290Z -- CMAKE_INSTALL_INCLUDEDIR="include" ; CMAKE_INSTALL_FULL_INCLUDEDIR="/usr/local/include"
+2026-11-04T09:13:41.9080373Z -- CMAKE_INSTALL_OLDINCLUDEDIR="/usr/include" ; CMAKE_INSTALL_FULL_OLDINCLUDEDIR="/usr/include"
+2026-11-04T09:13:41.9081428Z -- CMAKE_INSTALL_DATAROOTDIR="share" ; CMAKE_INSTALL_FULL_DATAROOTDIR="/usr/local/share"
+2026-11-04T09:13:41.9082633Z -- CMAKE_INSTALL_DATADIR="share" ; CMAKE_INSTALL_FULL_DATADIR="/usr/local/share"
+2026-11-04T09:13:41.9083601Z -- CMAKE_INSTALL_INFODIR="share/info" ; CMAKE_INSTALL_FULL_INFODIR="/usr/local/share/info"
+2026-11-04T09:13:41.9084680Z -- CMAKE_INSTALL_LOCALEDIR="share/locale" ; CMAKE_INSTALL_FULL_LOCALEDIR="/usr/local/share/locale"
+2026-11-04T09:13:41.9085690Z -- CMAKE_INSTALL_MANDIR="share/man" ; CMAKE_INSTALL_FULL_MANDIR="/usr/local/share/man"
+2026-11-04T09:13:41.9086703Z -- CMAKE_INSTALL_DOCDIR="share/doc" ; CMAKE_INSTALL_FULL_DOCDIR="/usr/local/share/doc/MANTICORE"
+2026-11-04T09:13:41.9087716Z -- CMAKE_INSTALL_LOCALLIBDIR="" ; CMAKE_INSTALL_FULL_LOCALLIBDIR="usr/local/lib"
+2026-11-04T09:13:41.9220038Z -- Enabled features compiled in:
+2026-11-04T09:13:41.9220549Z  * re2, a regular expression library
+2026-11-04T09:13:41.9221338Z  * stemmer, stemming library (Snowball)
+2026-11-04T09:13:41.9222125Z  * nlohmann_json, JSON for Modern C++ library
+2026-11-04T09:13:41.9222743Z  * uni-algo, unicode algorithm implementation for C/C++
+2026-11-04T09:13:41.9223337Z  * icu, International Components for Unicode
+2026-11-04T09:13:41.9223863Z  * jieba, Chinese text segmentation tool
+2026-11-04T09:13:41.9224350Z  * OpenSSL, for encrypted networking
+2026-11-04T09:13:41.9224832Z  * ZLIB, for compressed data and networking
+2026-11-04T09:13:41.9225324Z  * ZSTD, for compressed networking
+2026-11-04T09:13:41.9225796Z  * CURL, for enhanced network communication
+2026-11-04T09:13:41.9226450Z  * ODBC, for indexing MSSQL (windows) and generic ODBC sources with indexer
+2026-11-04T09:13:41.9227172Z  * EXPAT, for indexing xmlpipe sources with indexer
+2026-11-04T09:13:41.9227947Z  * Iconv, for support different encodings when indexing xmlpipe sources with indexer
+2026-11-04T09:13:41.9228739Z  * Mysql, for indexing mysql sources with indexer
+2026-11-04T09:13:41.9229096Z 
+2026-11-04T09:13:41.9229997Z -- Available runtime features:
+2026-11-04T09:13:41.9230539Z 
+2026-11-04T09:13:41.9247525Z -- Configuring done (21.7s)
+2026-11-04T09:13:42.2306491Z -- Generating done (0.3s)
+2026-11-04T09:13:42.2312108Z -- Build files have been written to: /__w/manticoresearch/manticoresearch/build
+2026-11-04T09:13:42.2505135Z Command exited with the value: 0
+2026-11-04T09:13:42.2522202Z SetCTestConfiguration:BuildDirectory:/__w/manticoresearch/manticoresearch/build
+2026-11-04T09:13:42.2523117Z SetCTestConfiguration:SourceDirectory:/__w/manticoresearch
+2026-11-04T09:13:42.2524001Z SetMakeCommand:/cmake-3.31.2-linux-x86_64/bin/cmake --build . --config "Debug" -- -j4
+2026-11-04T09:13:42.2525116Z SetCTestConfiguration:MakeCommand:/cmake-3.31.2-linux-x86_64/bin/cmake --build . --config "Debug" -- -j4
+2026-11-04T09:13:42.2525939Z Build project
+2026-11-04T09:13:42.2528038Z MakeCommand:/cmake-3.31.2-linux-x86_64/bin/cmake --build . --config "Debug" -- -j4
+2026-11-04T09:13:42.2529095Z Run command: "/cmake-3.31.2-linux-x86_64/bin/cmake" "--build" "." "--config" "Debug" "--" "-j4"
+2026-11-04T09:13:43.9234710Z [1/121] Building CXX object src/CMakeFiles/conversion.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:44.7586264Z [2/121] Building CXX object src/CMakeFiles/lcjk.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:44.7873212Z [3/121] Linking CXX static library src/Debug/lcjk.lib
+2026-11-04T09:13:45.9315304Z [4/121] Building CXX object src/CMakeFiles/lmanticore_coro.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:46.3028780Z [5/121] Building CXX object src/CMakeFiles/indexcheck.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:46.5528990Z [6/121] Building CXX object src/CMakeFiles/lmanticore_icu.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:46.5778927Z [7/121] Linking CXX static library src/Debug/lmanticore_icu.lib
+2026-11-04T09:13:48.2157256Z [8/121] Building CXX object src/CMakeFiles/digest_sha1.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:48.2493293Z [9/121] Linking CXX static library src/Debug/digest_sha1.lib
+2026-11-04T09:13:48.5914479Z [10/121] Building CXX object src/CMakeFiles/digest_sha256.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:48.6167257Z [11/121] Linking CXX static library src/Debug/digest_sha256.lib
+2026-11-04T09:13:48.7415321Z [12/121] Building C object src/CMakeFiles/searchd_ssl.dir/Debug/Unity/unity_0_c.c.obj
+2026-11-04T09:13:48.9032699Z [13/121] Building C object src/CMakeFiles/udfexample.dir/Debug/Unity/unity_0_c.c.obj
+2026-11-04T09:13:48.9705790Z [14/121] Linking C shared module src/Debug/udfexample.dll
+2026-11-04T09:13:49.5944826Z [15/121] Building CXX object src/CMakeFiles/stub_ssl.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:49.5993925Z [16/121] Building CXX object src/CMakeFiles/lmanticore_jieba.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:49.6198248Z [17/121] Linking CXX static library src/Debug/stub_ssl.lib
+2026-11-04T09:13:49.6310459Z [18/121] Linking CXX static library src/Debug/lmanticore_jieba.lib
+2026-11-04T09:13:51.2526879Z [19/121] Building CXX object src/std/CMakeFiles/manticore_std.dir/Debug/Unity/unity_1_cxx.cxx.obj
+2026-11-04T09:13:51.3805735Z [20/121] Building CXX object src/std/CMakeFiles/manticore_std.dir/Debug/Unity/unity_2_cxx.cxx.obj
+2026-11-04T09:13:51.9360504Z [21/121] Building CXX object src/CMakeFiles/searchd_ssl.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:51.9362024Z In file included from /__w/manticoresearch/manticoresearch/build/src/CMakeFiles/searchd_ssl.dir/Unity/unity_0_cxx.cxx:4:
+2026-11-04T09:13:51.9364163Z /__w/manticoresearch/manticoresearch/src/searchdssl.cpp(269,62): warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+2026-11-04T09:13:51.9366900Z         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+2026-11-04T09:13:51.9368953Z                                                                     ^
+2026-11-04T09:13:51.9370699Z /__w/manticoresearch/manticoresearch/src/searchdssl.cpp(269,152): warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+2026-11-04T09:13:51.9373582Z         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+2026-11-04T09:13:51.9375725Z                                                                                                                                                               ^
+2026-11-04T09:13:51.9377345Z /__w/manticoresearch/manticoresearch/src/searchdssl.cpp(269,225): warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+2026-11-04T09:13:51.9380009Z         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+2026-11-04T09:13:51.9402950Z                                                                                                                                                                                                                                        ^
+2026-11-04T09:13:51.9405661Z 3 warnings generated.
+2026-11-04T09:13:51.9406202Z [22/121] Linking CXX static library src/Debug/searchd_ssl.lib
+2026-11-04T09:13:52.9586717Z [23/121] Building CXX object src/std/CMakeFiles/manticore_std.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:53.3470777Z [24/121] Building CXX object src/tokenizer/CMakeFiles/lowercaser.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:53.3733486Z [25/121] Linking CXX static library src/tokenizer/Debug/lowercaser.lib
+2026-11-04T09:13:53.8496321Z [26/121] Building CXX object src/stripper/CMakeFiles/stripper.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:53.8767195Z [27/121] Linking CXX static library src/stripper/Debug/stripper.lib
+2026-11-04T09:13:55.1798218Z [28/121] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:55.8539834Z [29/121] Building CXX object src/schema/CMakeFiles/schema.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:55.9293040Z [30/121] [BISON][QueryParser] Building parser with bison 3.5.1
+2026-11-04T09:13:56.6682906Z [31/121] Building CXX object src/dict/infix/CMakeFiles/infix.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:56.6948786Z [32/121] Linking CXX static library src/dict/infix/Debug/infix.lib
+2026-11-04T09:13:57.1100553Z [33/121] Building CXX object src/dict/CMakeFiles/dict.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:57.7406244Z [34/121] Building CXX object src/dict/stem/CMakeFiles/stem.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:13:57.7678431Z [35/121] Linking CXX static library src/dict/stem/Debug/stem.lib
+2026-11-04T09:13:58.7028992Z [36/121] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/Debug/Unity/unity_1_cxx.cxx.obj
+2026-11-04T09:13:59.9861257Z [37/121] Building CXX object src/indexing_sources/CMakeFiles/sourcedoc.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:14:00.0159641Z [38/121] Linking CXX static library src/indexing_sources/Debug/sourcedoc.lib
+2026-11-04T09:14:00.5733867Z [39/121] Building CXX object src/indexing_sources/CMakeFiles/source_svpipe.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:14:00.6032130Z [40/121] Linking CXX static library src/indexing_sources/Debug/source_svpipe.lib
+2026-11-04T09:14:00.9705383Z [41/121] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:14:01.0756604Z [42/121] [BISON][SelectParser] Building parser with bison 3.5.1
+2026-11-04T09:14:01.2474484Z [43/121] [BISON][ExprParser] Building parser with bison 3.5.1
+2026-11-04T09:14:01.2614425Z [44/121] [FLEX][Exprlex] Building scanner with flex 2.6.4
+2026-11-04T09:14:01.3090271Z [45/121] [BISON][JsonParser] Building parser with bison 3.5.1
+2026-11-04T09:14:01.3300866Z [46/121] [FLEX][Jsonlex] Building scanner with flex 2.6.4
+2026-11-04T09:14:01.7509505Z [47/121] Building CXX object src/indexing_sources/CMakeFiles/source_sql.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:14:02.2360628Z [48/121] Building CXX object src/indexing_sources/CMakeFiles/source_odbc.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:14:02.9458247Z [49/121] Building CXX object src/indexing_sources/CMakeFiles/source_mysql.dir/Debug/Unity/unity_0_cxx.cxx.obj
+2026-11-04T09:14:04.7012283Z [50/121] Building CXX object src/CMakeFiles/lmanticore.dir/Debug/Unity/unity_11_cxx.cxx.obj
+2026-11-04T09:14:07.6182711Z [51/121] Building CXX object src/CMakeFiles/lmanticore.dir/Debug/Unity/unity_9_cxx.cxx.obj
+2026-11-04T09:14:08.4098611Z [52/121] Building CXX object src/CMakeFiles/lmanticore.dir/Debug/Unity/unity_7_cxx.cxx.obj
+2026-11-04T09:14:08.4116017Z FAILED: src/CMakeFiles/lmanticore.dir/Debug/Unity/unity_7_cxx.cxx.obj 
+2026-11-04T09:14:08.5155200Z /usr/lib/llvm-16/bin/clang-cl --target=x86_64-pc-windows-msvc  /nologo -TP -DBOOST_ALL_NO_LIB=1 -DBOOST_CONTEXT_NO_LIB -D_CRT_NONSTDC_NO_DEPRECATE=1 -D_CRT_SECURE_NO_DEPRECATE=1 -DCMAKE_INTDIR=\"Debug\" -I/__w/manticoresearch/manticoresearch/src -I/__w/manticoresearch/manticoresearch/mcl -I/__w/manticoresearch/manticoresearch/build/config -imsvc/__w/manticoresearch/manticoresearch/cache/windows-amd64/cctz/include -imsvc/__w/manticoresearch/manticoresearch/cache/windows-amd64/xxhash/include -imsvc/sysroot/root/diskc/boost_1_80_0 -imsvc/__w/manticoresearch/manticoresearch/cache/windows-amd64/stemmer/include/stemmer -imsvc/__w/manticoresearch/manticoresearch/cache/windows-amd64/re2/include -imsvc/__w/manticoresearch/manticoresearch/cache/windows-amd64/uni-algo/include -D_WIN32_WINNT=0x0601 -D_CRT_SECURE_NO_WARNINGS -fms-compatibility-version=19 -vctoolsversion 14.29.30133 -winsdkversion 10.0.18362.0 -winsysroot /sysroot/root/sdk -Xclang -ivfsoverlay -Xclang /__w/manticoresearch/manticoresearch/build/winsdk_vfs_overlay.yaml /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd -Wstrict-aliasing -Wno-format -Wno-uninitialized-const-reference -Wno-unneeded-internal-declaration -Wno-deprecated-declarations -Wno-implicit-const-int-float-conversion -Wno-missing-braces -Wno-unused-function /GR- -Wno-deprecated-register -Wno-missing-exception-spec -Wno-implicit-exception-spec-mismatch -Wno-invalid-offsetof -Wc++11-narrowing /showIncludes /Fosrc/CMakeFiles/lmanticore.dir/Debug/Unity/unity_7_cxx.cxx.obj /Fdsrc/CMakeFiles/lmanticore.dir/Debug/lmanticore.pdb -c -- /__w/manticoresearch/manticoresearch/build/src/CMakeFiles/lmanticore.dir/Unity/unity_7_cxx.cxx
+2026-11-04T09:14:08.5169379Z In file included from /__w/manticoresearch/manticoresearch/build/src/CMakeFiles/lmanticore.dir/Unity/unity_7_cxx.cxx:7:
+2026-11-04T09:14:08.5172633Z /__w/manticoresearch/manticoresearch/src/docidlookup.cpp(1262,34): error: cannot initialize a parameter of type 'uint32_t *' (aka 'unsigned int *') with an lvalue of type 'RowID_t *' (aka 'unsigned long *')
+2026-11-04T09:14:08.5174547Z                 m_pCache->FindBatch ( pDocIDs, pRows, nQueries );
+2026-11-04T09:14:08.5175618Z                                                ^~~~~
+2026-11-04T09:14:08.5176969Z /__w/manticoresearch/manticoresearch/src/docidlookupcache.h(27,56): note: passing argument to parameter 'pRows' here
+2026-11-04T09:14:08.5178316Z         void FindBatch ( const uint64_t * pDocIDs, uint32_t * pRows, size_t nQueries ) const noexcept;
+2026-11-04T09:14:08.5179186Z                                                               ^
+2026-11-04T09:14:08.5179734Z 1 error generated.
+2026-11-04T09:14:08.5180408Z [53/121] Building CXX object src/CMakeFiles/lmanticore.dir/Debug/Unity/unity_8_cxx.cxx.obj
+2026-11-04T09:14:10.2875636Z [54/121] Building CXX object src/CMakeFiles/lmanticore.dir/Debug/Unity/unity_6_cxx.cxx.obj
+2026-11-04T09:14:36.7867547Z [55/121] Building CXX object src/CMakeFiles/lmanticore.dir/Debug/Unity/unity_10_cxx.cxx.obj
+2026-11-04T09:14:36.7868389Z ninja: build stopped: subcommand failed.
+2026-11-04T09:14:36.7876638Z Command exited with the value: 1
+2026-11-04T09:14:36.7881028Z MakeCommand:/cmake-3.31.2-linux-x86_64/bin/cmake --build . --config "Debug" -- -j4
+2026-11-04T09:14:36.7885062Z Error(s) when building project
+2026-11-04T09:14:36.7885401Z    1 Compiler errors
+2026-11-04T09:14:36.7885629Z    4 Compiler warnings
+2026-11-04T09:14:36.7949406Z ##[error]Process completed with exit code 255.
+2026-11-04T09:14:36.8087414Z Post job cleanup.
+2026-11-04T09:14:36.8095083Z ##[command]/usr/bin/docker exec  702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577 sh -c "cat /etc/*release | grep ^ID"
+2026-11-04T09:14:37.0043006Z [command]/usr/bin/git version
+2026-11-04T09:14:37.0083836Z git version 2.25.1
+2026-11-04T09:14:37.0124349Z Copying '/github/home/.gitconfig' to '/__w/_temp/193ddeb7-eccc-4529-a4c5-a54dcdecbaaf/.gitconfig'
+2026-11-04T09:14:37.0136504Z Temporarily overriding HOME='/__w/_temp/193ddeb7-eccc-4529-a4c5-a54dcdecbaaf' before making global git config changes
+2026-11-04T09:14:37.0137750Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T09:14:37.0142778Z [command]/usr/bin/git config --global --add safe.directory /__w/manticoresearch/manticoresearch
+2026-11-04T09:14:37.0182602Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T09:14:37.0221004Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T09:14:37.0522136Z Entering 'mcl'
+2026-11-04T09:14:37.0590406Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T09:14:37.0618571Z http.https://github.com/.extraheader
+2026-11-04T09:14:37.0631929Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-04T09:14:37.0672202Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T09:14:37.0988118Z Entering 'mcl'
+2026-11-04T09:14:37.1017068Z http.https://github.com/.extraheader
+2026-11-04T09:14:37.1074622Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T09:14:37.1110373Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T09:14:37.1408231Z Entering 'mcl'
+2026-11-04T09:14:37.1430362Z file:/__w/manticoresearch/manticoresearch/.git/modules/mcl/config	remote.origin.url
+2026-11-04T09:14:37.1470671Z [command]/usr/bin/git config --file /__w/manticoresearch/manticoresearch/.git/modules/mcl/config --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T09:14:37.1666031Z Stop and remove container: 3af80a0fb1664bd5a6d02117f893521a_manticoresearchexternal_toolchainvcpkg331_20260310_b9965f
+2026-11-04T09:14:37.1670927Z ##[command]/usr/bin/docker rm --force 702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577
+2026-11-04T09:14:39.4094596Z 702906013eafde46ed30656512d70b822bfb5c52f43426bfe282491e26232577
+2026-11-04T09:14:39.4130299Z Remove container network: github_network_b6aea027c70c4d3b9209bf4f0c71b788
+2026-11-04T09:14:39.4135230Z ##[command]/usr/bin/docker network rm github_network_b6aea027c70c4d3b9209bf4f0c71b788
+2026-11-04T09:14:39.5331209Z github_network_b6aea027c70c4d3b9209bf4f0c71b788
+2026-11-04T09:14:39.5407362Z Cleaning up orphan processes

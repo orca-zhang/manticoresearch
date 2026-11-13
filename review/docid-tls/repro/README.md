@@ -1,5 +1,10 @@
 # Reproduction tools
 
+For the expanded #5042 shared-block-cache patch and #5045 supplemental review,
+use the [2026-11-13 guide](2026-11-13/README.md). The commands below describe
+the original two-patch snapshot and remain available for reproducing it.
+
+
 These tools accompany the review package; they are not additional production
 changes. Python tools use the standard library. Layout probes require C++17 and
 POSIX thread CPU clocks (Linux/macOS). The server benchmarks use loopback ports,

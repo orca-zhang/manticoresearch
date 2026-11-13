@@ -1,0 +1,10 @@
+starting large-c8-b64
+large-c8-b64: QPS -0.86% CPU/query +0.37% p95 +1.09%
+starting large-c8-b256
+large-c8-b256: QPS +1.16% CPU/query -0.90% p95 -0.40%
+starting large-mixed
+large-mixed: QPS -0.72% CPU/query +1.04% p95 +4.89%
+starting aa-large-b256
+aa-large-b256: QPS +0.88% CPU/query -0.79% p95 -0.63%
+starting nocache-c8-b256
+nocache-c8-b256: QPS +1.72% CPU/query -1.39% p95 -1.25%

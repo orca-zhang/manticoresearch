@@ -1,0 +1,123 @@
+--- a/src/docstore.cpp
++++ b/src/docstore.cpp
+@@ -11,6 +11,7 @@
+ #include "docstore.h"
+ 
+ #include "std/lrucache.h"
++#include "std/hash.h"
+ #include "fileio.h"
+ #include "memio.h"
+ #include "fileutils.h"
+@@ -309,8 +310,7 @@
+ {
+ 	static DWORD GetHash ( const HashKey_t & tKey )
+ 	{
+-		DWORD uCRC32 = sphCRC32 ( &tKey.m_iIndexId, sizeof(tKey.m_iIndexId) );
+-		return sphCRC32 ( &tKey.m_tOffset, sizeof(tKey.m_tOffset), uCRC32 );
++		return DWORD ( HashWithSeed ( &tKey.m_tOffset, sizeof(tKey.m_tOffset), uint64_t(tKey.m_iIndexId) ) );
+ 	}
+ 	static bool Equal ( const HashKey_t & a, const HashKey_t & b ) { return a==b; }
+ 
+@@ -319,21 +319,49 @@
+ };
+ 
+ 
+-class BlockCache_c : public LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>
+-{
+-	using BASE = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
+-	using BASE::BASE;
++class BlockCache_c
++{
++	using Shard_t = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
+ 
+ public:
+-	void					ClearByIndexId ( int64_t iIndexId ) { BASE::Delete ( [iIndexId]( const HashKey_t & tKey ){ return tKey.m_iIndexId==iIndexId; } ); }
+-	void					ClearAll() { BASE::Delete ( []( const HashKey_t & ){ return true; } ); }
+-
+-	static void				Init ( int64_t iCacheSize );
+-	static void				Done()	{ SafeDelete(m_pBlockCache); }
+-	static BlockCache_c *	Get()	{ return m_pBlockCache; }
++	explicit BlockCache_c ( int64_t iCacheSize )
++	{
++		while ( m_iShards<16 && iCacheSize/(m_iShards*2)>=1024*1024 )
++			m_iShards *= 2;
++		for ( int i=0; i<m_iShards; ++i )
++		{
++			const int64_t iBudget = iCacheSize/m_iShards + (i<iCacheSize%m_iShards);
++			// Sharding must not shrink the original maximum-block admission threshold.
++			m_dShards[i] = std::make_unique<Shard_t> ( iBudget, iCacheSize/64 );
++		}
++	}
++
++	bool Find ( HashKey_t tKey, BlockData_t & tData ) { return Shard(tKey).Find ( tKey, tData ); }
++	bool Add ( HashKey_t tKey, const BlockData_t & tData ) { return Shard(tKey).Add ( tKey, tData ); }
++	void Release ( HashKey_t tKey ) { Shard(tKey).Release(tKey); }
++
++	void ClearByIndexId ( int64_t iIndexId )
++	{
++		for ( int i=0; i<m_iShards; ++i )
++			m_dShards[i]->Delete ( [iIndexId]( const HashKey_t & tKey ){ return tKey.m_iIndexId==iIndexId; } );
++	}
++	void ClearAll()
++	{
++		for ( int i=0; i<m_iShards; ++i )
++			m_dShards[i]->Delete ( []( const HashKey_t & ){ return true; } );
++	}
++
++	static void Init ( int64_t iCacheSize );
++	static void Done() { SafeDelete(m_pBlockCache); }
++	static BlockCache_c * Get() { return m_pBlockCache; }
+ 
+ private:
+-	static BlockCache_c *	m_pBlockCache;
++	// Keep shard bits separate from the hash table's low bucket bits.
++	Shard_t & Shard ( HashKey_t tKey ) { return *m_dShards[(BlockUtil_t::GetHash(tKey)>>28) & (m_iShards-1)]; }
++
++	int m_iShards = 1;
++	std::unique_ptr<Shard_t> m_dShards[16];
++	static BlockCache_c * m_pBlockCache;
+ };
+ 
+ BlockCache_c * BlockCache_c::m_pBlockCache = nullptr;
+--- a/src/std/lrucache.h
++++ b/src/std/lrucache.h
+@@ -21,7 +21,7 @@
+ class LRUCache_T
+ {
+ public:
+-			LRUCache_T ( int64_t iCacheSize );
++			LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize = -1 );
+ 			~LRUCache_T();
+ 
+ 	bool	Find ( KEY tKey, VALUE & tData );
+@@ -59,6 +59,7 @@
+ 	LinkedEntry_t *		m_pTail = nullptr;
+ 	int64_t				m_iCacheSize = 0;
+ 	int64_t				m_iMemUsed = 0;
++	DWORD			m_uMaxBlockSize = 0;
+ 	CSphMutex			m_tLock;
+ 	OpenHashTable_T<KEY, LinkedEntry_t *, HELPER, HashEntry_t> m_tHash;
+ 
+--- a/src/std/lrucache_impl.h
++++ b/src/std/lrucache_impl.h
+@@ -13,8 +13,9 @@
+ #include "scopedlock.h"
+ 
+ template <typename KEY, typename VALUE, typename HELPER>
+-LRUCache_T<KEY,VALUE,HELPER>::LRUCache_T ( int64_t iCacheSize )
++LRUCache_T<KEY,VALUE,HELPER>::LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize )
+ 	: m_iCacheSize ( iCacheSize )
++	, m_uMaxBlockSize ( DWORD(iMaxBlockSize<0 ? iCacheSize/64 : iMaxBlockSize) )
+ 	, m_tHash ( 1024 )
+ {}
+ 
+@@ -60,8 +61,7 @@
+ 	DWORD uSpaceNeeded = uSize + sizeof(LinkedEntry_t);
+ 	if ( !HaveSpaceFor ( uSpaceNeeded ) )
+ 	{
+-		DWORD MAX_BLOCK_SIZE = m_iCacheSize/64;
+-		if ( uSpaceNeeded>MAX_BLOCK_SIZE )
++		if ( uSpaceNeeded>m_uMaxBlockSize )
+ 			return false;
+ 
+ 		SweepUnused ( uSpaceNeeded );

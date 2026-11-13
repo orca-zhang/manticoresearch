@@ -1,0 +1,8 @@
+[
+  "ctest",
+  "--test-dir",
+  "/private/tmp/manticore-5042-publish-build-20261113",
+  "-R",
+  "Perform.API.smoke.test",
+  "--output-on-failure"
+]

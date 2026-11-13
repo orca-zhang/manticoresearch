@@ -1,0 +1,11 @@
+{
+  "upstream_base": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+  "patch_chain": [
+    "01-docid-cache.patch",
+    "03-docid-ci-and-block-cache.patch"
+  ],
+  "candidate": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+  "expected_tree": "77e0d24d074d6a937df9a8a51de1838c0ec7d3b5",
+  "actual_tree": "77e0d24d074d6a937df9a8a51de1838c0ec7d3b5",
+  "no_reader_tls": true
+}

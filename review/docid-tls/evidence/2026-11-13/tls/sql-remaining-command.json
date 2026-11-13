@@ -1,0 +1,23 @@
+[
+  "/Users/orca/.pyenv/versions/3.12.8/bin/python3",
+  "/Users/orca/Documents/GitHub/ZimaOS-Photos/scripts/manticore_pr5045/benchmark.py",
+  "/private/tmp/manticore-5045-review-20261113/binaries/reference-searchd",
+  "/private/tmp/manticore-5045-review-20261113/binaries/tls-searchd",
+  "--work",
+  "/private/tmp/manticore-5045-review-20261113/sql",
+  "--output",
+  "/Users/orca/Documents/GitHub/ZimaOS-Photos/docs/process/data/manticore-pr5045-20261113/sql-remaining.json",
+  "--rounds",
+  "6",
+  "--duration",
+  "3",
+  "--order-offset",
+  "0",
+  "--cases",
+  "large-reconnect",
+  "aa-large-b256",
+  "nocache-c8-b1",
+  "nocache-c8-b64",
+  "nocache-c8-b256",
+  "nocache-count"
+]

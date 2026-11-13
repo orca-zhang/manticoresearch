@@ -1,0 +1,12 @@
+{
+  "20000": {
+    "logical_stored_text_bytes": 2560000,
+    "disk_bytes": 399178,
+    "spds_bytes": 111801
+  },
+  "1000000": {
+    "logical_stored_text_bytes": 128000000,
+    "disk_bytes": 19142014,
+    "spds_bytes": 5588786
+  }
+}

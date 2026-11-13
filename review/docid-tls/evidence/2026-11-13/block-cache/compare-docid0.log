@@ -1,0 +1,20 @@
+starting small-off
+small-off: 5863.7 -> 5862.7 QPS (-0.02%), CPU/query -0.42%
+starting small-default
+small-default: 3400.4 -> 7462.1 QPS (+119.45%), CPU/query -51.47%
+starting small-64
+small-64: 13033.9 -> 21900.8 QPS (+68.03%), CPU/query -43.75%
+starting small-point
+small-point: 44668.3 -> 44035.0 QPS (-1.42%), CPU/query +2.75%
+starting small-count
+small-count: 23556.1 -> 23865.7 QPS (+1.31%), CPU/query -1.02%
+starting small-aa
+small-aa: 3433.7 -> 3419.5 QPS (-0.41%), CPU/query +0.81%
+starting 100k-default
+100k-default: 3099.6 -> 7103.4 QPS (+129.18%), CPU/query -53.21%
+starting 1m-default
+1m-default: 1376.4 -> 2871.5 QPS (+108.62%), CPU/query -47.50%
+starting 5m-default
+5m-default: 1245.3 -> 1689.6 QPS (+35.68%), CPU/query -20.14%
+starting 5m-512m
+5m-512m: 2004.7 -> 2340.9 QPS (+16.78%), CPU/query -10.64%

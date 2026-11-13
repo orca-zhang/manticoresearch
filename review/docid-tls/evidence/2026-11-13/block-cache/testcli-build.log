@@ -1,0 +1,6 @@
+[ 50%] Building C object api/libsphinxclient/CMakeFiles/sphinxclient.dir/sphinxclient.c.o
+[ 50%] Linking C static library libsphinxclient.a
+[ 50%] Built target sphinxclient
+[ 50%] Building C object api/libsphinxclient/CMakeFiles/testcli.dir/test.c.o
+[100%] Linking C executable testcli
+[100%] Built target testcli

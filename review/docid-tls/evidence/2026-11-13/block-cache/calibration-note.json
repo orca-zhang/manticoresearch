@@ -1,0 +1,6 @@
+{
+  "automatic_calibration_failed_before_tests": true,
+  "fallback": "Explicit supported MANTICORE_* overrides inherited from the earlier upstream/Clang 21 build, identical in all current arms; baseline full 521 tests passed with these overrides.",
+  "scope": "Local Apple stack-mocking workaround; not a production code change.",
+  "automatic_calibration_result": "Nonzero exit before tests; exact process return code was not retained."
+}

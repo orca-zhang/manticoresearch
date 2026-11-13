@@ -1,8 +1,36 @@
 # Performance evidence and reporting boundaries
 
+Updated review (2026-11-13): [#5042 shared-block-cache results and CI fixes,
+without TLS](BLOCK_CACHE_2026-11-13.md); [#5045 default-cache/large-data,
+lifetime and churn answers](TLS_REVIEW_2026-11-13.md). The sections below retain
+the dated original evidence; their patches/test counts are historical, not the
+current expanded #5042 validation. New and old measurements are separate.
+
+
 All percentages below identify their reference. Directory lookup throughput and
 SQL QPS are different metrics. Improvements from the two patches must not be
 added or multiplied; the affected query paths and baselines differ.
+
+## Current #5042 block-cache comparison (2026-11-13)
+
+Both arms contain the same native DocID implementation and CI/alignment repairs,
+with no reader TLS. At the default disabled DocID budget and default 16 MiB
+block cache, QPS gains at 20k/100k/500k/1M/5M rows are
++119.45%/+129.18%/+125.74%/+108.62%/+35.68%, respectively. These are block-cache
+implementation gains at eight clients/256 returned rows, not gains from the
+DocID directory or from turning caching on. The sampled relative peak is 100k;
+there is no universal optimum. Enabled-DocID and cache on/off phases are separate.
+
+![Measured size range](figures/block-cache-size-sweet-spot.png)
+
+Point QPS is −1.42% initially and −0.76% in a longer repeat; all controls and
+negative results remain. At 5M, 512 MiB has higher absolute QPS than 16 MiB,
+with higher memory usage, even though the relative implementation gain is
+smaller. See the [full tables/methods/limits](BLOCK_CACHE_2026-11-13.md).
+
+The [TLS follow-up](TLS_REVIEW_2026-11-13.md) measured −1.11% to +0.85% QPS
+at default 16 MiB across 20k–5M rows, without a clear default-cache gain.
+The older TLS cache-off results below are kept as separate dated evidence.
 
 ## 1. DocID cache-line directory isolation
 

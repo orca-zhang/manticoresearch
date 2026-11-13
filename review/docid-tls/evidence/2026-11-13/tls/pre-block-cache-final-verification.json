@@ -1,0 +1,23 @@
+{
+  "python_compile": "passed, all scripts/manticore_pr5045/*.py",
+  "benchmark_selfcheck": "passed",
+  "scale_selfcheck": "passed",
+  "npm_run_selfcheck": "passed",
+  "git_diff_check": "passed",
+  "new_file_whitespace": "passed",
+  "local_report_links_checked": 34,
+  "local_report_links": "passed",
+  "scale_driver_and_archived_script_hashes": "passed",
+  "timed_binary_hashes": "passed",
+  "profile_exit_statuses": "passed",
+  "scale_comparisons": 23,
+  "scale_arm_samples": 276,
+  "scale_timed_queries_checked": 4370237,
+  "production_algorithm_changes": false,
+  "github_writes": false,
+  "new_style_hardcoding": 0,
+  "new_css_px": 0,
+  "new_non_bx_icons": 0,
+  "sha256_manifest": "passed",
+  "zip_crc_and_member_hashes": "passed"
+}

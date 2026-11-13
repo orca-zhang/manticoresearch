@@ -1,0 +1,73 @@
+starting resident-c8-b1
+resident-c8-b1: QPS -0.17% CPU/query +0.47% p95 +0.10%
+starting resident-c8-b64
+resident-c8-b64: QPS -0.35% CPU/query +1.58% p95 -0.10%
+starting resident-c8-b256
+resident-c8-b256: QPS -0.26% CPU/query +0.57% p95 -0.01%
+starting resident-count
+resident-count: QPS -0.33% CPU/query +0.88% p95 -0.02%
+starting large-c1-b1
+large-c1-b1: QPS +0.23% CPU/query -0.88% p95 +0.21%
+starting large-c1-b64
+large-c1-b64: QPS +1.44% CPU/query -0.84% p95 -1.69%
+starting large-c1-b256
+large-c1-b256: QPS -0.05% CPU/query -0.17% p95 -0.35%
+starting large-c1-count
+large-c1-count: QPS +0.68% CPU/query -0.53% p95 -0.39%
+starting large-c8-b1
+large-c8-b1: QPS +0.92% CPU/query -1.58% p95 -0.97%
+starting large-c8-b64
+large-c8-b64: QPS +2.68% CPU/query -1.59% p95 -3.50%
+starting large-c8-b256
+large-c8-b256: QPS +1.89% CPU/query -1.49% p95 -1.66%
+starting large-c8-count
+large-c8-count: QPS -0.05% CPU/query +0.09% p95 -0.66%
+starting large-hot
+large-hot: QPS +0.61% CPU/query -0.07% p95 -0.32%
+starting large-mixed
+large-mixed: QPS +0.76% CPU/query -0.75% p95 +0.13%
+starting large-reconnect
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/Users/orca/Documents/GitHub/ZimaOS-Photos/docs/process/data/manticore-pr5045-20261113/repro/benchmark.py", line 75, in worker
+    execute(connection, queries[completed % len(queries)])
+  File "/Users/orca/Documents/GitHub/ZimaOS-Photos/docs/process/data/manticore-pr5045-20261113/repro/benchmark.py", line 54, in execute
+    connection.request("POST", "/sql?mode=raw", body,
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/http/client.py", line 1336, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/http/client.py", line 1382, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/http/client.py", line 1331, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/http/client.py", line 1091, in _send_output
+    self.send(msg)
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/http/client.py", line 1035, in send
+    self.connect()
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/http/client.py", line 1001, in connect
+    self.sock = self._create_connection(
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/socket.py", line 865, in create_connection
+    raise exceptions[0]
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/socket.py", line 850, in create_connection
+    sock.connect(sa)
+OSError: [Errno 49] Can't assign requested address
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/orca/Documents/GitHub/ZimaOS-Photos/docs/process/data/manticore-pr5045-20261113/repro/benchmark.py", line 292, in <module>
+    main()
+  File "/Users/orca/Documents/GitHub/ZimaOS-Photos/docs/process/data/manticore-pr5045-20261113/repro/benchmark.py", line 271, in main
+    entry = run_case(case, used_servers, ctx, args)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/orca/Documents/GitHub/ZimaOS-Photos/docs/process/data/manticore-pr5045-20261113/repro/benchmark.py", line 175, in run_case
+    replies = [job.get(timeout=args.duration + 30) for job in jobs]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/orca/.pyenv/versions/3.12.8/lib/python3.12/multiprocessing/pool.py", line 774, in get
+    raise self._value
+OSError: [Errno 49] Can't assign requested address

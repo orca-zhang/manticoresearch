@@ -1,0 +1,4 @@
+starting resident-c8-b64
+resident-c8-b64: QPS +0.71% CPU/query -0.41% p95 -1.34%
+starting resident-count
+resident-count: QPS -0.23% CPU/query +0.95% p95 -1.63%

@@ -1,0 +1,26 @@
+{
+  "candidate_commit": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+  "reader_tls": false,
+  "comparisons": 22,
+  "timed_arm_samples": 264,
+  "checked_timed_queries": 14623451,
+  "no_samples_discarded": true,
+  "phases": [
+    "compare-docid0",
+    "compare-extra-docid0",
+    "compare-docid128m",
+    "toggle-docid0",
+    "toggle-docid128m",
+    "compare-repeat-docid0",
+    "toggle-repeat-docid0"
+  ],
+  "native_gtests_per_arm": 521,
+  "focused_sanitizer_tests": 26,
+  "focused_sanitizer_repeats": 20,
+  "ci": {
+    "state": "action_required",
+    "test_run": 43408089087,
+    "jobs": 0,
+    "author_upstream_permission": "READ"
+  }
+}

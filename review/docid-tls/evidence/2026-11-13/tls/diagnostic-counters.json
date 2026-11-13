@@ -1,0 +1,88 @@
+{
+  "diagnostic_only": true,
+  "timing_values_discarded": true,
+  "scope": "Counters include query-plan probes, warmup and all checked requests; scheduling differs from timed binaries.",
+  "cases": [
+    {
+      "case": {
+        "name": "resident-c8-b256",
+        "docs": 20000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256
+      },
+      "counters": {
+        "lookups": 157,
+        "tls_hits": 154,
+        "insertions": 5434,
+        "deletions": 5434,
+        "block_hits": 1390947,
+        "block_misses": 157,
+        "locked_lookups": 3,
+        "tls_hit_percent": 98.08917197452229,
+        "block_hit_percent": 99.98871399981597
+      }
+    },
+    {
+      "case": {
+        "name": "large-c8-b256",
+        "docs": 1000000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256
+      },
+      "counters": {
+        "lookups": 773882,
+        "tls_hits": 735134,
+        "insertions": 13824,
+        "deletions": 13824,
+        "block_hits": 110854,
+        "block_misses": 773882,
+        "locked_lookups": 38748,
+        "tls_hit_percent": 94.99303511388041,
+        "block_hit_percent": 12.529613353587964
+      }
+    },
+    {
+      "case": {
+        "name": "large-mixed",
+        "docs": 1000000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256,
+        "mixed": true
+      },
+      "counters": {
+        "lookups": 438469,
+        "tls_hits": 366297,
+        "insertions": 87252,
+        "deletions": 87252,
+        "block_hits": 82889,
+        "block_misses": 438469,
+        "locked_lookups": 72172,
+        "tls_hit_percent": 83.53999940702764,
+        "block_hit_percent": 15.898672313458315
+      }
+    },
+    {
+      "case": {
+        "name": "nocache-c8-b256",
+        "docs": 1000000,
+        "cache": 0,
+        "clients": 8,
+        "batch": 256
+      },
+      "counters": {
+        "lookups": 1382400,
+        "tls_hits": 1322616,
+        "insertions": 21600,
+        "deletions": 21600,
+        "block_hits": 0,
+        "block_misses": 1382400,
+        "locked_lookups": 59784,
+        "tls_hit_percent": 95.67534722222223,
+        "block_hit_percent": 0.0
+      }
+    }
+  ]
+}

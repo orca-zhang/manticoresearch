@@ -1,0 +1,4 @@
+[
+  "/private/tmp/manticore-5042-publish-review-20261113/baseline-tests",
+  "--gtest_output=json:/private/tmp/manticore-5042-publish-review-20261113/baseline-full-tests.json"
+]

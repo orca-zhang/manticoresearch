@@ -1,0 +1,2 @@
+cache=0 clients=8 batch=256 count=False: QPS +7.20% CPU/query -4.61%
+cache=0 clients=8 batch=256 count=True: QPS +0.13% CPU/query -0.26%

@@ -1,0 +1,44 @@
+{
+  "same_original_query_generator": true,
+  "same_fresh_binary_pair": true,
+  "docid_prototype": false,
+  "block_cache_bytes": 0,
+  "clients": 8,
+  "rows_per_query": 256,
+  "rounds_per_arm": 6,
+  "seconds_per_arm": 3,
+  "rows": [
+    {
+      "docs": 20000,
+      "count_only": false,
+      "reference_qps": 6520.574401504802,
+      "tls_qps": 6990.019409252809,
+      "qps_change_percent": 7.199442546651569,
+      "cpu_change_percent": -4.613534808538578
+    },
+    {
+      "docs": 20000,
+      "count_only": true,
+      "reference_qps": 25796.17003731385,
+      "tls_qps": 25829.753632688444,
+      "qps_change_percent": 0.13018830053459496,
+      "cpu_change_percent": -0.2569491080953945
+    },
+    {
+      "docs": 1000000,
+      "count_only": false,
+      "reference_qps": 3807.8556796517573,
+      "tls_qps": 3823.876990760665,
+      "qps_change_percent": 0.42074365356128407,
+      "cpu_change_percent": -0.2677665109358518
+    },
+    {
+      "docs": 1000000,
+      "count_only": true,
+      "reference_qps": 10522.629202551761,
+      "tls_qps": 10478.339321639256,
+      "qps_change_percent": -0.4209012791381528,
+      "cpu_change_percent": 0.34323466696768445
+    }
+  ]
+}

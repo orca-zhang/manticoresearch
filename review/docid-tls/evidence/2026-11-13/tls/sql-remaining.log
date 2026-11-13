@@ -1,0 +1,12 @@
+starting large-reconnect
+large-reconnect: QPS +0.07% CPU/query +1.47% p95 -0.77%
+starting aa-large-b256
+aa-large-b256: QPS -1.82% CPU/query +2.22% p95 +1.69%
+starting nocache-c8-b1
+nocache-c8-b1: QPS -0.28% CPU/query -0.60% p95 -0.26%
+starting nocache-c8-b64
+nocache-c8-b64: QPS +0.92% CPU/query -1.03% p95 -1.70%
+starting nocache-c8-b256
+nocache-c8-b256: QPS +1.31% CPU/query -1.03% p95 -0.33%
+starting nocache-count
+nocache-count: QPS +1.18% CPU/query -0.57% p95 -1.75%

@@ -1,5 +1,31 @@
 # Validation record
 
+Updated review (2026-11-13): [#5042 shared-block-cache results and CI fixes,
+without TLS](BLOCK_CACHE_2026-11-13.md); [#5045 default-cache/large-data,
+lifetime and churn answers](TLS_REVIEW_2026-11-13.md). The sections below retain
+the dated original evidence; their patches/test counts are historical, not the
+current expanded #5042 validation. New and old measurements are separate.
+
+
+## Current #5042 validation (2026-11-13)
+
+| Check | Result |
+| --- | --- |
+| Both final no-TLS arms, full GoogleTest | 521/521 each |
+| API smoke | Passed on each rebuilt arm |
+| Candidate DocID SQL lifecycle | Passed at 0/1 KiB/16 MiB |
+| Focused ASan+UBSan / TSan | Each 26 tests ×20, fail-fast alignment enabled |
+| Upstream CI after push | action_required, zero test jobs, maintainer approval needed |
+
+The fixes, pre-fix failures, exact sanitizer scope, local Apple calibration
+workaround, source/binary hashes and CI state are documented in the
+[current report](BLOCK_CACHE_2026-11-13.md). The #5045 supplemental reader
+review separately passed 499/499 tests per arm and eight focused reader tests
+×20 per sanitizer; production source remains unchanged. These are distinct
+source trees/test counts, not one combined validation claim.
+
+## Original snapshot
+
 Prepared locally on 2026-10-27. Upstream base:
 `047d2f99522d78e0aa1de7e7dc945a9abe1b673a`; pinned MCL:
 `88b5412a243ab0439957203acfe86c09944280d3`.

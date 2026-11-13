@@ -1,0 +1,4 @@
+Running main() from gmock_main.cc
+Note: Google Test filter = NativeDocidCache.DisabledEmptyAndOversizedDoNotAllocate
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.

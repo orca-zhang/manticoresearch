@@ -1,0 +1,1775 @@
+{
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "compiler": "Apple Clang 21, -O2 -DNDEBUG; debug symbols omitted",
+  "upstream_base": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+  "tls_commit": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+  "harness_sha256": "592a561fb7bbecfd89420a4f53f054cc8e5793545cf0577f8d141126420c9027",
+  "rounds": 6,
+  "seconds_per_arm": 3.0,
+  "server_threads": 8,
+  "block_bytes": 16384,
+  "compression": "lz4",
+  "payload_bytes": 128,
+  "cpu_timebase": {
+    "numer": 125,
+    "denom": 3
+  },
+  "calibration": {
+    "MANTICORE_KNOWN_CREATE_SIZE": "384",
+    "MANTICORE_START_KNOWN_CREATE_SIZE": "3280",
+    "MANTICORE_KNOWN_EXPR_SIZE": "32",
+    "MANTICORE_START_KNOWN_EXPR_SIZE": "160",
+    "MANTICORE_NONE": "32",
+    "MANTICORE_START_NONE": "160",
+    "MANTICORE_KNOWN_FILTER_SIZE": "224",
+    "MANTICORE_START_KNOWN_FILTER_SIZE": "30896",
+    "MANTICORE_KNOWN_MATCH_SIZE": "208",
+    "MANTICORE_START_KNOWN_MATCH_SIZE": "16288"
+  },
+  "binaries": {
+    "reference": {
+      "path": "/private/tmp/manticore-5045-review-20261113/binaries/reference-searchd",
+      "sha256": "ba256405dd6d3bd21f47f88e23b0d42f71bf3a2a7a5c99141ec6f91dcf0f3bc0"
+    },
+    "tls": {
+      "path": "/private/tmp/manticore-5045-review-20261113/binaries/tls-searchd",
+      "sha256": "8fce3d583c5079f4f376b48359fdcd65373567c379695c304f56e2568e581e22"
+    }
+  },
+  "fixtures": {
+    "1000000": {
+      "logical_stored_text_bytes": 128000000,
+      "disk_bytes": 19142014,
+      "spds_bytes": 5588786
+    }
+  },
+  "cases": [
+    {
+      "case": {
+        "name": "large-reconnect",
+        "docs": 1000000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 1,
+        "reconnect": true,
+        "rate_limit": 50
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.0069102910347283,
+              "qps": 399.08074530120416,
+              "server_cpu_ms_per_query": 0.4956013891666667,
+              "client_cpu_cores": 0.24944142904306466,
+              "rss_bytes": 66551808,
+              "p50_ms": 1.232167,
+              "p95_ms": 2.741792,
+              "p99_ms": 33.113583
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.004292375058867,
+              "qps": 399.4285010214716,
+              "server_cpu_ms_per_query": 0.5290474308333333,
+              "client_cpu_cores": 0.2678900384934173,
+              "rss_bytes": 67010560,
+              "p50_ms": 1.339125,
+              "p95_ms": 2.613458,
+              "p99_ms": 3.71075
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.008859458961524,
+              "qps": 398.82221697857807,
+              "server_cpu_ms_per_query": 0.5076077083333334,
+              "client_cpu_cores": 0.2565935732559826,
+              "rss_bytes": 67190784,
+              "p50_ms": 1.306,
+              "p95_ms": 2.582666,
+              "p99_ms": 30.447709
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 1198,
+              "elapsed_seconds": 3.0183440829860047,
+              "qps": 396.9063721902891,
+              "server_cpu_ms_per_query": 0.5132007863105175,
+              "client_cpu_cores": 0.2601999567998363,
+              "rss_bytes": 67223552,
+              "p50_ms": 1.272125,
+              "p95_ms": 2.637083,
+              "p99_ms": 4.678041
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.007817583042197,
+              "qps": 398.9603647393683,
+              "server_cpu_ms_per_query": 0.49492809000000004,
+              "client_cpu_cores": 0.24591384935381674,
+              "rss_bytes": 67485696,
+              "p50_ms": 1.222542,
+              "p95_ms": 2.928167,
+              "p99_ms": 39.853542
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.007397957961075,
+              "qps": 399.0160320563507,
+              "server_cpu_ms_per_query": 0.5086488191666667,
+              "client_cpu_cores": 0.2595576012591358,
+              "rss_bytes": 67813376,
+              "p50_ms": 1.284958,
+              "p95_ms": 2.79375,
+              "p99_ms": 31.635625
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 398.9881983978595,
+          "server_cpu_ms_per_query_median": 0.50812826375,
+          "p50_ms_median": 1.2785415,
+          "p95_ms_median": 2.6894375,
+          "p99_ms_median": 31.041667
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.005373249994591,
+              "qps": 399.28484756499375,
+              "server_cpu_ms_per_query": 0.5113705900000001,
+              "client_cpu_cores": 0.26087940990404807,
+              "rss_bytes": 67059712,
+              "p50_ms": 1.271584,
+              "p95_ms": 2.802125,
+              "p99_ms": 3.798167
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.006192750064656,
+              "qps": 399.17600093147416,
+              "server_cpu_ms_per_query": 0.5202867366666666,
+              "client_cpu_cores": 0.26442017065702245,
+              "rss_bytes": 67452928,
+              "p50_ms": 1.305,
+              "p95_ms": 2.588708,
+              "p99_ms": 31.611583
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.0049192920560017,
+              "qps": 399.34516816221895,
+              "server_cpu_ms_per_query": 0.47257191,
+              "client_cpu_cores": 0.23132268538380615,
+              "rss_bytes": 67715072,
+              "p50_ms": 1.114791,
+              "p95_ms": 2.5555,
+              "p99_ms": 32.214958
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.0040053749689832,
+              "qps": 399.4666620769246,
+              "server_cpu_ms_per_query": 0.5198386458333334,
+              "client_cpu_cores": 0.26276717298089064,
+              "rss_bytes": 67813376,
+              "p50_ms": 1.329625,
+              "p95_ms": 2.594917,
+              "p99_ms": 3.486667
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.0055726669961587,
+              "qps": 399.2583553800111,
+              "server_cpu_ms_per_query": 0.5059794791666667,
+              "client_cpu_cores": 0.2567587230460352,
+              "rss_bytes": 67977216,
+              "p50_ms": 1.293709,
+              "p95_ms": 2.914292,
+              "p99_ms": 32.890125
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 1200,
+              "elapsed_seconds": 3.008962291991338,
+              "qps": 398.808586998223,
+              "server_cpu_ms_per_query": 0.5267329166666667,
+              "client_cpu_cores": 0.26645066378329607,
+              "rss_bytes": 67977216,
+              "p50_ms": 1.328583,
+              "p95_ms": 2.742583,
+              "p99_ms": 4.916542
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 399.2716014725024,
+          "server_cpu_ms_per_query_median": 0.5156046179166667,
+          "p50_ms_median": 1.2993545,
+          "p95_ms_median": 2.66875,
+          "p99_ms_median": 18.2640625
+        }
+      },
+      "query_pool_sizes": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "query_set_sha256": "1cd76bacaf53c6353c4477fda9ec77ef9e68d8f2cb8fd05407858089360f3ef2",
+      "qps_change_percent": 0.07103044044434181,
+      "server_cpu_change_percent": 1.4713517629369788,
+      "p95_change_percent": -0.7692128930306019,
+      "paired_qps_changes_percent": [
+        0.0511430997843787,
+        -0.06321534125675043,
+        0.13112388462275248,
+        0.6450614215404826,
+        0.07469179070895837,
+        -0.0519891536835293
+      ]
+    },
+    {
+      "case": {
+        "name": "aa-large-b256",
+        "docs": 1000000,
+        "cache": 16777216,
+        "clients": 8,
+        "batch": 256,
+        "aa": true
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 4136,
+              "elapsed_seconds": 3.003210166003555,
+              "qps": 1377.192993956822,
+              "server_cpu_ms_per_query": 4.686225338491296,
+              "client_cpu_cores": 0.31593260130129597,
+              "rss_bytes": 83312640,
+              "p50_ms": 5.84425,
+              "p95_ms": 6.763875,
+              "p99_ms": 7.1405
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 4151,
+              "elapsed_seconds": 3.0026029580039904,
+              "qps": 1382.4671653422395,
+              "server_cpu_ms_per_query": 4.660875039990364,
+              "client_cpu_cores": 0.31214283510299345,
+              "rss_bytes": 83984384,
+              "p50_ms": 5.814583,
+              "p95_ms": 6.643625,
+              "p99_ms": 6.995417
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 4170,
+              "elapsed_seconds": 3.004347665933892,
+              "qps": 1387.9884965656158,
+              "server_cpu_ms_per_query": 4.679654636450839,
+              "client_cpu_cores": 0.3151279762775739,
+              "rss_bytes": 85458944,
+              "p50_ms": 5.874709,
+              "p95_ms": 6.717625,
+              "p99_ms": 7.02975
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 4162,
+              "elapsed_seconds": 3.00251754198689,
+              "qps": 1386.170086202338,
+              "server_cpu_ms_per_query": 4.6840135451705915,
+              "client_cpu_cores": 0.313986175539925,
+              "rss_bytes": 85458944,
+              "p50_ms": 5.8565,
+              "p95_ms": 6.716209,
+              "p99_ms": 7.048208
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 4190,
+              "elapsed_seconds": 3.0026059160009027,
+              "qps": 1395.454520911808,
+              "server_cpu_ms_per_query": 4.659005151073986,
+              "client_cpu_cores": 0.3118720958384065,
+              "rss_bytes": 85458944,
+              "p50_ms": 5.823958,
+              "p95_ms": 6.64175,
+              "p99_ms": 6.948625
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 4119,
+              "elapsed_seconds": 3.0019210419850424,
+              "qps": 1372.121365749274,
+              "server_cpu_ms_per_query": 4.73695402403496,
+              "client_cpu_cores": 0.31107113976006195,
+              "rss_bytes": 85655552,
+              "p50_ms": 5.927083,
+              "p95_ms": 6.792584,
+              "p99_ms": 7.155625
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.001"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 1384.3186257722887,
+          "server_cpu_ms_per_query_median": 4.681834090810716,
+          "p50_ms_median": 5.850375,
+          "p95_ms_median": 6.7169170000000005,
+          "p99_ms_median": 7.038978999999999
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 4083,
+              "elapsed_seconds": 3.002479209098965,
+              "qps": 1359.876194188634,
+              "server_cpu_ms_per_query": 4.794191995101641,
+              "client_cpu_cores": 0.30795250711410455,
+              "rss_bytes": 76644352,
+              "p50_ms": 6.046625,
+              "p95_ms": 6.865041,
+              "p99_ms": 7.158042
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 4153,
+              "elapsed_seconds": 3.0040194579632953,
+              "qps": 1382.4810585001023,
+              "server_cpu_ms_per_query": 4.716402249217433,
+              "client_cpu_cores": 0.3089763608353235,
+              "rss_bytes": 82313216,
+              "p50_ms": 5.874959,
+              "p95_ms": 6.694708,
+              "p99_ms": 7.043458
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 4124,
+              "elapsed_seconds": 3.0020467090653256,
+              "qps": 1373.7294584880026,
+              "server_cpu_ms_per_query": 4.737938267701261,
+              "client_cpu_cores": 0.3101360805574795,
+              "rss_bytes": 82378752,
+              "p50_ms": 5.908375,
+              "p95_ms": 6.731667,
+              "p99_ms": 7.029208
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 4070,
+              "elapsed_seconds": 3.00338433298748,
+              "qps": 1355.1379206774889,
+              "server_cpu_ms_per_query": 4.810639373464373,
+              "client_cpu_cores": 0.3105177015664641,
+              "rss_bytes": 82558976,
+              "p50_ms": 6.010416,
+              "p95_ms": 6.839291,
+              "p99_ms": 7.238459
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 4074,
+              "elapsed_seconds": 3.001098791952245,
+              "qps": 1357.502795617675,
+              "server_cpu_ms_per_query": 4.77780924766814,
+              "client_cpu_cores": 0.3102377044356944,
+              "rss_bytes": 83083264,
+              "p50_ms": 5.948875,
+              "p95_ms": 6.880583,
+              "p99_ms": 7.646208
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 4082,
+              "elapsed_seconds": 3.0048980419524014,
+              "qps": 1358.4487536714432,
+              "server_cpu_ms_per_query": 4.793818695737383,
+              "client_cpu_cores": 0.3085246111703797,
+              "rss_bytes": 83345408,
+              "p50_ms": 6.006875,
+              "p95_ms": 6.82125,
+              "p99_ms": 7.152292
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.002"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 1359.1624739300387,
+          "server_cpu_ms_per_query_median": 4.785813971702762,
+          "p50_ms_median": 5.977875,
+          "p95_ms_median": 6.8302705,
+          "p99_ms_median": 7.1551670000000005
+        }
+      },
+      "query_pool_sizes": [
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64
+      ],
+      "query_set_sha256": "9d850a33ee7d5aeb9699bd565d251aebdf0fc924aa55947b1407842eeec44bcf",
+      "qps_change_percent": -1.817222666365248,
+      "server_cpu_change_percent": 2.2209219480060938,
+      "p95_change_percent": 1.6875822643036997,
+      "paired_qps_changes_percent": [
+        -1.2573981892280095,
+        0.0010049539121981255,
+        -1.027316733020145,
+        -2.238698254545912,
+        -2.7196676584869905,
+        -0.9964579241403038
+      ]
+    },
+    {
+      "case": {
+        "name": "nocache-c8-b1",
+        "docs": 1000000,
+        "cache": 0,
+        "clients": 8,
+        "batch": 1
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 98630,
+              "elapsed_seconds": 3.0003934159176424,
+              "qps": 32872.35583065527,
+              "server_cpu_ms_per_query": 0.17095115414174186,
+              "client_cpu_cores": 2.6617189457994774,
+              "rss_bytes": 44269568,
+              "p50_ms": 0.230375,
+              "p95_ms": 0.349042,
+              "p99_ms": 0.411291
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 95803,
+              "elapsed_seconds": 3.0003683750983328,
+              "qps": 31930.412543713133,
+              "server_cpu_ms_per_query": 0.17708851366867423,
+              "client_cpu_cores": 2.6208575137852144,
+              "rss_bytes": 44613632,
+              "p50_ms": 0.238,
+              "p95_ms": 0.355125,
+              "p99_ms": 0.415417
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 94508,
+              "elapsed_seconds": 3.000473583000712,
+              "qps": 31497.694409122072,
+              "server_cpu_ms_per_query": 0.17713721457442755,
+              "client_cpu_cores": 2.6071724291525427,
+              "rss_bytes": 44892160,
+              "p50_ms": 0.238084,
+              "p95_ms": 0.360834,
+              "p99_ms": 0.437125
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 95478,
+              "elapsed_seconds": 3.0002760839415714,
+              "qps": 31823.071387006188,
+              "server_cpu_ms_per_query": 0.17522897159555081,
+              "client_cpu_cores": 2.6718484485163505,
+              "rss_bytes": 44908544,
+              "p50_ms": 0.238417,
+              "p95_ms": 0.361542,
+              "p99_ms": 0.424708
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 93618,
+              "elapsed_seconds": 3.0002367079723626,
+              "qps": 31203.537957933146,
+              "server_cpu_ms_per_query": 0.17909580066867484,
+              "client_cpu_cores": 2.649278298235267,
+              "rss_bytes": 44990464,
+              "p50_ms": 0.241625,
+              "p95_ms": 0.368291,
+              "p99_ms": 0.449792
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 95551,
+              "elapsed_seconds": 3.000418582931161,
+              "qps": 31845.889951346246,
+              "server_cpu_ms_per_query": 0.17599060841854086,
+              "client_cpu_cores": 2.6776330628346616,
+              "rss_bytes": 45023232,
+              "p50_ms": 0.237834,
+              "p95_ms": 0.36,
+              "p99_ms": 0.424458
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 31834.480669176217,
+          "server_cpu_ms_per_query_median": 0.17653956104360755,
+          "p50_ms_median": 0.23804199999999998,
+          "p95_ms_median": 0.360417,
+          "p99_ms_median": 0.424583
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 97891,
+              "elapsed_seconds": 3.000428459024988,
+              "qps": 32625.673745212516,
+              "server_cpu_ms_per_query": 0.1722485238683842,
+              "client_cpu_cores": 2.640994813979001,
+              "rss_bytes": 43352064,
+              "p50_ms": 0.232042,
+              "p95_ms": 0.35125,
+              "p99_ms": 0.412959
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 95099,
+              "elapsed_seconds": 3.000401333090849,
+              "qps": 31695.426525502244,
+              "server_cpu_ms_per_query": 0.1754058248982639,
+              "client_cpu_cores": 2.638655006810144,
+              "rss_bytes": 44302336,
+              "p50_ms": 0.236167,
+              "p95_ms": 0.357875,
+              "p99_ms": 0.426209
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 92957,
+              "elapsed_seconds": 3.0004157499643043,
+              "qps": 30981.373165070843,
+              "server_cpu_ms_per_query": 0.1765752018890455,
+              "client_cpu_cores": 2.677611261071263,
+              "rss_bytes": 44826624,
+              "p50_ms": 0.242375,
+              "p95_ms": 0.372459,
+              "p99_ms": 0.453458
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 92829,
+              "elapsed_seconds": 3.000454082968645,
+              "qps": 30938.31714570187,
+              "server_cpu_ms_per_query": 0.17712690763662217,
+              "client_cpu_cores": 2.686758996166329,
+              "rss_bytes": 44875776,
+              "p50_ms": 0.243083,
+              "p95_ms": 0.370333,
+              "p99_ms": 0.439584
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 95977,
+              "elapsed_seconds": 3.0003990420373157,
+              "qps": 31988.07847066575,
+              "server_cpu_ms_per_query": 0.1744854518061619,
+              "client_cpu_cores": 2.6484907136232745,
+              "rss_bytes": 44892160,
+              "p50_ms": 0.236083,
+              "p95_ms": 0.357625,
+              "p99_ms": 0.420125
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 95401,
+              "elapsed_seconds": 3.0004131250316277,
+              "qps": 31795.954765060684,
+              "server_cpu_ms_per_query": 0.17556850164044402,
+              "client_cpu_cores": 2.6731478852317894,
+              "rss_bytes": 44908544,
+              "p50_ms": 0.238042,
+              "p95_ms": 0.361083,
+              "p99_ms": 0.427083
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 31745.690645281466,
+          "server_cpu_ms_per_query_median": 0.17548716326935396,
+          "p50_ms_median": 0.2371045,
+          "p95_ms_median": 0.359479,
+          "p99_ms_median": 0.42664599999999997
+        }
+      },
+      "query_pool_sizes": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "query_set_sha256": "1cd76bacaf53c6353c4477fda9ec77ef9e68d8f2cb8fd05407858089360f3ef2",
+      "qps_change_percent": -0.2789114885129007,
+      "server_cpu_change_percent": -0.5961257454319968,
+      "p95_change_percent": -0.2602540945626841,
+      "paired_qps_changes_percent": [
+        -0.7504241153678204,
+        -0.7359316698122509,
+        -1.6392350416025936,
+        -2.780228943160956,
+        2.51426781729136,
+        -0.15680260894530562
+      ]
+    },
+    {
+      "case": {
+        "name": "nocache-c8-b64",
+        "docs": 1000000,
+        "cache": 0,
+        "clients": 8,
+        "batch": 64
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 20713,
+              "elapsed_seconds": 3.0012983329361305,
+              "qps": 6901.346584808431,
+              "server_cpu_ms_per_query": 1.0437324466277218,
+              "client_cpu_cores": 0.9559716101908278,
+              "rss_bytes": 45694976,
+              "p50_ms": 1.129291,
+              "p95_ms": 1.448792,
+              "p99_ms": 1.686125
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 21028,
+              "elapsed_seconds": 3.001018499955535,
+              "qps": 7006.954472393811,
+              "server_cpu_ms_per_query": 1.029984548364086,
+              "client_cpu_cores": 0.9548438305336863,
+              "rss_bytes": 45744128,
+              "p50_ms": 1.115292,
+              "p95_ms": 1.413458,
+              "p99_ms": 1.617625
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 20828,
+              "elapsed_seconds": 3.0011639159638435,
+              "qps": 6939.974151098958,
+              "server_cpu_ms_per_query": 1.0293065284712886,
+              "client_cpu_cores": 0.9596180284191769,
+              "rss_bytes": 45957120,
+              "p50_ms": 1.114459,
+              "p95_ms": 1.438958,
+              "p99_ms": 1.700792
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 21102,
+              "elapsed_seconds": 3.0010747089982033,
+              "qps": 7031.481068008505,
+              "server_cpu_ms_per_query": 1.0245248949388683,
+              "client_cpu_cores": 0.9592820169948404,
+              "rss_bytes": 45957120,
+              "p50_ms": 1.110541,
+              "p95_ms": 1.415584,
+              "p99_ms": 1.641
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 21190,
+              "elapsed_seconds": 3.001076417043805,
+              "qps": 7060.799878222728,
+              "server_cpu_ms_per_query": 1.0230349418121756,
+              "client_cpu_cores": 0.9550576532214187,
+              "rss_bytes": 45957120,
+              "p50_ms": 1.10825,
+              "p95_ms": 1.404375,
+              "p99_ms": 1.622916
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 21152,
+              "elapsed_seconds": 3.001556665985845,
+              "qps": 7047.010053049503,
+              "server_cpu_ms_per_query": 1.0232930101172466,
+              "client_cpu_cores": 0.9594354931340752,
+              "rss_bytes": 45957120,
+              "p50_ms": 1.108125,
+              "p95_ms": 1.41025,
+              "p99_ms": 1.661125
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "64"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "64"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 7019.217770201158,
+          "server_cpu_ms_per_query_median": 1.0269157117050784,
+          "p50_ms_median": 1.1125,
+          "p95_ms_median": 1.4145210000000001,
+          "p99_ms_median": 1.6510625
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 21149,
+              "elapsed_seconds": 3.000893957912922,
+              "qps": 7047.566590693135,
+              "server_cpu_ms_per_query": 1.0269690509716771,
+              "client_cpu_cores": 0.9564676527244644,
+              "rss_bytes": 45514752,
+              "p50_ms": 1.111,
+              "p95_ms": 1.394291,
+              "p99_ms": 1.639084
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 21184,
+              "elapsed_seconds": 3.0012636670144275,
+              "qps": 7058.3601943488175,
+              "server_cpu_ms_per_query": 1.0254788322790784,
+              "client_cpu_cores": 0.9645337168525702,
+              "rss_bytes": 45514752,
+              "p50_ms": 1.108791,
+              "p95_ms": 1.39875,
+              "p99_ms": 1.620667
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 21438,
+              "elapsed_seconds": 3.001043208059855,
+              "qps": 7143.5159421978,
+              "server_cpu_ms_per_query": 1.0146288366452094,
+              "client_cpu_cores": 0.9560065620830536,
+              "rss_bytes": 45514752,
+              "p50_ms": 1.095708,
+              "p95_ms": 1.373667,
+              "p99_ms": 1.61325
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 21223,
+              "elapsed_seconds": 3.0011310830013826,
+              "qps": 7071.667119176687,
+              "server_cpu_ms_per_query": 1.0180369665928475,
+              "client_cpu_cores": 0.9564667189176147,
+              "rss_bytes": 45858816,
+              "p50_ms": 1.100917,
+              "p95_ms": 1.396625,
+              "p99_ms": 1.70675
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 21294,
+              "elapsed_seconds": 3.001099249930121,
+              "qps": 7095.400127301961,
+              "server_cpu_ms_per_query": 1.0144497432610124,
+              "client_cpu_cores": 0.9528898453013798,
+              "rss_bytes": 45875200,
+              "p50_ms": 1.095167,
+              "p95_ms": 1.386542,
+              "p99_ms": 1.60875
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 21536,
+              "elapsed_seconds": 3.00124887493439,
+              "qps": 7175.67949124872,
+              "server_cpu_ms_per_query": 1.010831652070951,
+              "client_cpu_cores": 0.9499172240630408,
+              "rss_bytes": 45924352,
+              "p50_ms": 1.094542,
+              "p95_ms": 1.352791,
+              "p99_ms": 1.586583
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "64"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "64"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 7083.533623239324,
+          "server_cpu_ms_per_query_median": 1.0163329016190286,
+          "p50_ms_median": 1.0983125,
+          "p95_ms_median": 1.3904165,
+          "p99_ms_median": 1.6169585
+        }
+      },
+      "query_pool_sizes": [
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64
+      ],
+      "query_set_sha256": "a68c3887dcf37eeb4ac65581ab921ae16987859e866ec9a78852b59a69ab1717",
+      "qps_change_percent": 0.9162823429016198,
+      "server_cpu_change_percent": -1.0305432048048346,
+      "p95_change_percent": -1.7040750897300394,
+      "paired_qps_changes_percent": [
+        2.118717037144191,
+        0.7336385894547659,
+        2.93288975819328,
+        0.571516168208408,
+        0.49003299450463,
+        1.8258727776830241
+      ]
+    },
+    {
+      "case": {
+        "name": "nocache-c8-b256",
+        "docs": 1000000,
+        "cache": 0,
+        "clients": 8,
+        "batch": 256
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 9698,
+              "elapsed_seconds": 3.002020417014137,
+              "qps": 3230.491020326172,
+              "server_cpu_ms_per_query": 2.222178589193648,
+              "client_cpu_cores": 0.758426220919762,
+              "rss_bytes": 46759936,
+              "p50_ms": 2.402375,
+              "p95_ms": 3.049083,
+              "p99_ms": 3.440833
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 9938,
+              "elapsed_seconds": 3.002022666973062,
+              "qps": 3310.434697690168,
+              "server_cpu_ms_per_query": 2.176089811028376,
+              "client_cpu_cores": 0.7311953451081977,
+              "rss_bytes": 46825472,
+              "p50_ms": 2.351833,
+              "p95_ms": 2.854708,
+              "p99_ms": 3.3605
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 9918,
+              "elapsed_seconds": 3.001852541929111,
+              "qps": 3303.9597586716554,
+              "server_cpu_ms_per_query": 2.189382776265376,
+              "client_cpu_cores": 0.7435285274091614,
+              "rss_bytes": 46825472,
+              "p50_ms": 2.366625,
+              "p95_ms": 2.902792,
+              "p99_ms": 3.210375
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 9964,
+              "elapsed_seconds": 3.0025196248898283,
+              "qps": 3318.546169491102,
+              "server_cpu_ms_per_query": 2.182797123845845,
+              "client_cpu_cores": 0.7381333935765104,
+              "rss_bytes": 47071232,
+              "p50_ms": 2.35875,
+              "p95_ms": 2.888375,
+              "p99_ms": 3.225458
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 9943,
+              "elapsed_seconds": 3.002441416028887,
+              "qps": 3311.6383043872643,
+              "server_cpu_ms_per_query": 2.1859580651714774,
+              "client_cpu_cores": 0.7370501846217236,
+              "rss_bytes": 47087616,
+              "p50_ms": 2.365458,
+              "p95_ms": 2.883916,
+              "p99_ms": 3.201709
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 9827,
+              "elapsed_seconds": 3.002362083992921,
+              "qps": 3273.089562512331,
+              "server_cpu_ms_per_query": 2.2011191869339575,
+              "client_cpu_cores": 0.7482798333944378,
+              "rss_bytes": 47480832,
+              "p50_ms": 2.378375,
+              "p95_ms": 2.98075,
+              "p99_ms": 3.379042
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.001"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 3307.1972281809117,
+          "server_cpu_ms_per_query_median": 2.187670420718427,
+          "p50_ms_median": 2.3660414999999997,
+          "p95_ms_median": 2.8955835,
+          "p99_ms_median": 3.292979
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 9926,
+              "elapsed_seconds": 3.0023235420230776,
+              "qps": 3306.10604122682,
+              "server_cpu_ms_per_query": 2.181689090973202,
+              "client_cpu_cores": 0.7667684604200812,
+              "rss_bytes": 46809088,
+              "p50_ms": 2.351167,
+              "p95_ms": 2.922167,
+              "p99_ms": 3.39175
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 10065,
+              "elapsed_seconds": 3.0020605419995263,
+              "qps": 3352.697208863148,
+              "server_cpu_ms_per_query": 2.1643906317933435,
+              "client_cpu_cores": 0.758617612182839,
+              "rss_bytes": 46940160,
+              "p50_ms": 2.334291,
+              "p95_ms": 2.874916,
+              "p99_ms": 3.193
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 10043,
+              "elapsed_seconds": 3.002339916070923,
+              "qps": 3345.057615309258,
+              "server_cpu_ms_per_query": 2.166016242656577,
+              "client_cpu_cores": 0.7670883592068246,
+              "rss_bytes": 47038464,
+              "p50_ms": 2.339041,
+              "p95_ms": 2.885917,
+              "p99_ms": 3.181917
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 10077,
+              "elapsed_seconds": 3.0015710000880063,
+              "qps": 3357.241924213867,
+              "server_cpu_ms_per_query": 2.1609403220204424,
+              "client_cpu_cores": 0.7621318969076286,
+              "rss_bytes": 47054848,
+              "p50_ms": 2.332291,
+              "p95_ms": 2.850041,
+              "p99_ms": 3.211167
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 10051,
+              "elapsed_seconds": 3.001838791067712,
+              "qps": 3348.2810702252937,
+              "server_cpu_ms_per_query": 2.1662723858322557,
+              "client_cpu_cores": 0.7605918101910818,
+              "rss_bytes": 47349760,
+              "p50_ms": 2.333959,
+              "p95_ms": 2.897208,
+              "p99_ms": 3.229083
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 10073,
+              "elapsed_seconds": 3.0023132499773055,
+              "qps": 3355.079620714508,
+              "server_cpu_ms_per_query": 2.163800431847513,
+              "client_cpu_cores": 0.7554211739954663,
+              "rss_bytes": 47349760,
+              "p50_ms": 2.329667,
+              "p95_ms": 2.88625,
+              "p99_ms": 3.217959
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.001"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 3350.489139544221,
+          "server_cpu_ms_per_query_median": 2.1652034372249602,
+          "p50_ms_median": 2.3341250000000002,
+          "p95_ms_median": 2.8860835,
+          "p99_ms_median": 3.214563
+        }
+      },
+      "query_pool_sizes": [
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64
+      ],
+      "query_set_sha256": "9d850a33ee7d5aeb9699bd565d251aebdf0fc924aa55947b1407842eeec44bcf",
+      "qps_change_percent": 1.3090211552675202,
+      "server_cpu_change_percent": -1.0269820938607621,
+      "p95_change_percent": -0.3280858590332558,
+      "paired_qps_changes_percent": [
+        2.340666493882204,
+        1.2766453663160426,
+        1.2438970096332547,
+        1.1660453929649428,
+        1.1064845393739198,
+        2.50497447858542
+      ]
+    },
+    {
+      "case": {
+        "name": "nocache-count",
+        "docs": 1000000,
+        "cache": 0,
+        "clients": 8,
+        "batch": 256,
+        "count": true
+      },
+      "arms": {
+        "reference": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 28444,
+              "elapsed_seconds": 3.0014367919648066,
+              "qps": 9476.794605886047,
+              "server_cpu_ms_per_query": 0.7743822042258474,
+              "client_cpu_cores": 0.9358188076855342,
+              "rss_bytes": 47677440,
+              "p50_ms": 0.825667,
+              "p95_ms": 1.059167,
+              "p99_ms": 1.315208
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 28250,
+              "elapsed_seconds": 3.000756207969971,
+              "qps": 9414.293612046307,
+              "server_cpu_ms_per_query": 0.7776914660884956,
+              "client_cpu_cores": 0.9319807429114503,
+              "rss_bytes": 47677440,
+              "p50_ms": 0.82725,
+              "p95_ms": 1.056875,
+              "p99_ms": 1.308375
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 28717,
+              "elapsed_seconds": 3.0008701250189915,
+              "qps": 9569.557762789971,
+              "server_cpu_ms_per_query": 0.7709120352752725,
+              "client_cpu_cores": 0.9270561150934161,
+              "rss_bytes": 47775744,
+              "p50_ms": 0.823917,
+              "p95_ms": 1.042292,
+              "p99_ms": 1.255208
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 28819,
+              "elapsed_seconds": 3.0009758749511093,
+              "qps": 9603.209489469657,
+              "server_cpu_ms_per_query": 0.7684862258232416,
+              "client_cpu_cores": 0.9331367917263319,
+              "rss_bytes": 47775744,
+              "p50_ms": 0.821708,
+              "p95_ms": 1.035209,
+              "p99_ms": 1.23975
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 28422,
+              "elapsed_seconds": 3.0008108330657706,
+              "qps": 9471.440081067269,
+              "server_cpu_ms_per_query": 0.7746502753148968,
+              "client_cpu_cores": 0.9411296336579513,
+              "rss_bytes": 47775744,
+              "p50_ms": 0.823542,
+              "p95_ms": 1.060292,
+              "p99_ms": 1.283167
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 27585,
+              "elapsed_seconds": 3.0010232500499114,
+              "qps": 9191.864807958826,
+              "server_cpu_ms_per_query": 0.7873244637665399,
+              "client_cpu_cores": 0.9544611158718486,
+              "rss_bytes": 47841280,
+              "p50_ms": 0.83625,
+              "p95_ms": 1.121583,
+              "p99_ms": 1.459708
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 9474.117343476657,
+          "server_cpu_ms_per_query_median": 0.7745162397703721,
+          "p50_ms_median": 0.824792,
+          "p95_ms_median": 1.058021,
+          "p99_ms_median": 1.295771
+        },
+        "tls": {
+          "samples": [
+            {
+              "round": 0,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 28792,
+              "elapsed_seconds": 3.0009417090332136,
+              "qps": 9594.321646879192,
+              "server_cpu_ms_per_query": 0.7705802335370937,
+              "client_cpu_cores": 0.9325519358060369,
+              "rss_bytes": 47546368,
+              "p50_ms": 0.823292,
+              "p95_ms": 1.035834,
+              "p99_ms": 1.252833
+            },
+            {
+              "round": 1,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 28737,
+              "elapsed_seconds": 3.0007491250289604,
+              "qps": 9576.608640924842,
+              "server_cpu_ms_per_query": 0.7716000785746598,
+              "client_cpu_cores": 0.9289633634311555,
+              "rss_bytes": 47546368,
+              "p50_ms": 0.824834,
+              "p95_ms": 1.040333,
+              "p99_ms": 1.254666
+            },
+            {
+              "round": 2,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 28696,
+              "elapsed_seconds": 3.0006837089313194,
+              "qps": 9563.153862097633,
+              "server_cpu_ms_per_query": 0.7699920532129914,
+              "client_cpu_cores": 0.9219815443278772,
+              "rss_bytes": 47546368,
+              "p50_ms": 0.821708,
+              "p95_ms": 1.038959,
+              "p99_ms": 1.248125
+            },
+            {
+              "round": 3,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 28872,
+              "elapsed_seconds": 3.0007440000772476,
+              "qps": 9621.61383952005,
+              "server_cpu_ms_per_query": 0.7681623877112774,
+              "client_cpu_cores": 0.9305402259999913,
+              "rss_bytes": 47546368,
+              "p50_ms": 0.819542,
+              "p95_ms": 1.04,
+              "p99_ms": 1.245083
+            },
+            {
+              "round": 4,
+              "order": [
+                "reference",
+                "tls"
+              ],
+              "completed": 28649,
+              "elapsed_seconds": 3.0005778750637546,
+              "qps": 9547.827516188454,
+              "server_cpu_ms_per_query": 0.7702028444971902,
+              "client_cpu_cores": 0.9377257038996915,
+              "rss_bytes": 47546368,
+              "p50_ms": 0.821,
+              "p95_ms": 1.053959,
+              "p99_ms": 1.27625
+            },
+            {
+              "round": 5,
+              "order": [
+                "tls",
+                "reference"
+              ],
+              "completed": 28891,
+              "elapsed_seconds": 3.0006847920594737,
+              "qps": 9628.135576403247,
+              "server_cpu_ms_per_query": 0.7647519469731058,
+              "client_cpu_cores": 0.9195950895282534,
+              "rss_bytes": 47546368,
+              "p50_ms": 0.814834,
+              "p95_ms": 1.025167,
+              "p99_ms": 1.228375
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 9585.465143902016,
+          "server_cpu_ms_per_query_median": 0.7700974488550908,
+          "p50_ms_median": 0.8213539999999999,
+          "p95_ms_median": 1.0394795000000001,
+          "p99_ms_median": 1.250479
+        }
+      },
+      "query_pool_sizes": [
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64
+      ],
+      "query_set_sha256": "7332a4e5619c9a9eae64fe1f0c96c4ac9c7be8a270aace159d776fd8200b33f5",
+      "qps_change_percent": 1.175284159869805,
+      "server_cpu_change_percent": -0.5705226938290342,
+      "p95_change_percent": -1.752469941522894,
+      "paired_qps_changes_percent": [
+        1.2401560430585823,
+        1.7241339134657974,
+        -0.06691950507095035,
+        0.19164790761436734,
+        0.8065028598331025,
+        4.746270507228023
+      ]
+    }
+  ],
+  "lifecycle_checks_passed": true
+}

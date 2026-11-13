@@ -1,0 +1,746 @@
+-- The C compiler identification is AppleClang 21.0.0.21000101
+-- The CXX compiler identification is AppleClang 21.0.0.21000101
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_UNSIGNED_MINCORE
+-- Performing Test HAVE_UNSIGNED_MINCORE - Failed
+-- Looking for getaddrinfo_a
+-- Looking for getaddrinfo_a - not found
+-- Looking for getaddrinfo_a
+-- Looking for getaddrinfo_a - not found
+-- Looking for setsockopt
+-- Looking for setsockopt - found
+-- Looking for getaddrinfo
+-- Looking for getaddrinfo - found
+-- Looking for clock_gettime
+-- Looking for clock_gettime - found
+-- Looking for logf
+-- Looking for logf - found
+-- Looking for poll
+-- Looking for poll - found
+-- Looking for pthread_mutex_timedlock
+-- Looking for pthread_mutex_timedlock - not found
+-- Looking for pthread_cond_timedwait
+-- Looking for pthread_cond_timedwait - found
+-- Looking for pread
+-- Looking for pread - found
+-- Looking for backtrace
+-- Looking for backtrace - found
+-- Looking for backtrace_symbols
+-- Looking for backtrace_symbols - found
+-- Looking for mremap
+-- Looking for mremap - not found
+-- Looking for eventfd
+-- Looking for eventfd - not found
+-- Looking for kqueue
+-- Looking for kqueue - found
+-- Looking for pthread_getname_np
+-- Looking for pthread_getname_np - found
+-- Looking for getrlimit
+-- Looking for getrlimit - found
+-- Looking for setrlimit
+-- Looking for setrlimit - found
+-- Looking for epoll_ctl
+-- Looking for epoll_ctl - not found
+-- Looking for F_SETLKW
+-- Looking for F_SETLKW - found
+-- Looking for SO_REUSEPORT
+-- Looking for SO_REUSEPORT - found
+-- Looking for malloc_trim
+-- Looking for malloc_trim - not found
+-- Looking for malloc_stats
+-- Looking for malloc_stats - not found
+-- Performing Test HAVE_RWLOCK_PREFER_WRITER
+-- Performing Test HAVE_RWLOCK_PREFER_WRITER - Failed
+-- Performing Test HAVE_PTHREAD_SETNAME_NP
+-- Performing Test HAVE_PTHREAD_SETNAME_NP - Failed
+-- Performing Test HAVE_PTHREAD_SETNAME_NP_1ARG
+-- Performing Test HAVE_PTHREAD_SETNAME_NP_1ARG - Success
+-- Looking for dlopen
+-- Looking for dlopen - found
+-- Looking for strnlen
+-- Looking for strnlen - found
+-- Performing Test HAVE_SYNC_FETCH
+-- Performing Test HAVE_SYNC_FETCH - Success
+-- Looking for syslog.h
+-- Looking for syslog.h - found
+-- Performing Test UNALIGNED_RAM_ACCESS
+-- Performing Test UNALIGNED_RAM_ACCESS - Success
+-- WRITEB is not set, bundle will NOT be modified...
+-- Populate nlohmann_json from http://github.com/nlohmann/json/archive/refs/tags/v3.12.0.tar.gz
+-- Build RelWithDebInfo and Debug for developing
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/nlohmann_json-build
+[ 11%] Creating directories for 'nlohmann_json_populate'
+[ 22%] No download step for 'nlohmann_json_populate'
+[ 33%] No update step for 'nlohmann_json_populate'
+[ 44%] No patch step for 'nlohmann_json_populate'
+[ 55%] Performing configure step for 'nlohmann_json_populate'
+-- The CXX compiler identification is AppleClang 21.0.0.21000101
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Using the multi-header code from /private/tmp/manticore-5045-review-20261113/build/_deps/nlohmann_json-src/include/
+-- User-defined string literals are not put in the global namespace (JSON_USE_GLOBAL_UDLS=0)
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/nlohmann_json-build/nlohmann_json_populate-prefix/src/nlohmann_json_populate-build
+[ 66%] Performing build step for 'nlohmann_json_populate'
+Starting build config RelWithDebInfo
+-- Using the multi-header code from /private/tmp/manticore-5045-review-20261113/build/_deps/nlohmann_json-src/include/
+-- User-defined string literals are not put in the global namespace (JSON_USE_GLOBAL_UDLS=0)
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/nlohmann_json-build/nlohmann_json_populate-prefix/src/nlohmann_json_populate-build
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/ordered_map.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/json.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/adl_serializer.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/byte_container_with_subtype.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/hash.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/string_escape.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/json_custom_base_class.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/json_ref.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/conversions
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/conversions/to_chars.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/conversions/from_json.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/conversions/to_json.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/value_t.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/position_t.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/parser.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/json_sax.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/binary_reader.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/input_adapters.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/lexer.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/string_concat.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/string_utils.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/macro_scope.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/output
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/output/output_adapters.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/output/serializer.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/output/binary_writer.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/is_sax.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/call_std
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/call_std/end.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/call_std/begin.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/identity_tag.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/type_traits.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/cpp_future.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/detected.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/void_t.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/std_fs.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/json_pointer.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/exceptions.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/abi_macros.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/macro_unscope.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/iter_impl.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/json_reverse_iterator.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/iteration_proxy.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/iterator_traits.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/internal_iterator.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/primitive_iterator.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/thirdparty
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/thirdparty/hedley
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/thirdparty/hedley/hedley.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/thirdparty/hedley/hedley_undef.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/json_fwd.hpp
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/share/cmake/nlohmann_json/nlohmann_jsonConfigVersion.cmake
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/share/cmake/nlohmann_json/nlohmann_jsonTargets.cmake
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/share/pkgconfig/nlohmann_json.pc
+Starting build config Debug
+-- Using the multi-header code from /private/tmp/manticore-5045-review-20261113/build/_deps/nlohmann_json-src/include/
+-- User-defined string literals are not put in the global namespace (JSON_USE_GLOBAL_UDLS=0)
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/nlohmann_json-build/nlohmann_json_populate-prefix/src/nlohmann_json_populate-build
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/ordered_map.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/json.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/adl_serializer.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/byte_container_with_subtype.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/hash.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/string_escape.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/json_custom_base_class.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/json_ref.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/conversions
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/conversions/to_chars.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/conversions/from_json.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/conversions/to_json.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/value_t.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/position_t.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/parser.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/json_sax.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/binary_reader.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/input_adapters.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/input/lexer.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/string_concat.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/string_utils.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/macro_scope.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/output
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/output/output_adapters.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/output/serializer.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/output/binary_writer.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/is_sax.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/call_std
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/call_std/end.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/call_std/begin.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/identity_tag.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/type_traits.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/cpp_future.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/detected.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/void_t.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/meta/std_fs.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/json_pointer.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/exceptions.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/abi_macros.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/macro_unscope.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/iter_impl.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/json_reverse_iterator.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/iteration_proxy.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/iterator_traits.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/internal_iterator.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/detail/iterators/primitive_iterator.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/thirdparty
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/thirdparty/hedley
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/thirdparty/hedley/hedley.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/thirdparty/hedley/hedley_undef.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/include/nlohmann/json_fwd.hpp
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/share/cmake/nlohmann_json/nlohmann_jsonConfigVersion.cmake
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/share/cmake/nlohmann_json/nlohmann_jsonTargets.cmake
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/share/pkgconfig/nlohmann_json.pc
+[ 77%] No install step for 'nlohmann_json_populate'
+[ 88%] No test step for 'nlohmann_json_populate'
+[100%] Completed 'nlohmann_json_populate'
+[100%] Built target nlohmann_json_populate
+-- Found nlohmann_json: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/nlohmann_json/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake (found version "3.12.0")
+-- WRITEB is not set, bundle will NOT be modified...
+-- Populate uni-algo from https://github.com/manticoresoftware/uni-algo/archive/refs/tags/v0.7.2.tar.gz
+-- Build RelWithDebInfo and Debug for developing
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/uni-algo-build
+[ 11%] Creating directories for 'uni-algo_populate'
+[ 22%] No download step for 'uni-algo_populate'
+[ 33%] No update step for 'uni-algo_populate'
+[ 44%] No patch step for 'uni-algo_populate'
+[ 55%] Performing configure step for 'uni-algo_populate'
+-- The CXX compiler identification is AppleClang 21.0.0.21000101
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring: uni-algo 0.7.1
+-- BUILD_SHARED_LIBS   : OFF
+-- UNI_ALGO_HEADER_ONLY: OFF
+-- UNI_ALGO_INSTALL    : ON
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    UNI_ALGO_DISABLE_BREAK_WORD
+    UNI_ALGO_DISABLE_COLLATE
+    UNI_ALGO_DISABLE_NFKC_NFKD
+    UNI_ALGO_DISABLE_PROP
+    UNI_ALGO_DISABLE_SHRINK_TO_FIT
+
+
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/uni-algo-build/uni-algo_populate-prefix/src/uni-algo_populate-build
+[ 66%] Performing build step for 'uni-algo_populate'
+Starting build config RelWithDebInfo
+-- Configuring: uni-algo 0.7.1
+-- BUILD_SHARED_LIBS   : OFF
+-- UNI_ALGO_HEADER_ONLY: OFF
+-- UNI_ALGO_INSTALL    : ON
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/uni-algo-build/uni-algo_populate-prefix/src/uni-algo_populate-build
+[ 50%] Building CXX object CMakeFiles/uni-algo.dir/src/data.cpp.o
+[100%] Linking CXX static library libuni-algo.a
+[100%] Built target uni-algo
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/lib/libuni-algo.a
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/share/uni-algo/cmake/uni-algo-targets.cmake
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/share/uni-algo/cmake/uni-algo-targets-relwithdebinfo.cmake
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/share/uni-algo/cmake/uni-algo-config.cmake
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/share/uni-algo/cmake/uni-algo-config-version.cmake
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_data.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_case_locale.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/internal_defines.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_break_grapheme.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_cpp_lib_version.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_iter.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_types.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_case.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_prop.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/internal_stages.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_conv.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_unicode_version.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_locale.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_script.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_break_word.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_norm.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_break_grapheme.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_script.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_break_word.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_case.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_prop.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_script.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_prop.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_case.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_norm.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_break_grapheme.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_break_word.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/internal_undefs.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_norm.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ranges_conv.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ranges.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ranges_word.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/version.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/script.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/locale.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/config.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/all.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ranges_norm.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ext
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ext/ascii.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ext/translit
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ext/translit/macedonian_to_latin_docs.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ext/translit/japanese_kana_to_romaji_hepburn.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ranges_grapheme.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/error.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/ranges_translit.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/safe_layer.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/data_inl.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/locale_inl.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/search.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/ranges_core.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/norm.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/prop.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/case.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/conv.h
+Starting build config Debug
+-- Configuring: uni-algo 0.7.1
+-- BUILD_SHARED_LIBS   : OFF
+-- UNI_ALGO_HEADER_ONLY: OFF
+-- UNI_ALGO_INSTALL    : ON
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/uni-algo-build/uni-algo_populate-prefix/src/uni-algo_populate-build
+[ 50%] Building CXX object CMakeFiles/uni-algo.dir/src/data.cpp.o
+[100%] Linking CXX static library libuni-algo-debug.a
+[100%] Built target uni-algo
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/lib/libuni-algo-debug.a
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/share/uni-algo/cmake/uni-algo-targets.cmake
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/share/uni-algo/cmake/uni-algo-targets-debug.cmake
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/share/uni-algo/cmake/uni-algo-config.cmake
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/share/uni-algo/cmake/uni-algo-config-version.cmake
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_data.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_case_locale.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/internal_defines.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_break_grapheme.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_cpp_lib_version.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_iter.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_types.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_case.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_prop.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/internal_stages.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_conv.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_unicode_version.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_locale.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_script.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_break_word.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_norm.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_break_grapheme.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_script.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_break_word.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_case.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_prop.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_script.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_prop.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_case.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/data_norm.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/data/extern_break_grapheme.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_break_word.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/internal_undefs.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/impl/impl_norm.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ranges_conv.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ranges.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ranges_word.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/version.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/script.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/locale.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/config.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/all.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ranges_norm.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ext
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ext/ascii.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ext/translit
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ext/translit/macedonian_to_latin_docs.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ext/translit/japanese_kana_to_romaji_hepburn.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/ranges_grapheme.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/error.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/ranges_translit.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/safe_layer.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/data_inl.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/locale_inl.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/search.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/internal/ranges_core.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/norm.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/prop.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/case.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/uni-algo/include/uni_algo/conv.h
+[ 77%] No install step for 'uni-algo_populate'
+[ 88%] No test step for 'uni-algo_populate'
+[100%] Completed 'uni-algo_populate'
+[100%] Built target uni-algo_populate
+-- WRITEB is not set, bundle will NOT be modified...
+-- WRITEB is not set, bundle will NOT be modified...
+-- VCPKG_ROOT is not defined, bail
+-- Found OpenSSL: /opt/homebrew/opt/openssl@3/lib/libcrypto.a (found version "3.6.2") found components: SSL
+-- Found ZLIB: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libz.tbd (found version "1.2.12")
+-- Found ZSTD: /opt/homebrew/lib/libzstd.dylib
+-- ZSTD will be loaded dynamically in runtime as libzstd.1.dylib (/opt/homebrew/opt/zstd/lib/libzstd.1.dylib)
+-- Found CURL: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libcurl.tbd (found version "8.7.1")
+-- Found EXPAT: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libexpat.tbd (found version "2.7.4")
+-- Performing Test Iconv_IS_BUILT_IN
+-- Performing Test Iconv_IS_BUILT_IN - Failed
+-- Found Iconv: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libiconv.tbd
+-- Performing Test ICONV_INBUF_CONST
+-- Performing Test ICONV_INBUF_CONST - Failed
+Parsing deps.txt line: backup 1.11.0+26090711-f5c09c1e-dev
+BACKUP version: >= 1.11.0-26090711-f5c09c1e & < 2.0.0
+Parsing deps.txt line: buddy 4.4.9+26102317-85bde9ce-dev
+BUDDY version: >= 4.4.9-26102317-85bde9ce & < 5.0.0
+Parsing deps.txt line: executor 1.4.6+26102310-445049b4-dev
+EXECUTOR version: >= 1.4.6-26102310-445049b4 & < 2.0.0
+Parsing deps.txt line: tzdata 1.0.1 250714 7eebffa
+TZDATA version: >= 1.0.1-250714-7eebffa & < 2.0.0
+Parsing deps.txt line: load 1.29.0+26101001-0d5796a7-dev
+LOAD version: >= 1.29.0-26101001-0d5796a7 & < 2.0.0
+Parsing deps.txt line: galera 3.37
+GALERA version: >= 3.37-- & < 4.0.0
+EXECUTOR image: manticoresearch/manticore-executor:1.4.6
+-- Provide distr with -DDISTR=<distr>, one of: bionic;bookworm;bullseye;buster;debian;default;focal;jammy;macos;rhel;rhel10;rhel8;rhel9;stretch;windows;xenial
+-- no distr selected 
+-- Inside directory src...
+-- Using MCL API from git submodule: /private/tmp/manticore-5045-review-20261113/source/mcl
+-- Only api will be installed
+-- Configured with these definitions: -DUSE_SYSLOG=1 -DWITH_GALERA=OFF -DWITH_RE2=OFF -DWITH_STEMMER=OFF -DWITH_NLJSON=1 -DWITH_UNIALGO=1 -DWITH_ICU=1 -DWITH_ICU_FORCE_STATIC=0 -DWITH_JIEBA=OFF -DWITH_SSL=1 -DWITH_ZLIB=1 -DWITH_ZSTD=1 -DDL_ZSTD=1 -DZSTD_LIB=/opt/homebrew/opt/zstd/lib/libzstd.1.dylib -DWITH_CURL=1 -DWITH_ODBC=OFF -DWITH_EXPAT=1 -DWITH_ICONV=1 -DWITH_MYSQL=OFF -DWITH_POSTGRESQL=OFF -DLOCALDATADIR=/usr/local/var -DFULL_SHARE_DIR=/usr/local/share/manticore
+-- Generating config files...
+-- Inside directory src/stripper...
+-- Generate globalaliases.h from /private/tmp/manticore-5045-review-20261113/source/src/charsets/*.txt
+-- Populate roaring from https://github.com/RoaringBitmap/CRoaring/archive/refs/tags/v4.3.2.tar.gz
+-- Build RelWithDebInfo and Debug for developing
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/src/roaring-build
+[ 11%] Creating directories for 'roaring_populate'
+[ 22%] No download step for 'roaring_populate'
+[ 33%] No update step for 'roaring_populate'
+[ 44%] No patch step for 'roaring_populate'
+[ 55%] Performing configure step for 'roaring_populate'
+-- The CXX compiler identification is AppleClang 21.0.0.21000101
+-- The C compiler identification is AppleClang 21.0.0.21000101
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- No build type selected, default to Release
+-- exception interface turned off. Code that does not check error codes will not compile.
+-- Tests are disabled, you can enabled them by setting ENABLE_ROARING_TESTS to ON
+-- BENCHMARK_DATA_DIR: /private/tmp/manticore-5045-review-20261113/build/_deps/roaring-src/benchmarks/realdata/
+-- TEST_DATA_DIR: /private/tmp/manticore-5045-review-20261113/build/_deps/roaring-src/tests/testdata/
+-- Building a static library.
+-- ROARING_LIB_TYPE: STATIC
+-- Library output directory (does not apply to Visual Studio): /private/tmp/manticore-5045-review-20261113/build/src/roaring-build/roaring_populate-prefix/src/roaring_populate-build
+-- Amalgamation tests disabled
+-- You may enable microbenchmarks by setting ENABLE_ROARING_MICROBENCHMARKS to ON 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/src/roaring-build/roaring_populate-prefix/src/roaring_populate-build
+[ 66%] Performing build step for 'roaring_populate'
+Starting build config RelWithDebInfo
+-- exception interface turned off. Code that does not check error codes will not compile.
+-- Tests are disabled, you can enabled them by setting ENABLE_ROARING_TESTS to ON
+-- BENCHMARK_DATA_DIR: /private/tmp/manticore-5045-review-20261113/build/_deps/roaring-src/benchmarks/realdata/
+-- TEST_DATA_DIR: /private/tmp/manticore-5045-review-20261113/build/_deps/roaring-src/tests/testdata/
+-- Building a static library.
+-- ROARING_LIB_TYPE: STATIC
+-- Library output directory (does not apply to Visual Studio): /private/tmp/manticore-5045-review-20261113/build/src/roaring-build/roaring_populate-prefix/src/roaring_populate-build
+-- Amalgamation tests disabled
+-- You may enable microbenchmarks by setting ENABLE_ROARING_MICROBENCHMARKS to ON 
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/src/roaring-build/roaring_populate-prefix/src/roaring_populate-build
+[  4%] Building C object src/CMakeFiles/roaring.dir/isadetection.c.o
+[  8%] Building C object src/CMakeFiles/roaring.dir/array_util.c.o
+[ 13%] Building C object src/CMakeFiles/roaring.dir/bitset_util.c.o
+[ 17%] Building C object src/CMakeFiles/roaring.dir/art/art.c.o
+[ 21%] Building C object src/CMakeFiles/roaring.dir/bitset.c.o
+[ 26%] Building C object src/CMakeFiles/roaring.dir/containers/array.c.o
+[ 30%] Building C object src/CMakeFiles/roaring.dir/containers/bitset.c.o
+[ 34%] Building C object src/CMakeFiles/roaring.dir/containers/containers.c.o
+[ 39%] Building C object src/CMakeFiles/roaring.dir/containers/convert.c.o
+[ 43%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_intersection.c.o
+[ 47%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_union.c.o
+[ 52%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_equal.c.o
+[ 56%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_subset.c.o
+[ 60%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_negation.c.o
+[ 65%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_xor.c.o
+[ 69%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_andnot.c.o
+[ 73%] Building C object src/CMakeFiles/roaring.dir/containers/run.c.o
+[ 78%] Building C object src/CMakeFiles/roaring.dir/memory.c.o
+[ 82%] Building C object src/CMakeFiles/roaring.dir/roaring.c.o
+[ 86%] Building C object src/CMakeFiles/roaring.dir/roaring64.c.o
+[ 91%] Building C object src/CMakeFiles/roaring.dir/roaring_priority_queue.c.o
+[ 95%] Building C object src/CMakeFiles/roaring.dir/roaring_array.c.o
+[100%] Linking C static library libroaring.a
+[100%] Built target roaring
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/lib/pkgconfig/roaring.pc
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring64map.hh
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring.hh
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/bitset
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/bitset/bitset.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring_types.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/misc
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/misc/configreport.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring_version.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/array_util.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/art
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/art/art.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/bitset_util.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/utilasm.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/isadetection.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring64.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring_array.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/portability.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/memory.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/perfparameters.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_intersection.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/bitset.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_equal.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_subset.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_xor.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/container_defs.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/array.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_andnot.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/containers.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/run.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/convert.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_union.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_negation.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/lib/libroaring.a
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/lib/cmake/roaring/roaring-config.cmake
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/lib/cmake/roaring/roaring-config-relwithdebinfo.cmake
+Starting build config Debug
+-- exception interface turned off. Code that does not check error codes will not compile.
+-- Tests are disabled, you can enabled them by setting ENABLE_ROARING_TESTS to ON
+-- BENCHMARK_DATA_DIR: /private/tmp/manticore-5045-review-20261113/build/_deps/roaring-src/benchmarks/realdata/
+-- TEST_DATA_DIR: /private/tmp/manticore-5045-review-20261113/build/_deps/roaring-src/tests/testdata/
+-- Building a static library.
+-- ROARING_LIB_TYPE: STATIC
+-- Library output directory (does not apply to Visual Studio): /private/tmp/manticore-5045-review-20261113/build/src/roaring-build/roaring_populate-prefix/src/roaring_populate-build
+-- Amalgamation tests disabled
+-- You may enable microbenchmarks by setting ENABLE_ROARING_MICROBENCHMARKS to ON 
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build/src/roaring-build/roaring_populate-prefix/src/roaring_populate-build
+[  4%] Building C object src/CMakeFiles/roaring.dir/isadetection.c.o
+[  8%] Building C object src/CMakeFiles/roaring.dir/array_util.c.o
+[ 13%] Building C object src/CMakeFiles/roaring.dir/bitset_util.c.o
+[ 17%] Building C object src/CMakeFiles/roaring.dir/art/art.c.o
+[ 21%] Building C object src/CMakeFiles/roaring.dir/bitset.c.o
+[ 26%] Building C object src/CMakeFiles/roaring.dir/containers/array.c.o
+[ 30%] Building C object src/CMakeFiles/roaring.dir/containers/bitset.c.o
+[ 34%] Building C object src/CMakeFiles/roaring.dir/containers/containers.c.o
+[ 39%] Building C object src/CMakeFiles/roaring.dir/containers/convert.c.o
+[ 43%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_intersection.c.o
+[ 47%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_union.c.o
+[ 52%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_equal.c.o
+[ 56%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_subset.c.o
+[ 60%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_negation.c.o
+[ 65%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_xor.c.o
+[ 69%] Building C object src/CMakeFiles/roaring.dir/containers/mixed_andnot.c.o
+[ 73%] Building C object src/CMakeFiles/roaring.dir/containers/run.c.o
+[ 78%] Building C object src/CMakeFiles/roaring.dir/memory.c.o
+[ 82%] Building C object src/CMakeFiles/roaring.dir/roaring.c.o
+[ 86%] Building C object src/CMakeFiles/roaring.dir/roaring64.c.o
+[ 91%] Building C object src/CMakeFiles/roaring.dir/roaring_priority_queue.c.o
+[ 95%] Building C object src/CMakeFiles/roaring.dir/roaring_array.c.o
+[100%] Linking C static library libroaring.a
+[100%] Built target roaring
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/lib/pkgconfig/roaring.pc
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring64map.hh
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring.hh
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/bitset
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/bitset/bitset.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring_types.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/misc
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/misc/configreport.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring_version.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/array_util.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/art
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/art/art.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/bitset_util.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/utilasm.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/isadetection.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring64.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/roaring_array.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/portability.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/memory.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/perfparameters.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_intersection.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/bitset.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_equal.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_subset.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_xor.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/container_defs.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/array.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_andnot.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/containers.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/run.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/convert.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_union.h
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/include/roaring/containers/mixed_negation.h
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/lib/libroaring.a
+-- Up-to-date: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/lib/cmake/roaring/roaring-config.cmake
+-- Installing: /private/tmp/manticore-5045-review-20261113/cache/darwin-arm64/roaring/lib/cmake/roaring/roaring-config-debug.cmake
+[ 77%] No install step for 'roaring_populate'
+[ 88%] No test step for 'roaring_populate'
+[100%] Completed 'roaring_populate'
+[100%] Built target roaring_populate
+-- Looking for shm_open
+-- Looking for shm_open - found
+CMake Warning (dev) at src/CMakeLists.txt:128 (find_package):
+  Policy CMP0167 is not set: The FindBoost module is removed.  Run "cmake
+  --help-policy CMP0167" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Found Boost: /opt/homebrew/lib/cmake/Boost-1.90.0/BoostConfig.cmake (found suitable version "1.90.0", minimum required is "1.71.0") found components: context filesystem
+-- No Google perfetto library found
+-- Discovered and added individual google-tests
+CMake Warning (dev) at src/CMakeLists.txt:432 (find_package):
+  Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+  are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+  the cmake_policy command to set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- python binary is /Users/orca/.pyenv/versions/3.12.8/bin/python
+CMake Warning (dev) at test/CMakeLists.txt:50 (find_package):
+  Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+  are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+  the cmake_policy command to set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Create ubertest.php proxies
+-- Skip adding test 194 -- regexps using RE2 since it requires RE2
+-- Skip adding test 228 -- Indexing of ODBC sources (mysql via ODBC connector) since it requires ODBC provider
+-- Skip adding test 252 -- reconfigure since it requires RE2
+-- Skip adding test 293 -- system.table since it requires Galera library for replication
+-- Skip adding test 309 -- jieba_mode since it requires JIEBA
+-- Skip adding test 310 -- CJK via Jieba (mysql) since it requires JIEBA
+-- Skip adding test 311 -- CJK via Jieba since it requires JIEBA
+-- Skip adding test 358 -- percolate query vs token filters since it requires RE2
+-- Skip adding test 368 -- REGEX filter, expression and full-text operator since it requires RE2
+-- Skip adding test 372 -- replication base since it requires Galera library for replication
+-- Skip adding test 376 -- replication join at since it requires Galera library for replication
+-- Skip adding test 381 -- replication of transactions since it requires Galera library for replication
+-- Skip adding test 383 -- replication for RT since it requires Galera library for replication
+-- Skip adding test 384 -- replication for RT via HTTP since it requires Galera library for replication
+-- Skip adding test 385 -- replication for RT with different local index files since it requires Galera library for replication
+-- Skip adding test 387 -- cluster table lock since it requires Galera library for replication
+-- Skip adding test 397 -- explain query since it requires RE2
+-- Skip adding test 402 -- replication for RT stored fields since it requires Galera library for replication
+-- Skip adding test 409 -- replication of external files since it requires Galera library for replication
+-- Skip adding test 456 -- replication of update with blobs since it requires Galera library for replication
+-- Skip adding test 478 -- replication for RT with nodes restart since it requires Galera library for replication
+-- Skip adding test 487 -- replication node rejoin after cluster added \ droped table since it requires Galera library for replication
+-- Skip adding test 488 -- replication duplicates bulk on IST replay since it requires Galera library for replication
+-- Skip adding test 508 -- replication cluster create with long data_dir path since it requires Galera library for replication
+-- Skip adding test 519 -- replication for RT UUID document IDs since it requires Galera library for replication
+-- CMAKE_INSTALL_PREFIX="/usr/local"
+-- CMAKE_INSTALL_BINDIR="bin" ; CMAKE_INSTALL_FULL_BINDIR="/usr/local/bin"
+-- CMAKE_INSTALL_SBINDIR="sbin" ; CMAKE_INSTALL_FULL_SBINDIR="/usr/local/sbin"
+-- CMAKE_INSTALL_LIBEXECDIR="libexec" ; CMAKE_INSTALL_FULL_LIBEXECDIR="/usr/local/libexec"
+-- CMAKE_INSTALL_SYSCONFDIR="etc" ; CMAKE_INSTALL_FULL_SYSCONFDIR="/usr/local/etc"
+-- CMAKE_INSTALL_SHAREDSTATEDIR="com" ; CMAKE_INSTALL_FULL_SHAREDSTATEDIR="/usr/local/com"
+-- CMAKE_INSTALL_LOCALSTATEDIR="var" ; CMAKE_INSTALL_FULL_LOCALSTATEDIR="/usr/local/var"
+-- CMAKE_INSTALL_RUNSTATEDIR="var/run" ; CMAKE_INSTALL_FULL_RUNSTATEDIR="/usr/local/var/run"
+-- CMAKE_INSTALL_LIBDIR="lib" ; CMAKE_INSTALL_FULL_LIBDIR="/usr/local/lib"
+-- CMAKE_INSTALL_INCLUDEDIR="include" ; CMAKE_INSTALL_FULL_INCLUDEDIR="/usr/local/include"
+-- CMAKE_INSTALL_OLDINCLUDEDIR="/usr/include" ; CMAKE_INSTALL_FULL_OLDINCLUDEDIR="/usr/include"
+-- CMAKE_INSTALL_DATAROOTDIR="share" ; CMAKE_INSTALL_FULL_DATAROOTDIR="/usr/local/share"
+-- CMAKE_INSTALL_DATADIR="share" ; CMAKE_INSTALL_FULL_DATADIR="/usr/local/share"
+-- CMAKE_INSTALL_INFODIR="share/info" ; CMAKE_INSTALL_FULL_INFODIR="/usr/local/share/info"
+-- CMAKE_INSTALL_LOCALEDIR="share/locale" ; CMAKE_INSTALL_FULL_LOCALEDIR="/usr/local/share/locale"
+-- CMAKE_INSTALL_MANDIR="share/man" ; CMAKE_INSTALL_FULL_MANDIR="/usr/local/share/man"
+-- CMAKE_INSTALL_DOCDIR="share/doc/manticore" ; CMAKE_INSTALL_FULL_DOCDIR="/usr/local/share/doc/MANTICORE"
+-- CMAKE_INSTALL_LOCALLIBDIR="" ; CMAKE_INSTALL_FULL_LOCALLIBDIR="/usr/local/lib"
+-- Enabled features compiled in:
+ * nlohmann_json, JSON for Modern C++ library
+ * uni-algo, unicode algorithm implementation for C/C++
+ * icu, International Components for Unicode
+ * OpenSSL, for encrypted networking
+ * ZLIB, for compressed data and networking
+ * ZSTD, for compressed networking, <https://github.com/facebook/zstd>
+ * CURL, for enhanced network communication
+ * EXPAT, for indexing xmlpipe sources with indexer
+ * Iconv, for support different encodings when indexing xmlpipe sources with indexer
+
+-- Available runtime features:
+ * ZSTD, for compressed networking, <https://github.com/facebook/zstd>
+
+-- Configuring done (35.8s)
+-- Generating done (0.2s)
+-- Build files have been written to: /private/tmp/manticore-5045-review-20261113/build

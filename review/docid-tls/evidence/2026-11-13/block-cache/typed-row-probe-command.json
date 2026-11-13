@@ -1,0 +1,6 @@
+[
+  "/usr/bin/c++",
+  "-std=c++17",
+  "-fsyntax-only",
+  "/private/tmp/manticore-5042-publish-review-20261113/typed-row-probe.cpp"
+]

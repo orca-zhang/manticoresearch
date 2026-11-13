@@ -1,0 +1,510 @@
+diff --git a/api/libsphinxclient/smoke_ref.txt b/api/libsphinxclient/smoke_ref.txt
+index 4a1a148..7946f71 100644
+--- a/api/libsphinxclient/smoke_ref.txt
++++ b/api/libsphinxclient/smoke_ref.txt
+@@ -353,6 +353,7 @@ qcache_ttl_sec: 60
+ qcache_cached_queries: 0
+ qcache_used_bytes: 0
+ qcache_hits: 0
++docid_lookup_cache_used_bytes: 0
+ 
+ 
+ ***************************
+diff --git a/cmake/GetGoogletest.cmake b/cmake/GetGoogletest.cmake
+index e832c94..f871a46 100644
+--- a/cmake/GetGoogletest.cmake
++++ b/cmake/GetGoogletest.cmake
+@@ -1,8 +1,9 @@
+ # Search prebuilt googletest. If nothing found - download, unpack, build and then search again
+ # allow to get googletest from bundle also (instead of download)
+ 
+-set ( GTEST_GITHUB "https://github.com/google/googletest/archive/main.zip" )
+-set ( GTEST_ZIP "googletest-master.zip" ) # that is default filename if you download GTEST_GITHUB using browser
++# Pin the fallback to v1.16.0; main requires VS 2022, unlike our Windows cross toolchain.
++set ( GTEST_GITHUB "https://github.com/google/googletest/archive/6910c9d9165801d8827d628cb72eb7ea9dd538c5.zip" )
++set ( GTEST_ZIP "googletest-1.16.0.zip" )
+ set ( GTEST_URL "${LIBS_BUNDLE}/${GTEST_ZIP}" )
+ 
+ if (TARGET GTest::gmock_main)
+diff --git a/manual/english/Server_settings/Searchd.md b/manual/english/Server_settings/Searchd.md
+index 9eb6d63..051a46f 100755
+--- a/manual/english/Server_settings/Searchd.md
++++ b/manual/english/Server_settings/Searchd.md
+@@ -693,6 +693,17 @@ This setting specifies the maximum size of document blocks from document storage
+ 
+ When `stored_fields` is used, document blocks are read from disk and uncompressed. Since every block typically holds several documents, it may be reused when processing the next document. For this purpose, the block is held in a server-wide cache. The cache holds uncompressed blocks.
+ 
++The cache uses up to 16 independently locked LRU partitions to reduce contention
++between queries. The configured budget is shared across all partitions, not
++multiplied by the number of workers. Each partition receives at least about
++1 MiB; budgets below 2 MiB use one partition. Hash tables, locks and allocator
++metadata require additional memory beyond the cached-entry budget.
++
++Partitioning can reduce effective capacity when block keys are unevenly
++distributed, and each block must fit its own partition. Increasing this budget
++helps only when the workload reuses enough stored blocks to offset cache lookup
++and synchronization costs. This setting is independent of `docid_lookup_cache_size`.
++
+ 
+ <!-- intro -->
+ ##### Example:
+diff --git a/src/docidlookup.cpp b/src/docidlookup.cpp
+index 7512a8f..cb7ae6f 100644
+--- a/src/docidlookup.cpp
++++ b/src/docidlookup.cpp
+@@ -1128,7 +1128,9 @@ bool WriteDocidLookup ( const CSphString & sFilename, const VecTraits_T<DocidRow
+ 
+ static uint64_t ReadUint64 ( const BYTE * pData )
+ {
+-	return sphUnalignedRead ( *(const uint64_t *)pData );
++	uint64_t uValue;
++	memcpy ( &uValue, pData, sizeof(uValue) );
++	return uValue;
+ }
+ 
+ 
+diff --git a/src/docidlookup.h b/src/docidlookup.h
+index 47d306b..25371d5 100644
+--- a/src/docidlookup.h
++++ b/src/docidlookup.h
+@@ -105,7 +105,8 @@ public:
+ 		DocID_t tCurDocID = pFound->m_tBaseDocID;
+ 
+ 		// 1st entry doesnt have docid
+-		RowID_t tRowID = sphUnalignedRead ( *(const RowID_t*)pCur );
++		RowID_t tRowID;
++		memcpy ( &tRowID, pCur, sizeof(tRowID) );
+ 		pCur += sizeof(RowID_t);
+ 
+ 		if ( tCurDocID==tDocID )
+@@ -115,7 +116,7 @@ public:
+ 		for ( int i = 1; i < iDocsInCheckpoint; ++i )
+ 		{
+ 			uint64_t tDeltaDocID = UnzipOffsetBE(pCur);
+-			tRowID = sphUnalignedRead ( *(const RowID_t*)pCur );
++			memcpy ( &tRowID, pCur, sizeof(tRowID) );
+ 			pCur += sizeof(RowID_t);
+ 
+ 			tCurDocID += tDeltaDocID;
+@@ -202,7 +203,7 @@ public:
+ 		if ( !m_iProcessedDocs )
+ 		{
+ 			tDocID = m_tCurDocID;
+-			tRowID = sphUnalignedRead ( *(RowID_t*)const_cast<BYTE*>(m_pCur) );
++			memcpy ( &tRowID, m_pCur, sizeof(tRowID) );
+ 			m_pCur += sizeof(RowID_t);
+ 
+ 			++m_iProcessedDocs;
+@@ -211,7 +212,7 @@ public:
+ 
+ 		uint64_t tDelta = UnzipOffsetBE ( m_pCur );
+ 
+-		tRowID = sphUnalignedRead ( *(RowID_t*)const_cast<BYTE*>(m_pCur) );
++		memcpy ( &tRowID, m_pCur, sizeof(tRowID) );
+ 		m_pCur += sizeof(RowID_t);
+ 
+ 		m_tCurDocID += tDelta;
+diff --git a/src/docidlookupcache.h b/src/docidlookupcache.h
+index f37158c..22b3411 100644
+--- a/src/docidlookupcache.h
++++ b/src/docidlookupcache.h
+@@ -5,6 +5,7 @@
+ #include <cstddef>
+ #include <cstdint>
+ #include <memory>
++#include <type_traits>
+ 
+ // Immutable, bulk-built numeric lookup. Inspired by bbtree's contiguous keys
+ // and wide nodes; this is a native C++ implementation for sorted disk chunks.
+@@ -26,6 +27,22 @@ public:
+ 	static bool IsSparse ( size_t nValues, uint64_t nDocs ) noexcept { return nValues<=nDocs/64; }
+ 	void FindBatch ( const uint64_t * pDocIDs, uint32_t * pRows, size_t nQueries ) const noexcept;
+ 
++	// Windows RowID_t/DWORD and uint32_t have equal width but distinct types.
++	template <typename ROWID>
++	void FindBatch ( const uint64_t * pDocIDs, ROWID * pRows, size_t nQueries ) const noexcept
++	{
++		static_assert ( sizeof(ROWID)==sizeof(uint32_t) && std::is_integral<ROWID>::value && std::is_unsigned<ROWID>::value,
++			"Batch output must be an unsigned 32-bit integer" );
++		for ( size_t i=0; i<nQueries; )
++		{
++			uint32_t dRows[BATCH_SIZE];
++			const size_t nBatch = nQueries-i<BATCH_SIZE ? nQueries-i : BATCH_SIZE;
++			FindBatch ( pDocIDs+i, dRows, nBatch );
++			for ( size_t j=0; j<nBatch; ++j ) pRows[i+j] = dRows[j];
++			i += nBatch;
++		}
++	}
++
+ 	uint32_t Find ( uint64_t uDocID ) const noexcept
+ 	{
+ 		if ( !m_bSealed || uDocID<m_pKeys[0] || uDocID>m_pKeys[m_nDocs-1] )
+diff --git a/src/docstore.cpp b/src/docstore.cpp
+index 0ed325e..394ee45 100644
+--- a/src/docstore.cpp
++++ b/src/docstore.cpp
+@@ -11,6 +11,7 @@
+ #include "docstore.h"
+ 
+ #include "std/lrucache.h"
++#include "std/hash.h"
+ #include "fileio.h"
+ #include "memio.h"
+ #include "fileutils.h"
+@@ -307,8 +308,7 @@ struct BlockUtil_t
+ {
+ 	static DWORD GetHash ( const HashKey_t & tKey )
+ 	{
+-		DWORD uCRC32 = sphCRC32 ( &tKey.m_iIndexId, sizeof(tKey.m_iIndexId) );
+-		return sphCRC32 ( &tKey.m_tOffset, sizeof(tKey.m_tOffset), uCRC32 );
++		return DWORD ( HashWithSeed ( &tKey.m_tOffset, sizeof(tKey.m_tOffset), uint64_t(tKey.m_iIndexId) ) );
+ 	}
+ 	static bool Equal ( const HashKey_t & a, const HashKey_t & b ) { return a==b; }
+ 
+@@ -317,21 +317,49 @@ struct BlockUtil_t
+ };
+ 
+ 
+-class BlockCache_c : public LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>
++class BlockCache_c
+ {
+-	using BASE = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
+-	using BASE::BASE;
++	using Shard_t = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
+ 
+ public:
+-	void					ClearByIndexId ( int64_t iIndexId ) { BASE::Delete ( [iIndexId]( const HashKey_t & tKey ){ return tKey.m_iIndexId==iIndexId; } ); }
+-	void					ClearAll() { BASE::Delete ( []( const HashKey_t & ){ return true; } ); }
++	explicit BlockCache_c ( int64_t iCacheSize )
++	{
++		while ( m_iShards<16 && iCacheSize/(m_iShards*2)>=1024*1024 )
++			m_iShards *= 2;
++		for ( int i=0; i<m_iShards; ++i )
++		{
++			const int64_t iBudget = iCacheSize/m_iShards + (i<iCacheSize%m_iShards);
++			// Sharding must not shrink the original maximum-block admission threshold.
++			m_dShards[i] = std::make_unique<Shard_t> ( iBudget, iCacheSize/64 );
++		}
++	}
+ 
+-	static void				Init ( int64_t iCacheSize );
+-	static void				Done()	{ SafeDelete(m_pBlockCache); }
+-	static BlockCache_c *	Get()	{ return m_pBlockCache; }
++	bool Find ( HashKey_t tKey, BlockData_t & tData ) { return Shard(tKey).Find ( tKey, tData ); }
++	bool Add ( HashKey_t tKey, const BlockData_t & tData ) { return Shard(tKey).Add ( tKey, tData ); }
++	void Release ( HashKey_t tKey ) { Shard(tKey).Release(tKey); }
++
++	void ClearByIndexId ( int64_t iIndexId )
++	{
++		for ( int i=0; i<m_iShards; ++i )
++			m_dShards[i]->Delete ( [iIndexId]( const HashKey_t & tKey ){ return tKey.m_iIndexId==iIndexId; } );
++	}
++	void ClearAll()
++	{
++		for ( int i=0; i<m_iShards; ++i )
++			m_dShards[i]->Delete ( []( const HashKey_t & ){ return true; } );
++	}
++
++	static void Init ( int64_t iCacheSize );
++	static void Done() { SafeDelete(m_pBlockCache); }
++	static BlockCache_c * Get() { return m_pBlockCache; }
+ 
+ private:
+-	static BlockCache_c *	m_pBlockCache;
++	// Keep shard bits separate from the hash table's low bucket bits.
++	Shard_t & Shard ( HashKey_t tKey ) { return *m_dShards[(BlockUtil_t::GetHash(tKey)>>28) & (m_iShards-1)]; }
++
++	int m_iShards = 1;
++	std::unique_ptr<Shard_t> m_dShards[16];
++	static BlockCache_c * m_pBlockCache;
+ };
+ 
+ BlockCache_c * BlockCache_c::m_pBlockCache = nullptr;
+diff --git a/src/gtests/CMakeLists.txt b/src/gtests/CMakeLists.txt
+index 441b7fa..c83b328 100644
+--- a/src/gtests/CMakeLists.txt
++++ b/src/gtests/CMakeLists.txt
+@@ -8,6 +8,7 @@ endif ()
+ 
+ set ( GTESTS_SRC
+ 		gtests_docidcache.cpp
++		gtests_docstore_blockcache.cpp
+ 		gtests_docidplanner.cpp
+ 		gtests_docidlookup.cpp
+ 		gtests_rtstuff.cpp
+diff --git a/src/gtests/gtests_docidcache.cpp b/src/gtests/gtests_docidcache.cpp
+index 39497df..39c73a3 100644
+--- a/src/gtests/gtests_docidcache.cpp
++++ b/src/gtests/gtests_docidcache.cpp
+@@ -223,6 +223,27 @@ TEST_F ( NativeDocidCache, BatchMatchesReferenceWithTilesPaddingAndUnsignedExtre
+ 	}
+ }
+ 
++TEST_F ( NativeDocidCache, BatchAcceptsDistinctUnsigned32BitOutputType )
++{
++	auto pCache = DocidLookupCache_c::Create(65);
++	ASSERT_TRUE(pCache);
++	for ( uint32_t i=0; i<65; ++i ) ASSERT_TRUE ( pCache->Append ( i*2, UINT32_MAX-1-i ) );
++	ASSERT_TRUE ( pCache->Seal() );
++	// char32_t exercises a distinct unsigned 32-bit type on every platform;
++	// Windows DWORD is likewise distinct from uint32_t.
++	for ( size_t nQueries : { 0, 1, 15, 16, 17, 31, 32, 33, 65 } )
++	{
++		std::vector<uint64_t> dIDs(nQueries);
++		std::vector<char32_t> dRows(nQueries+2,42);
++		for ( size_t i=0; i<nQueries; ++i ) dIDs[i] = i;
++		pCache->FindBatch ( dIDs.data(), dRows.data()+1, nQueries );
++		EXPECT_EQ ( dRows.front(), char32_t(42) );
++		EXPECT_EQ ( dRows.back(), char32_t(42) );
++		for ( size_t i=0; i<nQueries; ++i )
++			EXPECT_EQ ( uint32_t(dRows[i+1]), i%2 ? UINT32_MAX : UINT32_MAX-1-uint32_t(i/2) );
++	}
++}
++
+ TEST_F ( NativeDocidCache, BatchUnsealedAndConcurrentReadsDoNotChangeBudget )
+ {
+ 	auto pCache = DocidLookupCache_c::Create(1025);
+diff --git a/src/gtests/gtests_docstore_blockcache.cpp b/src/gtests/gtests_docstore_blockcache.cpp
+new file mode 100644
+index 0000000..f4da02b
+--- /dev/null
++++ b/src/gtests/gtests_docstore_blockcache.cpp
+@@ -0,0 +1,131 @@
++// Copyright (c) 2026, Manticore Software LTD (https://manticoresearch.com)
++// Distributed under the GNU General Public License, version 3 or later.
++
++#include <gtest/gtest.h>
++#include "docstore.h"
++#include "indexsettings.h"
++#include "threadutils.h"
++
++#include <atomic>
++#include <string>
++#include <thread>
++#include <vector>
++
++namespace
++{
++class DocstoreBlockCacheTest : public ::testing::Test
++{
++protected:
++	void SetUp() override
++	{
++		InitDocstore ( 2*1024*1024 );
++		const auto * pInfo = testing::UnitTest::GetInstance()->current_test_info();
++		for ( int i=0; i<2; ++i )
++			m_dFiles[i].SetSprintf ( "__docstore_blocks_%d_%s_%d.spds", GetOsProcessId(), pInfo->name(), i );
++	}
++
++	void TearDown() override
++	{
++		ShutdownDocstore();
++		for ( const auto & sFile : m_dFiles ) unlink(sFile.cstr());
++	}
++
++	static std::string Value ( int iVersion, int iRow, int iSize )
++	{
++		auto sPrefix = std::to_string(iVersion)+":"+std::to_string(iRow)+":";
++		return sPrefix+std::string ( iSize-sPrefix.size(), char('a'+iRow%26) );
++	}
++
++	void Write ( int iFile, int iVersion, int iRows, int iSize )
++	{
++		CSphString sError;
++		DocstoreSettings_t tSettings;
++		tSettings.m_uBlockSize = 16384;
++		tSettings.m_eCompression = Compression_e::LZ4;
++		auto pBuilder = CreateDocstoreBuilder ( m_dFiles[iFile], tSettings, 65536, sError );
++		ASSERT_TRUE(pBuilder) << sError.cstr();
++		ASSERT_EQ ( pBuilder->AddField ( "body", DOCSTORE_TEXT ), 0 );
++		for ( int i=0; i<iRows; ++i )
++		{
++			auto sValue = Value ( iVersion, i, iSize );
++			DocstoreBuilder_i::Doc_t tDoc;
++			tDoc.m_dFields.Add ( { reinterpret_cast<BYTE *>(sValue.data()), int(sValue.size()) } );
++			pBuilder->AddDoc ( i, tDoc );
++		}
++		pBuilder->Finalize();
++	}
++
++	std::unique_ptr<Docstore_i> Open ( int iFile, int64_t iIndex )
++	{
++		CSphString sError;
++		auto pStore = CreateDocstore ( iIndex, m_dFiles[iFile], sError );
++		EXPECT_TRUE(pStore) << sError.cstr();
++		return pStore;
++	}
++
++	static bool Matches ( const Docstore_i & tStore, int64_t iSession, int iVersion, int iRow, int iSize )
++	{
++		auto tDoc = tStore.GetDoc ( iRow, nullptr, iSession, false );
++		if ( tDoc.m_dFields.GetLength()!=1 ) return false;
++		const auto & dValue = tDoc.m_dFields[0];
++		return std::string ( reinterpret_cast<const char *>(dValue.Begin()), dValue.GetLength() )==Value ( iVersion, iRow, iSize );
++	}
++
++	CSphString m_dFiles[2];
++};
++
++TEST_F ( DocstoreBlockCacheTest, ClearAndSameKeyReplacement )
++{
++	Write ( 0, 1, 256, 128 );
++	Write ( 1, 2, 256, 128 );
++	auto pStore = Open ( 0, 801 );
++	ASSERT_TRUE(pStore);
++	DocstoreSession_c tSession;
++	pStore->CreateReader(tSession.GetUID());
++	for ( int i=0; i<256; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 128 ) );
++	ClearDocstoreCache();
++	ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, 123, 128 ) );
++	pStore.reset();
++	pStore = Open ( 1, 801 );
++	ASSERT_TRUE(pStore);
++	pStore->CreateReader(tSession.GetUID());
++	for ( int i=255; i>=0; --i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 2, i, 128 ) );
++}
++
++TEST_F ( DocstoreBlockCacheTest, ConcurrentReadsUnderEvictionPressure )
++{
++	Write ( 0, 1, 2048, 4096 ); // 8 MiB decoded data exceeds the 2 MiB shared budget.
++	auto pStore = Open ( 0, 802 );
++	ASSERT_TRUE(pStore);
++	std::atomic<int> iFailures { 0 };
++	std::vector<std::thread> dThreads;
++	for ( int i=0; i<8; ++i )
++		dThreads.emplace_back ( [&,i] {
++			DocstoreSession_c tSession;
++			pStore->CreateReader(tSession.GetUID());
++			for ( int j=0; j<2048; ++j )
++				if ( !Matches ( *pStore, tSession.GetUID(), 1, (j*509+i*173)%2048, 4096 ) ) ++iFailures;
++		} );
++	for ( auto & tThread : dThreads ) tThread.join();
++	ASSERT_EQ ( iFailures.load(), 0 );
++	ClearDocstoreCache();
++}
++
++TEST_F ( DocstoreBlockCacheTest, LargeFieldsAndTinyBudgetFallback )
++{
++	Write ( 0, 1, 40, 70000 );
++	auto pStore = Open ( 0, 803 );
++	ASSERT_TRUE(pStore);
++	DocstoreSession_c tSession;
++	pStore->CreateReader(tSession.GetUID());
++	for ( int k=0; k<2; ++k )
++		for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 70000 ) );
++	pStore.reset();
++	ShutdownDocstore();
++	InitDocstore(1);
++	pStore = Open ( 0, 803 );
++	ASSERT_TRUE(pStore);
++	pStore->CreateReader(tSession.GetUID());
++	for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 70000 ) );
++}
++}
+diff --git a/src/std/lrucache.h b/src/std/lrucache.h
+index a13efc6..7f5bdff 100644
+--- a/src/std/lrucache.h
++++ b/src/std/lrucache.h
+@@ -21,7 +21,7 @@ template <typename KEY, typename VALUE, typename HELPER>
+ class LRUCache_T
+ {
+ public:
+-			LRUCache_T ( int64_t iCacheSize );
++			LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize = -1 );
+ 			~LRUCache_T();
+ 
+ 	bool	Find ( KEY tKey, VALUE & tData );
+@@ -42,12 +42,26 @@ protected:
+ 		KEY				m_tKey;
+ 	};
+ 
++	// Packed generic entries can return misaligned key/value references.
++	struct HashEntry_t
++	{
++		KEY m_Key;
++		LinkedEntry_t * m_Value = nullptr;
++
++		template <typename STATE> FORCE_INLINE bool IsUsed ( const STATE & ) const { return m_bUsed; }
++		template <typename STATE> FORCE_INLINE void SetUsed ( const STATE &, bool bUsed ) { m_bUsed = bUsed; }
++
++	private:
++		bool m_bUsed = false;
++	};
++
+ 	LinkedEntry_t *		m_pHead = nullptr;
+ 	LinkedEntry_t *		m_pTail = nullptr;
+ 	int64_t				m_iCacheSize = 0;
+ 	int64_t				m_iMemUsed = 0;
++	DWORD			m_uMaxBlockSize = 0;
+ 	CSphMutex			m_tLock;
+-	OpenHashTable_T<KEY, LinkedEntry_t *, HELPER> m_tHash;
++	OpenHashTable_T<KEY, LinkedEntry_t *, HELPER, HashEntry_t> m_tHash;
+ 
+ 	void	Delete ( LinkedEntry_t * pEntry );
+ 
+diff --git a/src/std/lrucache_impl.h b/src/std/lrucache_impl.h
+index ff8fb88..c55ae40 100644
+--- a/src/std/lrucache_impl.h
++++ b/src/std/lrucache_impl.h
+@@ -13,8 +13,9 @@
+ #include "scopedlock.h"
+ 
+ template <typename KEY, typename VALUE, typename HELPER>
+-LRUCache_T<KEY,VALUE,HELPER>::LRUCache_T ( int64_t iCacheSize )
++LRUCache_T<KEY,VALUE,HELPER>::LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize )
+ 	: m_iCacheSize ( iCacheSize )
++	, m_uMaxBlockSize ( DWORD(iMaxBlockSize<0 ? iCacheSize/64 : iMaxBlockSize) )
+ 	, m_tHash ( 1024 )
+ {}
+ 
+@@ -60,8 +61,7 @@ bool LRUCache_T<KEY,VALUE,HELPER>::Add ( KEY tKey, const VALUE & tData )
+ 	DWORD uSpaceNeeded = uSize + sizeof(LinkedEntry_t);
+ 	if ( !HaveSpaceFor ( uSpaceNeeded ) )
+ 	{
+-		DWORD MAX_BLOCK_SIZE = m_iCacheSize/64;
+-		if ( uSpaceNeeded>MAX_BLOCK_SIZE )
++		if ( uSpaceNeeded>m_uMaxBlockSize )
+ 			return false;
+ 
+ 		SweepUnused ( uSpaceNeeded );
+diff --git a/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec b/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
+index 0c6b4e5..a27dd24 100644
+--- a/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
++++ b/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
+@@ -13,10 +13,10 @@ curl -s 0:9308/metrics > /tmp/exporter_unfiltered_output.txt
+ cat /tmp/exporter_unfiltered_output.txt | grep -e "^manticore" | cut -d" " -f1 | sed 's/^manticore_//' | sed 's/qcache_thresh_microseconds/qcache_thresh_msec/' | sort > /tmp/exporter_output.txt
+ ––– output –––
+ ––– input –––
+-searchd --iostats --cpustats --status | cut -d":" -f1 | tail -n +10 | grep -v -e "^command_optimize$" -e "^command_shard_write$" | sort > /tmp/searchd_output.txt
++searchd --iostats --cpustats --status | cut -d":" -f1 | tail -n +10 | grep -v -e "^command_optimize$" -e "^command_shard_write$" -e "^docid_lookup_cache_used_bytes$" | sort > /tmp/searchd_output.txt
+ ––– output –––
+ ––– comment –––
+-command_optimize and command_shard_write are public daemon metrics, but the pinned Buddy version does not export them yet. Keep this filter until Buddy metric_definitions.json is updated in the Buddy repo.
++command_optimize, command_shard_write and docid_lookup_cache_used_bytes are public daemon metrics, but the pinned Buddy version does not export them yet. Keep this filter until Buddy metric_definitions.json is updated in the Buddy repo.
+ ––– input –––
+ ls -1 /tmp | grep -E "^(exporter|searchd).*\.txt$"
+ ––– output –––
+diff --git a/test/docid-cache/README.md b/test/docid-cache/README.md
+index 9a23900..237408d 100644
+--- a/test/docid-cache/README.md
++++ b/test/docid-cache/README.md
+@@ -36,3 +36,19 @@ Performance reports should identify both binaries and the workload, distinguish
+ lookup kernel throughput from SQL QPS, include negative/control cases, and
+ account for the additional memory beside mapped lookup data. Runtime cache-line
+ selection alone has not established a SQL-QPS gain on 64-byte Linux hardware.
++
++The PR also partitions the separate shared docstore block cache into at most
++16 LRU caches and uses the existing seeded XXH3 helper for block keys. Its entry
++budgets sum to `docstore_cache_size`; default 16 MiB gives 16 partitions, while
++budgets below 2 MiB keep one. Hash-table and allocator overhead are additional.
++Partition capacity and a single hot block can still limit reuse or concurrency.
++The reader registry keeps its original locked lookup; no reader TLS or global
++generation counter is included in this PR.
++
++`DocstoreBlockCacheTest` covers clear/index-key reuse, concurrent reads under
++eviction pressure, and large fields with tiny-cache fallback. The native DocID
++tests also cover distinct unsigned 32-bit batch output types, including the
++Windows `RowID_t`/`uint32_t` ABI difference. Block-cache performance comparisons
++must state the DocID budget and compare equal budgets in both binaries. A
++same-binary comparison of `docstore_cache_size=0` and `16m` answers a separate
++question from the benefit of changing the block-cache implementation.

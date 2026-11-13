@@ -1,0 +1,54 @@
+fixture {'docs': 20000, 'logical_stored_text_bytes': 2560000, 'disk_chunks': 1, 'spds_bytes': 111801, 'disk_bytes': 399178}
+starting scale-20000-cache0-text
+scale-20000-cache0-text: QPS +11.97% CPU/query -9.18%
+starting scale-20000-cache0-count
+scale-20000-cache0-count: QPS +0.99% CPU/query -0.45%
+starting scale-20000-cache16777216-text
+scale-20000-cache16777216-text: QPS -0.84% CPU/query +0.77%
+starting scale-20000-cache134217728-text
+scale-20000-cache134217728-text: QPS +1.86% CPU/query -1.59%
+building fixture 100000
+fixture {'docs': 100000, 'logical_stored_text_bytes': 12800000, 'disk_chunks': 1, 'spds_bytes': 558997, 'disk_bytes': 1925131}
+starting scale-100000-cache16777216-text
+scale-100000-cache16777216-text: QPS +0.85% CPU/query -0.84%
+starting scale-100000-cache134217728-text
+scale-100000-cache134217728-text: QPS -0.35% CPU/query +0.25%
+starting scale-100000-cache0-text
+scale-100000-cache0-text: QPS +3.49% CPU/query -2.44%
+starting scale-100000-cache0-count
+scale-100000-cache0-count: QPS -0.02% CPU/query +0.16%
+building fixture 500000
+fixture {'docs': 500000, 'logical_stored_text_bytes': 64000000, 'disk_chunks': 2, 'spds_bytes': 2794627, 'disk_bytes': 9571547}
+starting scale-500000-cache134217728-text
+scale-500000-cache134217728-text: QPS -1.49% CPU/query +0.63%
+starting scale-500000-cache0-text
+scale-500000-cache0-text: QPS +1.68% CPU/query -1.40%
+starting scale-500000-cache0-count
+scale-500000-cache0-count: QPS -0.61% CPU/query -0.01%
+starting scale-500000-cache16777216-text
+scale-500000-cache16777216-text: QPS +0.81% CPU/query -0.10%
+fixture {'docs': 1000000, 'logical_stored_text_bytes': 128000000, 'disk_chunks': 4, 'spds_bytes': 5588786, 'disk_bytes': 19142014}
+starting scale-1000000-cache0-text
+scale-1000000-cache0-text: QPS +2.12% CPU/query -1.53%
+starting scale-1000000-cache0-count
+scale-1000000-cache0-count: QPS -0.12% CPU/query +0.20%
+starting scale-1000000-cache16777216-text
+scale-1000000-cache16777216-text: QPS -0.65% CPU/query +0.66%
+starting scale-1000000-cache16777216-aa
+scale-1000000-cache16777216-aa: QPS +0.43% CPU/query +0.02%
+starting scale-1000000-cache134217728-text
+scale-1000000-cache134217728-text: QPS +2.05% CPU/query -1.71%
+building fixture 5000000
+fixture {'docs': 5000000, 'logical_stored_text_bytes': 640000000, 'disk_chunks': 8, 'spds_bytes': 27942954, 'disk_bytes': 95501835}
+starting scale-5000000-cache16777216-text
+scale-5000000-cache16777216-text: QPS -1.11% CPU/query +0.82%
+starting scale-5000000-cache16777216-aa
+scale-5000000-cache16777216-aa: QPS +0.32% CPU/query -0.26%
+starting scale-5000000-cache134217728-text
+scale-5000000-cache134217728-text: QPS -0.15% CPU/query -0.20%
+starting scale-5000000-cache0-text
+scale-5000000-cache0-text: QPS +0.34% CPU/query -0.56%
+starting scale-5000000-cache0-count
+scale-5000000-cache0-count: QPS +0.86% CPU/query -0.69%
+starting scale-5000000-cache536870912-text
+scale-5000000-cache536870912-text: QPS -0.71% CPU/query +0.53%

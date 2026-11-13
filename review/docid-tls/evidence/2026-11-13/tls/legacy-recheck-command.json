@@ -1,0 +1,33 @@
+{
+  "command": [
+    "/Users/orca/.pyenv/versions/3.12.8/bin/python3",
+    "/Users/orca/Documents/GitHub/ZimaOS-Photos/docs/process/data/manticore-pr5045-20261113/legacy-repro/bench_reader_tls.py",
+    "/private/tmp/manticore-5045-review-20261113/binaries/reference-searchd",
+    "/private/tmp/manticore-5045-review-20261113/binaries/tls-searchd",
+    "--output",
+    "/Users/orca/Documents/GitHub/ZimaOS-Photos/docs/process/data/manticore-pr5045-20261113/legacy-recheck.json",
+    "--docs",
+    "20000",
+    "--payload",
+    "128",
+    "--block-size",
+    "16384",
+    "--compression",
+    "lz4",
+    "--block-caches",
+    "0",
+    "--concurrency",
+    "8",
+    "--batches",
+    "256",
+    "--rounds",
+    "6",
+    "--duration",
+    "3"
+  ],
+  "scripts_sha256": {
+    "bench_reader_tls.py": "11d9be4dadc9370d3cfeceb7d82022bd4e0beac7a2ceab5f31b0d36057ccdf9f",
+    "support.py": "286f803449ea55e4485e96b74b3561d919104ffe22ed6187a5fd6f6695a408ef"
+  },
+  "note": "Original upstream-only benchmark driver and query generation, using the new clean upstream/TLS-only binaries. This matches old workload shape, not old binary hashes/toolchain dependencies."
+}

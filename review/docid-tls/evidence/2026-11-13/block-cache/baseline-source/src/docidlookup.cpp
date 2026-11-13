@@ -1,0 +1,1268 @@
+//
+//
+// Copyright (c) 2018-2026, Manticore Software LTD (https://manticoresearch.com)
+// All rights reserved
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License. You should have
+// received a copy of the GPL license along with this program; if you
+// did not, you can find it at http://www.gnu.org/
+//
+
+#include "docidlookup.h"
+
+#include "secondaryindex.h"
+#include "sphinxfilter.h"
+#include "killlist.h"
+#include "attribute.h"
+#include "fileio.h"
+#include "columnarfilter.h"
+
+#include <boost/preprocessor/repetition/repeat.hpp>
+
+template <bool BITMAP>
+class CachedIterator_T : public RowidIterator_i
+{
+public:
+				CachedIterator_T ( int64_t iRsetEstimate, DWORD uTotalDocs );
+
+	bool		HintRowID ( RowID_t tRowID ) override;
+	void		SetCutoff ( int iCutoff ) override {}	// fixme! add real cutoff
+	bool		WasCutoffHit() const override { return false; }
+
+protected:
+	static const int MAX_COLLECTED = 512;
+	CSphFixedVector<RowID_t> m_dCollected {MAX_COLLECTED};
+
+	CSphTightVector<RowID_t> m_dRowIDs;
+	int64_t			m_iId = 0;
+
+	BitVec_T<uint64_t> m_tBitmap;
+	RowID_t		m_tRowID = 0;
+	RowID_t		m_tMinRowID = INVALID_ROWID;
+	RowID_t		m_tMaxRowID = INVALID_ROWID;
+	bool		m_bFirstTime = true;
+
+	FORCE_INLINE void Add ( RowID_t tRowID );
+	bool		Finalize();
+	bool		ReturnRowIdChunk ( RowIdBlock_t & dRowIdBlock );
+};
+
+template <>
+CachedIterator_T<true>::CachedIterator_T ( int64_t iRsetEstimate, DWORD uTotalDocs )
+{
+	m_tBitmap.Init(uTotalDocs);
+}
+
+template <>
+CachedIterator_T<false>::CachedIterator_T ( int64_t iRsetEstimate, DWORD uTotalDocs )
+{
+	m_dRowIDs.Reserve(iRsetEstimate);
+}
+
+template <>
+bool CachedIterator_T<true>::HintRowID ( RowID_t tRowID )
+{
+	if ( tRowID<m_tRowID )
+		return true;
+
+	m_tRowID = tRowID;
+	while ( m_tRowID<=m_tMaxRowID )
+	{
+		if ( m_tBitmap.BitGet(m_tRowID) )
+			return true;
+
+		++m_tRowID;
+	}
+	
+	return false;
+}
+
+template <>
+bool CachedIterator_T<false>::HintRowID ( RowID_t tRowID )
+{
+	const RowID_t * pRowID = m_dRowIDs.Begin() + m_iId;
+	const RowID_t * pRowIdMax = m_dRowIDs.End();
+
+	if ( m_dRowIDs.IsEmpty() || pRowID>=pRowIdMax )
+		return false;
+
+	constexpr int64_t LINEAR_THRESH = 256;
+	if ( tRowID - *pRowID < LINEAR_THRESH )
+	{
+		const RowID_t * pRowIdStart = m_dRowIDs.Begin();
+
+		while ( pRowID<pRowIdMax && *pRowID<tRowID )
+			++pRowID;
+
+		m_iId = pRowID-pRowIdStart;
+		return pRowID<pRowIdMax;
+	}
+	else
+	{
+		// we assume we are never rewinding backwards
+		const RowID_t * pFound = sphBinarySearchFirst ( pRowID, pRowIdMax-1, SphIdentityFunctor_T<RowID_t>(), tRowID );
+		assert(pFound);
+
+		if ( *pFound < tRowID )
+			return false;
+
+		m_iId = pFound-m_dRowIDs.Begin();
+		return true;
+	}
+}
+
+template <>
+void CachedIterator_T<true>::Add ( RowID_t tRowID )
+{
+	if ( m_tMinRowID==INVALID_ROWID )
+	{
+		m_tMinRowID = tRowID;
+		m_tMaxRowID = tRowID;
+	}
+	else
+	{
+		m_tMinRowID = Min ( m_tMinRowID, tRowID );
+		m_tMaxRowID = Max ( m_tMaxRowID, tRowID );
+	}
+
+	m_tBitmap.BitSet(tRowID);
+}
+
+template<>
+void CachedIterator_T<false>::Add ( RowID_t tRowID )
+{
+	m_dRowIDs.Add(tRowID);
+}
+
+template<>
+bool CachedIterator_T<true>::Finalize()
+{
+	m_tRowID = m_tMinRowID;
+	return m_tMinRowID!=INVALID_ROWID;
+}
+
+template<>
+bool CachedIterator_T<false>::Finalize()
+{
+	m_dRowIDs.Sort();
+	return !m_dRowIDs.IsEmpty();
+}
+
+template <>
+bool CachedIterator_T<true>::ReturnRowIdChunk ( RowIdBlock_t & dRowIdBlock )
+{
+	RowID_t * pRowIdStart = m_dCollected.Begin();
+	RowID_t * pRowIdMax = pRowIdStart + m_dCollected.GetLength();
+	RowID_t * pRowID = pRowIdStart;
+
+	while ( m_tRowID<=m_tMaxRowID && pRowID<pRowIdMax )
+	{
+		if ( m_tBitmap.BitGet(m_tRowID) )
+			*pRowID++ = m_tRowID;
+
+		++m_tRowID;
+	}
+
+	return ReturnIteratorResult ( pRowID, pRowIdStart, dRowIdBlock );
+}
+
+template <>
+bool CachedIterator_T<false>::ReturnRowIdChunk ( RowIdBlock_t & dRowIdBlock )
+{
+	RowID_t * pRowIdStart = m_dRowIDs.Begin() + m_iId;
+	RowID_t * pRowID = Min ( pRowIdStart+m_dCollected.GetLength(), m_dRowIDs.End() );
+	m_iId += pRowID-pRowIdStart;
+
+	return ReturnIteratorResult ( pRowID, pRowIdStart, dRowIdBlock );
+}
+
+// filter values are signed-sorted; unsigned order is the non-negative suffix followed by the negative prefix
+class DocidListReaderUnsigned_c
+{
+public:
+	explicit DocidListReaderUnsigned_c ( const VecTraits_T<DocID_t> & dValues )
+		: m_dValues ( dValues )
+		, m_iLeft ( dValues.GetLength() )
+	{
+		if ( !dValues.IsEmpty() && dValues.Last()>=0 )
+			m_iIndex = int ( std::lower_bound ( dValues.Begin(), dValues.End(), DocID_t(0) ) - dValues.Begin() );
+	}
+
+	bool ReadDocID ( DocID_t & tDocID )
+	{
+		if ( !m_iLeft )
+			return false;
+
+		tDocID = m_dValues[m_iIndex++];
+		if ( m_iIndex==m_dValues.GetLength() )
+			m_iIndex = 0;
+
+		--m_iLeft;
+		return true;
+	}
+
+	int GetLength() const { return m_dValues.GetLength(); }
+
+private:
+	VecTraits_T<DocID_t> m_dValues;
+	int m_iIndex {0};
+	int m_iLeft {0};
+};
+
+
+template <bool ROWID_LIMITS, bool BITMAP>
+class RowidIterator_LookupValues_T : public CachedIterator_T<BITMAP>
+{
+	using BASE = CachedIterator_T<BITMAP>;
+
+public:
+						RowidIterator_LookupValues_T ( const VecTraits_T<DocID_t>& tValues, int64_t iRsetEstimate, DWORD uTotalDocs, const BYTE * pDocidLookup, DWORD uIndexVersion, const RowIdBoundaries_t * pBoundaries, const LookupReader_c * pPointReader );
+
+	bool				GetNextRowIdBlock ( RowIdBlock_t & dRowIdBlock ) override;
+	bool				HintRowID ( RowID_t tRowID ) override;
+	int64_t				GetNumProcessed() const override { return m_iProcessed; }
+	void				AddDesc ( CSphVector<IteratorDesc_t> & dDesc ) const override { dDesc.Add ( { "id", "DocidIndex" } ); }
+
+private:
+	RowIdBoundaries_t	m_tBoundaries;
+	int64_t				m_iProcessed {0};
+	LookupReaderIterator_c m_tLookupReader;
+	DocidListReaderUnsigned_c m_tFilterReader;
+	const LookupReader_c * m_pPointReader {nullptr};
+
+	bool				Fill();
+	FORCE_INLINE bool	FillIfFirstTime();
+};
+
+template <bool ROWID_LIMITS, bool BITMAP>
+RowidIterator_LookupValues_T<ROWID_LIMITS, BITMAP>::RowidIterator_LookupValues_T ( const VecTraits_T<DocID_t>& tValues, int64_t iRsetEstimate, DWORD uTotalDocs, const BYTE * pDocidLookup, DWORD uIndexVersion, const RowIdBoundaries_t * pBoundaries, const LookupReader_c * pPointReader )
+	: BASE ( iRsetEstimate, uTotalDocs )
+	, m_tLookupReader ( pDocidLookup, uIndexVersion )
+	, m_tFilterReader ( tValues )
+{
+	// A complete cache proves numeric IDs are unique. Dense lists still benefit
+	// from sequential merge; sparse lists avoid decoding up to a block per ID.
+	if ( pPointReader && pPointReader->HasCache() && DocidLookupCache_c::IsSparse ( tValues.GetLength(), uTotalDocs ) )
+		m_pPointReader = pPointReader;
+	if ( pBoundaries )
+		m_tBoundaries = *pBoundaries;
+}
+
+template <bool ROWID_LIMITS, bool BITMAP>
+bool RowidIterator_LookupValues_T<ROWID_LIMITS,BITMAP>::GetNextRowIdBlock ( RowIdBlock_t & dRowIdBlock )
+{
+	if ( !FillIfFirstTime() )
+		return false;
+
+	return BASE::ReturnRowIdChunk(dRowIdBlock);
+}
+
+template <bool ROWID_LIMITS, bool BITMAP>
+bool RowidIterator_LookupValues_T<ROWID_LIMITS,BITMAP>::HintRowID ( RowID_t tRowID )
+{
+	if ( !FillIfFirstTime() )
+		return false;
+
+	return BASE::HintRowID(tRowID);
+}
+
+template <bool ROWID_LIMITS, bool BITMAP>
+bool RowidIterator_LookupValues_T<ROWID_LIMITS,BITMAP>::Fill()
+{
+	if ( m_pPointReader )
+	{
+		DocID_t tDocID;
+		if ( m_tFilterReader.GetLength()>=DocidLookupCache_c::BATCH_SIZE )
+		{
+			uint64_t dIDs[DocidLookupCache_c::BATCH_SIZE];
+			RowID_t dRows[DocidLookupCache_c::BATCH_SIZE];
+			for (;;)
+			{
+				int nBatch = 0;
+				while ( nBatch<DocidLookupCache_c::BATCH_SIZE && m_tFilterReader.ReadDocID(tDocID) )
+					dIDs[nBatch++] = (uint64_t)tDocID;
+				if ( !nBatch )
+					break;
+				m_pPointReader->FindBatch ( dIDs, dRows, nBatch );
+				m_iProcessed += nBatch;
+				for ( int i=0; i<nBatch; ++i )
+				{
+					RowID_t tRowID = dRows[i];
+					if ( tRowID!=INVALID_ROWID && ( !ROWID_LIMITS || ( tRowID>=m_tBoundaries.m_tMinRowID && tRowID<=m_tBoundaries.m_tMaxRowID ) ) )
+						BASE::Add(tRowID);
+				}
+			}
+			return BASE::Finalize();
+		}
+		while ( m_tFilterReader.ReadDocID(tDocID) )
+		{
+			RowID_t tRowID = m_pPointReader->Find(tDocID);
+			++m_iProcessed;
+			if ( tRowID!=INVALID_ROWID && ( !ROWID_LIMITS || ( tRowID>=m_tBoundaries.m_tMinRowID && tRowID<=m_tBoundaries.m_tMaxRowID ) ) )
+				BASE::Add(tRowID);
+		}
+		return BASE::Finalize();
+	}
+	DocID_t	tLookupDocID = 0;
+	DocID_t	tFilterDocID = 0;
+	RowID_t tLookupRowID = INVALID_ROWID;
+	bool bHaveFilterDocs = m_tFilterReader.ReadDocID(tFilterDocID);
+	bool bHaveLookupDocs = m_tLookupReader.Read ( tLookupDocID, tLookupRowID );
+	m_iProcessed += bHaveFilterDocs ? 1 : 0;
+	m_iProcessed += bHaveLookupDocs ? 1 : 0;
+
+	while ( bHaveFilterDocs && bHaveLookupDocs )
+	{
+		if ( uint64_t(tFilterDocID) < uint64_t(tLookupDocID) )
+		{
+			bHaveFilterDocs = m_tFilterReader.ReadDocID ( tFilterDocID );
+		}
+		else if ( uint64_t(tFilterDocID) > uint64_t(tLookupDocID) )
+		{
+			m_tLookupReader.HintDocID(tFilterDocID);
+			bHaveLookupDocs = m_tLookupReader.Read ( tLookupDocID, tLookupRowID );
+		}
+		else
+		{
+			// lookup reader can have duplicates; filter reader can't have duplicates
+			// advance only the lookup reader
+			if ( ROWID_LIMITS )
+			{
+				if ( tLookupRowID>=m_tBoundaries.m_tMinRowID && tLookupRowID<=m_tBoundaries.m_tMaxRowID )
+					BASE::Add(tLookupRowID);
+			}
+			else
+				BASE::Add(tLookupRowID);
+
+			bHaveLookupDocs = m_tLookupReader.Read ( tLookupDocID, tLookupRowID );
+		}
+
+		++m_iProcessed;
+	}
+
+	return BASE::Finalize();
+}
+
+template <bool ROWID_LIMITS, bool BITMAP>
+bool RowidIterator_LookupValues_T<ROWID_LIMITS,BITMAP>::FillIfFirstTime()
+{
+	if ( !BASE::m_bFirstTime )
+		return true;
+
+	BASE::m_bFirstTime = false;
+	return Fill();
+}
+
+//////////////////////////////////////////////////////////////////////////
+class DocIdCheck_i
+{
+public:
+	virtual							~DocIdCheck_i() = default;
+
+	virtual void					Init() {};
+	virtual void					DisableRewinding() = 0;
+	virtual std::pair<bool,bool>	Check ( uint64_t uValue ) = 0;
+};
+
+
+class DocIdCheck_c : public DocIdCheck_i
+{
+public:
+	DocIdCheck_c ( uint64_t uValue, std::shared_ptr<LookupReaderIterator_c> & pReader )
+		: m_uValue ( uValue )
+		, m_pReader ( pReader )
+	{}
+
+	 void		DisableRewinding() override { m_bCanRewind = false; }
+
+protected:
+	static constexpr uint64_t MIN_NEG = uint64_t(INT64_MIN);
+
+	uint64_t	m_uValue;
+	bool		m_bCanRewind = true;
+	bool		m_bRewound = false;
+	std::shared_ptr<LookupReaderIterator_c> m_pReader;
+};
+
+template <bool EQ>
+class GtPos_T : public DocIdCheck_c
+{
+	using DocIdCheck_c::DocIdCheck_c;
+
+public:
+	void Init() override
+	{
+		if ( m_bCanRewind )
+			m_pReader->HintDocID(m_uValue);
+	}
+
+	std::pair<bool,bool> Check ( uint64_t uValue ) override
+	{
+		if ( uValue >= MIN_NEG )
+			return { false, true };
+
+		if constexpr ( EQ )
+			return { uValue >= m_uValue, false };
+
+		return {  uValue > m_uValue, false };
+	}
+};
+
+template <bool EQ>
+class LtPos_T : public DocIdCheck_c
+{
+	using DocIdCheck_c::DocIdCheck_c;
+
+public:
+	std::pair<bool,bool> Check ( uint64_t uValue ) override
+	{
+		if constexpr ( EQ )
+		{
+			if ( uValue <= m_uValue ) return { true, false };
+		}
+		else
+			if ( uValue < m_uValue ) return { true, false };
+
+		if ( uValue < MIN_NEG )
+		{
+			if ( m_bCanRewind && !m_bRewound )
+			{
+				m_bRewound = true;
+				m_pReader->HintDocID(MIN_NEG);
+			}
+
+			return { false, false };
+		}
+
+		return { true, false };
+	}
+};
+
+
+template <bool EQ>
+class GtNeg_T : public DocIdCheck_c
+{
+	using DocIdCheck_c::DocIdCheck_c;
+
+public:
+	inline std::pair<bool,bool> Check ( uint64_t uValue ) override
+	{
+		if ( uValue < MIN_NEG )
+			return { true, false };
+
+		if ( m_bCanRewind && !m_bRewound && uValue>=MIN_NEG )
+		{
+			m_pReader->HintDocID(m_uValue);
+			m_bRewound = true;
+		}
+
+		if constexpr ( EQ )
+			return { uValue >= m_uValue, false };
+
+		return { uValue > m_uValue, false };
+	}
+};
+
+template <bool EQ>
+class LtNeg_T : public DocIdCheck_c
+{
+	using DocIdCheck_c::DocIdCheck_c;
+
+public:
+	void Init() override
+	{
+		if ( m_bCanRewind )
+			m_pReader->HintDocID(MIN_NEG);
+	}
+
+	inline std::pair<bool,bool> Check ( uint64_t uValue ) override
+	{
+		if ( uValue < MIN_NEG )
+			return { false, false };
+
+		if constexpr ( EQ )
+		{
+			if ( uValue <= m_uValue ) return { true, false };
+		}
+		else
+			if ( uValue < m_uValue ) return { true, false };
+
+		return { false, true };
+	}
+};
+
+template <bool ROWID_LIMITS, bool BITMAP>
+class RowidIterator_LookupRange_T : public CachedIterator_T<BITMAP>
+{
+	using BASE = CachedIterator_T<BITMAP>;
+
+public:
+						RowidIterator_LookupRange_T ( std::shared_ptr<LookupReaderIterator_c> & pReader, DocIdCheck_i * pCheck1, DocIdCheck_i * pCheck2, int64_t iRsetEstimate, DWORD uTotalDocs, const RowIdBoundaries_t * pBoundaries = nullptr );
+
+	bool				GetNextRowIdBlock ( RowIdBlock_t & dRowIdBlock ) override;
+	bool				HintRowID ( RowID_t tRowID ) override;
+	int64_t				GetNumProcessed() const override { return m_iProcessed; }
+	void				AddDesc ( CSphVector<IteratorDesc_t> & dDesc ) const override { dDesc.Add ( { "id", "DocidIndex" } ); }
+
+protected:
+	RowIdBoundaries_t	m_tBoundaries;
+	int64_t				m_iProcessed {0};
+	std::shared_ptr<LookupReaderIterator_c> m_pReader;
+	std::unique_ptr<DocIdCheck_i> m_pCheck1;
+	std::unique_ptr<DocIdCheck_i> m_pCheck2;
+
+	virtual bool		Fill();
+	FORCE_INLINE bool	FillIfFirstTime();
+};
+
+template <bool ROWID_LIMITS, bool BITMAP>
+RowidIterator_LookupRange_T<ROWID_LIMITS,BITMAP>::RowidIterator_LookupRange_T ( std::shared_ptr<LookupReaderIterator_c> & pReader, DocIdCheck_i * pCheck1, DocIdCheck_i * pCheck2, int64_t iRsetEstimate, DWORD uTotalDocs, const RowIdBoundaries_t * pBoundaries )
+	: BASE ( iRsetEstimate, uTotalDocs )
+	, m_pReader ( pReader )
+	, m_pCheck1 ( pCheck1 )
+	, m_pCheck2 ( pCheck2 )
+{
+	if ( pBoundaries )
+		m_tBoundaries = *pBoundaries;
+}
+
+template <bool ROWID_LIMITS, bool BITMAP>
+bool RowidIterator_LookupRange_T<ROWID_LIMITS,BITMAP>::GetNextRowIdBlock ( RowIdBlock_t & dRowIdBlock )
+{
+	if ( !FillIfFirstTime() )
+		return false;
+
+	return BASE::ReturnRowIdChunk(dRowIdBlock);
+}
+
+template <bool ROWID_LIMITS, bool BITMAP>
+bool RowidIterator_LookupRange_T<ROWID_LIMITS,BITMAP>::HintRowID ( RowID_t tRowID )
+{
+	if ( !FillIfFirstTime() )
+		return false;
+
+	return BASE::HintRowID(tRowID);
+}
+
+template <bool ROWID_LIMITS, bool BITMAP>
+bool RowidIterator_LookupRange_T<ROWID_LIMITS,BITMAP>::Fill()
+{
+	DocID_t tLookupDocID = 0;
+	RowID_t tLookupRowID = INVALID_ROWID;
+	while ( m_pReader->Read ( tLookupDocID, tLookupRowID ) )
+	{
+		++m_iProcessed;
+
+		if ( m_pCheck1 )
+		{
+			auto [ bAccept, bBreak ] = m_pCheck1->Check(tLookupDocID);
+			if ( bBreak )
+				break;
+
+			if ( !bAccept )
+				continue;
+		}
+
+		if ( m_pCheck2 )
+		{
+			auto [ bAccept, bBreak ] = m_pCheck2->Check(tLookupDocID);
+			if ( bBreak )
+				break;
+
+			if ( !bAccept )
+				continue;
+		}
+
+		if constexpr ( ROWID_LIMITS )
+		{
+			if ( tLookupRowID >= m_tBoundaries.m_tMinRowID && tLookupRowID <= m_tBoundaries.m_tMaxRowID )
+				BASE::Add(tLookupRowID);
+		}
+		else
+			BASE::Add(tLookupRowID);
+	}
+
+	return BASE::Finalize();
+}
+
+template <bool ROWID_LIMITS, bool BITMAP>
+bool RowidIterator_LookupRange_T<ROWID_LIMITS,BITMAP>::FillIfFirstTime()
+{
+	if ( !BASE::m_bFirstTime )
+		return true;
+
+	if ( m_pCheck1 )
+		m_pCheck1->Init();
+
+	if ( m_pCheck2 )
+		m_pCheck2->Init();
+
+	BASE::m_bFirstTime = false;
+	return Fill();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+template <bool ROWID_LIMITS, bool BITMAP>
+class RowidIterator_LookupRangeExclude_T : public RowidIterator_LookupRange_T<ROWID_LIMITS, BITMAP>
+{
+	using BASE = RowidIterator_LookupRange_T<ROWID_LIMITS, BITMAP>;
+	using BASE::BASE;
+
+protected:
+	bool	Fill() override;
+
+private:
+	void	CheckAdd ( RowID_t tLookupRowID );
+};
+
+template <bool ROWID_LIMITS, bool BITMAP>
+void RowidIterator_LookupRangeExclude_T<ROWID_LIMITS,BITMAP>::CheckAdd ( RowID_t tLookupRowID )
+{
+	if constexpr ( ROWID_LIMITS )
+	{
+		if ( tLookupRowID>=BASE::m_tBoundaries.m_tMinRowID && tLookupRowID<=BASE::m_tBoundaries.m_tMaxRowID )
+			BASE::Add(tLookupRowID);
+	}
+	else
+		BASE::Add(tLookupRowID);
+}
+
+template <bool ROWID_LIMITS, bool BITMAP>
+bool RowidIterator_LookupRangeExclude_T<ROWID_LIMITS,BITMAP>::Fill()
+{
+	DocID_t tLookupDocID = 0;
+	RowID_t tLookupRowID = INVALID_ROWID;
+
+	RowID_t * pRowIdStart = BASE::m_dCollected.Begin();
+	RowID_t * pRowIdMax = pRowIdStart + BASE::m_dCollected.GetLength()-1;
+	RowID_t * pRowID = pRowIdStart;
+
+	while ( pRowID<pRowIdMax && ( BASE::m_pCheck1 || BASE::m_pCheck2 ) && BASE::m_pReader->Read ( tLookupDocID, tLookupRowID ) )
+	{
+		++BASE::m_iProcessed;
+
+		if ( BASE::m_pCheck1 )
+		{
+			auto [ bAccept, bBreak ] = BASE::m_pCheck1->Check(tLookupDocID);
+			if ( bBreak )
+				BASE::m_pCheck1.reset();
+
+			if ( bAccept )
+			{
+				CheckAdd ( tLookupRowID );
+				continue;
+			}
+		}
+
+		if ( BASE::m_pCheck2 )
+		{
+			auto [ bAccept, bBreak ] = BASE::m_pCheck2->Check(tLookupDocID);
+			if ( bBreak )
+				BASE::m_pCheck2.reset();
+
+			if ( bAccept )
+				CheckAdd ( tLookupRowID );
+		}
+	}
+
+	return BASE::Finalize();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+static bool NeedBitmapStorage ( int64_t iRsetSize, DWORD uTotalDocs )
+{
+	return float(iRsetSize)/uTotalDocs > 0.001f;
+}
+
+
+static DocIdCheck_i * CreateCheckGt ( int64_t iMinValue, bool bHasEqualMin, std::shared_ptr<LookupReaderIterator_c> & pReader )
+{
+	int iIndex = ( iMinValue>=0 ? 1 : 0 )*2 + ( bHasEqualMin ? 1 : 0 );
+	uint64_t uVal = uint64_t(iMinValue);
+	switch ( iIndex )
+	{
+	case 0: return new GtNeg_T<false> ( uVal, pReader );
+	case 1: return new GtNeg_T<true>  ( uVal, pReader );
+	case 2: return new GtPos_T<false> ( uVal, pReader );
+	case 3: return new GtPos_T<true>  ( uVal, pReader );
+	default: return nullptr;
+	}
+}
+
+
+static DocIdCheck_i * CreateCheckLt ( int64_t iMaxValue, bool bHasEqualMax, std::shared_ptr<LookupReaderIterator_c> & pReader )
+{
+	int iIndex = ( iMaxValue>=0 ? 1 : 0 )*2 + ( bHasEqualMax ? 1 : 0 );
+	uint64_t uVal = uint64_t(iMaxValue);
+	switch ( iIndex )
+	{
+	case 0: return new LtNeg_T<false> ( uVal, pReader );
+	case 1: return new LtNeg_T<true>  ( uVal, pReader );
+	case 2: return new LtPos_T<false> ( uVal, pReader );
+	case 3:	return new LtPos_T<true>  ( uVal, pReader );
+	default: return nullptr;
+	}
+}
+
+#define DECL_LOOKUP_RANGE( _, n, params ) case n: return new params<!!( n & 2 ), !!( n & 1 )> ( pReader, pCheck1, pCheck2, iRsetEstimate, uTotalDocs, pBoundaries );
+
+static RowidIterator_i * CreateRowidLookupRange ( std::shared_ptr<LookupReaderIterator_c> & pReader, DocIdCheck_i * pCheck1, DocIdCheck_i * pCheck2, int64_t iRsetEstimate, DWORD uTotalDocs, const RowIdBoundaries_t * pBoundaries, bool bBitmap )
+{
+	int iIndex = ( pBoundaries ? 1 : 0 )*2 + ( bBitmap ? 1 : 0 );
+	switch ( iIndex )
+	{
+	BOOST_PP_REPEAT ( 4, DECL_LOOKUP_RANGE, RowidIterator_LookupRange_T )
+	default:
+		assert ( 0 && "Internal error" );
+		return nullptr;
+	}
+}
+
+
+static RowidIterator_i * CreateRowidLookupRangeExclude ( std::shared_ptr<LookupReaderIterator_c> & pReader, DocIdCheck_i * pCheck1, DocIdCheck_i * pCheck2, int64_t iRsetEstimate, DWORD uTotalDocs, const RowIdBoundaries_t * pBoundaries, bool bBitmap )
+{
+	int iIndex = ( pBoundaries ? 1 : 0 )*2 + ( bBitmap ? 1 : 0 );
+	switch ( iIndex )
+	{
+	BOOST_PP_REPEAT ( 4, DECL_LOOKUP_RANGE, RowidIterator_LookupRangeExclude_T )
+	default:
+		assert ( 0 && "Internal error" );
+		return nullptr;
+	}
+}
+#undef DECL_LOOKUP_RANGE
+
+#define DECL_CREATEVALUES( _, n, params ) case n: return new RowidIterator_LookupValues_T<!!( n & 2 ), !!( n & 1 )> params;
+
+static RowidIterator_i * CreateLookupIterator ( const CSphFilterSettings & tFilter, int64_t iRsetEstimate, DWORD uTotalDocs, const BYTE * pDocidLookup, DWORD uIndexVersion, const RowIdBoundaries_t * pBoundaries, const LookupReader_c * pPointReader )
+{
+	if ( tFilter.m_sAttrName!=sphGetDocidName() )
+		return nullptr;
+
+	assert ( !tFilter.m_bExclude || tFilter.m_eType!=SPH_FILTER_VALUES );
+
+	bool bBitmap = NeedBitmapStorage ( iRsetEstimate, uTotalDocs );
+
+	switch ( tFilter.m_eType )
+	{
+	case SPH_FILTER_VALUES:
+		{
+			int iIndex = !!pBoundaries * 2 + bBitmap;
+			switch ( iIndex )
+			{
+				BOOST_PP_REPEAT ( 4, DECL_CREATEVALUES, ( tFilter.GetValues(), iRsetEstimate, uTotalDocs, pDocidLookup, uIndexVersion, pBoundaries, pPointReader ) )
+				default: assert ( 0 && "Internal error" ); return nullptr;
+			}
+		}
+		break;
+
+	case SPH_FILTER_RANGE:
+		{
+			auto pReader = std::make_shared<LookupReaderIterator_c> ( pDocidLookup, uIndexVersion );
+			
+			if ( tFilter.m_bExclude )
+			{
+				DocIdCheck_i * pCheck1 = tFilter.m_bOpenLeft ? nullptr : CreateCheckLt ( tFilter.m_iMinValue, !tFilter.m_bHasEqualMin, pReader );
+				DocIdCheck_i * pCheck2 = tFilter.m_bOpenRight ? nullptr : CreateCheckGt ( tFilter.m_iMaxValue, !tFilter.m_bHasEqualMax, pReader );
+				if ( pCheck1 && pCheck2 )
+				{
+					pCheck1->DisableRewinding();
+					pCheck2->DisableRewinding();
+				}
+
+				return CreateRowidLookupRangeExclude ( pReader, pCheck1, pCheck2, iRsetEstimate, uTotalDocs, pBoundaries, bBitmap );
+			}
+
+			DocIdCheck_i * pCheck1 = tFilter.m_bOpenLeft ? nullptr : CreateCheckGt ( tFilter.m_iMinValue, tFilter.m_bHasEqualMin, pReader );
+			DocIdCheck_i * pCheck2 = tFilter.m_bOpenRight ? nullptr : CreateCheckLt ( tFilter.m_iMaxValue, tFilter.m_bHasEqualMax, pReader );
+			return CreateRowidLookupRange ( pReader, pCheck1, pCheck2, iRsetEstimate, uTotalDocs, pBoundaries, bBitmap ); 
+		}
+
+	default:
+		break;
+	}
+
+	return nullptr;
+}
+
+#undef DECL_CREATEVALUES
+
+RowIteratorsWithEstimates_t CreateLookupIterator ( CSphVector<SecondaryIndexInfo_t> & dSIInfo, const CSphVector<CSphFilterSettings> & dFilters, const BYTE * pDocidLookup, DWORD uIndexVersion, uint32_t uTotalDocs, const LookupReader_c * pPointReader )
+{
+	RowIdBoundaries_t tBoundaries;
+	const CSphFilterSettings * pRowIdFilter = GetRowIdFilter ( dFilters, uTotalDocs, tBoundaries );
+
+	RowIteratorsWithEstimates_t dIterators;
+
+	ARRAY_FOREACH ( i, dSIInfo )
+	{
+		auto & tSIInfo = dSIInfo[i];
+		if ( tSIInfo.m_eType!=SecondaryIndexType_e::LOOKUP )
+			continue;
+
+		RowidIterator_i * pIterator = CreateLookupIterator ( dFilters[i], tSIInfo.m_iRsetEstimate, uTotalDocs, pDocidLookup, uIndexVersion, pRowIdFilter ? &tBoundaries : nullptr, pPointReader );
+		if ( pIterator )
+		{
+			dIterators.Add ( { pIterator, tSIInfo.m_iRsetEstimate } );
+			tSIInfo.m_bCreated = true;
+		}
+	}
+
+	return dIterators;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+DocidLookupWriter_c::DocidLookupWriter_c ( CSphWriter& tWriter, DWORD nDocs )
+	: m_tWriter { tWriter }
+	, m_nDocs ( nDocs )
+{}
+
+
+void DocidLookupWriter_c::Start()
+{
+	m_tWriter.PutDword ( m_nDocs );
+	m_tWriter.PutDword ( DOCS_PER_LOOKUP_CHECKPOINT );
+
+	m_tMaxDocIDPos = m_tWriter.GetPos();
+	m_tWriter.PutOffset ( 0 );	// reserve space for max docid
+	m_tUuidLookupOffsetPos = m_tWriter.GetPos();
+	m_tWriter.PutOffset ( 0 );	// reserve space for UUID lookup offset
+
+	const int64_t nCheckpoints = (m_nDocs+DOCS_PER_LOOKUP_CHECKPOINT-1)/DOCS_PER_LOOKUP_CHECKPOINT;
+	m_dCheckpoints.Reset ( nCheckpoints );
+	m_tCheckpointStart = m_tWriter.GetPos();
+	for ( int64_t i = 0; i < nCheckpoints; ++i )
+	{
+		// reserve space for checkpoints
+		m_tWriter.PutOffset(0);
+		m_tWriter.PutOffset(0);
+	}
+}
+
+
+void DocidLookupWriter_c::AddPair ( const DocidRowidPair_t & tPair )
+{
+	assert ( (uint64_t)tPair.m_tDocID>=(uint64_t)m_tLastDocID );
+
+	if ( !(m_iProcessed % DOCS_PER_LOOKUP_CHECKPOINT) )
+	{
+		m_dCheckpoints[m_iCheckpoint].m_tBaseDocID = tPair.m_tDocID;
+		m_dCheckpoints[m_iCheckpoint].m_tOffset = m_tWriter.GetPos();
+		++m_iCheckpoint;
+
+		// no need to store docid for 1st entry
+	}
+	else
+	{
+		m_tWriter.ZipOffset ( (uint64_t)tPair.m_tDocID-(uint64_t)m_tLastDocID );
+	}
+
+	m_tWriter.PutDword ( tPair.m_tRowID );
+
+	m_tLastDocID = tPair.m_tDocID;
+	++m_iProcessed;
+}
+
+
+void DocidLookupWriter_c::SetUuidLookupOffset ( SphOffset_t tOffset )
+{
+	SphOffset_t tEnd = m_tWriter.GetPos();
+	m_tWriter.SeekTo ( m_tUuidLookupOffsetPos );
+	m_tWriter.PutOffset ( tOffset );
+	m_tWriter.SeekTo ( tEnd );
+}
+
+
+bool DocidLookupWriter_c::FinalizeNumeric ( CSphString & sError )
+{
+	assert ( m_iProcessed==m_nDocs );
+	m_tWriter.Flush();
+	SphOffset_t tEnd = m_tWriter.GetPos();
+	m_tWriter.SeekTo ( m_tMaxDocIDPos );
+	m_tWriter.PutOffset ( m_tLastDocID );
+	m_tWriter.SeekTo ( m_tCheckpointStart );
+	for ( const auto & i : m_dCheckpoints )
+	{
+		m_tWriter.PutOffset ( i.m_tBaseDocID );
+		m_tWriter.PutOffset ( i.m_tOffset );
+	}
+	m_tWriter.SeekTo ( tEnd );
+
+	if ( m_tWriter.IsError() )
+	{
+		sError = "error writing .SPT";
+		return false;
+	}
+
+	return true;
+}
+
+
+bool DocidLookupWriter_c::Finalize ( CSphString & sError )
+{
+	if ( !FinalizeNumeric ( sError ) )
+		return false;
+
+	m_tWriter.CloseFile();
+	if ( m_tWriter.IsError() )
+	{
+		sError = "error writing .SPT";
+		return false;
+	}
+
+	return true;
+}
+
+// the .spt header layouts this file knows how to validate:
+static constexpr int64_t DOCID_LOOKUP_HEADER_SIZE_V65 = sizeof(DWORD)*2 + sizeof(DocID_t);						// v.65..70: docs, docs per checkpoint, max docid
+static constexpr int64_t DOCID_LOOKUP_HEADER_SIZE_V71 = DOCID_LOOKUP_HEADER_SIZE_V65 + sizeof(SphOffset_t);		// v.71+: + uuid entries offset
+
+static int64_t DocidLookupHeaderSize ( DWORD uIndexVersion )
+{
+	return uIndexVersion>=DOCID_LOOKUP_UUID_VERSION ? DOCID_LOOKUP_HEADER_SIZE_V71 : DOCID_LOOKUP_HEADER_SIZE_V65;
+}
+
+
+bool CheckDocidLookupFormat ( const BYTE * pData, int64_t iDataLen, DWORD uIndexVersion, CSphString & sError )
+{
+	// only v.71/v.72 headers are suspect (manticoresearch#4852: their daemons could rewrite a header on
+	// ALTER without converting the lookup); older headers always pair with their own layout, and v.73+
+	// is written with the lookup in sync
+	if ( uIndexVersion<DOCID_LOOKUP_SUSPECT_MIN || uIndexVersion>DOCID_LOOKUP_SUSPECT_MAX )
+		return true;
+
+	int64_t iHeader = DocidLookupHeaderSize ( uIndexVersion );
+	if ( !pData || iDataLen<iHeader )
+	{
+		sError.SetSprintf ( "docid lookup is too short (" UINT64_FMT " bytes)", (uint64_t)iDataLen );
+		return false;
+	}
+
+	DWORD nDocs = sphUnalignedRead ( *(const DWORD*)pData );
+	DWORD nDocsPerCheckpoint = sphUnalignedRead ( *(const DWORD*)( pData+sizeof(DWORD) ) );
+	if ( !nDocs )
+		return true;
+
+	if ( !nDocsPerCheckpoint )
+	{
+		sError = "docid lookup has zero docs per checkpoint";
+		return false;
+	}
+
+	int64_t nCheckpoints = ( (int64_t)nDocs + nDocsPerCheckpoint - 1 ) / nDocsPerCheckpoint;
+	int64_t iExpected = iHeader + nCheckpoints*(int64_t)sizeof(DocidLookupCheckpoint_t);
+	if ( iDataLen<iExpected )
+	{
+		sError.SetSprintf ( "docid lookup is too short (" UINT64_FMT " bytes, " UINT64_FMT " checkpoints)", (uint64_t)iDataLen, (uint64_t)nCheckpoints );
+		return false;
+	}
+
+	// the data of the first checkpoint starts right after the checkpoint table
+	SphOffset_t tFirst = sphUnalignedRead ( ((const DocidLookupCheckpoint_t *)( pData+iHeader ))->m_tOffset );
+	if ( tFirst==iExpected )
+		return true;
+
+	// name the layout we actually see, if it is the other one
+	const char * szHint = "";
+	DWORD uOther = uIndexVersion>=DOCID_LOOKUP_UUID_VERSION ? DOCID_LOOKUP_UUID_VERSION-1 : DOCID_LOOKUP_UUID_VERSION;
+	int64_t iOtherHeader = DocidLookupHeaderSize ( uOther );
+	int64_t iOtherExpected = iOtherHeader + nCheckpoints*(int64_t)sizeof(DocidLookupCheckpoint_t);
+	if ( iDataLen>=iOtherExpected && sphUnalignedRead ( ((const DocidLookupCheckpoint_t *)( pData+iOtherHeader ))->m_tOffset )==iOtherExpected )
+		szHint = uOther<uIndexVersion ? " (the lookup is in the pre-v.71 layout; the header was rewritten with a newer format version without converting it)" : " (the lookup is in the v.71+ layout)";
+
+	sError.SetSprintf ( "docid lookup layout does not match index format v.%u: first checkpoint at " UINT64_FMT ", expected " UINT64_FMT "%s", uIndexVersion, (uint64_t)tFirst, (uint64_t)iExpected, szHint );
+	return false;
+}
+
+
+DWORD DetectDocidLookupVersion ( const BYTE * pData, int64_t iDataLen )
+{
+	CSphString sError;
+	if ( CheckDocidLookupFormat ( pData, iDataLen, DOCID_LOOKUP_UUID_VERSION, sError ) )
+		return DOCID_LOOKUP_UUID_VERSION;
+
+	if ( CheckDocidLookupFormat ( pData, iDataLen, DOCID_LOOKUP_UUID_VERSION-1, sError ) )
+		return DOCID_LOOKUP_UUID_VERSION-1;
+
+	return 0;
+}
+
+
+bool UpgradeDocidLookupFile ( const CSphString & sFilename, DWORD uIndexVersion, CSphString & sError )
+{
+	// current layout already, or a legacy layout we do not convert (it is read as-is, see CheckDocidLookupFormat)
+	if ( uIndexVersion>=DOCID_LOOKUP_UUID_VERSION || uIndexVersion<DOCID_LOOKUP_SPLIT_VERSION )
+		return true;
+
+	CSphMappedBuffer<BYTE> tOld;
+	if ( !tOld.Setup ( sFilename, sError, false ) )
+		return false;
+
+	const BYTE * pData = tOld.GetReadPtr();
+	int64_t iLen = tOld.GetLengthBytes();
+	if ( !CheckDocidLookupFormat ( pData, iLen, uIndexVersion, sError ) )
+		return false;
+
+	int64_t iOldHeader = DocidLookupHeaderSize ( uIndexVersion );
+	int64_t iShift = DocidLookupHeaderSize ( DOCID_LOOKUP_UUID_VERSION ) - iOldHeader;
+	DWORD nDocs = sphUnalignedRead ( *(const DWORD*)pData );
+	DWORD nDocsPerCheckpoint = sphUnalignedRead ( *(const DWORD*)( pData+sizeof(DWORD) ) );
+	DocID_t tMaxDocID = sphUnalignedRead ( *(const DocID_t*)( pData+sizeof(DWORD)*2 ) );
+	int64_t nCheckpoints = nDocs ? ( (int64_t)nDocs + nDocsPerCheckpoint - 1 ) / nDocsPerCheckpoint : 0;
+	const auto * pCheckpoints = (const DocidLookupCheckpoint_t *)( pData+iOldHeader );
+	int64_t iDataStart = iOldHeader + nCheckpoints*(int64_t)sizeof(DocidLookupCheckpoint_t);
+
+	CSphString sTmp;
+	sTmp.SetSprintf ( "%s.upgrade.tmp", sFilename.cstr() );
+
+	CSphWriter tWriter;
+	if ( !tWriter.OpenFile ( sTmp, sError ) )
+		return false;
+
+	tWriter.PutDword ( nDocs );
+	tWriter.PutDword ( nDocsPerCheckpoint );
+	tWriter.PutOffset ( tMaxDocID );
+	tWriter.PutOffset ( 0 ); // no UUID entries in a pre-v.71 lookup
+	for ( int64_t i = 0; i<nCheckpoints; ++i )
+	{
+		tWriter.PutOffset ( sphUnalignedRead ( pCheckpoints[i].m_tBaseDocID ) );
+		tWriter.PutOffset ( sphUnalignedRead ( pCheckpoints[i].m_tOffset ) + iShift );
+	}
+	tWriter.PutBytes ( pData+iDataStart, iLen-iDataStart );
+	tWriter.CloseFile();
+	tOld.Reset();
+
+	if ( tWriter.IsError() )
+	{
+		sError.SetSprintf ( "error writing %s", sTmp.cstr() );
+		::unlink ( sTmp.cstr() );
+		return false;
+	}
+
+	if ( ::rename ( sTmp.cstr(), sFilename.cstr() ) )
+	{
+		sError.SetSprintf ( "rename %s to %s failed: %s", sTmp.cstr(), sFilename.cstr(), strerrorm(errno) );
+		::unlink ( sTmp.cstr() );
+		return false;
+	}
+
+	return true;
+}
+
+
+bool WriteDocidLookup ( const CSphString & sFilename, const VecTraits_T<DocidRowidPair_t> & dLookup, CSphString & sError )
+{
+	CSphWriter tfWriter;
+	if ( !tfWriter.OpenFile ( sFilename, sError ) )
+		return false;
+
+	DocidLookupWriter_c tWriter ( tfWriter, dLookup.GetLength() );
+	tWriter.Start();
+
+	for ( const auto & i : dLookup )
+		tWriter.AddPair(i);
+
+	return tWriter.Finalize ( sError );
+}
+
+
+static_assert ( sizeof(SphOffset_t)==sizeof(uint64_t) );
+
+
+static bool SameUuidKey ( const UuidDocidKey_t & a, const UuidDocidKey_t & b )
+{
+	return a.m_uHi==b.m_uHi && a.m_uLo==b.m_uLo;
+}
+
+
+static bool LessUuidKey ( const UuidDocidKey_t & a, const UuidDocidKey_t & b )
+{
+	return a.m_uHi==b.m_uHi ? a.m_uLo<b.m_uLo : a.m_uHi<b.m_uHi;
+}
+
+
+bool WriteDocidLookup ( const CSphString & sFilename, const VecTraits_T<DocidRowidPair_t> & dLookup, const VecTraits_T<UuidDocidLookupPair_t> & dUuidLookup, CSphString & sError )
+{
+	assert ( dUuidLookup.GetLength64()==dLookup.GetLength64() );
+
+	CSphWriter tFileWriter;
+	if ( !tFileWriter.OpenFile ( sFilename, sError ) )
+		return false;
+
+	DocidLookupWriter_c tLookupWriter ( tFileWriter, dLookup.GetLength() );
+	tLookupWriter.Start();
+	for ( const auto & tPair : dLookup )
+		tLookupWriter.AddPair ( tPair );
+
+	if ( !tLookupWriter.FinalizeNumeric ( sError ) )
+		return false;
+
+	SphOffset_t tEntriesOffset = tFileWriter.GetPos();
+	tLookupWriter.SetUuidLookupOffset ( tEntriesOffset );
+	for ( int64_t i=0; i<dUuidLookup.GetLength64(); ++i )
+	{
+		const UuidDocidLookupPair_t & tPair = dUuidLookup[i];
+		assert ( tPair.m_tDocID );
+		assert ( !i || LessUuidKey ( dUuidLookup[i-1].m_tKey, tPair.m_tKey ) );
+
+		tFileWriter.PutOffset ( (SphOffset_t)tPair.m_tKey.m_uHi );
+		tFileWriter.PutOffset ( (SphOffset_t)tPair.m_tKey.m_uLo );
+		tFileWriter.PutOffset ( tPair.m_tDocID );
+	}
+
+	tFileWriter.CloseFile();
+
+	if ( tFileWriter.IsError() )
+	{
+		sError = "error writing .SPT";
+		return false;
+	}
+
+	return true;
+}
+
+
+static uint64_t ReadUint64 ( const BYTE * pData )
+{
+	uint64_t uValue;
+	memcpy ( &uValue, pData, sizeof(uValue) );
+	return uValue;
+}
+
+
+void UuidLookupReader_c::SetData ( const BYTE * pData, SphOffset_t tEntriesOffset, DWORD nDocs )
+{
+	m_pEntries = nullptr;
+	m_nDocs = 0;
+	if ( !tEntriesOffset )
+		return;
+
+	assert ( pData && tEntriesOffset>0 );
+	m_pEntries = pData+tEntriesOffset;
+	m_nDocs = nDocs;
+}
+
+
+UuidDocidLookupPair_t UuidLookupReader_c::Get ( DWORD uEntry ) const
+{
+	assert ( uEntry<m_nDocs );
+	const BYTE * pEntry = m_pEntries+(int64_t)uEntry*sizeof(UuidDocidLookupPair_t);
+	UuidDocidLookupPair_t tPair;
+	tPair.m_tKey.m_uHi = ReadUint64 ( pEntry ); pEntry += sizeof(uint64_t);
+	tPair.m_tKey.m_uLo = ReadUint64 ( pEntry ); pEntry += sizeof(uint64_t);
+	tPair.m_tDocID = (DocID_t)ReadUint64 ( pEntry );
+	return tPair;
+}
+
+
+DocID_t UuidLookupReader_c::Find ( const UuidDocidKey_t & tKey ) const
+{
+	DWORD uBegin = 0;
+	DWORD uEnd = m_nDocs;
+	while ( uBegin<uEnd )
+	{
+		DWORD uMid = uBegin+(uEnd-uBegin)/2;
+		UuidDocidLookupPair_t tPair = Get ( uMid );
+		if ( LessUuidKey ( tPair.m_tKey, tKey ) )
+			uBegin = uMid+1;
+		else
+			uEnd = uMid;
+	}
+
+	if ( uBegin==m_nDocs )
+		return 0;
+
+	UuidDocidLookupPair_t tPair = Get ( uBegin );
+	return SameUuidKey ( tPair.m_tKey, tKey ) ? tPair.m_tDocID : 0;
+}
+
+
+LookupReader_c::LookupReader_c ( const BYTE * pData, DWORD uIndexVersion )
+{
+	SetData ( pData, uIndexVersion );
+}
+
+
+std::pair<SphOffset_t,DWORD> LookupReader_c::SetData ( const BYTE * pData, DWORD uIndexVersion )
+{
+	m_pCache.reset();
+	m_pData = pData;
+	m_pCheckpoints = nullptr;
+	m_nDocs = m_nDocsPerCheckpoint = m_nCheckpoints = 0;
+	m_tMaxDocID = 0;
+
+	if ( !pData )
+		return { 0, 0 };
+
+	const BYTE * p = pData;
+	m_nDocs = *(const DWORD*)p;
+	p += sizeof(DWORD);
+	m_nDocsPerCheckpoint = *(const DWORD*)p;
+	p += sizeof(DWORD);
+	m_tMaxDocID = *(const DocID_t*)p;
+	p += sizeof(DocID_t);
+	SphOffset_t tUuidEntriesOffset = 0;
+	if ( uIndexVersion>=71 )
+	{
+		tUuidEntriesOffset = *(const SphOffset_t*)p;
+		p += sizeof(SphOffset_t);
+	}
+
+	m_nCheckpoints = (m_nDocs+m_nDocsPerCheckpoint-1)/m_nDocsPerCheckpoint;
+	m_pCheckpoints = (const DocidLookupCheckpoint_t *)p;
+	return { tUuidEntriesOffset, m_nDocs };
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LookupReaderIterator_c::LookupReaderIterator_c ( const BYTE * pData, DWORD uIndexVersion )
+{
+	SetData ( pData, uIndexVersion );
+}
+
+
+void LookupReaderIterator_c::SetData ( const BYTE * pData, DWORD uIndexVersion )
+{
+	LookupReader_c::SetData ( pData, uIndexVersion );
+	SetCheckpoint ( m_pCheckpoints );
+}
+
+
+bool LookupReader_c::BuildCache ( DWORD uIndexVersion )
+{
+	if ( m_pCache )
+		return true;
+	if ( !m_pData || !m_nDocs )
+		return false;
+	auto pCache = DocidLookupCache_c::Create(m_nDocs);
+	if ( !pCache )
+		return false;
+	LookupReaderIterator_c tReader ( m_pData, uIndexVersion );
+	DocID_t tDocID;
+	RowID_t tRowID;
+	DWORD nRead = 0;
+	while ( tReader.Read ( tDocID, tRowID ) )
+	{
+		if ( !pCache->Append ( (uint64_t)tDocID, tRowID ) )
+			return false;
+		if ( !(++nRead & 1023) && sphInterrupted() )
+			return false;
+	}
+	if ( !pCache->Seal() )
+		return false;
+	m_pCache = std::move(pCache);
+	return true;
+}
+
+void LookupReader_c::FindBatch ( const uint64_t * pDocIDs, RowID_t * pRows, size_t nQueries ) const
+{
+	if ( m_pCache )
+		m_pCache->FindBatch ( pDocIDs, pRows, nQueries );
+	else
+		for ( size_t i=0; i<nQueries; ++i )
+			pRows[i] = Find((DocID_t)pDocIDs[i]);
+}

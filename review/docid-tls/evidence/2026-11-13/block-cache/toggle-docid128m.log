@@ -1,0 +1,6 @@
+starting rows256-c8-b64
+rows256-c8-b64: off 18519.2 -> on 21380.0 QPS (+15.45%), CPU/query -23.54%
+starting rows16-c8-point
+rows16-c8-point: off 41149.2 -> on 42720.6 QPS (+3.82%), CPU/query -5.24%
+starting rows20000-c8-b256
+rows20000-c8-b256: off 6490.3 -> on 8989.8 QPS (+38.51%), CPU/query -32.91%

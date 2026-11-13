@@ -1,0 +1,41 @@
+{
+  "scope": "PR #5042, NO reader TLS in either arm",
+  "candidate_source_commit": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+  "baseline_source_commit": "1514b3e1891003b21e863374d5a48b90381b7794",
+  "baseline_overrides": "Three block-cache production files restored to parent 1514b3e; all CI/alignment repairs identical to candidate. Saved source hashes below are authoritative.",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+  "optimization": "-O2 -DNDEBUG",
+  "mcl_commit": "88b5412a243ab0439957203acfe86c09944280d3",
+  "calibration": {
+    "automatic_calibration_failed_before_tests": true,
+    "fallback": "Explicit supported MANTICORE_* overrides inherited from the earlier upstream/Clang 21 build, identical in all current arms; baseline full 521 tests passed with these overrides.",
+    "scope": "Local Apple stack-mocking workaround; not a production code change.",
+    "automatic_calibration_result": "Nonzero exit before tests; exact process return code was not retained."
+  },
+  "arms": {
+    "baseline": {
+      "searchd_sha256": "ccda224ee1b045145e4636ae9f0d2ee3bf1fd9244c35051251a41aa11b9e81ba",
+      "test_binary_sha256": "e3249576db210300560d1062fdf92035ed88d6ff75b54ebb95ef861d69b83cbe",
+      "sources": {
+        "src/docidlookup.cpp": "4d37a79130408bfb65f5aa1b9cefaa1ed4197bbf10761fde08222c6f7136b5b5",
+        "src/docidlookup.h": "c6cb15d98f197e37c49e3f76d157977c34a32b5ffb15efb8f370c140e82dceb6",
+        "src/docidlookupcache.h": "e5f89fd055c2e53c5c9c07be2638267be695008a8fe29465cefa26d1d7478aaa",
+        "src/docstore.cpp": "143091ba80e0667f105298342b6031ddace7bc6a7c5616de542880a3ebcfbdf0",
+        "src/std/lrucache.h": "fcd2c9bf3c7f608d4483e0a8e949abed40c66a4a3fd0545c5240a296599b6a91",
+        "src/std/lrucache_impl.h": "88b7ca6a82ddf8a2d1811567faebfd127a7e40ee1ea20b44e77ee4be3b009cf1"
+      }
+    },
+    "candidate": {
+      "searchd_sha256": "b6658fc0f79f63eb12a1a55c807067b68ef629fedccede8329a769ae398cfb72",
+      "test_binary_sha256": "e2968c4511d2c18a79ab893cdcafd82acbbb13640f277ef0ee388d818448c8fe",
+      "sources": {
+        "src/docidlookup.cpp": "4d37a79130408bfb65f5aa1b9cefaa1ed4197bbf10761fde08222c6f7136b5b5",
+        "src/docidlookup.h": "c6cb15d98f197e37c49e3f76d157977c34a32b5ffb15efb8f370c140e82dceb6",
+        "src/docidlookupcache.h": "e5f89fd055c2e53c5c9c07be2638267be695008a8fe29465cefa26d1d7478aaa",
+        "src/docstore.cpp": "8f5e949a0f8a06e3f527e45ea2a0320f808453146df32dcfd3a1bf2883c95c2b",
+        "src/std/lrucache.h": "e2e9186e4ae94d0f6470e61e6090db070f50a307457f2c535d41d81d960b5bd6",
+        "src/std/lrucache_impl.h": "4f961fd8c4afef78678cd8a4327bd77bfd4b11d411f83f5c64b3d6f812409eb5"
+      }
+    }
+  }
+}

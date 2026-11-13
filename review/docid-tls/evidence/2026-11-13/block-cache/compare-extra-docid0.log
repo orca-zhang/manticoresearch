@@ -1,0 +1,2 @@
+starting 500k-default
+500k-default: 1451.6 -> 3277.0 QPS (+125.74%), CPU/query -53.18%

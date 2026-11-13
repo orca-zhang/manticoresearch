@@ -1,0 +1,7 @@
+/private/tmp/manticore-5042-publish-review-20261113/typed-row-probe.cpp:2:109: error: cannot initialize a parameter of type 'uint32_t *' (aka 'unsigned int *') with an lvalue of type 'char32_t[1]'
+    2 | void probe(const DocidLookupCache_c &cache) { uint64_t ids[1] = {0}; char32_t rows[1]; cache.FindBatch(ids, rows, 1); }
+      |                                                                                                             ^~~~
+/private/tmp/manticore-5042-cache-publish-20261113/src/docidlookupcache.h:27:56: note: passing argument to parameter 'pRows' here
+   27 |         void FindBatch ( const uint64_t * pDocIDs, uint32_t * pRows, size_t nQueries ) const noexcept;
+      |                                                               ^
+1 error generated.

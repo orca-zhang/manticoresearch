@@ -1,0 +1,77 @@
+[  0%] Built target stripper
+[  0%] Built target conversion
+[  1%] Built target lmanticore_coro
+[  4%] Built target daemon
+[  4%] Built target indexcheck
+[  4%] Built target lcjk
+[  5%] Built target lowercaser
+[ 12%] Built target manticore_std
+[ 13%] Built target schema
+[ 16%] Built target stem
+[ 17%] Built target infix
+[ 17%] Built target digest_sha1
+[ 18%] Built target digest_sha256
+[ 24%] Built target sphinxquery
+[ 25%] Built target sqlchecks
+[ 27%] Built target sourcedoc
+[ 27%] Built target searchd_ssl
+[ 27%] Built target lmanticore_icu
+[ 37%] Built target repli_stuff
+[ 43%] Built target tokenizer
+[ 43%] Built target dict
+[ 66%] Built target lsearchd
+[ 66%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinx.cpp.o
+[ 66%] Building CXX object src/CMakeFiles/lmanticore.dir/docstore.cpp.o
+[ 66%] Building CXX object src/CMakeFiles/lmanticore.dir/skip_cache.cpp.o
+[ 66%] Linking CXX static library liblmanticore.a
+[100%] Built target lmanticore
+[100%] Linking CXX executable searchd
+[100%] Built target searchd
+[  0%] Built target conversion
+[  0%] Built target stripper
+[  1%] Built target lmanticore_coro
+[  4%] Built target daemon
+[  4%] Built target lcjk
+[  4%] Built target indexcheck
+[  7%] Built target lowercaser
+[ 11%] Built target manticore_std
+[ 13%] Built target schema
+[ 15%] Built target stem
+[ 16%] Built target infix
+[ 16%] Built target digest_sha1
+[ 18%] Built target digest_sha256
+[ 22%] Built target sphinxquery
+[ 23%] Built target sqlchecks
+[ 24%] Built target source_svpipe
+[ 25%] Built target searchd_ssl
+[ 25%] Built target source_xmlpipe2
+[ 34%] Built target repli_stuff
+[ 34%] Built target lmanticore_icu
+[ 35%] Built target sourcedoc
+[ 37%] Built target tokenizer
+[ 40%] Built target dict
+[ 62%] Built target lsearchd
+[ 93%] Built target lmanticore
+[ 93%] Linking CXX executable gmanticoretest
+ld: warning: ignoring duplicate libraries: '/opt/homebrew/opt/openssl@3/lib/libcrypto.a', '/opt/homebrew/opt/openssl@3/lib/libssl.a'
+[100%] Built target gmanticoretest
+[  0%] Built target stripper
+[  0%] Built target conversion
+[  0%] Built target indexcheck
+[  1%] Built target lmanticore_coro
+[  1%] Built target lcjk
+[  3%] Built target lowercaser
+[  5%] Built target schema
+[  9%] Built target infix
+[ 18%] Built target manticore_std
+[ 22%] Built target stem
+[ 24%] Built target source_xmlpipe2
+[ 24%] Built target source_svpipe
+[ 33%] Built target sphinxquery
+[ 35%] Built target sourcedoc
+[ 35%] Built target lmanticore_icu
+[ 44%] Built target tokenizer
+[ 44%] Built target dict
+[ 98%] Built target lmanticore
+[100%] Linking CXX executable indexer
+[100%] Built target indexer

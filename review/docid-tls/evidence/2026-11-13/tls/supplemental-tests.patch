@@ -1,0 +1,81 @@
+diff --git a/src/gtests/gtests_docstore_readers.cpp b/src/gtests/gtests_docstore_readers.cpp
+--- a/src/gtests/gtests_docstore_readers.cpp
++++ b/src/gtests/gtests_docstore_readers.cpp
+@@ -6,6 +6,7 @@
+ #include "indexsettings.h"
+ #include "threadutils.h"
+ 
++#include <atomic>
+ #include <future>
+ #include <string>
+ #include <thread>
+@@ -179,4 +180,68 @@
+ 		tThread.join(); // sequential reader use, as required by the existing API
+ 	}
+ }
+-}
++
++TEST_F ( DocstoreReadersTest, StableReaderDuringConcurrentUnrelatedSessionChurn )
++{
++	auto pStable = Open ( 0, 107 );
++	auto pChurn = Open ( 1, 108 );
++	ASSERT_TRUE(pStable);
++	ASSERT_TRUE(pChurn);
++	DocstoreSession_c tStable;
++	pStable->CreateReader(tStable.GetUID());
++	Check ( *pStable, tStable.GetUID(), "first", 0 );
++	std::promise<void> tStart;
++	auto tGo = tStart.get_future().share();
++	std::atomic<int> iActive { 4 };
++	std::vector<std::thread> dThreads;
++	for ( int i=0; i<4; ++i )
++		dThreads.emplace_back ( [&,i] {
++			tGo.wait();
++			for ( int j=0; j<512; ++j )
++			{
++				DocstoreSession_c tSession;
++				pChurn->CreateReader(tSession.GetUID());
++				Check ( *pChurn, tSession.GetUID(), "second", (j+i)%16 );
++			}
++			iActive.fetch_sub(1);
++		} );
++	tStart.set_value();
++	int iReads = 0;
++	do
++	{
++		Check ( *pStable, tStable.GetUID(), "first", iReads%16 );
++		++iReads;
++	} while ( iActive.load()>0 || iReads<2048 );
++	for ( auto & tThread : dThreads ) tThread.join();
++}
++
++TEST_F ( DocstoreReadersTest, BudgetRefusalThenReaderCreation )
++{
++	auto pStore = Open ( 0, 109 );
++	ASSERT_TRUE(pStore);
++	std::vector<std::unique_ptr<DocstoreSession_c>> dSessions;
++	// 300 minimum-size readers exceed the unchanged 8 MiB registry budget.
++	for ( int i=0; i<300; ++i )
++	{
++		dSessions.emplace_back ( new DocstoreSession_c );
++		pStore->CreateReader(dSessions.back()->GetUID());
++	}
++	const auto iLast = dSessions.back()->GetUID();
++	Check ( *pStore, iLast, "first", 1 ); // budget refusal uses pread
++	dSessions.erase ( dSessions.begin(), dSessions.end()-1 );
++	pStore->CreateReader(iLast); // available budget must invalidate cached null
++	Check ( *pStore, iLast, "first", 9 );
++	Check ( *pStore, iLast, "first", 2 );
++}
++
++TEST_F ( DocstoreReadersTest, NegativeLookupThenCreationOnAnotherThread )
++{
++	auto pStore = Open ( 0, 110 );
++	ASSERT_TRUE(pStore);
++	DocstoreSession_c tSession;
++	Check ( *pStore, tSession.GetUID(), "first", 3 );
++	std::thread tCreator ( [&] { pStore->CreateReader(tSession.GetUID()); } );
++	tCreator.join();
++	Check ( *pStore, tSession.GetUID(), "first", 12 );
++}
++}
