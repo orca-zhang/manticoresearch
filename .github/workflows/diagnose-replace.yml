@@ -1,0 +1,66 @@
+name: Diagnose REPLACE timing
+on:
+  push:
+    branches: [diag/replace-into-20261114]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  compare:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
+        with:
+          repository: manticoresoftware/clt
+          ref: c558b2792d24590d7716564ba4ed3f1d3d1d00ff
+          path: clt
+      - uses: actions/download-artifact@v7
+        with:
+          repository: manticoresoftware/manticoresearch
+          run-id: 43549129898
+          name: manticore_test_kit.img
+          github-token: ${{ github.token }}
+          path: kit
+      - name: Prepare identical runtime environments
+        run: |
+          set -euo pipefail
+          tar -xf kit/artifact.tar -C kit
+          docker import kit/manticore_test_kit.img pr:tested
+          rm -rf kit
+          docker pull ghcr.io/manticoresoftware/manticoresearch:test-kit-ci-ef2bec58593d167ca67ee38107a10ee7c5c3da5e
+          docker create --name main-src ghcr.io/manticoresoftware/manticoresearch:test-kit-ci-ef2bec58593d167ca67ee38107a10ee7c5c3da5e /bin/true
+          mkdir reference
+          docker cp main-src:/usr/bin/searchd reference/searchd
+          docker rm main-src
+          printf 'FROM pr:tested\nCOPY searchd /usr/bin/searchd\n' > reference/Dockerfile
+          docker build -t main:same-runtime reference
+          mkdir -p results
+          for image in main:same-runtime pr:tested; do
+            docker run --rm --entrypoint /usr/bin/searchd "$image" --version | tee -a results/versions.txt
+          done
+      - name: Repeat unchanged CLT test in balanced order
+        run: |
+          set -uo pipefail
+          test_file=test/clt-tests/data-manipulation/test-replace-into.rec
+          index=0
+          failed=0
+          for image in main:same-runtime pr:tested pr:tested main:same-runtime; do
+            index=$((index+1))
+            echo "Round $index: $image"
+            clt/clt test -d -t "$test_file" "$image" > "results/$index.log" 2>&1
+            status=$?
+            printf '%s\t%s\t%s\n' "$index" "$image" "$status" | tee -a results/status.tsv
+            cp "${test_file%.rec}.rep" "results/$index.rep" || true
+            cp "${test_file%.rec}.cmp" "results/$index.cmp" || true
+            python3 -c 'import pathlib,re,sys; s=pathlib.Path(sys.argv[1]).read_text(); print("\n".join(re.findall(r"echo \$elapsed_time2?\n[^\n]*\n[^\n]*",s)))' "results/$index.rep"
+            if [ "$status" -ne 0 ]; then failed=1; fi
+          done
+          cat results/status.tsv >> "$GITHUB_STEP_SUMMARY"
+          exit "$failed"
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: replace-timing-evidence
+          path: results
