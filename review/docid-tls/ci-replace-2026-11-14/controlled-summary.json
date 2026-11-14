@@ -1,0 +1,86 @@
+[
+  {
+    "file": "1.rep",
+    "measurements": [
+      {
+        "engine": "rowwise",
+        "set_ms": 10472,
+        "values_ms": 1052,
+        "ratio": 9.954372623574145,
+        "integer_ratio": 9,
+        "ratio_pass": true
+      },
+      {
+        "engine": "columnar",
+        "set_ms": 11073,
+        "values_ms": 1266,
+        "ratio": 8.746445497630331,
+        "integer_ratio": 8,
+        "ratio_pass": true
+      }
+    ]
+  },
+  {
+    "file": "2.rep",
+    "measurements": [
+      {
+        "engine": "rowwise",
+        "set_ms": 10518,
+        "values_ms": 1045,
+        "ratio": 10.065071770334928,
+        "integer_ratio": 10,
+        "ratio_pass": true
+      },
+      {
+        "engine": "columnar",
+        "set_ms": 11443,
+        "values_ms": 1285,
+        "ratio": 8.905058365758755,
+        "integer_ratio": 8,
+        "ratio_pass": true
+      }
+    ]
+  },
+  {
+    "file": "3.rep",
+    "measurements": [
+      {
+        "engine": "rowwise",
+        "set_ms": 10318,
+        "values_ms": 1027,
+        "ratio": 10.046738072054527,
+        "integer_ratio": 10,
+        "ratio_pass": true
+      },
+      {
+        "engine": "columnar",
+        "set_ms": 12317,
+        "values_ms": 1271,
+        "ratio": 9.690794649881983,
+        "integer_ratio": 9,
+        "ratio_pass": true
+      }
+    ]
+  },
+  {
+    "file": "4.rep",
+    "measurements": [
+      {
+        "engine": "rowwise",
+        "set_ms": 10299,
+        "values_ms": 1064,
+        "ratio": 9.67951127819549,
+        "integer_ratio": 9,
+        "ratio_pass": true
+      },
+      {
+        "engine": "columnar",
+        "set_ms": 11858,
+        "values_ms": 1256,
+        "ratio": 9.44108280254777,
+        "integer_ratio": 9,
+        "ratio_pass": true
+      }
+    ]
+  }
+]

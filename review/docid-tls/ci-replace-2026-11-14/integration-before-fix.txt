@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+2026-11-14T05:35:31.3587841Z   File "/checks/test/docid-cache/test_integration.py", line 190, in <module>
+2026-11-14T05:35:31.3589054Z     check(args.searchd, limit, enabled)
+2026-11-14T05:35:31.3591446Z   File "/checks/test/docid-cache/test_integration.py", line 123, in check
+2026-11-14T05:35:31.3592251Z     assert (used > 0) == expect_cache, (budget, used)
+2026-11-14T05:35:31.3592587Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-14T05:35:31.3592874Z AssertionError: (None, 0)
+2026-11-14T05:35:31.4594442Z 

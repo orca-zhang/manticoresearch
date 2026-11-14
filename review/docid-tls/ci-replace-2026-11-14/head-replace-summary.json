@@ -1,0 +1,44 @@
+[
+  {
+    "file": "1.rep",
+    "measurements": [
+      {
+        "engine": "rowwise",
+        "set_ms": 10421,
+        "values_ms": 1103,
+        "ratio": 9.447869446962828,
+        "integer_ratio": 9,
+        "ratio_pass": true
+      },
+      {
+        "engine": "columnar",
+        "set_ms": 11903,
+        "values_ms": 1273,
+        "ratio": 9.350353495679498,
+        "integer_ratio": 9,
+        "ratio_pass": true
+      }
+    ]
+  },
+  {
+    "file": "2.rep",
+    "measurements": [
+      {
+        "engine": "rowwise",
+        "set_ms": 10100,
+        "values_ms": 1038,
+        "ratio": 9.730250481695569,
+        "integer_ratio": 9,
+        "ratio_pass": true
+      },
+      {
+        "engine": "columnar",
+        "set_ms": 11031,
+        "values_ms": 1322,
+        "ratio": 8.344175491679273,
+        "integer_ratio": 8,
+        "ratio_pass": true
+      }
+    ]
+  }
+]
