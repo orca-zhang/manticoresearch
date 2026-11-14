@@ -6,16 +6,7 @@ permissions:
   contents: read
   actions: read
 jobs:
-  build:
-    uses: ./.github/workflows/build_template.yml
-    with:
-      artifact_name: cache-head-build
-      cache_key: diagnostic-cache-head-linux
-      cmake_command: MCL_LOCAL_RUNTIME=0 ctest -VV -S misc/ctest/gltest.cmake --no-compress-output
-      ref: a1dd0db409e2365cf372a13c18cdc1cb72a6b029
-      artifact_list: build/src/searchd build/src/gtests/gmanticoretest
   verify:
-    needs: build
     runs-on: ubuntu-22.04
     timeout-minutes: 20
     steps:
@@ -28,6 +19,8 @@ jobs:
       - uses: actions/download-artifact@v7
         with:
           name: cache-head-build
+          run-id: 43560597362
+          github-token: ${{ github.token }}
           path: binaries
       - name: Prepare latest test image
         run: |
@@ -42,7 +35,7 @@ jobs:
           set -euo pipefail
           docker run --rm -v "$PWD:/checks" -w /checks --entrypoint /bin/bash cache:latest-head -c '
             set -e
-            gmanticoretest --gtest_filter="*DocidCache*:*DocidLookup*:*DocidPlanner*:*DocstoreBlockCache*:*AdaptiveLru*:*DocstoreBlockPool*:*DocstoreAdmission*"
+            /usr/bin/gmanticoretest --gtest_filter="*DocidCache*:*DocidLookup*:*DocidPlanner*:*DocstoreBlockCache*:*AdaptiveLru*:*DocstoreBlockPool*:*DocstoreAdmission*"
             python3 test/docid-cache/test_integration.py /usr/bin/searchd
             python3 test/docid-cache/test_blockcache_config.py /usr/bin/searchd
           ' 2>&1 | tee results/cache-checks.log
