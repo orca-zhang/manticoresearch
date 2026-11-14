@@ -1,0 +1,56 @@
+Idle gate: random-20000
+Round 1 random-20000
+Round 2 random-20000
+Round 3 random-20000
+Round 4 random-20000
+Round 5 random-20000
+Round 6 random-20000
+RESULT random-20000 {'off': 6203.8, 'manual16': 8213.0, 'adaptive16': 8224.6, 'adaptive128': 8038.2, 'manual512': 8297.8, 'adaptive512': 8056.4}
+Idle gate: random-100000
+Round 1 random-100000
+Round 2 random-100000
+Round 3 random-100000
+Round 4 random-100000
+Round 5 random-100000
+Round 6 random-100000
+RESULT random-100000 {'manual16': 7468.8, 'adaptive16': 7483.4, 'adaptive128': 7520.2, 'manual512': 7588.9, 'adaptive512': 7411.6, 'off': 5358.1}
+Idle gate: random-1000000
+Round 1 random-1000000
+Round 2 random-1000000
+Round 3 random-1000000
+Round 4 random-1000000
+Round 5 random-1000000
+Round 6 random-1000000
+RESULT random-1000000 {'adaptive16': 3024.9, 'adaptive128': 5250.3, 'manual512': 5386.9, 'adaptive512': 5334.3, 'off': 3397.0, 'manual16': 2969.2}
+Idle gate: random-5000000
+Round 1 random-5000000
+Round 2 random-5000000
+Round 3 random-5000000
+Round 4 random-5000000
+Round 5 random-5000000
+Round 6 random-5000000
+RESULT random-5000000 {'adaptive128': 1763.0, 'manual512': 2108.2, 'adaptive512': 2094.2, 'off': 1759.0, 'manual16': 1659.5, 'adaptive16': 1698.8}
+Idle gate: random-20000000
+Round 1 random-20000000
+Round 2 random-20000000
+Round 3 random-20000000
+Round 4 random-20000000
+Round 5 random-20000000
+Round 6 random-20000000
+RESULT random-20000000 {'manual512': 731.3, 'adaptive512': 756.5, 'off': 742.7, 'manual16': 721.2, 'adaptive16': 726.2, 'adaptive128': 733.8}
+Memory idle gate: 1 manual512
+Memory stage: 1 manual512 broad {'used_bytes': 536707872, 'mapped_bytes': 0, 'spare_bytes': 0} 810500096
+Memory stage: 1 manual512 hot {'used_bytes': 536707872, 'mapped_bytes': 0, 'spare_bytes': 0} 810991616
+Memory stage: 1 manual512 broad-again {'used_bytes': 536707952, 'mapped_bytes': 0, 'spare_bytes': 0} 811499520
+Memory idle gate: 1 adaptive512
+Memory stage: 1 adaptive512 broad {'used_bytes': 536699984, 'mapped_bytes': 692387840, 'spare_bytes': 131072} 804421632
+Memory stage: 1 adaptive512 hot {'used_bytes': 16568576, 'mapped_bytes': 62193664, 'spare_bytes': 1048576} 175669248
+Memory stage: 1 adaptive512 broad-again {'used_bytes': 536699984, 'mapped_bytes': 692191232, 'spare_bytes': 131072} 806453248
+Memory idle gate: 2 adaptive512
+Memory stage: 2 adaptive512 broad {'used_bytes': 536708512, 'mapped_bytes': 692191232, 'spare_bytes': 262144} 804569088
+Memory stage: 2 adaptive512 hot {'used_bytes': 16568576, 'mapped_bytes': 62914560, 'spare_bytes': 1048576} 176521216
+Memory stage: 2 adaptive512 broad-again {'used_bytes': 536706384, 'mapped_bytes': 692191232, 'spare_bytes': 0} 805617664
+Memory idle gate: 2 manual512
+Memory stage: 2 manual512 broad {'used_bytes': 536700536, 'mapped_bytes': 0, 'spare_bytes': 0} 809484288
+Memory stage: 2 manual512 hot {'used_bytes': 536700536, 'mapped_bytes': 0, 'spare_bytes': 0} 809910272
+Memory stage: 2 manual512 broad-again {'used_bytes': 536704728, 'mapped_bytes': 0, 'spare_bytes': 0} 811728896

@@ -1,5 +1,10 @@
 # Adaptive docstore cache: current implementation and process-memory return
 
+Historical snapshot: the latest admission/pin-release implementation is now
+included in #5042. Use the [2026-11-14 report](adaptive-docstore-2026-11-14/REPORT.md)
+for the fresh capacity matrix and memory-return measurements. The original
+measurements below are retained unchanged.
+
 The current experimental adaptive cache stores decoded payloads in its own
 system-mapped regions and releases fully empty regions to the OS. The tables
 below compare the current implementation with the published #5042 default

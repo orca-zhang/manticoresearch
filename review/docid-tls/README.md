@@ -1,5 +1,21 @@
 # Manticore cache review evidence
 
+## Latest adaptive docstore measurement (2026-11-14)
+
+The [current #5042 report](adaptive-docstore-2026-11-14/REPORT.md) connects
+capacity, oversized working sets and process-memory return using one cache
+implementation, with native DocID caching and reader TLS excluded from the
+throughput matrix. It includes default manual 16 MiB, cache off, adaptive
+16/128/512 MiB and a same-ceiling manual 512 MiB control at 20k–20M rows.
+The report retains every original/confirmation sample, QPS and CPU/query,
+an advancing scan and A/A control, and two broad/hot/broad memory passes.
+The latest adaptive implementation is now included in #5042; this is no
+longer an experiment outside that PR.
+
+[Download the current evidence ZIP](attachments/adaptive-docstore-final-20261114.zip)
+(264 timed samples, 6,515,205 checked timed queries, memory traces, source patches
+and validation logs; SHA-256 `7a5ff7dd99268cde5ef9375beebdedcb6c9917ea5555547b9b1b41c0f0c45f48`).
+
 ## Latest independent reader TLS measurement (2026-11-14)
 
 The [standalone #5045 report](independent-tls-2026-11-14/REPORT.md) compares
@@ -12,14 +28,17 @@ scale plot are retained. Default-cache 256-row QPS changes are -0.40% to
 +0.61%; the 20k cache-off result is +13.09% QPS / -10.31% CPU/query.
 
 PR [#5042](https://github.com/manticoresoftware/manticoresearch/pull/5042)
-contains the opt-in native DocID cache and shared docstore block-cache sharding
-with XXH3. Its current source is `376fbf9988b2458ee196a5d92135c35a5121edc7`.
+contains the opt-in native DocID cache, shared XXH3 block-cache partitions,
+atomic pin release and opt-in adaptive admission/mapped-memory reclamation.
+Its current source is `90e884162544cc36d06fe3f20a978c6817c0e354`; the measured
+production implementation is `8fec92b21c2f10f720f0bcbca498c5f8179f7ac0`.
+The follow-up changes only CMake test registration to avoid an upstream conflict.
 It contains no reader TLS or global generation counter.
 PR [#5045](https://github.com/manticoresoftware/manticoresearch/pull/5045)
 remains reader TLS only at `019868e9f79d1bb2bd1f96dafb88ef20acd45418`.
 Neither PR depends on the other.
 
-- [Current opt-in adaptive cache, 512 MiB ceiling](ADAPTIVE_CACHE_2026-11-13.md): system-mapped payloads, packed small-block regions, default/adaptive QPS and CPU tables, and measured process-memory return. This follow-up is on a separate experimental branch, outside both production PRs.
+- [Earlier adaptive-cache experiment, 512 MiB ceiling](ADAPTIVE_CACHE_2026-11-13.md): historical mapped-payload measurements before the latest admission/pin-release integration. Use the current report above for #5042.
 - [Adaptive experiment ZIP](attachments/adaptive-cache-evidence.zip), including every primary/repeat sample, both memory passes, source snapshots and validation logs.
 - [Added cache OFF / 8 / 16 MiB matrix, with separate reader-TLS combinations](BLOCK_CACHE_BUDGETS_2026-11-13.md): absolute QPS, negative results, controls and load telemetry.
 - [Budget supplement ZIP](attachments/block-cache-budget-evidence.zip), including exact archived drivers and every new sample.
@@ -40,10 +59,12 @@ Neither PR depends on the other.
 - The original [DocID ZIP](attachments/docid-cache-evidence.zip) and
   [reader TLS ZIP](attachments/reader-tls-evidence.zip) are dated snapshots.
 
-The #5042 local native suites passed 521/521 in both comparison arms, API
-smoke and DocID SQL lifecycle passed, and focused 26-test sanitizer runs passed
-20 repeats each. Upstream CI for the pushed commit is awaiting maintainer
-approval (`action_required`), not a passing run. The latest TLS-context pair
+The current #5042 implementation passes 548 native gtests, API smoke and DocID
+SQL lifecycle; focused 30-test ASan+UBSan and TSan suites pass 20 repeats each.
+The CMake-only follow-up removes the new upstream test-registration conflict.
+Upstream CI for the pushed head is awaiting maintainer approval
+(`action_required`, zero executed jobs), not a passing run. The earlier shared
+cache comparison passed 521/521 per arm. The latest TLS-context pair
 separately passed 529/529 each and focused reader/block sanitizers (11 tests ×20
 per sanitizer). See the reports for the distinct source and validation scopes.
 

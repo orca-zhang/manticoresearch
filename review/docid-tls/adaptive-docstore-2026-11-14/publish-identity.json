@@ -1,0 +1,10 @@
+{
+  "measured_commit": "8fec92b21c2f10f720f0bcbca498c5f8179f7ac0",
+  "published_commit": "90e884162544cc36d06fe3f20a978c6817c0e354",
+  "implementation_identical": true,
+  "only_followup_change": [
+    "src/gtests/CMakeLists.txt"
+  ],
+  "registered_test_sources": 22,
+  "latest_upstream_merge_check": "clean at ef2bec58593d167ca67ee38107a10ee7c5c3da5e"
+}

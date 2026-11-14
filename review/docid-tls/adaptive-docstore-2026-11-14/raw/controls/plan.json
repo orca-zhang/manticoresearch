@@ -1,0 +1,12 @@
+{
+  "binary_sha256": "bd0f089935634ef752e799403b960244071c89277f2d39f82054afd4f0e801e6",
+  "benchmark_sha256": "6c92baab745e26243c7ee32fbe6adf4217d47a5094248ba4f6bd4c2626da5597",
+  "wrapper_sha256": "7b7347f611aa7f8310b1245728c619c5c5a4b250be072ff5437c4f9133cbee22",
+  "planned_cases": [
+    "off/off A/A at 20M rows",
+    "20M advancing scan, six capacities/modes"
+  ],
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "cases": []
+}

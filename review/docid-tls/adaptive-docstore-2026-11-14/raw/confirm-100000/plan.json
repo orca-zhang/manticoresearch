@@ -1,0 +1,56 @@
+{
+  "source_commit": "8fec92b21c2f10f720f0bcbca498c5f8179f7ac0",
+  "binary_sha256": "bd0f089935634ef752e799403b960244071c89277f2d39f82054afd4f0e801e6",
+  "reader_tls": false,
+  "docid_cache_bytes": 0,
+  "query_cache_bytes": 0,
+  "configurations": {
+    "off": [
+      0,
+      true
+    ],
+    "manual16": [
+      16,
+      false
+    ],
+    "adaptive16": [
+      16,
+      true
+    ],
+    "adaptive128": [
+      128,
+      true
+    ],
+    "manual512": [
+      512,
+      false
+    ],
+    "adaptive512": [
+      512,
+      true
+    ]
+  },
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "planned_rows": [
+    100000
+  ],
+  "planned_memory": false,
+  "workload": "random",
+  "quality_rule": "Retain all samples. Mean external CPU >10% machine or peak >20% triggers a complete confirmation, never selective rounds.",
+  "calibration": {
+    "MANTICORE_KNOWN_CREATE_SIZE": "384",
+    "MANTICORE_START_KNOWN_CREATE_SIZE": "3280",
+    "MANTICORE_KNOWN_EXPR_SIZE": "32",
+    "MANTICORE_START_KNOWN_EXPR_SIZE": "160",
+    "MANTICORE_NONE": "32",
+    "MANTICORE_START_NONE": "160",
+    "MANTICORE_KNOWN_FILTER_SIZE": "224",
+    "MANTICORE_START_KNOWN_FILTER_SIZE": "30896",
+    "MANTICORE_KNOWN_MATCH_SIZE": "208",
+    "MANTICORE_START_KNOWN_MATCH_SIZE": "16288"
+  },
+  "script_sha256": "6c92baab745e26243c7ee32fbe6adf4217d47a5094248ba4f6bd4c2626da5597",
+  "cases": [],
+  "memory": []
+}

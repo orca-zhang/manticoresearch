@@ -1,0 +1,3 @@
+PASS budget=0: flush/update/delete/replace/alter/restart/drop (initial cache bytes=0)
+PASS budget=1024: flush/update/delete/replace/alter/restart/drop (initial cache bytes=0)
+PASS budget=16777216: flush/update/delete/replace/alter/restart/drop (initial cache bytes=122367)

@@ -1,0 +1,1612 @@
+diff --git a/api/libsphinxclient/smoke_ref.txt b/api/libsphinxclient/smoke_ref.txt
+index 7946f716b..c64915353 100644
+--- a/api/libsphinxclient/smoke_ref.txt
++++ b/api/libsphinxclient/smoke_ref.txt
+@@ -354,6 +354,9 @@ qcache_cached_queries: 0
+ qcache_used_bytes: 0
+ qcache_hits: 0
+ docid_lookup_cache_used_bytes: 0
++docstore_cache_used_bytes: 0
++docstore_cache_mapped_bytes: 0
++docstore_cache_spare_bytes: 0
+ 
+ 
+ ***************************
+diff --git a/manual/english/References.md b/manual/english/References.md
+index fb2a98026..5ac43ba9a 100755
+--- a/manual/english/References.md
++++ b/manual/english/References.md
+@@ -476,6 +476,7 @@ To be put in the `searchd {}` section of the configuration file:
+   * [diskchunk_flush_write_timeout](Server_settings/Searchd.md#diskchunk_flush_write_timeout) - Timeout for auto-flushing a RAM chunk if there are no writes to it
+   * [diskchunk_flush_search_timeout](Server_settings/Searchd.md#diskchunk_flush_search_timeout) - Timeout for preventing auto-flushing a RAM chunk if there are no searches in the table
+   * [docstore_cache_size](Server_settings/Searchd.md#docstore_cache_size) - Maximum size of document blocks from document storage held in memory
++  * [docstore_cache_adaptive](Server_settings/Searchd.md#docstore_cache_adaptive) - Reclaim cold stored-field blocks as the active working set shrinks
+   * [embeddings_threads](Server_settings/Searchd.md#embeddings_threads) - Maximum number of threads the embeddings library may use when generating vectors for auto-embedding inserts, `ALTER TABLE` KNN rebuilds, and KNN text-query embedding
+   * [expansion_limit](Creating_a_table/NLP_and_tokenization/Wildcard_searching_settings.md#expansion_limit) - Maximum number of expanded keywords for a single wildcard
+   * [grouping_in_utc](Server_settings/Searchd.md#grouping_in_utc) - Enables using UTC timezone for grouping time fields
+diff --git a/manual/english/Server_settings/Searchd.md b/manual/english/Server_settings/Searchd.md
+index 051a46f0f..d088f862f 100755
+--- a/manual/english/Server_settings/Searchd.md
++++ b/manual/english/Server_settings/Searchd.md
+@@ -715,6 +715,75 @@ docstore_cache_size = 8m
+ ```
+ <!-- end -->
+ 
++### docstore_cache_adaptive
++
++Enable second-touch admission and adaptive cold-block reclamation with `1`; the default is `0`. The
++`docstore_cache_size` setting remains the hard limit for cached decoded blocks
++and LRU entries. Small mapped payloads are charged in 256-byte size classes;
++larger dedicated mappings are charged at their page-rounded size.
++Memory is already allocated on demand in either mode: a
++512 MiB limit does not reserve 512 MiB at startup. Hash tables and allocator
++metadata, reader buffers and in-flight decompression remain additional memory.
++Adaptive mode also uses a fixed 256 KiB fingerprint history, allocated only when
++the block cache is enabled.
++
++On a cache miss, adaptive mode admits a decoded block only if its fingerprint
++was already observed in its history slot. The first visit uses a temporary
++heap buffer. A second visit can occur within the same query or session.
++The bounded history uses atomic fingerprint replacement; collisions can change
++admission decisions but cannot return another block, since the shared cache
++still compares complete keys. Manual mode admits every eligible miss. This
++policy reduces insertion and eviction work for sparse accesses; it does not
++guarantee that caching improves every workload.
++
++Adaptive mode allocates decoded payloads through a per-partition virtual-memory
++pool. POSIX uses anonymous mappings; Windows uses `VirtualAlloc`. Blocks up to
++31 KiB are packed into 64 KiB regions, avoiding a full memory-page rounding
++charge for each small block. Larger payloads use dedicated mappings. Compressed
++data is decoded directly into the allocated storage. A region is released when
++its final live block is freed; each pool keeps at most one empty 64 KiB region
++for reuse. Dedicated mappings are released immediately. Sixteen partitions
++therefore retain at most 1 MiB of completely empty spare regions. Unused slots
++in partially occupied regions also consume mapped address space, in addition
++to the cached-entry limit. Mapping
++failure or a payload too large for its partition falls back to the process
++heap. Manual mode continues to use the process heap. Metadata, temporary input
++buffers and output values still use the process heap in either mode.
++
++Adaptive mode keeps the partition count and block-to-partition mapping fixed.
++Each partition observes windows of 4096 block lookups under its existing lock.
++After four windows with at least 98% hits and touched bytes below one quarter
++of retained bytes, it gradually frees cold, unreferenced entries. It retains
++headroom of twice the touched bytes, with a target floor totaling up to 16 MiB
++across partitions. This floor is not a minimum allocation. Each reclamation
++step examines at most 32 entries per 64 lookups. Recently touched and referenced
++blocks survive reclamation; normal admission can grow again up to the limit.
++
++Reclamation is driven by lookups, not a wall-clock timer. Idle partitions do
++not advance their windows. Low hit rates do not trigger this cold-block trim,
++and adaptive mode does not bypass cache lookup costs or exceed an undersized
++configured limit. Choose the limit for the active decoded working set and
++available memory. It is independent of DocID caching and requires no reader TLS.
++
++`SHOW STATUS LIKE 'docstore_cache_used_bytes'` reports retained payload
++allocation and LRU entry bytes, summed from separately locked snapshots. It
++excludes hash tables, allocator metadata, reader buffers and in-flight blocks;
++it is not process RSS or an atomic cross-partition snapshot.
++`docstore_cache_mapped_bytes` reports mapped address-space bytes, including
++partially occupied regions, in-flight payloads and empty spare regions.
++`docstore_cache_spare_bytes` reports only completely empty retained regions,
++not free slots inside occupied regions. These metrics do not include
++heap-fallback payloads and do not measure resident physical pages.
++Released mappings bypass heap retention, but other process allocations can
++still prevent a net RSS decrease. The target floor is a policy target, not a guaranteed
++final occupancy; the activity threshold and pinned blocks can stop reclamation
++above it.
++
++```ini
++docstore_cache_size = 512m
++docstore_cache_adaptive = 1
++```
++
+ ### engine
+ 
+ <!-- example conf engine -->
+diff --git a/src/docstore.cpp b/src/docstore.cpp
+index 394ee4583..5b08e97a8 100644
+--- a/src/docstore.cpp
++++ b/src/docstore.cpp
+@@ -9,6 +9,8 @@
+ //
+ 
+ #include "docstore.h"
++#include "docstore_blockpool.h"
++#include "docstore_admission.h"
+ 
+ #include "std/lrucache.h"
+ #include "std/hash.h"
+@@ -292,6 +294,7 @@ struct BlockData_t
+ 	DWORD	m_uNumDocs = 0;
+ 	BYTE *	m_pData = nullptr;
+ 	DWORD	m_uSize = 0;
++	DocstoreBlockPool_c * m_pPool = nullptr;
+ };
+ 
+ 
+@@ -312,44 +315,87 @@ struct BlockUtil_t
+ 	}
+ 	static bool Equal ( const HashKey_t & a, const HashKey_t & b ) { return a==b; }
+ 
+-	static DWORD GetSize ( const BlockData_t & tValue )	{ return tValue.m_uSize; }
+-	static void Reset ( BlockData_t & tValue )			{ SafeDeleteArray ( tValue.m_pData ); }
++	static DWORD GetSize ( const BlockData_t & tValue ) { return tValue.m_pPool ? DWORD(DocstoreBlockPool_c::AllocationSize(tValue.m_uSize)) : tValue.m_uSize; }
++	static void Reset ( BlockData_t & tValue )
++	{
++		if ( tValue.m_pPool ) tValue.m_pPool->Free ( tValue.m_pData, tValue.m_uSize );
++		else SafeDeleteArray ( tValue.m_pData );
++		tValue.m_pData = nullptr;
++	}
+ };
+ 
+ 
+ class BlockCache_c
+ {
+-	using Shard_t = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
++	using Cache_t = LRUCache_T<HashKey_t, BlockData_t, BlockUtil_t>;
++	struct Shard_t
++	{
++		// Destroy cached entries before the pool that owns their mappings.
++		std::unique_ptr<DocstoreBlockPool_c> m_pPool;
++		Cache_t m_tCache;
++		int64_t m_iBudget;
++		Shard_t ( int64_t iBudget, int64_t iMaxBlock, int64_t iFloor )
++			: m_pPool ( iFloor ? std::make_unique<DocstoreBlockPool_c>() : nullptr )
++			, m_tCache ( iBudget, iMaxBlock, iFloor ), m_iBudget(iBudget) {}
++	};
+ 
+ public:
+-	explicit BlockCache_c ( int64_t iCacheSize )
++	explicit BlockCache_c ( int64_t iCacheSize, bool bAdaptive )
+ 	{
++		if ( bAdaptive ) m_pAdmission = std::make_unique<DocstoreAdmission_c>();
+ 		while ( m_iShards<16 && iCacheSize/(m_iShards*2)>=1024*1024 )
+ 			m_iShards *= 2;
+ 		for ( int i=0; i<m_iShards; ++i )
+ 		{
+ 			const int64_t iBudget = iCacheSize/m_iShards + (i<iCacheSize%m_iShards);
+ 			// Sharding must not shrink the original maximum-block admission threshold.
+-			m_dShards[i] = std::make_unique<Shard_t> ( iBudget, iCacheSize/64 );
++			const int64_t iFloor = bAdaptive ? Min ( iBudget, int64_t(16*1024*1024)/m_iShards ) : 0;
++			m_dShards[i] = std::make_unique<Shard_t> ( iBudget, iCacheSize/64, iFloor );
+ 		}
+ 	}
+ 
+-	bool Find ( HashKey_t tKey, BlockData_t & tData ) { return Shard(tKey).Find ( tKey, tData ); }
+-	bool Add ( HashKey_t tKey, const BlockData_t & tData ) { return Shard(tKey).Add ( tKey, tData ); }
+-	void Release ( HashKey_t tKey ) { Shard(tKey).Release(tKey); }
++	using Ref_t = Cache_t::Ref_t;
++	bool Find ( HashKey_t tKey, BlockData_t & tData, Ref_t & pRef ) { return Shard(tKey).m_tCache.Find ( tKey, tData, &pRef ); }
++	bool Add ( HashKey_t tKey, const BlockData_t & tData, Ref_t & pRef ) { return Shard(tKey).m_tCache.Add ( tKey, tData, &pRef ); }
++	bool Admit ( HashKey_t tKey ) { return !m_pAdmission || m_pAdmission->Admit ( BlockUtil_t::GetHash(tKey) ); }
++	static void Release ( Ref_t pRef ) { Cache_t::ReleaseRef(pRef); }
++	void Allocate ( HashKey_t tKey, BlockData_t & tData )
++	{
++		if ( !AllocateMapped ( tKey, tData ) ) tData.m_pData = new BYTE[tData.m_uSize];
++	}
++	bool AllocateMapped ( HashKey_t tKey, BlockData_t & tData )
++	{
++		auto & tShard = Shard(tKey);
++		if ( tShard.m_pPool && DocstoreBlockPool_c::AllocationSize(tData.m_uSize)<=uint64_t(tShard.m_iBudget) )
++		{
++			tData.m_pData = tShard.m_pPool->Allocate(tData.m_uSize);
++			if ( tData.m_pData ) tData.m_pPool = tShard.m_pPool.get();
++		}
++		return tData.m_pData!=nullptr;
++	}
++	DocstoreCacheStats_t GetStats()
++	{
++		DocstoreCacheStats_t tStats;
++		for ( int i=0; i<m_iShards; ++i )
++		{
++			tStats.m_iUsedBytes += m_dShards[i]->m_tCache.GetUsedBytes();
++			if ( m_dShards[i]->m_pPool ) m_dShards[i]->m_pPool->GetStats ( tStats.m_iMappedBytes, tStats.m_iSpareBytes );
++		}
++		return tStats;
++	}
+ 
+ 	void ClearByIndexId ( int64_t iIndexId )
+ 	{
+ 		for ( int i=0; i<m_iShards; ++i )
+-			m_dShards[i]->Delete ( [iIndexId]( const HashKey_t & tKey ){ return tKey.m_iIndexId==iIndexId; } );
++			m_dShards[i]->m_tCache.Delete ( [iIndexId]( const HashKey_t & tKey ){ return tKey.m_iIndexId==iIndexId; } );
+ 	}
+ 	void ClearAll()
+ 	{
+ 		for ( int i=0; i<m_iShards; ++i )
+-			m_dShards[i]->Delete ( []( const HashKey_t & ){ return true; } );
++			m_dShards[i]->m_tCache.Delete ( []( const HashKey_t & ){ return true; } );
+ 	}
+ 
+-	static void Init ( int64_t iCacheSize );
++	static void Init ( int64_t iCacheSize, bool bAdaptive );
+ 	static void Done() { SafeDelete(m_pBlockCache); }
+ 	static BlockCache_c * Get() { return m_pBlockCache; }
+ 
+@@ -358,17 +404,18 @@ private:
+ 	Shard_t & Shard ( HashKey_t tKey ) { return *m_dShards[(BlockUtil_t::GetHash(tKey)>>28) & (m_iShards-1)]; }
+ 
+ 	int m_iShards = 1;
++	std::unique_ptr<DocstoreAdmission_c> m_pAdmission;
+ 	std::unique_ptr<Shard_t> m_dShards[16];
+ 	static BlockCache_c * m_pBlockCache;
+ };
+ 
+ BlockCache_c * BlockCache_c::m_pBlockCache = nullptr;
+ 
+-void BlockCache_c::Init ( int64_t iCacheSize )
++void BlockCache_c::Init ( int64_t iCacheSize, bool bAdaptive )
+ {
+ 	assert ( !m_pBlockCache );
+ 	if ( iCacheSize > 0 )
+-		m_pBlockCache = new BlockCache_c(iCacheSize);
++		m_pBlockCache = new BlockCache_c ( iCacheSize, bAdaptive );
+ }
+ 
+ //////////////////////////////////////////////////////////////////////////
+@@ -587,8 +634,8 @@ private:
+ 	void						ReadFromFile ( BYTE * pData, int iLength, SphOffset_t tOffset, int64_t iSessionId ) const;
+ 	DocstoreDoc_t				ReadDocFromSmallBlock ( const Block_t & tBlock, RowID_t tRowID, const VecTraits_T<int> * pFieldIds, int64_t iSessionId, bool bPack ) const;
+ 	DocstoreDoc_t				ReadDocFromBigBlock ( const Block_t & tBlock, const VecTraits_T<int> * pFieldIds, int64_t iSessionId, bool bPack ) const;
+-	BlockData_t					UncompressSmallBlock ( const Block_t & tBlock, int64_t iSessionId ) const;
+-	BlockData_t					UncompressBigBlockField ( SphOffset_t tOffset, const FieldInfo_t & tInfo, int64_t iSessionId ) const;
++	BlockData_t					UncompressSmallBlock ( const Block_t & tBlock, int64_t iSessionId, BlockCache_c * pCache ) const;
++	BlockData_t					UncompressBigBlockField ( SphOffset_t tOffset, const FieldInfo_t & tInfo, int64_t iSessionId, BlockCache_c * pCache ) const;
+ 
+ 	bool						ProcessSmallBlockDoc ( RowID_t tCurDocRowID, RowID_t tRowID, const VecTraits_T<int> * pFieldIds, const CSphFixedVector<int> & dFieldInRset, bool bPack, MemoryReader2_c & tReader, CSphBitvec & tEmptyFields, DocstoreDoc_t & tResult ) const;
+ 	void						ProcessBigBlockField ( int iField, const FieldInfo_t & tInfo, int iFieldInRset, bool bPack, int64_t iSessionId, SphOffset_t & tOffset, DocstoreDoc_t & tResult ) const;
+@@ -724,22 +771,38 @@ DocstoreDoc_t Docstore_c::GetDoc ( RowID_t tRowID, const VecTraits_T<int> * pFie
+ }
+ 
+ 
+-struct ScopedBlock_t
++// Own either a shared-cache reference or a temporary decoded block.
++class ScopedBlock_c
+ {
+-	int64_t		m_iIndexId = INT64_MAX;
+-	SphOffset_t	m_tOffset = 0;
+-
+-	~ScopedBlock_t()
++public:
++	template<typename LOADER>
++	ScopedBlock_c ( HashKey_t tKey, LOADER && fnLoad )
+ 	{
+-		if ( m_iIndexId==INT64_MAX )
++		auto * pCache = BlockCache_c::Get();
++		if ( pCache && pCache->Find ( tKey, m_tData, m_pRef ) )
+ 			return;
+ 
+-		BlockCache_c * pBlockCache = BlockCache_c::Get();
+-		assert ( pBlockCache );
+-		pBlockCache->Release ( { m_iIndexId, m_tOffset } );
++		const bool bAdmit = pCache && pCache->Admit(tKey);
++		m_tData = fnLoad ( bAdmit ? pCache : nullptr );
++		auto tCleanup = AtScopeExit ( [&] { BlockUtil_t::Reset(m_tData); } );
++		if ( bAdmit ) pCache->Add ( tKey, m_tData, m_pRef );
++		tCleanup.Release();
++	}
++
++	ScopedBlock_c ( const ScopedBlock_c & ) = delete;
++	ScopedBlock_c & operator = ( const ScopedBlock_c & ) = delete;
++	~ScopedBlock_c()
++	{
++		if ( m_pRef ) BlockCache_c::Release(m_pRef);
++		else BlockUtil_t::Reset(m_tData);
+ 	}
+-};
+ 
++	const BlockData_t & Get() const { return m_tData; }
++
++private:
++	BlockData_t m_tData;
++	BlockCache_c::Ref_t m_pRef = nullptr;
++};
+ 
+ void Docstore_c::ReadFromFile ( BYTE * pData, int iLength, SphOffset_t tOffset, int64_t iSessionId ) const
+ {
+@@ -758,7 +821,7 @@ void Docstore_c::ReadFromFile ( BYTE * pData, int iLength, SphOffset_t tOffset,
+ }
+ 
+ 
+-BlockData_t Docstore_c::UncompressSmallBlock ( const Block_t & tBlock, int64_t iSessionId ) const
++BlockData_t Docstore_c::UncompressSmallBlock ( const Block_t & tBlock, int64_t iSessionId, BlockCache_c * pCache ) const
+ {
+ 	BlockData_t tResult;
+ 	CSphFixedVector<BYTE> dBlock ( tBlock.m_uSize );
+@@ -776,17 +839,15 @@ BlockData_t Docstore_c::UncompressSmallBlock ( const Block_t & tBlock, int64_t i
+ 
+ 	const BYTE * pBody = dBlock.Begin() + tBlockReader.GetPos();
+ 
+-	CSphFixedVector<BYTE> dDecompressed(0);
++	if ( pCache ) pCache->Allocate ( { m_iIndexId, tBlock.m_tOffset }, tResult );
++	else tResult.m_pData = new BYTE[tResult.m_uSize];
+ 	if ( bCompressed )
+ 	{
+-		dDecompressed.Reset ( tResult.m_uSize );
+-		Verify ( m_pCompressor->Decompress ( VecTraits_T<const BYTE> (pBody, uCompressedLength), dDecompressed) );
+-		tResult.m_pData = dDecompressed.LeakData();
++		VecTraits_T<BYTE> dDecoded ( tResult.m_pData, tResult.m_uSize );
++		Verify ( m_pCompressor->Decompress ( VecTraits_T<const BYTE> (pBody, uCompressedLength), dDecoded ) );
+ 	}
+ 	else
+ 	{
+-		// we can't just pass tResult.m_pData because it doesn't point to the start of the allocated block
+-		tResult.m_pData = new BYTE[tResult.m_uSize];
+ 		memcpy ( tResult.m_pData, pBody, tResult.m_uSize );
+ 	}
+ 
+@@ -835,25 +896,10 @@ bool Docstore_c::ProcessSmallBlockDoc ( RowID_t tCurDocRowID, RowID_t tRowID, co
+ 
+ DocstoreDoc_t Docstore_c::ReadDocFromSmallBlock ( const Block_t & tBlock, RowID_t tRowID, const VecTraits_T<int> * pFieldIds, int64_t iSessionId, bool bPack ) const
+ {
+-	BlockCache_c * pBlockCache = BlockCache_c::Get();
+-
+-	BlockData_t tBlockData;
+-	bool bFromCache = pBlockCache && pBlockCache->Find ( { m_iIndexId, tBlock.m_tOffset }, tBlockData );
+-	if ( !bFromCache )
+-	{
+-		tBlockData = UncompressSmallBlock ( tBlock, iSessionId );
+-		bFromCache = pBlockCache && pBlockCache->Add ( { m_iIndexId, tBlock.m_tOffset }, tBlockData );
+-	}
+-
+-	ScopedBlock_t tScopedBlock;
+-	CSphFixedVector<BYTE> tDataPtr {0};	// scoped array ptr
+-	if ( bFromCache )
+-	{
+-		tScopedBlock.m_iIndexId = m_iIndexId;
+-		tScopedBlock.m_tOffset = tBlock.m_tOffset;
+-	}
+-	else
+-		tDataPtr.Set ( tBlockData.m_pData, 0 );
++	ScopedBlock_c tScopedBlock ( { m_iIndexId, tBlock.m_tOffset }, [&] ( BlockCache_c * pCache ) {
++		return UncompressSmallBlock ( tBlock, iSessionId, pCache );
++	} );
++	const auto & tBlockData = tScopedBlock.Get();
+ 
+ 	CSphFixedVector<int> dFieldInRset (	m_tFields.GetNumFields() );
+ 	CreateFieldRemap ( dFieldInRset, pFieldIds );
+@@ -875,7 +921,7 @@ DocstoreDoc_t Docstore_c::ReadDocFromSmallBlock ( const Block_t & tBlock, RowID_
+ }
+ 
+ 
+-BlockData_t Docstore_c::UncompressBigBlockField ( SphOffset_t tOffset, const FieldInfo_t & tInfo, int64_t iSessionId ) const
++BlockData_t Docstore_c::UncompressBigBlockField ( SphOffset_t tOffset, const FieldInfo_t & tInfo, int64_t iSessionId, BlockCache_c * pCache ) const
+ {
+ 	BlockData_t tResult;
+ 	bool bCompressed = !!( tInfo.m_uFlags & FIELD_FLAG_COMPRESSED );
+@@ -886,15 +932,19 @@ BlockData_t Docstore_c::UncompressBigBlockField ( SphOffset_t tOffset, const Fie
+ 
+ 	tResult.m_uSize = tInfo.m_uUncompressedLen;
+ 
+-	CSphFixedVector<BYTE> dDecompressed(0);
+-	if ( bCompressed )
++	// Uncompressed fields can reuse their input buffer without an extra copy.
++	if ( !bCompressed )
+ 	{
+-		dDecompressed.Reset ( tResult.m_uSize );
+-		Verify ( m_pCompressor->Decompress ( dField, dDecompressed ) );
+-		tResult.m_pData = dDecompressed.LeakData();
++		if ( pCache && pCache->AllocateMapped ( { m_iIndexId, tOffset }, tResult ) )
++			memcpy ( tResult.m_pData, dField.Begin(), tResult.m_uSize );
++		else
++			tResult.m_pData = dField.LeakData();
++		return tResult;
+ 	}
+-	else
+-		tResult.m_pData = dField.LeakData();
++	if ( pCache ) pCache->Allocate ( { m_iIndexId, tOffset }, tResult );
++	else tResult.m_pData = new BYTE[tResult.m_uSize];
++	VecTraits_T<BYTE> dDecoded ( tResult.m_pData, tResult.m_uSize );
++	Verify ( m_pCompressor->Decompress ( dField, dDecoded ) );
+ 
+ 	return tResult;
+ }
+@@ -913,25 +963,10 @@ void Docstore_c::ProcessBigBlockField ( int iField, const FieldInfo_t & tInfo, i
+ 		return;
+ 	}
+ 
+-	BlockCache_c * pBlockCache = BlockCache_c::Get();
+-
+-	BlockData_t tBlockData;
+-	bool bFromCache = pBlockCache && pBlockCache->Find ( { m_iIndexId, tOffset }, tBlockData );
+-	if ( !bFromCache )
+-	{
+-		tBlockData = UncompressBigBlockField ( tOffset, tInfo, iSessionId );
+-		bFromCache = pBlockCache && pBlockCache->Add ( { m_iIndexId, tOffset }, tBlockData );
+-	}
+-
+-	ScopedBlock_t tScopedBlock;
+-	CSphFixedVector<BYTE> tDataPtr {0};	// scoped array ptr
+-	if ( bFromCache )
+-	{
+-		tScopedBlock.m_iIndexId = m_iIndexId;
+-		tScopedBlock.m_tOffset = tOffset;
+-	}
+-	else
+-		tDataPtr.Set ( tBlockData.m_pData, 0 );
++	ScopedBlock_c tScopedBlock ( { m_iIndexId, tOffset }, [&] ( BlockCache_c * pCache ) {
++		return UncompressBigBlockField ( tOffset, tInfo, iSessionId, pCache );
++	} );
++	const auto & tBlockData = tScopedBlock.Get();
+ 
+ 	PackData ( tResult.m_dFields[iFieldInRset], tBlockData.m_pData, tBlockData.m_uSize, m_tFields.GetField(iField).m_eType==DOCSTORE_TEXT, bPack );
+ 
+@@ -2013,12 +2048,23 @@ std::unique_ptr<DocstoreFields_i> CreateDocstoreFields()
+ }
+ 
+ 
+-void InitDocstore ( int64_t iCacheSize )
++void InitDocstore ( int64_t iCacheSize, bool bAdaptive )
+ {
+-	BlockCache_c::Init(iCacheSize);
++	BlockCache_c::Init ( iCacheSize, bAdaptive );
+ 	DocstoreReaders_c::Init();
+ }
+ 
++int64_t GetDocstoreCacheUsedBytes()
++{
++	return GetDocstoreCacheStats().m_iUsedBytes;
++}
++
++DocstoreCacheStats_t GetDocstoreCacheStats()
++{
++	auto * pCache = BlockCache_c::Get();
++	return pCache ? pCache->GetStats() : DocstoreCacheStats_t{};
++}
++
+ 
+ void ShutdownDocstore()
+ {
+diff --git a/src/docstore.h b/src/docstore.h
+index ac21e0ece..57c418556 100644
+--- a/src/docstore.h
++++ b/src/docstore.h
+@@ -137,7 +137,15 @@ std::unique_ptr<DocstoreBuilder_i>	CreateDocstoreBuilder ( const CSphString & sF
+ std::unique_ptr<DocstoreRT_i>		CreateDocstoreRT();
+ std::unique_ptr<DocstoreFields_i>	CreateDocstoreFields();
+ 
+-void				InitDocstore ( int64_t iCacheSize );
++void				InitDocstore ( int64_t iCacheSize, bool bAdaptive = false );
++int64_t				GetDocstoreCacheUsedBytes();
++struct DocstoreCacheStats_t
++{
++	int64_t m_iUsedBytes = 0;
++	int64_t m_iMappedBytes = 0;
++	int64_t m_iSpareBytes = 0;
++};
++DocstoreCacheStats_t GetDocstoreCacheStats();
+ void				ShutdownDocstore();
+ void				ClearDocstoreCache();
+ 
+diff --git a/src/docstore_admission.h b/src/docstore_admission.h
+new file mode 100644
+index 000000000..9c860e8ef
+--- /dev/null
++++ b/src/docstore_admission.h
+@@ -0,0 +1,23 @@
++// Copyright (c) 2026, Manticore Software LTD (https://manticoresearch.com)
++// Distributed under the GNU General Public License, version 3 or later.
++#pragma once
++
++#include <atomic>
++#include <cstdint>
++#include <memory>
++
++// Admit on the second visit to a fingerprint. Collisions only affect admission;
++// the shared cache still compares the complete block key.
++class DocstoreAdmission_c
++{
++public:
++	DocstoreAdmission_c() : m_dHistory ( new std::atomic<uint32_t>[65536] {} ) {}
++	bool Admit ( uint32_t uHash )
++	{
++		const uint32_t uTag = uHash ? uHash : 1;
++		return m_dHistory[uHash & 65535].exchange ( uTag, std::memory_order_relaxed )==uTag;
++	}
++
++private:
++	std::unique_ptr<std::atomic<uint32_t>[]> m_dHistory;
++};
+diff --git a/src/docstore_blockpool.h b/src/docstore_blockpool.h
+new file mode 100644
+index 000000000..50fcbe8f0
+--- /dev/null
++++ b/src/docstore_blockpool.h
+@@ -0,0 +1,185 @@
++// Copyright (c) 2026, Manticore Software LTD (https://manticoresearch.com)
++// Distributed under the GNU General Public License, version 3 or later.
++
++#pragma once
++
++#include "std/mm.h"
++#include "std/mutex.h"
++#include "std/scopedlock.h"
++#include "std/sys.h"
++
++#include <cstdlib>
++#include <new>
++
++// Pack small payloads into independently releasable mappings, with one empty spare per shard.
++class DocstoreBlockPool_c
++{
++public:
++	explicit DocstoreBlockPool_c ( int64_t iSpareLimit = SLAB_SIZE ) : m_bKeepSpare(iSpareLimit>=SLAB_SIZE) {}
++	~DocstoreBlockPool_c()
++	{
++		if ( m_pSpare ) UnmapSlab(m_pSpare);
++		assert ( !m_iMappedBytes );
++	}
++
++	static uint64_t AllocationSize ( DWORD uSize )
++	{
++		const uint64_t uAlign = uSize<=MAX_SMALL ? 256 : GetMemPageSize();
++		return (uint64_t(uSize)+uAlign-1)/uAlign*uAlign;
++	}
++
++	BYTE * Allocate ( DWORD uSize )
++	{
++		const auto uCharge = AllocationSize(uSize);
++		if ( !uCharge || uCharge>UINT32_MAX ) return nullptr;
++		ScopedMutex_t tLock(m_tLock);
++		if ( uSize>MAX_SMALL )
++		{
++			auto * pData = Map(uCharge);
++			if ( pData ) m_iMappedBytes += uCharge;
++			return pData;
++		}
++
++		auto * pSlab = m_dAvailable[uCharge/256];
++		if ( pSlab==m_pSpare && pSlab && pSlab->m_pNext ) pSlab = pSlab->m_pNext;
++		if ( !pSlab )
++		{
++			if ( m_pSpare )
++			{
++				pSlab = m_pSpare;
++				Remove(pSlab);
++				m_pSpare = nullptr;
++			}
++			else
++			{
++				pSlab = MapSlab();
++				if ( !pSlab ) return nullptr;
++			}
++			new (pSlab) Slab_t{};
++			pSlab->m_pOwner = this;
++			pSlab->m_uSlotSize = DWORD(uCharge);
++			pSlab->m_uSlots = (SLAB_SIZE-HEADER_SIZE)/uCharge;
++			Add(pSlab);
++		}
++		if ( pSlab==m_pSpare ) m_pSpare = nullptr;
++		BYTE * pData = pSlab->m_pFree;
++		if ( pData ) pSlab->m_pFree = *(BYTE **)pData;
++		else pData = (BYTE *)pSlab+HEADER_SIZE+pSlab->m_uNextSlot++*uCharge;
++		if ( ++pSlab->m_uLive==pSlab->m_uSlots ) Remove(pSlab);
++		return pData;
++	}
++
++	void Free ( BYTE * pData, DWORD uSize )
++	{
++		ScopedMutex_t tLock(m_tLock);
++		if ( uSize>MAX_SMALL )
++		{
++			const auto uCharge = AllocationSize(uSize);
++			Unmap ( pData, uCharge );
++			m_iMappedBytes -= uCharge;
++			return;
++		}
++		auto * pSlab = (Slab_t *)((uintptr_t)pData & ~(uintptr_t(SLAB_SIZE)-1));
++		assert ( pSlab->m_pOwner==this && pSlab->m_uLive );
++		if ( pSlab->m_uLive--==pSlab->m_uSlots ) Add(pSlab);
++		if ( !pSlab->m_uLive && (m_pSpare || !m_bKeepSpare) )
++		{
++			Remove(pSlab);
++			UnmapSlab(pSlab);
++			return;
++		}
++		*(BYTE **)pData = pSlab->m_pFree;
++		pSlab->m_pFree = pData;
++		if ( !pSlab->m_uLive ) m_pSpare = pSlab;
++	}
++
++	void GetStats ( int64_t & iMapped, int64_t & iSpare )
++	{
++		ScopedMutex_t tLock(m_tLock);
++		iMapped += m_iMappedBytes;
++		iSpare += m_pSpare ? SLAB_SIZE : 0;
++	}
++
++private:
++	static constexpr DWORD SLAB_SIZE = 64*1024;
++	static constexpr DWORD HEADER_SIZE = 256;
++	static constexpr DWORD MAX_SMALL = 31*1024;
++	struct Slab_t
++	{
++		DocstoreBlockPool_c * m_pOwner = nullptr;
++		Slab_t * m_pPrev = nullptr;
++		Slab_t * m_pNext = nullptr;
++		BYTE * m_pFree = nullptr;
++		DWORD m_uSlotSize = 0;
++		DWORD m_uSlots = 0;
++		DWORD m_uLive = 0;
++		DWORD m_uNextSlot = 0;
++	};
++	static_assert ( sizeof(Slab_t)<=HEADER_SIZE, "slab header exceeds reserved space" );
++	CSphMutex m_tLock;
++	Slab_t * m_dAvailable[MAX_SMALL/256+1] {};
++	Slab_t * m_pSpare = nullptr;
++	int64_t m_iMappedBytes = 0;
++	bool m_bKeepSpare;
++
++	static BYTE * Map ( size_t uSize )
++	{
++#if _WIN32
++		return (BYTE *)VirtualAlloc ( nullptr, uSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE );
++#else
++		auto * pData = (BYTE *)mmalloc(uSize);
++		return mmapvalid(pData) ? pData : nullptr;
++#endif
++	}
++
++	static void Unmap ( void * pData, size_t uSize )
++	{
++#if _WIN32
++		const bool bFreed = !!VirtualFree ( pData, 0, MEM_RELEASE );
++#else
++		const bool bFreed = mmfree ( pData, uSize )==0;
++#endif
++		if ( !bFreed ) std::abort();
++	}
++
++	Slab_t * MapSlab()
++	{
++#if _WIN32
++		auto * pData = Map(SLAB_SIZE);
++		if ( !pData ) return nullptr;
++		assert ( !((uintptr_t)pData & (SLAB_SIZE-1)) );
++#else
++		auto * pRaw = Map(2*SLAB_SIZE);
++		if ( !pRaw ) return nullptr;
++		auto * pData = (BYTE *)(((uintptr_t)pRaw+SLAB_SIZE-1) & ~(uintptr_t(SLAB_SIZE)-1));
++		const size_t uPrefix = pData-pRaw;
++		if ( uPrefix ) Unmap ( pRaw, uPrefix );
++		Unmap ( pData+SLAB_SIZE, SLAB_SIZE-uPrefix );
++#endif
++		m_iMappedBytes += SLAB_SIZE;
++		return (Slab_t *)pData;
++	}
++
++	void UnmapSlab ( Slab_t * pSlab )
++	{
++		Unmap ( pSlab, SLAB_SIZE );
++		m_iMappedBytes -= SLAB_SIZE;
++	}
++
++	void Add ( Slab_t * pSlab )
++	{
++		auto & pHead = m_dAvailable[pSlab->m_uSlotSize/256];
++		pSlab->m_pPrev = nullptr;
++		pSlab->m_pNext = pHead;
++		if ( pHead ) pHead->m_pPrev = pSlab;
++		pHead = pSlab;
++	}
++
++	void Remove ( Slab_t * pSlab )
++	{
++		if ( pSlab->m_pPrev ) pSlab->m_pPrev->m_pNext = pSlab->m_pNext;
++		else m_dAvailable[pSlab->m_uSlotSize/256] = pSlab->m_pNext;
++		if ( pSlab->m_pNext ) pSlab->m_pNext->m_pPrev = pSlab->m_pPrev;
++		pSlab->m_pPrev = pSlab->m_pNext = nullptr;
++	}
++};
+diff --git a/src/gtests/CMakeLists.txt b/src/gtests/CMakeLists.txt
+index c83b32856..749ac58c2 100644
+--- a/src/gtests/CMakeLists.txt
++++ b/src/gtests/CMakeLists.txt
+@@ -7,9 +7,6 @@ if (NOT TARGET GTest::gmock_main)
+ endif ()
+ 
+ set ( GTESTS_SRC
+-		gtests_docidcache.cpp
+-		gtests_docstore_blockcache.cpp
+-		gtests_docidplanner.cpp
+ 		gtests_docidlookup.cpp
+ 		gtests_rtstuff.cpp
+ 		gtests_text.cpp
+@@ -28,7 +25,10 @@ set ( GTESTS_SRC
+ 		gtests_json.cpp
+ 		gtests_threadstuff.cpp
+ 		gtests_wsrep.cpp
+-		gtests_uklemmatizer.cpp )
++		gtests_uklemmatizer.cpp
++		gtests_docidcache.cpp
++		gtests_docstore_blockcache.cpp
++		gtests_docidplanner.cpp )
+ 
+ add_executable ( gmanticoretest ${GTESTS_SRC} )
+ target_include_directories ( gmanticoretest PRIVATE "${MANTICORE_SOURCE_DIR}/src" )
+diff --git a/src/gtests/gtests_docstore_blockcache.cpp b/src/gtests/gtests_docstore_blockcache.cpp
+index f4da02baa..277328a16 100644
+--- a/src/gtests/gtests_docstore_blockcache.cpp
++++ b/src/gtests/gtests_docstore_blockcache.cpp
+@@ -5,6 +5,9 @@
+ #include "docstore.h"
+ #include "indexsettings.h"
+ #include "threadutils.h"
++#include "std/lrucache.h"
++#include "docstore_blockpool.h"
++#include "docstore_admission.h"
+ 
+ #include <atomic>
+ #include <string>
+@@ -13,15 +16,285 @@
+ 
+ namespace
+ {
+-class DocstoreBlockCacheTest : public ::testing::Test
++TEST ( DocstoreBlockPool, ReuseAndReturnExcessMappings )
++{
++	DocstoreBlockPool_c tPool;
++	std::vector<BYTE *> dBlocks;
++	for ( int i=0; i<32; ++i )
++	{
++		auto * p = tPool.Allocate(16381);
++		ASSERT_NE ( p, nullptr );
++		memset ( p, i, 16381 );
++		dBlocks.push_back(p);
++	}
++	int64_t iMapped = 0, iSpare = 0;
++	tPool.GetStats ( iMapped, iSpare );
++	ASSERT_GE ( iMapped, 32*DocstoreBlockPool_c::AllocationSize(16381) );
++	ASSERT_EQ ( iSpare, 0 );
++	for ( auto * p : dBlocks ) tPool.Free ( p, 16381 );
++	iMapped = iSpare = 0;
++	tPool.GetStats ( iMapped, iSpare );
++	ASSERT_LE ( iMapped, 64*1024 );
++	ASSERT_EQ ( iMapped, iSpare );
++	auto * p = tPool.Allocate(16381);
++	ASSERT_NE ( p, nullptr );
++	int64_t iMappedAfter = 0, iSpareAfter = 0;
++	tPool.GetStats ( iMappedAfter, iSpareAfter );
++	ASSERT_EQ ( iMappedAfter, iMapped );
++	ASSERT_LT ( iSpareAfter, iSpare );
++	tPool.Free ( p, 16381 );
++}
++
++TEST ( DocstoreBlockPool, LargeMappingAndNoSpareBudget )
++{
++	DocstoreBlockPool_c tPool(0);
++	ASSERT_EQ ( tPool.Allocate(0), nullptr );
++	ASSERT_EQ ( tPool.Allocate(UINT32_MAX), nullptr );
++	auto * p = tPool.Allocate(70001);
++	ASSERT_NE ( p, nullptr );
++	memset ( p, 0x67, 70001 );
++	tPool.Free ( p, 70001 );
++	int64_t iMapped = 0, iSpare = 0;
++	tPool.GetStats ( iMapped, iSpare );
++	ASSERT_EQ ( iMapped, 0 );
++	ASSERT_EQ ( iSpare, 0 );
++}
++
++TEST ( DocstoreBlockPool, PacksBlocksAbovePageBoundary )
++{
++	DocstoreBlockPool_c tPool;
++	const DWORD uSize = 16385;
++	ASSERT_GE ( DocstoreBlockPool_c::AllocationSize(uSize), uSize );
++	ASSERT_LT ( DocstoreBlockPool_c::AllocationSize(uSize), 2*16384 );
++	std::vector<BYTE *> dBlocks;
++	for ( int i=0; i<30; ++i )
++	{
++		auto * p = tPool.Allocate(uSize);
++		ASSERT_NE ( p, nullptr );
++		memset ( p, i, uSize );
++		dBlocks.push_back(p);
++	}
++	int64_t iMapped = 0, iSpare = 0;
++	tPool.GetStats ( iMapped, iSpare );
++	ASSERT_LT ( iMapped, 30*2*16384 );
++	for ( int i=0; i<30; ++i )
++	{
++		EXPECT_EQ ( dBlocks[i][0], i );
++		EXPECT_EQ ( dBlocks[i][uSize-1], i );
++		tPool.Free ( dBlocks[i], uSize );
++	}
++}
++
++TEST ( DocstoreBlockPool, ConcurrentAllocateAndRelease )
++{
++	DocstoreBlockPool_c tPool;
++	std::atomic<int> iFailures {0};
++	std::vector<std::thread> dThreads;
++	for ( int i=0; i<8; ++i )
++		dThreads.emplace_back ( [&,i] {
++			for ( int j=0; j<2000; ++j )
++			{
++				const DWORD uSize = j%2 ? 16381 : 16637;
++				auto * p = tPool.Allocate(uSize);
++				if ( !p ) { ++iFailures; continue; }
++				memset ( p, i, uSize );
++				for ( DWORD k=0; k<uSize; ++k ) if ( p[k]!=i ) { ++iFailures; break; }
++				tPool.Free ( p, uSize );
++			}
++		} );
++	for ( auto & t : dThreads ) t.join();
++	ASSERT_EQ ( iFailures.load(), 0 );
++	int64_t iMapped = 0, iSpare = 0;
++	tPool.GetStats ( iMapped, iSpare );
++	ASSERT_EQ ( iMapped, iSpare );
++	ASSERT_LE ( iMapped, 64*1024 );
++}
++
++struct CacheTestData_t
++{
++	BYTE * m_pData;
++	DWORD m_uSize;
++};
++
++struct CacheTestUtil_t
++{
++	static DWORD GetHash ( int iKey ) { return DWORD(iKey)*2654435761U; }
++	static bool Equal ( int a, int b ) { return a==b; }
++	static DWORD GetSize ( const CacheTestData_t & tData ) { return tData.m_uSize; }
++	static void Reset ( CacheTestData_t & tData ) { delete[] tData.m_pData; }
++};
++
++class AdaptiveLruTest_c : public LRUCache_T<int, CacheTestData_t, CacheTestUtil_t>
++{
++	using BASE = LRUCache_T<int, CacheTestData_t, CacheTestUtil_t>;
++public:
++	explicit AdaptiveLruTest_c ( bool bAdaptive, int64_t iLimit = 512*1024 )
++		: BASE ( iLimit, iLimit, bAdaptive ? 16*1024 : 0 ) {}
++	int64_t Used() { return GetUsedBytes(); }
++	void Put ( int iKey )
++	{
++		CacheTestData_t tData;
++		if ( Find ( iKey, tData ) )
++		{
++			Release(iKey);
++			return;
++		}
++		tData = { new BYTE[1] { BYTE(iKey%251) }, 1024 };
++		if ( Add ( iKey, tData ) )
++			Release(iKey);
++		else
++			CacheTestUtil_t::Reset(tData);
++	}
++	void Hot ( int iReads = 30000 )
++	{
++		for ( int i=0; i<iReads; ++i ) Put(i%4);
++	}
++};
++
++TEST ( AdaptiveLru, LazyGrowthAndHardLimit )
++{
++	AdaptiveLruTest_c tCache(true);
++	ASSERT_EQ ( tCache.Used(), 0 );
++	for ( int i=0; i<1000; ++i )
++	{
++		tCache.Put(i);
++		ASSERT_LE ( tCache.Used(), 512*1024 );
++	}
++	ASSERT_GT ( tCache.Used(), 16*1024 );
++}
++
++TEST ( AdaptiveLru, HotSetChangeReclaimsColdBlocks )
++{
++	AdaptiveLruTest_c tCache(true);
++	for ( int i=0; i<256; ++i ) tCache.Put(i);
++	ASSERT_GT ( tCache.Used(), 128*1024 );
++	tCache.Hot();
++	ASSERT_LE ( tCache.Used(), 16*1024 );
++	for ( int i=0; i<4; ++i )
++	{
++		CacheTestData_t tData;
++		ASSERT_TRUE ( tCache.Find ( i, tData ) );
++		EXPECT_EQ ( *tData.m_pData, i );
++		tCache.Release(i);
++	}
++}
++
++TEST ( AdaptiveLru, SecondTouchMissesStillAllowReclamation )
++{
++	AdaptiveLruTest_c tCache(true);
++	for ( int i=0; i<256; ++i ) tCache.Put(i);
++	const auto iBefore = tCache.Used();
++	CacheTestData_t tData;
++	for ( int i=0; i<30000; ++i )
++	{
++		// Two cold misses per 128 accesses model first-visit plus admission decoding.
++		if ( i%128<2 ) EXPECT_FALSE ( tCache.Find ( -1, tData ) );
++		else tCache.Put(i%4);
++	}
++	EXPECT_LT ( tCache.Used(), iBefore );
++	EXPECT_LE ( tCache.Used(), 16*1024 );
++}
++
++TEST ( AdaptiveLru, ManualModeRetainsExistingBehavior )
++{
++	AdaptiveLruTest_c tCache(false);
++	for ( int i=0; i<256; ++i ) tCache.Put(i);
++	const auto iUsed = tCache.Used();
++	tCache.Hot();
++	ASSERT_EQ ( tCache.Used(), iUsed );
++}
++
++TEST ( AdaptiveLru, ReferencedBlocksSurviveReclamation )
++{
++	AdaptiveLruTest_c tCache(true);
++	std::vector<CacheTestData_t> dPinned(256);
++	for ( int i=0; i<256; ++i )
++	{
++		tCache.Put(i);
++		ASSERT_TRUE ( tCache.Find ( i, dPinned[i] ) );
++	}
++	const auto iUsed = tCache.Used();
++	tCache.Hot();
++	ASSERT_EQ ( tCache.Used(), iUsed );
++	for ( int i=0; i<256; ++i )
++	{
++		EXPECT_EQ ( *dPinned[i].m_pData, i%251 );
++		tCache.Release(i);
++	}
++	tCache.Hot(2048);
++	ASSERT_LE ( tCache.Used(), 16*1024 );
++}
++
++TEST ( AdaptiveLru, PinSurvivesEvictionAndReleasesWithoutLookup )
++{
++	AdaptiveLruTest_c tCache(true);
++	tCache.Put(17);
++	CacheTestData_t tData;
++	AdaptiveLruTest_c::Ref_t pRef = nullptr;
++	ASSERT_TRUE ( tCache.Find ( 17, tData, &pRef ) );
++	for ( int i=1000; i<3000; ++i ) tCache.Put(i);
++	EXPECT_EQ ( *tData.m_pData, 17 );
++	tCache.ReleaseRef(pRef);
++	for ( int i=3000; i<4000; ++i ) tCache.Put(i);
++	EXPECT_FALSE ( tCache.Find ( 17, tData ) );
++}
++
++TEST ( AdaptiveLru, AddedPinAndDuplicateKeepSeparateOwnership )
++{
++	AdaptiveLruTest_c tCache(true);
++	CacheTestData_t tOriginal { new BYTE[1] { 23 }, 1024 };
++	AdaptiveLruTest_c::Ref_t pRef = nullptr;
++	ASSERT_TRUE ( tCache.Add ( 23, tOriginal, &pRef ) );
++	ASSERT_NE ( pRef, nullptr );
++	CacheTestData_t tDuplicate { new BYTE[1] { 42 }, 1024 };
++	AdaptiveLruTest_c::Ref_t pDuplicate = nullptr;
++	EXPECT_FALSE ( tCache.Add ( 23, tDuplicate, &pDuplicate ) );
++	EXPECT_EQ ( pDuplicate, nullptr );
++	CacheTestUtil_t::Reset(tDuplicate);
++	EXPECT_EQ ( *tOriginal.m_pData, 23 );
++	tCache.ReleaseRef(pRef);
++	tCache.Hot();
++	EXPECT_LE ( tCache.Used(), 16*1024 );
++}
++
++TEST ( AdaptiveLru, ConcurrentGrowthReadsAndReclamation )
++{
++	AdaptiveLruTest_c tCache(true, 128*1024);
++	std::atomic<int> iFailures { 0 };
++	std::vector<std::thread> dThreads;
++	for ( int i=0; i<8; ++i )
++		dThreads.emplace_back ( [&,i] {
++			for ( int j=0; j<30000; ++j )
++			{
++				int iKey = j<5000 ? (j*31+i*173)%1024 : j%4;
++				tCache.Put(iKey);
++				CacheTestData_t tData;
++				AdaptiveLruTest_c::Ref_t pRef = nullptr;
++				if ( tCache.Find ( iKey, tData, &pRef ) )
++				{
++					if ( *tData.m_pData!=iKey%251 ) ++iFailures;
++					tCache.ReleaseRef(pRef);
++				}
++			}
++		} );
++	for ( auto & tThread : dThreads ) tThread.join();
++	ASSERT_EQ ( iFailures.load(), 0 );
++	// Overlapping thread phases can stop trimming at the one-quarter activity threshold.
++	ASSERT_LT ( tCache.Used(), 32*1024 );
++}
++
++class DocstoreBlockCacheTest : public ::testing::TestWithParam<bool>
+ {
+ protected:
+ 	void SetUp() override
+ 	{
+-		InitDocstore ( 2*1024*1024 );
++		InitDocstore ( 2*1024*1024, GetParam() );
++		ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
+ 		const auto * pInfo = testing::UnitTest::GetInstance()->current_test_info();
++		std::string sName = pInfo->name();
++		for ( auto & c : sName ) if ( c=='/' ) c='_';
+ 		for ( int i=0; i<2; ++i )
+-			m_dFiles[i].SetSprintf ( "__docstore_blocks_%d_%s_%d.spds", GetOsProcessId(), pInfo->name(), i );
++			m_dFiles[i].SetSprintf ( "__docstore_blocks_%d_%s_%d.spds", GetOsProcessId(), sName.c_str(), i );
+ 	}
+ 
+ 	void TearDown() override
+@@ -36,12 +309,12 @@ protected:
+ 		return sPrefix+std::string ( iSize-sPrefix.size(), char('a'+iRow%26) );
+ 	}
+ 
+-	void Write ( int iFile, int iVersion, int iRows, int iSize )
++	void Write ( int iFile, int iVersion, int iRows, int iSize, Compression_e eCompression = Compression_e::LZ4 )
+ 	{
+ 		CSphString sError;
+ 		DocstoreSettings_t tSettings;
+ 		tSettings.m_uBlockSize = 16384;
+-		tSettings.m_eCompression = Compression_e::LZ4;
++		tSettings.m_eCompression = eCompression;
+ 		auto pBuilder = CreateDocstoreBuilder ( m_dFiles[iFile], tSettings, 65536, sError );
+ 		ASSERT_TRUE(pBuilder) << sError.cstr();
+ 		ASSERT_EQ ( pBuilder->AddField ( "body", DOCSTORE_TEXT ), 0 );
+@@ -74,7 +347,7 @@ protected:
+ 	CSphString m_dFiles[2];
+ };
+ 
+-TEST_F ( DocstoreBlockCacheTest, ClearAndSameKeyReplacement )
++TEST_P ( DocstoreBlockCacheTest, ClearAndSameKeyReplacement )
+ {
+ 	Write ( 0, 1, 256, 128 );
+ 	Write ( 1, 2, 256, 128 );
+@@ -84,6 +357,7 @@ TEST_F ( DocstoreBlockCacheTest, ClearAndSameKeyReplacement )
+ 	pStore->CreateReader(tSession.GetUID());
+ 	for ( int i=0; i<256; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 128 ) );
+ 	ClearDocstoreCache();
++	ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
+ 	ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, 123, 128 ) );
+ 	pStore.reset();
+ 	pStore = Open ( 1, 801 );
+@@ -92,26 +366,45 @@ TEST_F ( DocstoreBlockCacheTest, ClearAndSameKeyReplacement )
+ 	for ( int i=255; i>=0; --i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 2, i, 128 ) );
+ }
+ 
+-TEST_F ( DocstoreBlockCacheTest, ConcurrentReadsUnderEvictionPressure )
++TEST_P ( DocstoreBlockCacheTest, ConcurrentReadsUnderEvictionPressure )
+ {
+-	Write ( 0, 1, 2048, 4096 ); // 8 MiB decoded data exceeds the 2 MiB shared budget.
++	const int iRows = GetParam() ? 6144 : 2048;
++	const int64_t iBudget = GetParam() ? 32*1024*1024 : 2*1024*1024;
++	if ( GetParam() )
++	{
++		ShutdownDocstore();
++		InitDocstore ( iBudget, true );
++	}
++	Write ( 0, 1, iRows, 4096 );
+ 	auto pStore = Open ( 0, 802 );
+ 	ASSERT_TRUE(pStore);
+ 	std::atomic<int> iFailures { 0 };
+ 	std::vector<std::thread> dThreads;
+-	for ( int i=0; i<8; ++i )
+-		dThreads.emplace_back ( [&,i] {
+-			DocstoreSession_c tSession;
+-			pStore->CreateReader(tSession.GetUID());
+-			for ( int j=0; j<2048; ++j )
+-				if ( !Matches ( *pStore, tSession.GetUID(), 1, (j*509+i*173)%2048, 4096 ) ) ++iFailures;
+-		} );
+-	for ( auto & tThread : dThreads ) tThread.join();
++	auto fnRead = [&] ( int iCount, int iRange ) {
++		dThreads.clear();
++		for ( int i=0; i<8; ++i )
++			dThreads.emplace_back ( [&,i,iCount,iRange] {
++				DocstoreSession_c tSession;
++				pStore->CreateReader(tSession.GetUID());
++				for ( int j=0; j<iCount; ++j )
++					if ( !Matches ( *pStore, tSession.GetUID(), 1, (j*509+i*173)%iRange, 4096 ) ) ++iFailures;
++			} );
++		for ( auto & tThread : dThreads ) tThread.join();
++	};
++	fnRead ( iRows, iRows );
++	if ( GetParam() )
++	{
++		const auto iBefore = GetDocstoreCacheUsedBytes();
++		ASSERT_GT ( iBefore, 20*1024*1024 );
++		fnRead ( 50000, 512 );
++		ASSERT_LT ( GetDocstoreCacheUsedBytes(), iBefore );
++	}
+ 	ASSERT_EQ ( iFailures.load(), 0 );
++	ASSERT_LE ( GetDocstoreCacheUsedBytes(), iBudget );
+ 	ClearDocstoreCache();
+ }
+ 
+-TEST_F ( DocstoreBlockCacheTest, LargeFieldsAndTinyBudgetFallback )
++TEST_P ( DocstoreBlockCacheTest, LargeFieldsAndTinyBudgetFallback )
+ {
+ 	Write ( 0, 1, 40, 70000 );
+ 	auto pStore = Open ( 0, 803 );
+@@ -122,10 +415,157 @@ TEST_F ( DocstoreBlockCacheTest, LargeFieldsAndTinyBudgetFallback )
+ 		for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 70000 ) );
+ 	pStore.reset();
+ 	ShutdownDocstore();
+-	InitDocstore(1);
++	InitDocstore ( 1, GetParam() );
+ 	pStore = Open ( 0, 803 );
+ 	ASSERT_TRUE(pStore);
+ 	pStore->CreateReader(tSession.GetUID());
+ 	for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 70000 ) );
++	ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
++}
++
++TEST_P ( DocstoreBlockCacheTest, UncompressedFieldsAndMappedClear )
++{
++	for ( int iFile=0; iFile<2; ++iFile )
++	{
++		const int iSize = iFile ? 70000 : 128;
++		Write ( iFile, 3, 40, iSize, Compression_e::NONE );
++		auto pStore = Open ( iFile, 810+iFile );
++		ASSERT_TRUE(pStore);
++		DocstoreSession_c tSession;
++		pStore->CreateReader(tSession.GetUID());
++		for ( int k=0; k<2; ++k )
++			for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 3, i, iSize ) );
++		const auto tStats = GetDocstoreCacheStats();
++		if ( GetParam() ) ASSERT_GT ( tStats.m_iMappedBytes, 0 );
++		else ASSERT_EQ ( tStats.m_iMappedBytes, 0 );
++	}
++	ClearDocstoreCache();
++	const auto tStats = GetDocstoreCacheStats();
++	ASSERT_EQ ( tStats.m_iUsedBytes, 0 );
++	ASSERT_EQ ( tStats.m_iMappedBytes, tStats.m_iSpareBytes );
++	ASSERT_LE ( tStats.m_iSpareBytes, 16*64*1024 );
++}
++
++TEST_P ( DocstoreBlockCacheTest, FullWorkingSetFitsDefaultBudget )
++{
++	ShutdownDocstore();
++	InitDocstore ( 16*1024*1024, GetParam() );
++	Write ( 0, 1, 100000, 128 );
++	auto pStore = Open ( 0, 820 );
++	ASSERT_TRUE(pStore);
++	DocstoreSession_c tSession;
++	pStore->CreateReader(tSession.GetUID());
++	for ( int i=0; i<100000; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, i, 128 ) );
++	const auto iUsed = GetDocstoreCacheUsedBytes();
++	ASSERT_GT ( iUsed, 100000*128 );
++	ASSERT_LT ( iUsed, 14*1024*1024 );
++	ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 1, 0, 128 ) );
+ }
++
++INSTANTIATE_TEST_SUITE_P ( Modes, DocstoreBlockCacheTest, ::testing::Values ( false, true ) );
++
++TEST_P ( DocstoreBlockCacheTest, SecondTouchAdmissionAndIndexReplacement )
++{
++	ShutdownDocstore();
++	InitDocstore ( 16*1024*1024, GetParam() );
++	Write ( 0, 1, 256, 128 );
++	auto pStore = Open ( 0, 840 );
++	ASSERT_TRUE(pStore);
++	DocstoreSession_c tFirst;
++	pStore->CreateReader(tFirst.GetUID());
++	ASSERT_TRUE ( Matches ( *pStore, tFirst.GetUID(), 1, 0, 128 ) );
++	if ( GetParam() ) ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
++	else ASSERT_GT ( GetDocstoreCacheUsedBytes(), 0 );
++	ASSERT_TRUE ( Matches ( *pStore, tFirst.GetUID(), 1, 0, 128 ) );
++	ASSERT_GT ( GetDocstoreCacheUsedBytes(), 0 );
++	ClearDocstoreCache();
++	ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
++	ASSERT_TRUE ( Matches ( *pStore, tFirst.GetUID(), 1, 0, 128 ) );
++	Write ( 1, 2, 256, 128 );
++	pStore.reset();
++	pStore = Open ( 1, 840 );
++	ASSERT_TRUE(pStore);
++	pStore->CreateReader(tFirst.GetUID());
++	for ( int i=0; i<256; ++i ) ASSERT_TRUE ( Matches ( *pStore, tFirst.GetUID(), 2, i, 128 ) );
++}
++
++TEST_P ( DocstoreBlockCacheTest, SecondTouchConcurrentReadsAndUncachedFallback )
++{
++	ShutdownDocstore();
++	InitDocstore ( 16*1024*1024, GetParam() );
++	Write ( 0, 1, 2048, 128 );
++	auto pStore = Open ( 0, 841 );
++	ASSERT_TRUE(pStore);
++	std::atomic<int> iFailures {0};
++	std::vector<std::thread> dThreads;
++	for ( int i=0; i<8; ++i )
++		dThreads.emplace_back ( [&,i] {
++			for ( int q=0; q<20; ++q )
++			{
++				DocstoreSession_c tSession;
++				pStore->CreateReader(tSession.GetUID());
++				for ( int j=0; j<128; ++j )
++					if ( !Matches ( *pStore, tSession.GetUID(), 1, (i*257+q*31+j)%2048, 128 ) ) ++iFailures;
++			}
++		} );
++	for ( auto & tThread : dThreads ) tThread.join();
++	ASSERT_EQ ( iFailures.load(), 0 );
++	EXPECT_TRUE ( Matches ( *pStore, -1, 1, 42, 128 ) );
++	EXPECT_LE ( GetDocstoreCacheUsedBytes(), 16*1024*1024 );
++	pStore.reset();
++	ShutdownDocstore();
++	InitDocstore ( 0, GetParam() );
++	pStore = Open ( 0, 841 );
++	ASSERT_TRUE(pStore);
++	EXPECT_TRUE ( Matches ( *pStore, -1, 1, 42, 128 ) );
++	EXPECT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
++}
++
++TEST_P ( DocstoreBlockCacheTest, SecondTouchLargeAndUncompressedFallback )
++{
++	ShutdownDocstore();
++	InitDocstore ( 16*1024*1024, GetParam() );
++	for ( auto eCompression : { Compression_e::NONE, Compression_e::LZ4 } )
++	for ( int iFile=0; iFile<2; ++iFile )
++	{
++		const int iSize = iFile ? 70000 : 128;
++		Write ( iFile, 3, 40, iSize, eCompression );
++		auto pStore = Open ( iFile, 850+iFile );
++		ASSERT_TRUE(pStore);
++		for ( int query=0; query<3; ++query )
++		{
++			DocstoreSession_c tSession;
++			pStore->CreateReader(tSession.GetUID());
++			for ( int i=0; i<40; ++i ) ASSERT_TRUE ( Matches ( *pStore, tSession.GetUID(), 3, i, iSize ) );
++		}
++	}
++	ClearDocstoreCache();
++	ASSERT_EQ ( GetDocstoreCacheUsedBytes(), 0 );
++}
++
++TEST ( DocstoreAdmission, SecondTouchCollisionsAndZeroHash )
++{
++	DocstoreAdmission_c tHistory;
++	for ( uint32_t uHash : { 0U, 1U, UINT32_MAX } )
++	{
++		EXPECT_FALSE ( tHistory.Admit(uHash) );
++		EXPECT_TRUE ( tHistory.Admit(uHash) );
++		EXPECT_FALSE ( tHistory.Admit(uHash^65536U) );
++		EXPECT_FALSE ( tHistory.Admit(uHash) );
++		EXPECT_TRUE ( tHistory.Admit(uHash) );
++	}
++}
++
++TEST ( DocstoreAdmission, ConcurrentFirstTouch )
++{
++	DocstoreAdmission_c tHistory;
++	std::atomic<int> iAdmitted { 0 };
++	std::vector<std::thread> dThreads;
++	for ( int i=0; i<8; ++i ) dThreads.emplace_back ( [&] {
++		if ( tHistory.Admit(12345) ) ++iAdmitted;
++	} );
++	for ( auto & tThread : dThreads ) tThread.join();
++	EXPECT_EQ ( iAdmitted.load(), 7 );
++}
++
+ }
+diff --git a/src/searchd.cpp b/src/searchd.cpp
+index af44ee746..ca95b3f32 100644
+--- a/src/searchd.cpp
++++ b/src/searchd.cpp
+@@ -149,6 +149,7 @@ int						g_iMaxFilterValues	= 4096;
+ int						g_iMaxBatchQueries	= 32;
+ 
+ static int64_t			g_iDocstoreCache = 0;
++static bool				g_bDocstoreCacheAdaptive = false;
+ static int64_t			g_iSkipCache = 0;
+ 
+ static auto &	g_iDistThreads		= getDistThreads();
+@@ -2946,6 +2947,10 @@ void BuildStatus ( VectorLike & dStatus )
+ 	dStatus.MatchTupletf ( "qcache_used_bytes", "%l", s.m_iUsedBytes );
+ 	dStatus.MatchTupletf ( "qcache_hits", "%l", s.m_iHits );
+ 	dStatus.MatchTupletf ( "docid_lookup_cache_used_bytes", "%l", (int64_t)DocidLookupCache_c::GetUsed() );
++	const auto tDocstoreCache = GetDocstoreCacheStats();
++	dStatus.MatchTupletf ( "docstore_cache_used_bytes", "%l", tDocstoreCache.m_iUsedBytes );
++	dStatus.MatchTupletf ( "docstore_cache_mapped_bytes", "%l", tDocstoreCache.m_iMappedBytes );
++	dStatus.MatchTupletf ( "docstore_cache_spare_bytes", "%l", tDocstoreCache.m_iSpareBytes );
+ 
+ 	// clusters
+ 	ReplicateClustersStatus ( dStatus );
+@@ -16009,6 +16014,7 @@ void ConfigureSearchd ( const CSphConfig & hConf, bool bNeedPIDFile, bool bTestM
+ 	DocidLookupCache_c::SetBudget((size_t)iDocidCache);
+ 
+ 	g_iDocstoreCache = hSearchd.GetSize64 ( "docstore_cache_size", 16777216 );
++	g_bDocstoreCacheAdaptive = hSearchd.GetInt ( "docstore_cache_adaptive", 0 )!=0;
+ 	g_iSkipCache = hSearchd.GetSize64 ( "skiplist_cache_size", 67108864 );
+ 
+ 	if ( hSearchd.Exists ( "max_open_files" ) )
+@@ -17204,7 +17210,7 @@ int WINAPI ServiceMain ( int argc, char **argv ) EXCLUDES (MainThread)
+ 		sphLockUn ( g_iPidFD );
+ 
+ 	SetUidShort ( GetMacAddress(), g_sPidFile, bTestMode );
+-	InitDocstore ( g_iDocstoreCache );
++	InitDocstore ( g_iDocstoreCache, g_bDocstoreCacheAdaptive );
+ 	InitSkipCache ( g_iSkipCache );
+ 	InitParserOption();
+ 
+diff --git a/src/sphinxutils.cpp b/src/sphinxutils.cpp
+index 87653c8c8..65b6c5da0 100644
+--- a/src/sphinxutils.cpp
++++ b/src/sphinxutils.cpp
+@@ -1177,6 +1177,7 @@ static KeyDesc_t g_dKeysSearchd[] =
+ 	{ "access_secondary",		0, nullptr },
+ 	{ "docid_lookup_cache_size", 0, nullptr },
+ 	{ "docstore_cache_size",	0, nullptr },
++	{ "docstore_cache_adaptive", 0, nullptr },
+ 	{ "skiplist_cache_size",	0, nullptr },
+ 	{ "ssl_cert",				0, nullptr },
+ 	{ "ssl_key",				0, nullptr },
+diff --git a/src/std/lrucache.h b/src/std/lrucache.h
+index 7f5bdffec..d86414397 100644
+--- a/src/std/lrucache.h
++++ b/src/std/lrucache.h
+@@ -16,17 +16,27 @@
+ #include "ints.h"
+ #include "mutex.h"
+ #include "openhash.h"
++#include <atomic>
+ 
+ template <typename KEY, typename VALUE, typename HELPER>
+ class LRUCache_T
+ {
+ public:
+-			LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize = -1 );
++	using Ref_t = std::atomic<int> *;
++
++			LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize = -1, int64_t iAdaptiveFloor = 0 );
+ 			~LRUCache_T();
+ 
+-	bool	Find ( KEY tKey, VALUE & tData );
+-	bool	Add ( KEY tKey, const VALUE & tData );
++	bool	Find ( KEY tKey, VALUE & tData, Ref_t * ppRef = nullptr );
++	bool	Add ( KEY tKey, const VALUE & tData, Ref_t * ppRef = nullptr );
+ 	void	Release ( KEY tKey );
++	// A pin returned by Find/Add must be released exactly once after using the value.
++	static void ReleaseRef ( Ref_t pRef )
++	{
++		[[maybe_unused]] const int iPrevious = pRef->fetch_sub ( 1, std::memory_order_release );
++		assert ( iPrevious>0 );
++	}
++	int64_t GetUsedBytes();
+ 
+ 	template <typename COND>
+ 	void	Delete ( COND && fnCond );
+@@ -36,7 +46,8 @@ protected:
+ 	{
+ 		VALUE			m_tValue;
+ 		DWORD			m_uSize = 0;
+-		int				m_iRefcount = 0;
++		std::atomic<int> m_iRefcount { 0 };
++		uint32_t		m_uAccessEpoch = 0;
+ 		LinkedEntry_t *	m_pPrev = nullptr;
+ 		LinkedEntry_t *	m_pNext = nullptr;
+ 		KEY				m_tKey;
+@@ -66,6 +77,18 @@ protected:
+ 	void	Delete ( LinkedEntry_t * pEntry );
+ 
+ private:
++	// Access epochs advance under the existing shard lock, without a global counter.
++	int64_t m_iAdaptiveFloor = 0;
++	int64_t m_iAdaptiveTarget = 0;
++	int64_t m_iActiveBytes = 0;
++	uint32_t m_uAccessEpoch = 1;
++	int m_iWindowAccesses = 0;
++	int m_iWindowHits = 0;
++	int m_iStableWindows = 0;
++
++	void	Observe ( LinkedEntry_t * pEntry );
++	void	Touch ( LinkedEntry_t * pEntry );
++	void	TrimCold();
+ 	void	MoveToHead ( LinkedEntry_t * pEntry );
+ 	void	Add ( LinkedEntry_t * pEntry );
+ 	void	SweepUnused ( DWORD uSpaceNeeded );
+diff --git a/src/std/lrucache_impl.h b/src/std/lrucache_impl.h
+index c55ae4073..c07f9881f 100644
+--- a/src/std/lrucache_impl.h
++++ b/src/std/lrucache_impl.h
+@@ -13,10 +13,12 @@
+ #include "scopedlock.h"
+ 
+ template <typename KEY, typename VALUE, typename HELPER>
+-LRUCache_T<KEY,VALUE,HELPER>::LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize )
++LRUCache_T<KEY,VALUE,HELPER>::LRUCache_T ( int64_t iCacheSize, int64_t iMaxBlockSize, int64_t iAdaptiveFloor )
+ 	: m_iCacheSize ( iCacheSize )
+ 	, m_uMaxBlockSize ( DWORD(iMaxBlockSize<0 ? iCacheSize/64 : iMaxBlockSize) )
+ 	, m_tHash ( 1024 )
++	, m_iAdaptiveFloor ( Min ( iCacheSize, iAdaptiveFloor ) )
++	, m_iAdaptiveTarget ( iCacheSize )
+ {}
+ 
+ template <typename KEY, typename VALUE, typename HELPER>
+@@ -32,23 +34,28 @@ LRUCache_T<KEY,VALUE,HELPER>::~LRUCache_T()
+ }
+ 
+ template <typename KEY, typename VALUE, typename HELPER>
+-bool LRUCache_T<KEY,VALUE,HELPER>::Find ( KEY tKey, VALUE & tData )
++bool LRUCache_T<KEY,VALUE,HELPER>::Find ( KEY tKey, VALUE & tData, Ref_t * ppRef )
+ {
+ 	ScopedMutex_t tLock(m_tLock);
+ 
+ 	LinkedEntry_t ** ppEntry = m_tHash.Find(tKey);
+ 	if ( !ppEntry )
++	{
++		if ( m_iAdaptiveFloor ) Observe(nullptr);
+ 		return false;
++	}
+ 
+ 	MoveToHead ( *ppEntry );
+ 
+-	(*ppEntry)->m_iRefcount++;
++	(*ppEntry)->m_iRefcount.fetch_add ( 1, std::memory_order_relaxed );
++	if ( ppRef ) *ppRef = &(*ppEntry)->m_iRefcount;
+ 	tData = (*ppEntry)->m_tValue;
++	if ( m_iAdaptiveFloor ) Observe(*ppEntry);
+ 	return true;
+ }
+ 
+ template <typename KEY, typename VALUE, typename HELPER>
+-bool LRUCache_T<KEY,VALUE,HELPER>::Add ( KEY tKey, const VALUE & tData )
++bool LRUCache_T<KEY,VALUE,HELPER>::Add ( KEY tKey, const VALUE & tData, Ref_t * ppRef )
+ {
+ 	ScopedMutex_t tLock(m_tLock);
+ 
+@@ -71,14 +78,81 @@ bool LRUCache_T<KEY,VALUE,HELPER>::Add ( KEY tKey, const VALUE & tData )
+ 
+ 	LinkedEntry_t * pEntry = new LinkedEntry_t;
+ 	*(VALUE*)pEntry = tData;
+-	pEntry->m_iRefcount++;
++	pEntry->m_iRefcount.store ( 1, std::memory_order_relaxed );
+ 	pEntry->m_tKey = tKey;
+ 	pEntry->m_uSize = uSize;
+ 
+ 	Add ( pEntry );
++	if ( m_iAdaptiveFloor ) Touch(pEntry);
++	if ( ppRef ) *ppRef = &pEntry->m_iRefcount;
+ 	return true;
+ }
+ 
++template <typename KEY, typename VALUE, typename HELPER>
++int64_t LRUCache_T<KEY,VALUE,HELPER>::GetUsedBytes()
++{
++	ScopedMutex_t tLock(m_tLock);
++	return m_iMemUsed;
++}
++
++template <typename KEY, typename VALUE, typename HELPER>
++void LRUCache_T<KEY,VALUE,HELPER>::Touch ( LinkedEntry_t * pEntry )
++{
++	if ( pEntry->m_uAccessEpoch==m_uAccessEpoch )
++		return;
++	pEntry->m_uAccessEpoch = m_uAccessEpoch;
++	m_iActiveBytes += pEntry->m_uSize + sizeof(LinkedEntry_t);
++}
++
++template <typename KEY, typename VALUE, typename HELPER>
++void LRUCache_T<KEY,VALUE,HELPER>::Observe ( LinkedEntry_t * pEntry )
++{
++	if ( pEntry )
++	{
++		Touch(pEntry);
++		++m_iWindowHits;
++	}
++	if ( ++m_iWindowAccesses==4096 )
++	{
++		// Require four stable windows and retain twice the recently touched bytes.
++		// A 98% hit threshold allows both decoding misses from second-touch admission.
++		if ( m_iWindowHits>=4015 && m_iActiveBytes<m_iMemUsed/4 )
++		{
++			m_iStableWindows = Min ( m_iStableWindows+1, 4 );
++			if ( m_iStableWindows==4 )
++				m_iAdaptiveTarget = Min ( m_iCacheSize, Max ( m_iAdaptiveFloor, m_iActiveBytes*2 ) );
++		}
++		else
++		{
++			m_iStableWindows = 0;
++			m_iAdaptiveTarget = m_iCacheSize;
++		}
++		m_iWindowAccesses = m_iWindowHits = 0;
++		m_iActiveBytes = 0;
++		if ( !++m_uAccessEpoch )
++		{
++			m_uAccessEpoch = 1;
++			for ( auto * p = m_pHead; p; p=p->m_pNext ) p->m_uAccessEpoch = 0;
++		}
++	}
++	// Bound each lock hold while a smaller hot set releases cold storage.
++	if ( !(m_iWindowAccesses%64) && m_iMemUsed>m_iAdaptiveTarget ) TrimCold();
++}
++
++template <typename KEY, typename VALUE, typename HELPER>
++void LRUCache_T<KEY,VALUE,HELPER>::TrimCold()
++{
++	auto * pEntry = m_pTail;
++	for ( int i=0; pEntry && i<32 && m_iMemUsed>m_iAdaptiveTarget; ++i )
++	{
++		auto * pPrevious = pEntry->m_pPrev;
++		if ( !pEntry->m_iRefcount.load(std::memory_order_acquire) && pEntry->m_uAccessEpoch!=m_uAccessEpoch
++			&& pEntry->m_uAccessEpoch!=m_uAccessEpoch-1 )
++			Delete(pEntry);
++		pEntry = pPrevious;
++	}
++}
++
+ template <typename KEY, typename VALUE, typename HELPER>
+ void LRUCache_T<KEY,VALUE,HELPER>::Release ( KEY tKey )
+ {
+@@ -88,8 +162,7 @@ void LRUCache_T<KEY,VALUE,HELPER>::Release ( KEY tKey )
+ 	assert(ppEntry);
+ 
+ 	LinkedEntry_t * pEntry = *ppEntry;
+-	pEntry->m_iRefcount--;
+-	assert ( pEntry->m_iRefcount>=0 );
++	ReleaseRef ( &pEntry->m_iRefcount );
+ }
+ 
+ template <typename KEY, typename VALUE, typename HELPER>
+@@ -103,7 +176,7 @@ void LRUCache_T<KEY,VALUE,HELPER>::Delete ( COND && fnCond )
+ 	{
+ 		if ( fnCond ( pEntry->m_tKey) )
+ 		{
+-			assert ( !pEntry->m_iRefcount );
++			assert ( !pEntry->m_iRefcount.load(std::memory_order_acquire) );
+ 			LinkedEntry_t * pToDelete = pEntry;
+ 			pEntry = pEntry->m_pNext;
+ 			Delete(pToDelete);
+@@ -185,9 +258,9 @@ void LRUCache_T<KEY,VALUE,HELPER>::SweepUnused ( DWORD uSpaceNeeded )
+ 	LinkedEntry_t * pEntry = m_pTail;
+ 	while ( pEntry && !HaveSpaceFor ( uSpaceNeeded ) )
+ 	{
+-		if ( !pEntry->m_iRefcount )
++		if ( !pEntry->m_iRefcount.load(std::memory_order_acquire) )
+ 		{
+-			assert ( !pEntry->m_iRefcount );
++			assert ( !pEntry->m_iRefcount.load(std::memory_order_acquire) );
+ 			LinkedEntry_t * pToDelete = pEntry;
+ 			pEntry = pEntry->m_pPrev;
+ 			Delete(pToDelete);
+diff --git a/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec b/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
+index a27dd24b5..3400ad578 100644
+--- a/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
++++ b/test/clt-tests/buddy-plugins/test-prometheus-exporter.rec
+@@ -13,10 +13,10 @@ curl -s 0:9308/metrics > /tmp/exporter_unfiltered_output.txt
+ cat /tmp/exporter_unfiltered_output.txt | grep -e "^manticore" | cut -d" " -f1 | sed 's/^manticore_//' | sed 's/qcache_thresh_microseconds/qcache_thresh_msec/' | sort > /tmp/exporter_output.txt
+ ––– output –––
+ ––– input –––
+-searchd --iostats --cpustats --status | cut -d":" -f1 | tail -n +10 | grep -v -e "^command_optimize$" -e "^command_shard_write$" -e "^docid_lookup_cache_used_bytes$" | sort > /tmp/searchd_output.txt
++searchd --iostats --cpustats --status | cut -d":" -f1 | tail -n +10 | grep -v -e "^command_optimize$" -e "^command_shard_write$" -e "^docid_lookup_cache_used_bytes$" -e "^docstore_cache_used_bytes$" -e "^docstore_cache_mapped_bytes$" -e "^docstore_cache_spare_bytes$" | sort > /tmp/searchd_output.txt
+ ––– output –––
+ ––– comment –––
+-command_optimize, command_shard_write and docid_lookup_cache_used_bytes are public daemon metrics, but the pinned Buddy version does not export them yet. Keep this filter until Buddy metric_definitions.json is updated in the Buddy repo.
++command_optimize, command_shard_write, docid_lookup_cache_used_bytes, docstore_cache_used_bytes, docstore_cache_mapped_bytes and docstore_cache_spare_bytes are public daemon metrics, but the pinned Buddy version does not export them yet. Keep this filter until Buddy metric_definitions.json is updated in the Buddy repo.
+ ––– input –––
+ ls -1 /tmp | grep -E "^(exporter|searchd).*\.txt$"
+ ––– output –––
+diff --git a/test/docid-cache/README.md b/test/docid-cache/README.md
+index 237408db4..494148f52 100644
+--- a/test/docid-cache/README.md
++++ b/test/docid-cache/README.md
+@@ -52,3 +52,32 @@ Windows `RowID_t`/`uint32_t` ABI difference. Block-cache performance comparisons
+ must state the DocID budget and compare equal budgets in both binaries. A
+ same-binary comparison of `docstore_cache_size=0` and `16m` answers a separate
+ question from the benefit of changing the block-cache implementation.
++
++The opt-in `docstore_cache_adaptive=1` mode retains the configured
++`docstore_cache_size` hard entry limit and reclaims cold, unreferenced blocks
++after a stable smaller hot set is observed. Both modes already allocate only
++on demand; the adaptive change adds reclamation rather than preallocation or
++automatic growth beyond the configured ceiling. Lookup epochs are per shard,
++updated under the existing lock, and require no TLS or global atomic counter.
++Idle shards do not advance epochs and no low-hit-rate bypass is implemented.
++
++The public stored-field tests run in both manual and adaptive modes.
++`AdaptiveLru` tests additionally check demand growth, hard limits, hot-set
++changes, unchanged manual retention, pinned references and concurrent reads
++under admission/reclamation pressure. The `docstore_cache_used_bytes` status
++metric reports charged cached entry bytes, separately from process RSS. Compare
++manual/adaptive at the same ceiling before attributing an effect to the new
++policy; raising 16 MiB to 512 MiB is a separate capacity comparison.
++The adaptive follow-up uses per-shard virtual-memory pools for decoded payloads,
++with direct decompression. Small blocks use 256-byte size classes packed into
++64 KiB regions; large blocks use page-rounded dedicated mappings. Empty regions
++are unmapped, with at most one 64 KiB empty spare per shard. Partially occupied
++regions can retain unused slots, separately from charged entry bytes. This
++bypasses process heap retention. Manual mode and oversized/mapping-failure fallbacks still use
++the heap. Metadata and temporary/input/output buffers also remain on the heap.
++The mapped/spare status metrics account for pool mappings, including in-flight
++blocks; the entry ceiling does not bound total mappings or process RSS.
++Pool tests cover reuse, excess unmapping, rounding, no-spare mode and concurrent
++allocation/release. Stored-field tests also cover uncompressed small/large
++fields and clear/recreate in both modes. Measure process RSS and footprint
++alongside entry counters before claiming physical memory savings.

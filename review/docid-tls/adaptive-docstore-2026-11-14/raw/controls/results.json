@@ -1,0 +1,1453 @@
+{
+  "binary_sha256": "bd0f089935634ef752e799403b960244071c89277f2d39f82054afd4f0e801e6",
+  "benchmark_sha256": "6c92baab745e26243c7ee32fbe6adf4217d47a5094248ba4f6bd4c2626da5597",
+  "wrapper_sha256": "7b7347f611aa7f8310b1245728c619c5c5a4b250be072ff5437c4f9133cbee22",
+  "planned_cases": [
+    "off/off A/A at 20M rows",
+    "20M advancing scan, six capacities/modes"
+  ],
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "cases": [
+    {
+      "name": "random-20000000",
+      "rows": 20000000,
+      "arms": {
+        "off-A": {
+          "samples": [
+            {
+              "qps": 757.3629032881179,
+              "completed": 3795,
+              "elapsed_seconds": 5.010807874961756,
+              "cpu_ms_per_query": 10.345765459025033,
+              "rss_bytes": 337395712,
+              "footprint_bytes": 52445856,
+              "p95_ms": 12.738041,
+              "from_monotonic_seconds": 1016832.788101625,
+              "to_monotonic_seconds": 1016837.799041041,
+              "round": 0,
+              "order": [
+                "off-A",
+                "off-B"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 3.984296220225509,
+              "external_peak_machine_percent": 4.616815267097772,
+              "quality_flag": false
+            },
+            {
+              "qps": 756.5957333184867,
+              "completed": 3791,
+              "elapsed_seconds": 5.010601875022985,
+              "cpu_ms_per_query": 10.347227545502506,
+              "rss_bytes": 339804160,
+              "footprint_bytes": 44253856,
+              "p95_ms": 12.751083,
+              "from_monotonic_seconds": 1016850.187028791,
+              "to_monotonic_seconds": 1016855.197810833,
+              "round": 1,
+              "order": [
+                "off-B",
+                "off-A"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.435392456722744,
+              "external_peak_machine_percent": 5.801650044120219,
+              "quality_flag": false
+            },
+            {
+              "qps": 757.442300975233,
+              "completed": 3795,
+              "elapsed_seconds": 5.010282624978572,
+              "cpu_ms_per_query": 10.334904699341239,
+              "rss_bytes": 339804160,
+              "footprint_bytes": 44253856,
+              "p95_ms": 12.77625,
+              "from_monotonic_seconds": 1016855.951834083,
+              "to_monotonic_seconds": 1016860.962284125,
+              "round": 2,
+              "order": [
+                "off-A",
+                "off-B"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.158604580010996,
+              "external_peak_machine_percent": 5.33875405955995,
+              "quality_flag": false
+            },
+            {
+              "qps": 733.2597695361559,
+              "completed": 3674,
+              "elapsed_seconds": 5.010502624907531,
+              "cpu_ms_per_query": 10.669915464616222,
+              "rss_bytes": 339804160,
+              "footprint_bytes": 41140896,
+              "p95_ms": 13.13175,
+              "from_monotonic_seconds": 1016873.289692125,
+              "to_monotonic_seconds": 1016878.300377083,
+              "round": 3,
+              "order": [
+                "off-B",
+                "off-A"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.202505357249104,
+              "external_peak_machine_percent": 4.894127193327073,
+              "quality_flag": false
+            },
+            {
+              "qps": 725.114011814669,
+              "completed": 3633,
+              "elapsed_seconds": 5.010246583027765,
+              "cpu_ms_per_query": 10.756809948252133,
+              "rss_bytes": 340688896,
+              "footprint_bytes": 36274848,
+              "p95_ms": 13.091917,
+              "from_monotonic_seconds": 1016879.088516125,
+              "to_monotonic_seconds": 1016884.09896325,
+              "round": 4,
+              "order": [
+                "off-A",
+                "off-B"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.674893764287413,
+              "external_peak_machine_percent": 6.110386466921882,
+              "quality_flag": false
+            },
+            {
+              "qps": 725.0199518527083,
+              "completed": 3633,
+              "elapsed_seconds": 5.01089658390265,
+              "cpu_ms_per_query": 10.79407738095238,
+              "rss_bytes": 340705280,
+              "footprint_bytes": 36291232,
+              "p95_ms": 13.151167,
+              "from_monotonic_seconds": 1016896.477848583,
+              "to_monotonic_seconds": 1016901.488924208,
+              "round": 5,
+              "order": [
+                "off-B",
+                "off-A"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.055529628422485,
+              "external_peak_machine_percent": 4.880083548647366,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:63235:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-1o1bvep1/off-A/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-1o1bvep1/off-A/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-1o1bvep1/off-A/searchd.pid\ndocstore_cache_adaptive = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 0\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 744.9277514273213,
+          "cpu_ms_per_query": 10.508571505059365,
+          "rss_bytes": 339804160.0,
+          "footprint_bytes": 42697376.0,
+          "p95_ms": 12.9340835
+        },
+        "off-B": {
+          "samples": [
+            {
+              "qps": 753.0757057943155,
+              "completed": 3773,
+              "elapsed_seconds": 5.010120457969606,
+              "cpu_ms_per_query": 10.363970701828784,
+              "rss_bytes": 338509824,
+              "footprint_bytes": 53445280,
+              "p95_ms": 12.737,
+              "from_monotonic_seconds": 1016838.647114208,
+              "to_monotonic_seconds": 1016843.65740525,
+              "round": 0,
+              "order": [
+                "off-A",
+                "off-B"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.594092745820807,
+              "external_peak_machine_percent": 5.3909433682001335,
+              "quality_flag": false
+            },
+            {
+              "qps": 758.3979560801541,
+              "completed": 3799,
+              "elapsed_seconds": 5.009243457927369,
+              "cpu_ms_per_query": 10.324722514609109,
+              "rss_bytes": 338804736,
+              "footprint_bytes": 53740192,
+              "p95_ms": 12.577875,
+              "from_monotonic_seconds": 1016844.416340041,
+              "to_monotonic_seconds": 1016849.425712791,
+              "round": 1,
+              "order": [
+                "off-B",
+                "off-A"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 3.900641376625906,
+              "external_peak_machine_percent": 4.435113322749241,
+              "quality_flag": false
+            },
+            {
+              "qps": 752.0687065872339,
+              "completed": 3768,
+              "elapsed_seconds": 5.010180542012677,
+              "cpu_ms_per_query": 10.397407001857749,
+              "rss_bytes": 338952192,
+              "footprint_bytes": 44778144,
+              "p95_ms": 12.869708,
+              "from_monotonic_seconds": 1016861.721268666,
+              "to_monotonic_seconds": 1016866.731640166,
+              "round": 2,
+              "order": [
+                "off-A",
+                "off-B"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.4192868441658515,
+              "external_peak_machine_percent": 5.625220336116459,
+              "quality_flag": false
+            },
+            {
+              "qps": 743.8250372061113,
+              "completed": 3727,
+              "elapsed_seconds": 5.010586917051114,
+              "cpu_ms_per_query": 10.517002068151328,
+              "rss_bytes": 338968576,
+              "footprint_bytes": 44794528,
+              "p95_ms": 12.773541,
+              "from_monotonic_seconds": 1016867.501934916,
+              "to_monotonic_seconds": 1016872.512709833,
+              "round": 3,
+              "order": [
+                "off-B",
+                "off-A"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.145908805845297,
+              "external_peak_machine_percent": 4.932960660092543,
+              "quality_flag": false
+            },
+            {
+              "qps": 729.8529145797431,
+              "completed": 3658,
+              "elapsed_seconds": 5.011968750040978,
+              "cpu_ms_per_query": 10.73094938026244,
+              "rss_bytes": 339099648,
+              "footprint_bytes": 39142048,
+              "p95_ms": 13.226417,
+              "from_monotonic_seconds": 1016884.883698375,
+              "to_monotonic_seconds": 1016889.895845833,
+              "round": 4,
+              "order": [
+                "off-A",
+                "off-B"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 3.8168938828349264,
+              "external_peak_machine_percent": 5.247260818932296,
+              "quality_flag": false
+            },
+            {
+              "qps": 727.4149687511546,
+              "completed": 3645,
+              "elapsed_seconds": 5.0108949589775875,
+              "cpu_ms_per_query": 10.754384087791497,
+              "rss_bytes": 339148800,
+              "footprint_bytes": 38519456,
+              "p95_ms": 13.18375,
+              "from_monotonic_seconds": 1016890.683210833,
+              "to_monotonic_seconds": 1016895.694251583,
+              "round": 5,
+              "order": [
+                "off-B",
+                "off-A"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.151989917604703,
+              "external_peak_machine_percent": 5.1552518193384,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:63238:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-1o1bvep1/off-B/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-1o1bvep1/off-B/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-1o1bvep1/off-B/searchd.pid\ndocstore_cache_adaptive = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 0\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 747.9468718966726,
+          "cpu_ms_per_query": 10.45720453500454,
+          "rss_bytes": 338960384.0,
+          "footprint_bytes": 44786336.0,
+          "p95_ms": 12.821624499999999
+        }
+      },
+      "fixture": {
+        "docs": 20000000,
+        "logical_stored_text_bytes": 2560000000,
+        "disk_chunks": 26,
+        "spds_bytes": 111771071,
+        "disk_bytes": 381902481
+      },
+      "query_sha256": "46b1e4e054a85a96e730681655a056d57d2d254ac150d5d6eb8e98ac07442ad0",
+      "idle_gate": {
+        "interval_seconds": 31.41182104195468,
+        "idle_percent_mean": 91.2227065031354,
+        "idle_percent_min": 85.95505617977528,
+        "from_monotonic_seconds": 1016799.510567583,
+        "to_monotonic_seconds": 1016830.922388625
+      },
+      "thermal_before": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   233531.\nPages active:                                 377966.\nPages inactive:                               369713.\nPages speculative:                              7621.\nPages throttled:                                   0.\nPages wired down:                             267785.\nPages purgeable:                                7317.\n\"Translation faults\":                     6728401429.\nPages copy-on-write:                       839829595.\nPages zero filled:                        4809294735.\nPages reactivated:                         224709005.\nPages purged:                               47422724.\nFile-backed pages:                            297033.\nAnonymous pages:                              458267.\nPages stored in compressor:                   846627.\nPages occupied by compressor:                 280934.\nDecompressions:                            170470657.\nCompressions:                              222647886.\nPageins:                                   109562301.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "thermal_after": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   198155.\nPages active:                                 409787.\nPages inactive:                               400768.\nPages speculative:                             11246.\nPages throttled:                                   0.\nPages wired down:                             237147.\nPages purgeable:                               13257.\n\"Translation faults\":                     6729585676.\nPages copy-on-write:                       839966566.\nPages zero filled:                        4810277103.\nPages reactivated:                         224709124.\nPages purged:                               47422724.\nFile-backed pages:                            334178.\nAnonymous pages:                              487623.\nPages stored in compressor:                   845116.\nPages occupied by compressor:                 280690.\nDecompressions:                            170472091.\nCompressions:                              222647886.\nPageins:                                   109587522.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "lifecycle_passed": true
+    },
+    {
+      "name": "scan-20000000",
+      "rows": 20000000,
+      "arms": {
+        "off": {
+          "samples": [
+            {
+              "qps": 5601.334475628446,
+              "completed": 28016,
+              "elapsed_seconds": 5.001665249932557,
+              "cpu_ms_per_query": 1.0525777844089093,
+              "rss_bytes": 326172672,
+              "footprint_bytes": 41648776,
+              "p95_ms": 1.744542,
+              "from_monotonic_seconds": 1016935.549062208,
+              "to_monotonic_seconds": 1016940.551052291,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.428080089343062,
+              "external_peak_machine_percent": 6.656009745924922,
+              "quality_flag": false
+            },
+            {
+              "qps": 5199.163551535397,
+              "completed": 26002,
+              "elapsed_seconds": 5.0011890840251,
+              "cpu_ms_per_query": 1.142298106876394,
+              "rss_bytes": 326467584,
+              "footprint_bytes": 38650504,
+              "p95_ms": 1.874958,
+              "from_monotonic_seconds": 1016976.321015125,
+              "to_monotonic_seconds": 1016981.322451291,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 3.929281995450255,
+              "external_peak_machine_percent": 4.682466415233115,
+              "quality_flag": false
+            },
+            {
+              "qps": 5161.766663108991,
+              "completed": 25816,
+              "elapsed_seconds": 5.001388416974805,
+              "cpu_ms_per_query": 1.1566217252091726,
+              "rss_bytes": 326483968,
+              "footprint_bytes": 36258440,
+              "p95_ms": 1.917041,
+              "from_monotonic_seconds": 1017017.119147875,
+              "to_monotonic_seconds": 1017022.12078825,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 3.7430663831572737,
+              "external_peak_machine_percent": 5.488789410327706,
+              "quality_flag": false
+            },
+            {
+              "qps": 5147.027550325876,
+              "completed": 25741,
+              "elapsed_seconds": 5.001138958032243,
+              "cpu_ms_per_query": 1.1545278285225904,
+              "rss_bytes": 326533120,
+              "footprint_bytes": 34816648,
+              "p95_ms": 1.923458,
+              "from_monotonic_seconds": 1017052.815330541,
+              "to_monotonic_seconds": 1017057.816771666,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.537245803669188,
+              "external_peak_machine_percent": 6.303491030605984,
+              "quality_flag": false
+            },
+            {
+              "qps": 5050.332289592515,
+              "completed": 25259,
+              "elapsed_seconds": 5.001453083008528,
+              "cpu_ms_per_query": 1.1620526000633438,
+              "rss_bytes": 327319552,
+              "footprint_bytes": 35603080,
+              "p95_ms": 1.925167,
+              "from_monotonic_seconds": 1017073.211489166,
+              "to_monotonic_seconds": 1017078.213234,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.979216618582963,
+              "external_peak_machine_percent": 8.87096487671805,
+              "quality_flag": false
+            },
+            {
+              "qps": 5097.291950275985,
+              "completed": 25493,
+              "elapsed_seconds": 5.001283082994632,
+              "cpu_ms_per_query": 1.1705277657788413,
+              "rss_bytes": 327483392,
+              "footprint_bytes": 35766920,
+              "p95_ms": 1.893333,
+              "from_monotonic_seconds": 1017093.615760958,
+              "to_monotonic_seconds": 1017098.617286416,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.038925252814562,
+              "external_peak_machine_percent": 4.680384227298865,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:63509:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/off/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/off/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/off/searchd.pid\ndocstore_cache_adaptive = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 0\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 5154.397106717433,
+          "cpu_ms_per_query": 1.1555747768658815,
+          "rss_bytes": 326508544.0,
+          "footprint_bytes": 36012680.0,
+          "p95_ms": 1.905187
+        },
+        "manual16": {
+          "samples": [
+            {
+              "qps": 8049.562312177215,
+              "completed": 40254,
+              "elapsed_seconds": 5.000768792000599,
+              "cpu_ms_per_query": 0.6997732223381528,
+              "rss_bytes": 350027776,
+              "footprint_bytes": 65536672,
+              "p95_ms": 1.247167,
+              "from_monotonic_seconds": 1016940.640920958,
+              "to_monotonic_seconds": 1016945.642185333,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 16713216,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.3150968423881775,
+              "external_peak_machine_percent": 6.062285865107799,
+              "quality_flag": false
+            },
+            {
+              "qps": 7396.710117643193,
+              "completed": 36991,
+              "elapsed_seconds": 5.001007125014439,
+              "cpu_ms_per_query": 0.7594246787326647,
+              "rss_bytes": 351633408,
+              "footprint_bytes": 67142304,
+              "p95_ms": 1.349459,
+              "from_monotonic_seconds": 1016966.113504375,
+              "to_monotonic_seconds": 1016971.114836041,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 16713216,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.350546831078163,
+              "external_peak_machine_percent": 7.828651948991211,
+              "quality_flag": false
+            },
+            {
+              "qps": 7398.174934605811,
+              "completed": 37001,
+              "elapsed_seconds": 5.001368624973111,
+              "cpu_ms_per_query": 0.7680082858301127,
+              "rss_bytes": 351977472,
+              "footprint_bytes": 58098336,
+              "p95_ms": 1.338166,
+              "from_monotonic_seconds": 1017006.91051725,
+              "to_monotonic_seconds": 1017011.912194875,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 16713216,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.373195667468185,
+              "external_peak_machine_percent": 6.29525597814042,
+              "quality_flag": false
+            },
+            {
+              "qps": 7597.975315886169,
+              "completed": 37997,
+              "elapsed_seconds": 5.000937541946769,
+              "cpu_ms_per_query": 0.74167997581388,
+              "rss_bytes": 352845824,
+              "footprint_bytes": 58966688,
+              "p95_ms": 1.301583,
+              "from_monotonic_seconds": 1017047.709707541,
+              "to_monotonic_seconds": 1017052.711062666,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 16711120,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.760317668234144,
+              "external_peak_machine_percent": 6.303491030605984,
+              "quality_flag": false
+            },
+            {
+              "qps": 7672.778685487289,
+              "completed": 38370,
+              "elapsed_seconds": 5.000795874977484,
+              "cpu_ms_per_query": 0.7423117518113109,
+              "rss_bytes": 352845824,
+              "footprint_bytes": 57475744,
+              "p95_ms": 1.285416,
+              "from_monotonic_seconds": 1017083.413413083,
+              "to_monotonic_seconds": 1017088.414658166,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 16713216,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.538915546149918,
+              "external_peak_machine_percent": 5.329149032381789,
+              "quality_flag": false
+            },
+            {
+              "qps": 7555.068127551903,
+              "completed": 37784,
+              "elapsed_seconds": 5.001146166003309,
+              "cpu_ms_per_query": 0.7583050872326911,
+              "rss_bytes": 353009664,
+              "footprint_bytes": 57344672,
+              "p95_ms": 1.294583,
+              "from_monotonic_seconds": 1017103.811630583,
+              "to_monotonic_seconds": 1017108.813372166,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 16711120,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.515067974415421,
+              "external_peak_machine_percent": 5.466150717487462,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:63512:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/manual16/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/manual16/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/manual16/searchd.pid\ndocstore_cache_adaptive = 0\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 7576.521721719036,
+          "cpu_ms_per_query": 0.750308419522001,
+          "rss_bytes": 352411648.0,
+          "footprint_bytes": 58532512.0,
+          "p95_ms": 1.298083
+        },
+        "adaptive16": {
+          "samples": [
+            {
+              "qps": 7648.187251351879,
+              "completed": 38248,
+              "elapsed_seconds": 5.000923583982512,
+              "cpu_ms_per_query": 0.7397377945774942,
+              "rss_bytes": 350470144,
+              "footprint_bytes": 65520288,
+              "p95_ms": 1.312208,
+              "from_monotonic_seconds": 1016950.828745958,
+              "to_monotonic_seconds": 1016955.829909666,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 22544384,
+                "spare_bytes": 524288
+              },
+              "external_mean_machine_percent": 4.578513790911854,
+              "external_peak_machine_percent": 6.292924247716496,
+              "quality_flag": false
+            },
+            {
+              "qps": 7308.069386122857,
+              "completed": 36548,
+              "elapsed_seconds": 5.001047208090313,
+              "cpu_ms_per_query": 0.7683542475922075,
+              "rss_bytes": 352124928,
+              "footprint_bytes": 67191480,
+              "p95_ms": 1.380917,
+              "from_monotonic_seconds": 1016971.216090666,
+              "to_monotonic_seconds": 1016976.217604458,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 16581456,
+                "mapped_bytes": 22872064,
+                "spare_bytes": 786432
+              },
+              "external_mean_machine_percent": 5.718479902586692,
+              "external_peak_machine_percent": 7.809967552230936,
+              "quality_flag": false
+            },
+            {
+              "qps": 7366.854116034881,
+              "completed": 36843,
+              "elapsed_seconds": 5.001184958964586,
+              "cpu_ms_per_query": 0.7718840745324757,
+              "rss_bytes": 352370688,
+              "footprint_bytes": 67437240,
+              "p95_ms": 1.347917,
+              "from_monotonic_seconds": 1016996.710854666,
+              "to_monotonic_seconds": 1017001.712654458,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 22937600,
+                "spare_bytes": 917504
+              },
+              "external_mean_machine_percent": 4.288968899141926,
+              "external_peak_machine_percent": 4.9218195189765845,
+              "quality_flag": false
+            },
+            {
+              "qps": 7547.881932241823,
+              "completed": 37747,
+              "elapsed_seconds": 5.0010056250030175,
+              "cpu_ms_per_query": 0.751868115346915,
+              "rss_bytes": 352387072,
+              "footprint_bytes": 62440120,
+              "p95_ms": 1.30425,
+              "from_monotonic_seconds": 1017037.509444083,
+              "to_monotonic_seconds": 1017042.510849666,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 22937600,
+                "spare_bytes": 917504
+              },
+              "external_mean_machine_percent": 4.457339423552364,
+              "external_peak_machine_percent": 5.486625562063175,
+              "quality_flag": false
+            },
+            {
+              "qps": 7625.899287053231,
+              "completed": 38137,
+              "elapsed_seconds": 5.00098395801615,
+              "cpu_ms_per_query": 0.749780274615203,
+              "rss_bytes": 352387072,
+              "footprint_bytes": 58016440,
+              "p95_ms": 1.2835,
+              "from_monotonic_seconds": 1017078.309033333,
+              "to_monotonic_seconds": 1017083.3103755,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 22937600,
+                "spare_bytes": 917504
+              },
+              "external_mean_machine_percent": 4.047139430391228,
+              "external_peak_machine_percent": 4.834664351844103,
+              "quality_flag": false
+            },
+            {
+              "qps": 7355.445786462669,
+              "completed": 36786,
+              "elapsed_seconds": 5.001192459021695,
+              "cpu_ms_per_query": 0.7684871078671234,
+              "rss_bytes": 354402304,
+              "footprint_bytes": 59835064,
+              "p95_ms": 1.367583,
+              "from_monotonic_seconds": 1017114.0068555,
+              "to_monotonic_seconds": 1017119.008307458,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 22937600,
+                "spare_bytes": 917504
+              },
+              "external_mean_machine_percent": 6.157692894675531,
+              "external_peak_machine_percent": 9.144550921951637,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:63515:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/adaptive16/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/adaptive16/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/adaptive16/searchd.pid\ndocstore_cache_adaptive = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 7457.368024138352,
+          "cpu_ms_per_query": 0.7601111814695612,
+          "rss_bytes": 352378880.0,
+          "footprint_bytes": 63980204.0,
+          "p95_ms": 1.3300625
+        },
+        "adaptive128": {
+          "samples": [
+            {
+              "qps": 7528.459237639049,
+              "completed": 37650,
+              "elapsed_seconds": 5.001023291959427,
+              "cpu_ms_per_query": 0.7447568725099601,
+              "rss_bytes": 383811584,
+              "footprint_bytes": 98763472,
+              "p95_ms": 1.3335,
+              "from_monotonic_seconds": 1016961.016355208,
+              "to_monotonic_seconds": 1016966.017775208,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 42660688,
+                "mapped_bytes": 55705600,
+                "spare_bytes": 131072
+              },
+              "external_mean_machine_percent": 5.04606375672524,
+              "external_peak_machine_percent": 7.748661202628685,
+              "quality_flag": false
+            },
+            {
+              "qps": 7376.395203284082,
+              "completed": 36890,
+              "elapsed_seconds": 5.001087791984901,
+              "cpu_ms_per_query": 0.7680659641366224,
+              "rss_bytes": 381550592,
+              "footprint_bytes": 96518888,
+              "p95_ms": 1.346375,
+              "from_monotonic_seconds": 1016981.41479325,
+              "to_monotonic_seconds": 1016986.416315666,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 39329296,
+                "mapped_bytes": 51314688,
+                "spare_bytes": 131072
+              },
+              "external_mean_machine_percent": 4.354179404813065,
+              "external_peak_machine_percent": 5.887741101847784,
+              "quality_flag": false
+            },
+            {
+              "qps": 7344.097030469404,
+              "completed": 36728,
+              "elapsed_seconds": 5.001023250049911,
+              "cpu_ms_per_query": 0.7773056001688086,
+              "rss_bytes": 375570432,
+              "footprint_bytes": 90538728,
+              "p95_ms": 1.353917,
+              "from_monotonic_seconds": 1017001.813492875,
+              "to_monotonic_seconds": 1017006.814915541,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 33816192,
+                "mapped_bytes": 44761088,
+                "spare_bytes": 327680
+              },
+              "external_mean_machine_percent": 4.068335172023712,
+              "external_peak_machine_percent": 5.55934727780316,
+              "quality_flag": false
+            },
+            {
+              "qps": 7530.938496371631,
+              "completed": 37662,
+              "elapsed_seconds": 5.000970332999714,
+              "cpu_ms_per_query": 0.7557990492273379,
+              "rss_bytes": 385646592,
+              "footprint_bytes": 100614888,
+              "p95_ms": 1.311917,
+              "from_monotonic_seconds": 1017027.311041166,
+              "to_monotonic_seconds": 1017032.312406541,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 41794912,
+                "mapped_bytes": 54919168,
+                "spare_bytes": 196608
+              },
+              "external_mean_machine_percent": 4.199718835859896,
+              "external_peak_machine_percent": 4.535374011139688,
+              "quality_flag": false
+            },
+            {
+              "qps": 7547.177609242921,
+              "completed": 37743,
+              "elapsed_seconds": 5.000942332902923,
+              "cpu_ms_per_query": 0.7494590188909201,
+              "rss_bytes": 378159104,
+              "footprint_bytes": 83804880,
+              "p95_ms": 1.318584,
+              "from_monotonic_seconds": 1017068.108088791,
+              "to_monotonic_seconds": 1017073.109325833,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 35819360,
+                "mapped_bytes": 47251456,
+                "spare_bytes": 196608
+              },
+              "external_mean_machine_percent": 4.897326775010864,
+              "external_peak_machine_percent": 7.103346219027948,
+              "quality_flag": false
+            },
+            {
+              "qps": 7499.205980908982,
+              "completed": 37504,
+              "elapsed_seconds": 5.001062791910954,
+              "cpu_ms_per_query": 0.7626332191232935,
+              "rss_bytes": 375177216,
+              "footprint_bytes": 80233192,
+              "p95_ms": 1.309375,
+              "from_monotonic_seconds": 1017108.909868541,
+              "to_monotonic_seconds": 1017113.9113295,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 32780656,
+                "mapped_bytes": 43384832,
+                "spare_bytes": 327680
+              },
+              "external_mean_machine_percent": 4.435141431020975,
+              "external_peak_machine_percent": 5.466150717487462,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:63518:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/adaptive128/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/adaptive128/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/adaptive128/searchd.pid\ndocstore_cache_adaptive = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 134217728\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 7513.832609274015,
+          "cpu_ms_per_query": 0.7592161341753156,
+          "rss_bytes": 379854848.0,
+          "footprint_bytes": 93528808.0,
+          "p95_ms": 1.326042
+        },
+        "manual512": {
+          "samples": [
+            {
+              "qps": 7665.638701151793,
+              "completed": 38336,
+              "elapsed_seconds": 5.001018374925479,
+              "cpu_ms_per_query": 0.7343128912771285,
+              "rss_bytes": 1031143424,
+              "footprint_bytes": 746390656,
+              "p95_ms": 1.295667,
+              "from_monotonic_seconds": 1016955.921124416,
+              "to_monotonic_seconds": 1016960.922468,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 536703680,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 3.9489123964301887,
+              "external_peak_machine_percent": 4.861499921900001,
+              "quality_flag": false
+            },
+            {
+              "qps": 7375.100641955825,
+              "completed": 36883,
+              "elapsed_seconds": 5.001016500056721,
+              "cpu_ms_per_query": 0.7604093744543556,
+              "rss_bytes": 1033158656,
+              "footprint_bytes": 748405888,
+              "p95_ms": 1.347209,
+              "from_monotonic_seconds": 1016991.60773625,
+              "to_monotonic_seconds": 1016996.609135958,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 536697312,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.731229139441777,
+              "external_peak_machine_percent": 7.345377678002745,
+              "quality_flag": false
+            },
+            {
+              "qps": 7443.62479033374,
+              "completed": 37225,
+              "elapsed_seconds": 5.000923749990761,
+              "cpu_ms_per_query": 0.7637046417998656,
+              "rss_bytes": 1033994240,
+              "footprint_bytes": 749241472,
+              "p95_ms": 1.323125,
+              "from_monotonic_seconds": 1017012.015385333,
+              "to_monotonic_seconds": 1017017.016856,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 536701584,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.601181180050281,
+              "external_peak_machine_percent": 6.29525597814042,
+              "quality_flag": false
+            },
+            {
+              "qps": 7613.2617405400515,
+              "completed": 38074,
+              "elapsed_seconds": 5.001010249950923,
+              "cpu_ms_per_query": 0.7465135635079057,
+              "rss_bytes": 1034027008,
+              "footprint_bytes": 749274240,
+              "p95_ms": 1.296708,
+              "from_monotonic_seconds": 1017032.410972166,
+              "to_monotonic_seconds": 1017037.412330541,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 536695216,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.559643869902925,
+              "external_peak_machine_percent": 5.960689814423808,
+              "quality_flag": false
+            },
+            {
+              "qps": 7510.699111491036,
+              "completed": 37561,
+              "elapsed_seconds": 5.0009991669794545,
+              "cpu_ms_per_query": 0.7533191874550731,
+              "rss_bytes": 1034190848,
+              "footprint_bytes": 749438080,
+              "p95_ms": 1.316917,
+              "from_monotonic_seconds": 1017057.911730041,
+              "to_monotonic_seconds": 1017062.913290541,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 536701504,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.382304425546113,
+              "external_peak_machine_percent": 7.347124500434618,
+              "quality_flag": false
+            },
+            {
+              "qps": 7533.076120411114,
+              "completed": 37673,
+              "elapsed_seconds": 5.0010114590404555,
+              "cpu_ms_per_query": 0.7634082056910785,
+              "rss_bytes": 1034321920,
+              "footprint_bytes": 749569152,
+              "p95_ms": 1.292917,
+              "from_monotonic_seconds": 1017098.710906083,
+              "to_monotonic_seconds": 1017103.712320166,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 536695216,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.028137992828435,
+              "external_peak_machine_percent": 4.8173915555310876,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:63521:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/manual512/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/manual512/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/manual512/searchd.pid\ndocstore_cache_adaptive = 0\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 536870912\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 7521.887615951075,
+          "cpu_ms_per_query": 0.7568642809547144,
+          "rss_bytes": 1034010624.0,
+          "footprint_bytes": 749257856.0,
+          "p95_ms": 1.3068125
+        },
+        "adaptive512": {
+          "samples": [
+            {
+              "qps": 7704.119125464083,
+              "completed": 38527,
+              "elapsed_seconds": 5.000831292010844,
+              "cpu_ms_per_query": 0.7176703145586212,
+              "rss_bytes": 394133504,
+              "footprint_bytes": 109232872,
+              "p95_ms": 1.342125,
+              "from_monotonic_seconds": 1016945.73303225,
+              "to_monotonic_seconds": 1016950.734325958,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 48500432,
+                "mapped_bytes": 63504384,
+                "spare_bytes": 262144
+              },
+              "external_mean_machine_percent": 5.621280008565824,
+              "external_peak_machine_percent": 8.315777692873544,
+              "quality_flag": false
+            },
+            {
+              "qps": 7417.271548084276,
+              "completed": 37094,
+              "elapsed_seconds": 5.001030332990922,
+              "cpu_ms_per_query": 0.7655150911468162,
+              "rss_bytes": 391528448,
+              "footprint_bytes": 106627816,
+              "p95_ms": 1.332875,
+              "from_monotonic_seconds": 1016986.510558041,
+              "to_monotonic_seconds": 1016991.511879541,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 46696880,
+                "mapped_bytes": 60686336,
+                "spare_bytes": 65536
+              },
+              "external_mean_machine_percent": 4.589734257667756,
+              "external_peak_machine_percent": 7.345377678002745,
+              "quality_flag": false
+            },
+            {
+              "qps": 7391.236877620751,
+              "completed": 36964,
+              "elapsed_seconds": 5.001057415967807,
+              "cpu_ms_per_query": 0.7711834724326372,
+              "rss_bytes": 391610368,
+              "footprint_bytes": 106709736,
+              "p95_ms": 1.342833,
+              "from_monotonic_seconds": 1017022.21441875,
+              "to_monotonic_seconds": 1017027.21574125,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 46921664,
+                "mapped_bytes": 60620800,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.369501206246361,
+              "external_peak_machine_percent": 5.082320278035481,
+              "quality_flag": false
+            },
+            {
+              "qps": 7564.714101122719,
+              "completed": 37831,
+              "elapsed_seconds": 5.000982124940492,
+              "cpu_ms_per_query": 0.7520771699664297,
+              "rss_bytes": 394477568,
+              "footprint_bytes": 109576936,
+              "p95_ms": 1.306375,
+              "from_monotonic_seconds": 1017042.605808416,
+              "to_monotonic_seconds": 1017047.607381375,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 49041616,
+                "mapped_bytes": 63438848,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.460381835344248,
+              "external_peak_machine_percent": 5.556993346164375,
+              "quality_flag": false
+            },
+            {
+              "qps": 7608.585162355735,
+              "completed": 38052,
+              "elapsed_seconds": 5.001192624913529,
+              "cpu_ms_per_query": 0.7451624925628089,
+              "rss_bytes": 392101888,
+              "footprint_bytes": 107201256,
+              "p95_ms": 1.300958,
+              "from_monotonic_seconds": 1017063.011114666,
+              "to_monotonic_seconds": 1017068.012847041,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 46802832,
+                "mapped_bytes": 61014016,
+                "spare_bytes": 131072
+              },
+              "external_mean_machine_percent": 4.438219638537099,
+              "external_peak_machine_percent": 5.489165131255408,
+              "quality_flag": false
+            },
+            {
+              "qps": 7526.649427856681,
+              "completed": 37642,
+              "elapsed_seconds": 5.001162915956229,
+              "cpu_ms_per_query": 0.7610852936879019,
+              "rss_bytes": 388071424,
+              "footprint_bytes": 103170792,
+              "p95_ms": 1.303916,
+              "from_monotonic_seconds": 1017088.51147975,
+              "to_monotonic_seconds": 1017093.513079916,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 43150944,
+                "mapped_bytes": 56623104,
+                "spare_bytes": 196608
+              },
+              "external_mean_machine_percent": 4.006548009167708,
+              "external_peak_machine_percent": 4.598890052383672,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:63524:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/adaptive512/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/adaptive512/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-pktb2ocv/adaptive512/searchd.pid\ndocstore_cache_adaptive = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 536870912\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 7545.6817644897,
+          "cpu_ms_per_query": 0.7565812318271659,
+          "rss_bytes": 391856128.0,
+          "footprint_bytes": 106955496.0,
+          "p95_ms": 1.319625
+        }
+      },
+      "fixture": {
+        "docs": 20000000,
+        "logical_stored_text_bytes": 2560000000,
+        "disk_chunks": 26,
+        "spds_bytes": 111771071,
+        "disk_bytes": 381902481
+      },
+      "idle_gate": {
+        "interval_seconds": 30.376493165967986,
+        "idle_percent_mean": 91.90182407017993,
+        "idle_percent_min": 89.71291866028707,
+        "from_monotonic_seconds": 1016904.3595925,
+        "to_monotonic_seconds": 1016934.736085666
+      },
+      "thermal_before": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   165963.\nPages active:                                 419164.\nPages inactive:                               406601.\nPages speculative:                             12175.\nPages throttled:                                   0.\nPages wired down:                             252274.\nPages purgeable:                               18148.\n\"Translation faults\":                     6729691534.\nPages copy-on-write:                       839971750.\nPages zero filled:                        4810304612.\nPages reactivated:                         224709124.\nPages purged:                               47422724.\nFile-backed pages:                            353782.\nAnonymous pages:                              484158.\nPages stored in compressor:                   845115.\nPages occupied by compressor:                 280690.\nDecompressions:                            170472092.\nCompressions:                              222647886.\nPageins:                                   109653107.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "thermal_after": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    31109.\nPages active:                                 477639.\nPages inactive:                               479565.\nPages speculative:                             11785.\nPages throttled:                                   0.\nPages wired down:                             257378.\nPages purgeable:                                7881.\n\"Translation faults\":                     6733065567.\nPages copy-on-write:                       840260262.\nPages zero filled:                        4813181353.\nPages reactivated:                         224709348.\nPages purged:                               47423548.\nFile-backed pages:                            428449.\nAnonymous pages:                              540540.\nPages stored in compressor:                   843463.\nPages occupied by compressor:                 279818.\nDecompressions:                            170473312.\nCompressions:                              222647886.\nPageins:                                   109701224.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "lifecycle_passed": true
+    }
+  ],
+  "completed": true
+}

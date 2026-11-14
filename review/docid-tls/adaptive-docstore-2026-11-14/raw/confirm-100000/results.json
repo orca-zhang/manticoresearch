@@ -1,0 +1,1158 @@
+{
+  "source_commit": "8fec92b21c2f10f720f0bcbca498c5f8179f7ac0",
+  "binary_sha256": "bd0f089935634ef752e799403b960244071c89277f2d39f82054afd4f0e801e6",
+  "reader_tls": false,
+  "docid_cache_bytes": 0,
+  "query_cache_bytes": 0,
+  "configurations": {
+    "off": [
+      0,
+      true
+    ],
+    "manual16": [
+      16,
+      false
+    ],
+    "adaptive16": [
+      16,
+      true
+    ],
+    "adaptive128": [
+      128,
+      true
+    ],
+    "manual512": [
+      512,
+      false
+    ],
+    "adaptive512": [
+      512,
+      true
+    ]
+  },
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "planned_rows": [
+    100000
+  ],
+  "planned_memory": false,
+  "workload": "random",
+  "quality_rule": "Retain all samples. Mean external CPU >10% machine or peak >20% triggers a complete confirmation, never selective rounds.",
+  "calibration": {
+    "MANTICORE_KNOWN_CREATE_SIZE": "384",
+    "MANTICORE_START_KNOWN_CREATE_SIZE": "3280",
+    "MANTICORE_KNOWN_EXPR_SIZE": "32",
+    "MANTICORE_START_KNOWN_EXPR_SIZE": "160",
+    "MANTICORE_NONE": "32",
+    "MANTICORE_START_NONE": "160",
+    "MANTICORE_KNOWN_FILTER_SIZE": "224",
+    "MANTICORE_START_KNOWN_FILTER_SIZE": "30896",
+    "MANTICORE_KNOWN_MATCH_SIZE": "208",
+    "MANTICORE_START_KNOWN_MATCH_SIZE": "16288"
+  },
+  "script_sha256": "6c92baab745e26243c7ee32fbe6adf4217d47a5094248ba4f6bd4c2626da5597",
+  "cases": [
+    {
+      "name": "random-100000",
+      "rows": 100000,
+      "arms": {
+        "off": {
+          "samples": [
+            {
+              "qps": 5770.783465429284,
+              "completed": 28861,
+              "elapsed_seconds": 5.001227332977578,
+              "cpu_ms_per_query": 1.1941027424552164,
+              "rss_bytes": 29835264,
+              "footprint_bytes": 15303088,
+              "p95_ms": 1.720458,
+              "from_monotonic_seconds": 1016595.070899333,
+              "to_monotonic_seconds": 1016600.072486583,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.440499900490883,
+              "external_peak_machine_percent": 6.783879452758657,
+              "quality_flag": false
+            },
+            {
+              "qps": 5338.8195485459,
+              "completed": 26703,
+              "elapsed_seconds": 5.001667457981966,
+              "cpu_ms_per_query": 1.2842582403475264,
+              "rss_bytes": 30818304,
+              "footprint_bytes": 11321776,
+              "p95_ms": 1.855167,
+              "from_monotonic_seconds": 1016636.449542125,
+              "to_monotonic_seconds": 1016641.451513291,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.929333913591963,
+              "external_peak_machine_percent": 6.404212548710348,
+              "quality_flag": false
+            },
+            {
+              "qps": 5427.237860734999,
+              "completed": 27144,
+              "elapsed_seconds": 5.001439166022465,
+              "cpu_ms_per_query": 1.2712653348806366,
+              "rss_bytes": 30916608,
+              "footprint_bytes": 9798064,
+              "p95_ms": 1.830584,
+              "from_monotonic_seconds": 1016677.900199583,
+              "to_monotonic_seconds": 1016682.902297125,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.345488882208157,
+              "external_peak_machine_percent": 5.858945250516816,
+              "quality_flag": false
+            },
+            {
+              "qps": 5392.520875755711,
+              "completed": 26970,
+              "elapsed_seconds": 5.001371458987705,
+              "cpu_ms_per_query": 1.2781728664441971,
+              "rss_bytes": 31096832,
+              "footprint_bytes": 9879984,
+              "p95_ms": 1.840125,
+              "from_monotonic_seconds": 1016714.113245125,
+              "to_monotonic_seconds": 1016719.115142375,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.328382593988771,
+              "external_peak_machine_percent": 5.944042700048257,
+              "quality_flag": false
+            },
+            {
+              "qps": 5455.915409872527,
+              "completed": 27285,
+              "elapsed_seconds": 5.000993957975879,
+              "cpu_ms_per_query": 1.2653452934945941,
+              "rss_bytes": 31293440,
+              "footprint_bytes": 10043824,
+              "p95_ms": 1.816667,
+              "from_monotonic_seconds": 1016734.827308833,
+              "to_monotonic_seconds": 1016739.828898,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.1166718928119135,
+              "external_peak_machine_percent": 4.977681718074049,
+              "quality_flag": false
+            },
+            {
+              "qps": 5474.748678943297,
+              "completed": 27382,
+              "elapsed_seconds": 5.001508124987595,
+              "cpu_ms_per_query": 1.2596698637060841,
+              "rss_bytes": 31735808,
+              "footprint_bytes": 10420656,
+              "p95_ms": 1.808208,
+              "from_monotonic_seconds": 1016755.525750666,
+              "to_monotonic_seconds": 1016760.527484125,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.044133986461996,
+              "external_peak_machine_percent": 4.985830393745672,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:62433:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/off/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/off/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/off/searchd.pid\ndocstore_cache_adaptive = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 0\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 5441.576635303763,
+          "cpu_ms_per_query": 1.2683053141876153,
+          "rss_bytes": 31006720.0,
+          "footprint_bytes": 10232240.0,
+          "p95_ms": 1.8236255
+        },
+        "manual16": {
+          "samples": [
+            {
+              "qps": 7603.761156664736,
+              "completed": 38028,
+              "elapsed_seconds": 5.001209166948684,
+              "cpu_ms_per_query": 0.8965274468812455,
+              "rss_bytes": 48234496,
+              "footprint_bytes": 33718728,
+              "p95_ms": 1.412458,
+              "from_monotonic_seconds": 1016600.231151375,
+              "to_monotonic_seconds": 1016605.232663,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.698298280332616,
+              "external_peak_machine_percent": 6.514993071659365,
+              "quality_flag": false
+            },
+            {
+              "qps": 7259.318313679875,
+              "completed": 36304,
+              "elapsed_seconds": 5.001020540948957,
+              "cpu_ms_per_query": 0.9405423805365799,
+              "rss_bytes": 48955392,
+              "footprint_bytes": 30802376,
+              "p95_ms": 1.477917,
+              "from_monotonic_seconds": 1016626.072192791,
+              "to_monotonic_seconds": 1016631.073570208,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.643201503523909,
+              "external_peak_machine_percent": 6.505259924651388,
+              "quality_flag": false
+            },
+            {
+              "qps": 7325.070763615389,
+              "completed": 36628,
+              "elapsed_seconds": 5.000361250014976,
+              "cpu_ms_per_query": 0.9362516733646391,
+              "rss_bytes": 50364416,
+              "footprint_bytes": 28852680,
+              "p95_ms": 1.468584,
+              "from_monotonic_seconds": 1016667.538451083,
+              "to_monotonic_seconds": 1016672.539585125,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.629059042074539,
+              "external_peak_machine_percent": 6.176346809095514,
+              "quality_flag": false
+            },
+            {
+              "qps": 7335.540274623608,
+              "completed": 36682,
+              "elapsed_seconds": 5.000586000038311,
+              "cpu_ms_per_query": 0.9325307734856333,
+              "rss_bytes": 50610176,
+              "footprint_bytes": 27705800,
+              "p95_ms": 1.461708,
+              "from_monotonic_seconds": 1016708.920296291,
+              "to_monotonic_seconds": 1016713.921723791,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.809194920203142,
+              "external_peak_machine_percent": 7.160939934667728,
+              "quality_flag": false
+            },
+            {
+              "qps": 7335.822676290327,
+              "completed": 36687,
+              "elapsed_seconds": 5.001075083040632,
+              "cpu_ms_per_query": 0.9327829805925806,
+              "rss_bytes": 50970624,
+              "footprint_bytes": 27902408,
+              "p95_ms": 1.465042,
+              "from_monotonic_seconds": 1016745.160717208,
+              "to_monotonic_seconds": 1016750.162156458,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.7656648179723335,
+              "external_peak_machine_percent": 5.588096091896486,
+              "quality_flag": false
+            },
+            {
+              "qps": 7000.1481410185415,
+              "completed": 35007,
+              "elapsed_seconds": 5.000894166063517,
+              "cpu_ms_per_query": 0.9510868171508555,
+              "rss_bytes": 51576832,
+              "footprint_bytes": 28115400,
+              "p95_ms": 1.594375,
+              "from_monotonic_seconds": 1016765.867709291,
+              "to_monotonic_seconds": 1016770.869284583,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 7.981982197180982,
+              "external_peak_machine_percent": 10.715674724877829,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:62435:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/manual16/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/manual16/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/manual16/searchd.pid\ndocstore_cache_adaptive = 0\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 7330.305519119498,
+          "cpu_ms_per_query": 0.9345173269786098,
+          "rss_bytes": 50487296.0,
+          "footprint_bytes": 28484040.0,
+          "p95_ms": 1.466813
+        },
+        "adaptive16": {
+          "samples": [
+            {
+              "qps": 7251.856744576475,
+              "completed": 36269,
+              "elapsed_seconds": 5.001339833019301,
+              "cpu_ms_per_query": 0.94518925710662,
+              "rss_bytes": 48119808,
+              "footprint_bytes": 32948704,
+              "p95_ms": 1.489083,
+              "from_monotonic_seconds": 1016610.562663791,
+              "to_monotonic_seconds": 1016615.564389916,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.4552457418657765,
+              "external_peak_machine_percent": 5.068346248656903,
+              "quality_flag": false
+            },
+            {
+              "qps": 7129.4457807708695,
+              "completed": 35655,
+              "elapsed_seconds": 5.00109000003431,
+              "cpu_ms_per_query": 0.9625593664002244,
+              "rss_bytes": 48676864,
+              "footprint_bytes": 32227808,
+              "p95_ms": 1.502875,
+              "from_monotonic_seconds": 1016631.250686291,
+              "to_monotonic_seconds": 1016636.2521975,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.582047250407701,
+              "external_peak_machine_percent": 5.776747484105317,
+              "quality_flag": false
+            },
+            {
+              "qps": 7214.009988510476,
+              "completed": 36076,
+              "elapsed_seconds": 5.0008247919613495,
+              "cpu_ms_per_query": 0.9511310104501607,
+              "rss_bytes": 50069504,
+              "footprint_bytes": 30982624,
+              "p95_ms": 1.487333,
+              "from_monotonic_seconds": 1016657.193986708,
+              "to_monotonic_seconds": 1016662.195227833,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.101893034292007,
+              "external_peak_machine_percent": 9.389691337625854,
+              "quality_flag": false
+            },
+            {
+              "qps": 7144.685742442739,
+              "completed": 35731,
+              "elapsed_seconds": 5.001059709000401,
+              "cpu_ms_per_query": 0.9577362829195936,
+              "rss_bytes": 50429952,
+              "footprint_bytes": 28213728,
+              "p95_ms": 1.504291,
+              "from_monotonic_seconds": 1016698.586632166,
+              "to_monotonic_seconds": 1016703.588293083,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.0036736927573715,
+              "external_peak_machine_percent": 5.8827852657969535,
+              "quality_flag": false
+            },
+            {
+              "qps": 7327.79623895831,
+              "completed": 36646,
+              "elapsed_seconds": 5.000957833020948,
+              "cpu_ms_per_query": 0.93306344029362,
+              "rss_bytes": 50675712,
+              "footprint_bytes": 28148192,
+              "p95_ms": 1.468792,
+              "from_monotonic_seconds": 1016739.993351916,
+              "to_monotonic_seconds": 1016744.995019791,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.5147130883227735,
+              "external_peak_machine_percent": 5.788297599289526,
+              "quality_flag": false
+            },
+            {
+              "qps": 7332.768091219675,
+              "completed": 36673,
+              "elapsed_seconds": 5.0012491249945015,
+              "cpu_ms_per_query": 0.9281699626700843,
+              "rss_bytes": 51298304,
+              "footprint_bytes": 28672480,
+              "p95_ms": 1.477167,
+              "from_monotonic_seconds": 1016776.202823833,
+              "to_monotonic_seconds": 1016781.204588208,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.709469095991404,
+              "external_peak_machine_percent": 6.794215114305125,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:62438:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/adaptive16/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/adaptive16/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/adaptive16/searchd.pid\ndocstore_cache_adaptive = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 7232.933366543475,
+          "cpu_ms_per_query": 0.9481601337783904,
+          "rss_bytes": 50249728.0,
+          "footprint_bytes": 29827552.0,
+          "p95_ms": 1.488208
+        },
+        "adaptive128": {
+          "samples": [
+            {
+              "qps": 7186.184844554589,
+              "completed": 35939,
+              "elapsed_seconds": 5.001123792026192,
+              "cpu_ms_per_query": 0.9523187681348954,
+              "rss_bytes": 48300032,
+              "footprint_bytes": 33096136,
+              "p95_ms": 1.48925,
+              "from_monotonic_seconds": 1016620.898854333,
+              "to_monotonic_seconds": 1016625.9002695,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.265311814597185,
+              "external_peak_machine_percent": 5.16826185120983,
+              "quality_flag": false
+            },
+            {
+              "qps": 7134.085813599658,
+              "completed": 35681,
+              "elapsed_seconds": 5.001481750048697,
+              "cpu_ms_per_query": 0.9575231881113199,
+              "rss_bytes": 48578560,
+              "footprint_bytes": 31801800,
+              "p95_ms": 1.520541,
+              "from_monotonic_seconds": 1016641.626994458,
+              "to_monotonic_seconds": 1016646.628863416,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 6.030226082364347,
+              "external_peak_machine_percent": 7.610209598365472,
+              "quality_flag": false
+            },
+            {
+              "qps": 7114.151623822391,
+              "completed": 35580,
+              "elapsed_seconds": 5.001299084047787,
+              "cpu_ms_per_query": 0.9565460335862843,
+              "rss_bytes": 49135616,
+              "footprint_bytes": 29557192,
+              "p95_ms": 1.526083,
+              "from_monotonic_seconds": 1016662.365161625,
+              "to_monotonic_seconds": 1016667.36685825,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.107003945414132,
+              "external_peak_machine_percent": 7.775567619289096,
+              "quality_flag": false
+            },
+            {
+              "qps": 7288.934418624215,
+              "completed": 36453,
+              "elapsed_seconds": 5.001142541063018,
+              "cpu_ms_per_query": 0.9387770382410227,
+              "rss_bytes": 49299456,
+              "footprint_bytes": 27984328,
+              "p95_ms": 1.470959,
+              "from_monotonic_seconds": 1016688.2456705,
+              "to_monotonic_seconds": 1016693.247226333,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.416614970149708,
+              "external_peak_machine_percent": 6.02471192240636,
+              "quality_flag": false
+            },
+            {
+              "qps": 7276.753017741729,
+              "completed": 36391,
+              "elapsed_seconds": 5.0009942499455065,
+              "cpu_ms_per_query": 0.9402514747052844,
+              "rss_bytes": 49364992,
+              "footprint_bytes": 27738568,
+              "p95_ms": 1.479875,
+              "from_monotonic_seconds": 1016729.636288333,
+              "to_monotonic_seconds": 1016734.637695125,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.850096623795963,
+              "external_peak_machine_percent": 5.938837759614081,
+              "quality_flag": false
+            },
+            {
+              "qps": 7354.036194133413,
+              "completed": 36777,
+              "elapsed_seconds": 5.000927249900997,
+              "cpu_ms_per_query": 0.9262851204557195,
+              "rss_bytes": 50020352,
+              "footprint_bytes": 28328392,
+              "p95_ms": 1.469666,
+              "from_monotonic_seconds": 1016771.032653666,
+              "to_monotonic_seconds": 1016776.034030791,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.594819709475965,
+              "external_peak_machine_percent": 6.938866570339098,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:62441:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/adaptive128/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/adaptive128/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/adaptive128/searchd.pid\ndocstore_cache_adaptive = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 134217728\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 7231.46893114816,
+          "cpu_ms_per_query": 0.9462851214200898,
+          "rss_bytes": 49217536.0,
+          "footprint_bytes": 28942792.0,
+          "p95_ms": 1.4845625
+        },
+        "manual512": {
+          "samples": [
+            {
+              "qps": 7249.1718197167775,
+              "completed": 36255,
+              "elapsed_seconds": 5.001260958029889,
+              "cpu_ms_per_query": 0.9453718670804028,
+              "rss_bytes": 48742400,
+              "footprint_bytes": 33571272,
+              "p95_ms": 1.47475,
+              "from_monotonic_seconds": 1016615.730130291,
+              "to_monotonic_seconds": 1016620.731778625,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.508496443023727,
+              "external_peak_machine_percent": 5.623123858322688,
+              "quality_flag": false
+            },
+            {
+              "qps": 7237.363164360192,
+              "completed": 36197,
+              "elapsed_seconds": 5.001407166942954,
+              "cpu_ms_per_query": 0.9477005863745613,
+              "rss_bytes": 48955392,
+              "footprint_bytes": 27984328,
+              "p95_ms": 1.482625,
+              "from_monotonic_seconds": 1016651.974894291,
+              "to_monotonic_seconds": 1016656.976560375,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.388362645351257,
+              "external_peak_machine_percent": 9.389691337625854,
+              "quality_flag": false
+            },
+            {
+              "qps": 7267.222892595662,
+              "completed": 36340,
+              "elapsed_seconds": 5.000534666003659,
+              "cpu_ms_per_query": 0.9443979923225096,
+              "rss_bytes": 49053696,
+              "footprint_bytes": 27541960,
+              "p95_ms": 1.474958,
+              "from_monotonic_seconds": 1016672.70692175,
+              "to_monotonic_seconds": 1016677.708357291,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.326018166397658,
+              "external_peak_machine_percent": 5.072129096038363,
+              "quality_flag": false
+            },
+            {
+              "qps": 7289.883993643013,
+              "completed": 36456,
+              "elapsed_seconds": 5.000902625033632,
+              "cpu_ms_per_query": 0.9413323367072637,
+              "rss_bytes": 49102848,
+              "footprint_bytes": 27115976,
+              "p95_ms": 1.469542,
+              "from_monotonic_seconds": 1016693.41440475,
+              "to_monotonic_seconds": 1016698.415859458,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.237146420987424,
+              "external_peak_machine_percent": 5.801844291762687,
+              "quality_flag": false
+            },
+            {
+              "qps": 7356.252799786699,
+              "completed": 36791,
+              "elapsed_seconds": 5.001323500066064,
+              "cpu_ms_per_query": 0.9315439724932728,
+              "rss_bytes": 49201152,
+              "footprint_bytes": 27165128,
+              "p95_ms": 1.452417,
+              "from_monotonic_seconds": 1016719.290562083,
+              "to_monotonic_seconds": 1016724.292178166,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.509814532242491,
+              "external_peak_machine_percent": 5.944042700048257,
+              "quality_flag": false
+            },
+            {
+              "qps": 7417.988704724037,
+              "completed": 37096,
+              "elapsed_seconds": 5.000816458021291,
+              "cpu_ms_per_query": 0.9240341422794911,
+              "rss_bytes": 49790976,
+              "footprint_bytes": 27722184,
+              "p95_ms": 1.449208,
+              "from_monotonic_seconds": 1016760.693195833,
+              "to_monotonic_seconds": 1016765.694613625,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 13162560,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.376891907797845,
+              "external_peak_machine_percent": 10.715674724877829,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:62444:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/manual512/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/manual512/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/manual512/searchd.pid\ndocstore_cache_adaptive = 0\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 536870912\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 7278.553443119337,
+          "cpu_ms_per_query": 0.9428651645148867,
+          "rss_bytes": 49078272.0,
+          "footprint_bytes": 27632072.0,
+          "p95_ms": 1.472146
+        },
+        "adaptive512": {
+          "samples": [
+            {
+              "qps": 7416.470968297913,
+              "completed": 37089,
+              "elapsed_seconds": 5.000896000070497,
+              "cpu_ms_per_query": 0.9241809105664752,
+              "rss_bytes": 48119808,
+              "footprint_bytes": 32965088,
+              "p95_ms": 1.451125,
+              "from_monotonic_seconds": 1016605.393717791,
+              "to_monotonic_seconds": 1016610.394958958,
+              "round": 0,
+              "order": [
+                "off",
+                "manual16",
+                "adaptive512",
+                "adaptive16",
+                "manual512",
+                "adaptive128"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.546570502339857,
+              "external_peak_machine_percent": 6.0825930967649375,
+              "quality_flag": false
+            },
+            {
+              "qps": 7159.943251018596,
+              "completed": 35806,
+              "elapsed_seconds": 5.000877624959685,
+              "cpu_ms_per_query": 0.9463743611405909,
+              "rss_bytes": 49840128,
+              "footprint_bytes": 29704672,
+              "p95_ms": 1.50075,
+              "from_monotonic_seconds": 1016646.805295166,
+              "to_monotonic_seconds": 1016651.80695375,
+              "round": 1,
+              "order": [
+                "manual16",
+                "adaptive16",
+                "off",
+                "adaptive128",
+                "adaptive512",
+                "manual512"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 5.64717572566577,
+              "external_peak_machine_percent": 6.490437144382903,
+              "quality_flag": false
+            },
+            {
+              "qps": 7288.728270349436,
+              "completed": 36452,
+              "elapsed_seconds": 5.001146791037172,
+              "cpu_ms_per_query": 0.937333731125864,
+              "rss_bytes": 50036736,
+              "footprint_bytes": 28721632,
+              "p95_ms": 1.474167,
+              "from_monotonic_seconds": 1016683.076633541,
+              "to_monotonic_seconds": 1016688.078101375,
+              "round": 2,
+              "order": [
+                "adaptive16",
+                "adaptive128",
+                "manual16",
+                "manual512",
+                "off",
+                "adaptive512"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.621745314694489,
+              "external_peak_machine_percent": 5.970230171841934,
+              "quality_flag": false
+            },
+            {
+              "qps": 7294.863215896418,
+              "completed": 36482,
+              "elapsed_seconds": 5.00105333304964,
+              "cpu_ms_per_query": 0.9347536764705882,
+              "rss_bytes": 50397184,
+              "footprint_bytes": 29000160,
+              "p95_ms": 1.470458,
+              "from_monotonic_seconds": 1016703.753924625,
+              "to_monotonic_seconds": 1016708.755534,
+              "round": 3,
+              "order": [
+                "adaptive128",
+                "manual512",
+                "adaptive16",
+                "adaptive512",
+                "manual16",
+                "off"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.977194809325378,
+              "external_peak_machine_percent": 7.160939934667728,
+              "quality_flag": false
+            },
+            {
+              "qps": 7143.754724958708,
+              "completed": 35725,
+              "elapsed_seconds": 5.000871583004482,
+              "cpu_ms_per_query": 0.9448535759272219,
+              "rss_bytes": 50610176,
+              "footprint_bytes": 28738016,
+              "p95_ms": 1.527167,
+              "from_monotonic_seconds": 1016724.459161208,
+              "to_monotonic_seconds": 1016729.460495625,
+              "round": 4,
+              "order": [
+                "manual512",
+                "adaptive512",
+                "adaptive128",
+                "off",
+                "adaptive16",
+                "manual16"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 6.237415675525772,
+              "external_peak_machine_percent": 9.0378969110371,
+              "quality_flag": false
+            },
+            {
+              "qps": 7338.691940261205,
+              "completed": 36703,
+              "elapsed_seconds": 5.001299999887124,
+              "cpu_ms_per_query": 0.927405063400812,
+              "rss_bytes": 50937856,
+              "footprint_bytes": 28328416,
+              "p95_ms": 1.458875,
+              "from_monotonic_seconds": 1016750.33381575,
+              "to_monotonic_seconds": 1016755.335362958,
+              "round": 5,
+              "order": [
+                "adaptive512",
+                "off",
+                "manual512",
+                "manual16",
+                "adaptive128",
+                "adaptive16"
+              ],
+              "cache": {
+                "used_bytes": 13262688,
+                "mapped_bytes": 17563648,
+                "spare_bytes": 0
+              },
+              "external_mean_machine_percent": 4.863270709093187,
+              "external_peak_machine_percent": 7.064313672308906,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:62447:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/adaptive512/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/adaptive512/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/matrix-j31tdrgm/adaptive512/searchd.pid\ndocstore_cache_adaptive = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 536870912\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "qps": 7291.795743122927,
+          "cpu_ms_per_query": 0.9360437037982261,
+          "rss_bytes": 50216960.0,
+          "footprint_bytes": 28869088.0,
+          "p95_ms": 1.4723125000000001
+        }
+      },
+      "fixture": {
+        "docs": 100000,
+        "logical_stored_text_bytes": 12800000,
+        "disk_chunks": 1,
+        "spds_bytes": 558997,
+        "disk_bytes": 1925131
+      },
+      "query_sha256": "ad8df7ca8305b570af7e031f5d6fc488d784a133ed9998dd64874ccf0174137c",
+      "idle_gate": {
+        "interval_seconds": 30.440815957961604,
+        "idle_percent_mean": 90.92288311336077,
+        "idle_percent_min": 86.08,
+        "from_monotonic_seconds": 1016563.69940175,
+        "to_monotonic_seconds": 1016594.140217708
+      },
+      "thermal_before": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   256988.\nPages active:                                 381521.\nPages inactive:                               374824.\nPages speculative:                              6996.\nPages throttled:                                   0.\nPages wired down:                             235980.\nPages purgeable:                               14913.\n\"Translation faults\":                     6725603984.\nPages copy-on-write:                       839536870.\nPages zero filled:                        4807120568.\nPages reactivated:                         224708779.\nPages purged:                               47422604.\nFile-backed pages:                            281879.\nAnonymous pages:                              481462.\nPages stored in compressor:                   847771.\nPages occupied by compressor:                 281196.\nDecompressions:                            170469566.\nCompressions:                              222647886.\nPageins:                                   109533436.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "thermal_after": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   247615.\nPages active:                                 383408.\nPages inactive:                               381133.\nPages speculative:                              7325.\nPages throttled:                                   0.\nPages wired down:                             236940.\nPages purgeable:                               11452.\n\"Translation faults\":                     6728354166.\nPages copy-on-write:                       839827293.\nPages zero filled:                        4809260159.\nPages reactivated:                         224709005.\nPages purged:                               47422724.\nFile-backed pages:                            282628.\nAnonymous pages:                              489238.\nPages stored in compressor:                   846627.\nPages occupied by compressor:                 280934.\nDecompressions:                            170470657.\nCompressions:                              222647886.\nPageins:                                   109547196.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "lifecycle_passed": true
+    }
+  ],
+  "memory": [],
+  "completed": true
+}

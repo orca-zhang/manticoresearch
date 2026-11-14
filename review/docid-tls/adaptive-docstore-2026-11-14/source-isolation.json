@@ -1,0 +1,22 @@
+{
+  "commit": "8fec92b21c2f10f720f0bcbca498c5f8179f7ac0",
+  "implementation_matches": "1d7aa6fcac6ba9b9b704fb2a31a40aa24affc271",
+  "reader_registry_matches": "376fbf9988b2458ee196a5d92135c35a5121edc7",
+  "reader_tls": false,
+  "source_sha256": {
+    "api/libsphinxclient/smoke_ref.txt": "899d573a2a95ff04a674dc9be4377e657ab3d1e9d82800f83628f4cd3e3b849d",
+    "manual/english/References.md": "88e7c4175dcb70a766d05fd867360b01693f5f22784b595c862e469f798cea34",
+    "manual/english/Server_settings/Searchd.md": "c02561522c1156553d5ec5f6c1643da8883c7cef0b992dc15bd5901b7409dfc5",
+    "src/docstore.cpp": "524da0f309d6325d1c2f55ce488fe9b43f7bd954ac50e6610a6f9a2ffe15fbd7",
+    "src/docstore.h": "b7f7692ad906a4a7f9fda6a6b26be6b76dcbbf605e773bf0e4cf52c104221e30",
+    "src/docstore_admission.h": "5446f5e0edc222050af7af80af667add652498fe221206d7e3986d0ab902f63b",
+    "src/docstore_blockpool.h": "0279891d788c9440e599439cff89fa4af5ea7be5ae4f627cf5345cf13edd4d99",
+    "src/gtests/gtests_docstore_blockcache.cpp": "37d8cbf9c247d3ba546ef9fa3d93448b4fc2993d8452dfa64a534141ebd7d6dd",
+    "src/searchd.cpp": "bf58c545fb64395711e0ccf075c914f174dd990ad560f3cd4ff43c8009e90e64",
+    "src/sphinxutils.cpp": "fc247d63702f129f0ceef953c44aa55a4c93e3998389d6c0d033a7fb9f286989",
+    "src/std/lrucache.h": "edde0702da9c61a7e020d0d23b268c8f730b1ba344bf130e41aff2a6d5965e08",
+    "src/std/lrucache_impl.h": "2a1b005ef7441df701c146aade9135c64caddaba9c6205825968e2490548cf6f",
+    "test/clt-tests/buddy-plugins/test-prometheus-exporter.rec": "8b45376c2e98b484906fa32fca32a4c5798aa7da59835b94045ec1f7474f1de7",
+    "test/docid-cache/README.md": "09cfb39a484f873c6299e7cf4af3b1982df8f505783b1e769513c06bc22265bc"
+  }
+}

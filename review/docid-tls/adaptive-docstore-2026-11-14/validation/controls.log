@@ -1,0 +1,16 @@
+Idle gate: random-20000000
+Round 1 random-20000000
+Round 2 random-20000000
+Round 3 random-20000000
+Round 4 random-20000000
+Round 5 random-20000000
+Round 6 random-20000000
+RESULT random-20000000 {'off-A': 744.9, 'off-B': 747.9}
+Idle gate: scan-20000000
+Round 1 scan-20000000
+Round 2 scan-20000000
+Round 3 scan-20000000
+Round 4 scan-20000000
+Round 5 scan-20000000
+Round 6 scan-20000000
+RESULT scan-20000000 {'off': 5154.4, 'manual16': 7576.5, 'adaptive16': 7457.4, 'adaptive128': 7513.8, 'manual512': 7521.9, 'adaptive512': 7545.7}
