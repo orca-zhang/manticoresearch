@@ -1,0 +1,235 @@
+diff --git a/manual/english/References.md b/manual/english/References.md
+index 5ac43ba9a..ce975202c 100755
+--- a/manual/english/References.md
++++ b/manual/english/References.md
+@@ -476,7 +476,7 @@ To be put in the `searchd {}` section of the configuration file:
+   * [diskchunk_flush_write_timeout](Server_settings/Searchd.md#diskchunk_flush_write_timeout) - Timeout for auto-flushing a RAM chunk if there are no writes to it
+   * [diskchunk_flush_search_timeout](Server_settings/Searchd.md#diskchunk_flush_search_timeout) - Timeout for preventing auto-flushing a RAM chunk if there are no searches in the table
+   * [docstore_cache_size](Server_settings/Searchd.md#docstore_cache_size) - Maximum size of document blocks from document storage held in memory
+-  * [docstore_cache_adaptive](Server_settings/Searchd.md#docstore_cache_adaptive) - Reclaim cold stored-field blocks as the active working set shrinks
++  * [docstore_cache](Server_settings/Searchd.md#docstore_cache) - Enable or disable the adaptive stored-field block cache
+   * [embeddings_threads](Server_settings/Searchd.md#embeddings_threads) - Maximum number of threads the embeddings library may use when generating vectors for auto-embedding inserts, `ALTER TABLE` KNN rebuilds, and KNN text-query embedding
+   * [expansion_limit](Creating_a_table/NLP_and_tokenization/Wildcard_searching_settings.md#expansion_limit) - Maximum number of expanded keywords for a single wildcard
+   * [grouping_in_utc](Server_settings/Searchd.md#grouping_in_utc) - Enables using UTC timezone for grouping time fields
+diff --git a/manual/english/Server_settings/Searchd.md b/manual/english/Server_settings/Searchd.md
+index d088f862f..4702e7ea0 100755
+--- a/manual/english/Server_settings/Searchd.md
++++ b/manual/english/Server_settings/Searchd.md
+@@ -691,6 +691,9 @@ behavior.
+ <!-- example conf docstore_cache_size -->
+ This setting specifies the maximum size of document blocks from document storage that are held in memory. It is optional, with a default value of 16m (16 megabytes).
+ 
++The cache is enabled by default through `docstore_cache = 1` and always uses
++adaptive admission and reclamation. Setting this size to `0` also disables it.
++
+ When `stored_fields` is used, document blocks are read from disk and uncompressed. Since every block typically holds several documents, it may be reused when processing the next document. For this purpose, the block is held in a server-wide cache. The cache holds uncompressed blocks.
+ 
+ The cache uses up to 16 independently locked LRU partitions to reduce contention
+@@ -715,13 +718,16 @@ docstore_cache_size = 8m
+ ```
+ <!-- end -->
+ 
+-### docstore_cache_adaptive
++### docstore_cache
+ 
+-Enable second-touch admission and adaptive cold-block reclamation with `1`; the default is `0`. The
+-`docstore_cache_size` setting remains the hard limit for cached decoded blocks
++Enable the adaptive stored-field block cache with `1` (the default), or disable
++it with `0`. When enabled, the cache always uses second-touch admission,
++adaptive cold-block reclamation and mapped payload storage; there is no separate
++fixed-policy configuration. A zero `docstore_cache_size` also disables the cache.
++The `docstore_cache_size` setting remains the hard limit for cached decoded blocks
+ and LRU entries. Small mapped payloads are charged in 256-byte size classes;
+ larger dedicated mappings are charged at their page-rounded size.
+-Memory is already allocated on demand in either mode: a
++Memory is allocated on demand: a
+ 512 MiB limit does not reserve 512 MiB at startup. Hash tables and allocator
+ metadata, reader buffers and in-flight decompression remain additional memory.
+ Adaptive mode also uses a fixed 256 KiB fingerprint history, allocated only when
+@@ -732,7 +738,7 @@ was already observed in its history slot. The first visit uses a temporary
+ heap buffer. A second visit can occur within the same query or session.
+ The bounded history uses atomic fingerprint replacement; collisions can change
+ admission decisions but cannot return another block, since the shared cache
+-still compares complete keys. Manual mode admits every eligible miss. This
++still compares complete keys. This
+ policy reduces insertion and eviction work for sparse accesses; it does not
+ guarantee that caching improves every workload.
+ 
+@@ -747,8 +753,7 @@ therefore retain at most 1 MiB of completely empty spare regions. Unused slots
+ in partially occupied regions also consume mapped address space, in addition
+ to the cached-entry limit. Mapping
+ failure or a payload too large for its partition falls back to the process
+-heap. Manual mode continues to use the process heap. Metadata, temporary input
+-buffers and output values still use the process heap in either mode.
++heap. Metadata, temporary input buffers and output values still use the process heap.
+ 
+ Adaptive mode keeps the partition count and block-to-partition mapping fixed.
+ Each partition observes windows of 4096 block lookups under its existing lock.
+@@ -781,7 +786,7 @@ above it.
+ 
+ ```ini
+ docstore_cache_size = 512m
+-docstore_cache_adaptive = 1
++docstore_cache = 1
+ ```
+ 
+ ### engine
+diff --git a/src/docstore.h b/src/docstore.h
+index 57c418556..90d2d50d0 100644
+--- a/src/docstore.h
++++ b/src/docstore.h
+@@ -137,7 +137,7 @@ std::unique_ptr<DocstoreBuilder_i>	CreateDocstoreBuilder ( const CSphString & sF
+ std::unique_ptr<DocstoreRT_i>		CreateDocstoreRT();
+ std::unique_ptr<DocstoreFields_i>	CreateDocstoreFields();
+ 
+-void				InitDocstore ( int64_t iCacheSize, bool bAdaptive = false );
++void				InitDocstore ( int64_t iCacheSize, bool bAdaptive = true );
+ int64_t				GetDocstoreCacheUsedBytes();
+ struct DocstoreCacheStats_t
+ {
+diff --git a/src/searchd.cpp b/src/searchd.cpp
+index ca95b3f32..84a7b2da0 100644
+--- a/src/searchd.cpp
++++ b/src/searchd.cpp
+@@ -149,7 +149,6 @@ int						g_iMaxFilterValues	= 4096;
+ int						g_iMaxBatchQueries	= 32;
+ 
+ static int64_t			g_iDocstoreCache = 0;
+-static bool				g_bDocstoreCacheAdaptive = false;
+ static int64_t			g_iSkipCache = 0;
+ 
+ static auto &	g_iDistThreads		= getDistThreads();
+@@ -16013,8 +16012,7 @@ void ConfigureSearchd ( const CSphConfig & hConf, bool bNeedPIDFile, bool bTestM
+ 		sphDie ( "docid_lookup_cache_size is out of range" );
+ 	DocidLookupCache_c::SetBudget((size_t)iDocidCache);
+ 
+-	g_iDocstoreCache = hSearchd.GetSize64 ( "docstore_cache_size", 16777216 );
+-	g_bDocstoreCacheAdaptive = hSearchd.GetInt ( "docstore_cache_adaptive", 0 )!=0;
++	g_iDocstoreCache = hSearchd.GetInt ( "docstore_cache", 1 ) ? hSearchd.GetSize64 ( "docstore_cache_size", 16777216 ) : 0;
+ 	g_iSkipCache = hSearchd.GetSize64 ( "skiplist_cache_size", 67108864 );
+ 
+ 	if ( hSearchd.Exists ( "max_open_files" ) )
+@@ -17210,7 +17208,7 @@ int WINAPI ServiceMain ( int argc, char **argv ) EXCLUDES (MainThread)
+ 		sphLockUn ( g_iPidFD );
+ 
+ 	SetUidShort ( GetMacAddress(), g_sPidFile, bTestMode );
+-	InitDocstore ( g_iDocstoreCache, g_bDocstoreCacheAdaptive );
++	InitDocstore ( g_iDocstoreCache );
+ 	InitSkipCache ( g_iSkipCache );
+ 	InitParserOption();
+ 
+diff --git a/src/sphinxutils.cpp b/src/sphinxutils.cpp
+index 65b6c5da0..49631e5cd 100644
+--- a/src/sphinxutils.cpp
++++ b/src/sphinxutils.cpp
+@@ -1177,7 +1177,7 @@ static KeyDesc_t g_dKeysSearchd[] =
+ 	{ "access_secondary",		0, nullptr },
+ 	{ "docid_lookup_cache_size", 0, nullptr },
+ 	{ "docstore_cache_size",	0, nullptr },
+-	{ "docstore_cache_adaptive", 0, nullptr },
++	{ "docstore_cache", 0, nullptr },
+ 	{ "skiplist_cache_size",	0, nullptr },
+ 	{ "ssl_cert",				0, nullptr },
+ 	{ "ssl_key",				0, nullptr },
+diff --git a/test/docid-cache/README.md b/test/docid-cache/README.md
+index 494148f52..1ca1fa6e4 100644
+--- a/test/docid-cache/README.md
++++ b/test/docid-cache/README.md
+@@ -53,7 +53,9 @@ must state the DocID budget and compare equal budgets in both binaries. A
+ same-binary comparison of `docstore_cache_size=0` and `16m` answers a separate
+ question from the benefit of changing the block-cache implementation.
+ 
+-The opt-in `docstore_cache_adaptive=1` mode retains the configured
++`docstore_cache=1` enables the adaptive implementation and is the default;
++`docstore_cache=0` disables block caching regardless of the configured budget.
++`docstore_cache_size=0` also disables it. The cache retains the configured
+ `docstore_cache_size` hard entry limit and reclaims cold, unreferenced blocks
+ after a stable smaller hot set is observed. Both modes already allocate only
+ on demand; the adaptive change adds reclamation rather than preallocation or
+@@ -61,23 +63,28 @@ automatic growth beyond the configured ceiling. Lookup epochs are per shard,
+ updated under the existing lock, and require no TLS or global atomic counter.
+ Idle shards do not advance epochs and no low-hit-rate bypass is implemented.
+ 
+-The public stored-field tests run in both manual and adaptive modes.
++The public stored-field tests retain fixed-policy and adaptive controls.
+ `AdaptiveLru` tests additionally check demand growth, hard limits, hot-set
+-changes, unchanged manual retention, pinned references and concurrent reads
++changes, unchanged fixed-policy retention, pinned references and concurrent reads
+ under admission/reclamation pressure. The `docstore_cache_used_bytes` status
+ metric reports charged cached entry bytes, separately from process RSS. Compare
+-manual/adaptive at the same ceiling before attributing an effect to the new
++fixed/adaptive at the same ceiling before attributing an effect to the new
+ policy; raising 16 MiB to 512 MiB is a separate capacity comparison.
+ The adaptive follow-up uses per-shard virtual-memory pools for decoded payloads,
+ with direct decompression. Small blocks use 256-byte size classes packed into
+ 64 KiB regions; large blocks use page-rounded dedicated mappings. Empty regions
+ are unmapped, with at most one 64 KiB empty spare per shard. Partially occupied
+ regions can retain unused slots, separately from charged entry bytes. This
+-bypasses process heap retention. Manual mode and oversized/mapping-failure fallbacks still use
+-the heap. Metadata and temporary/input/output buffers also remain on the heap.
++bypasses process heap retention. The fixed-policy test control and oversized/mapping-failure
++fallbacks still use the heap. Metadata and temporary/input/output buffers also remain on the heap.
+ The mapped/spare status metrics account for pool mappings, including in-flight
+ blocks; the entry ceiling does not bound total mappings or process RSS.
+ Pool tests cover reuse, excess unmapping, rounding, no-spare mode and concurrent
+ allocation/release. Stored-field tests also cover uncompressed small/large
+ fields and clear/recreate in both modes. Measure process RSS and footprint
+ alongside entry counters before claiming physical memory savings.
++
++`python3 test/docid-cache/test_blockcache_config.py build/src/searchd` checks
++adaptive behavior with the default or explicit enable setting, explicit disable
++at both normal and large budgets, zero-sized budgets, and stored-field
++replacement/cache cleanup. The fixed-policy control is not a server setting.
+diff --git a/test/docid-cache/test_blockcache_config.py b/test/docid-cache/test_blockcache_config.py
+new file mode 100644
+index 000000000..b69c89c45
+--- /dev/null
++++ b/test/docid-cache/test_blockcache_config.py
+@@ -0,0 +1,47 @@
++#!/usr/bin/env python3
++"""Check that the docstore enable switch selects adaptive caching or cache off."""
++import argparse
++from pathlib import Path
++import tempfile
++
++from test_integration import Server
++
++
++def check(binary, name, settings, enabled):
++    with tempfile.TemporaryDirectory(prefix="manticore-docstore-config-") as temp:
++        server = Server(binary, Path(temp), 0, threads=2)
++        server.config.write_text(server.config.read_text().replace("buddy_path =\n", "buddy_path =\n" + settings))
++        with server.running() as db:
++            db.sql("CREATE TABLE docs (body text stored) engine='rowwise' "
++                   "docstore_block_size='16384' docstore_compression='lz4'")
++            body = "stored payload " * 8
++            values = ",".join(f"({i},'{body}')" for i in range(1, 1025))
++            db.sql("INSERT INTO docs (id,body) VALUES " + values)
++            db.sql("FLUSH RAMCHUNK docs")
++            for _ in range(3):
++                assert db.sql("SELECT body FROM docs WHERE id=1")["data"] == [{"body": body}]
++            stats = {r["Counter"]: int(r["Value"]) for r in db.sql("SHOW STATUS LIKE 'docstore_cache_%'")["data"]}
++            assert (stats["docstore_cache_used_bytes"] > 0) == enabled, (name, stats)
++            assert (stats["docstore_cache_mapped_bytes"] > 0) == enabled, (name, stats)
++            db.sql("REPLACE INTO docs (id,body) VALUES (1,'replacement')")
++            db.sql("FLUSH RAMCHUNK docs")
++            assert db.sql("SELECT body FROM docs WHERE id=1")["data"] == [{"body": "replacement"}]
++            db.sql("DROP TABLE docs")
++            assert int(db.sql("SHOW STATUS LIKE 'docstore_cache_used_bytes'")["data"][0]["Value"]) == 0
++        print(f"PASS {name}: adaptive={enabled}, stored-field replacement and cache cleanup")
++
++
++if __name__ == "__main__":
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("searchd", type=lambda value: str(Path(value).resolve()))
++    args = parser.parse_args()
++    cases = [
++        ("default", "", True),
++        ("enabled", "docstore_cache = 1\n", True),
++        ("disabled", "docstore_cache = 0\n", False),
++        ("disabled-large-budget", "docstore_cache = 0\ndocstore_cache_size = 512m\n", False),
++        ("zero-budget", "docstore_cache_size = 0\n", False),
++        ("enabled-zero-budget", "docstore_cache = 1\ndocstore_cache_size = 0\n", False),
++    ]
++    for case in cases:
++        check(args.searchd, *case)

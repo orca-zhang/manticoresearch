@@ -1,9 +1,16 @@
 # Reproduction
 
 The measured cache implementation is `8fec92b21c2f10f720f0bcbca498c5f8179f7ac0`.
-Published head `90e884162544cc36d06fe3f20a978c6817c0e354` differs only by moving
-three CMake test-source registrations; `publish-identity.json` records this.
-The original implementation and the publication follow-up are tested separately.
+The latest head is `d89cebcdbee5eeaa205b6a861067b0d1219e6ea3`: `docstore_cache=1`
+enables adaptive caching by default, `docstore_cache=0` disables it, and
+`docstore_cache_size` remains the ceiling (default 16 MiB; zero disables).
+The adaptive algorithms match the measured build; configuration wiring changed.
+`configuration-identity.json` hashes the matching algorithm/test sources.
+`configuration-switch.patch` records the follow-up over `90e8841`, and
+`latest-full-pr.patch` records the complete current source diff.
+The earlier `source.patch`, `full-pr.patch` and `publish-identity.json` retain
+their original dated targets; they are not overwritten with new source claims.
+
 The complete source patch is relative to upstream `047d2f99522d78e0aa1de7e7dc945a9abe1b673a`.
 
 ## Build and checks
@@ -27,7 +34,10 @@ for a new checkout. The recorded sanitizer scope is not a fully instrumented eng
 
 ## Fresh measurements
 
-Place the measured build's executable at `./searchd`, beside `run_final.py`.
+Place the measured `8fec92b` build's executable at `./searchd`, beside `run_final.py`.
+The recorded fixed-policy reference arms require that measured revision; the
+latest server exposes adaptive/off only. Its enable switch is checked separately
+with `python3 configuration-test/test_blockcache_config.py /path/to/latest/searchd`.
 These standard-library benchmark drivers use macOS Mach CPU/memory telemetry.
 Large immutable data fixtures are generated on first run; they and executable
 binaries are intentionally omitted. Keep adequate disk space for the 20M-row
@@ -53,8 +63,8 @@ python3 run_final.py --rows 100000 --skip-memory --output confirm-100000
 ```
 
 Both complete series are preserved; no individual round was removed. The
-memory diagnostics have two passes with reversed manual/adaptive order;
-the second manual pass also provides an independent repetition of the first.
+memory diagnostics have two passes with reversed fixed/adaptive order;
+the second fixed pass also provides an independent repetition of the first.
 Memory-sampler throughput is not pooled into the primary QPS tables.
 
 ## Regenerate the preserved tables and figures

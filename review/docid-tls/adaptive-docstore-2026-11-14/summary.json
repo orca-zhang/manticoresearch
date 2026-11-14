@@ -18,19 +18,6 @@
     {
       "rows": 20000,
       "series": "measurement",
-      "arm": "manual16",
-      "qps": 8213.00961097613,
-      "qps_over_off": 1.323871713515642,
-      "cpu_ms_per_query": 0.8180061452516645,
-      "cpu_change_percent": -24.929401684955167,
-      "used_mib": 2.5106048583984375,
-      "mapped_mib": 0.0,
-      "rss_mib": 33.75,
-      "footprint_mib": 14.047286987304688
-    },
-    {
-      "rows": 20000,
-      "series": "measurement",
       "arm": "adaptive16",
       "qps": 8224.589193819993,
       "qps_over_off": 1.3257382500116923,
@@ -92,19 +79,6 @@
       "mapped_mib": 0.0,
       "rss_mib": 29.5703125,
       "footprint_mib": 9.758224487304688
-    },
-    {
-      "rows": 100000,
-      "series": "confirm-100000",
-      "arm": "manual16",
-      "qps": 7330.305519119498,
-      "qps_over_off": 1.347092214333999,
-      "cpu_ms_per_query": 0.9345173269786098,
-      "cpu_change_percent": -26.317636887203765,
-      "used_mib": 12.55279541015625,
-      "mapped_mib": 0.0,
-      "rss_mib": 48.1484375,
-      "footprint_mib": 27.16449737548828
     },
     {
       "rows": 100000,
@@ -174,19 +148,6 @@
     {
       "rows": 1000000,
       "series": "measurement",
-      "arm": "manual16",
-      "qps": 2969.17595699691,
-      "qps_over_off": 0.874062742537414,
-      "cpu_ms_per_query": 2.443265444529473,
-      "cpu_change_percent": 13.426880485145688,
-      "used_mib": 15.93896484375,
-      "mapped_mib": 0.0,
-      "rss_mib": 91.96875,
-      "footprint_mib": 30.18798065185547
-    },
-    {
-      "rows": 1000000,
-      "series": "measurement",
       "arm": "adaptive16",
       "qps": 3024.8804404702714,
       "qps_over_off": 0.8904609669274572,
@@ -252,19 +213,6 @@
     {
       "rows": 5000000,
       "series": "measurement",
-      "arm": "manual16",
-      "qps": 1659.5285138654258,
-      "qps_over_off": 0.9434583931187732,
-      "cpu_ms_per_query": 4.59164503025416,
-      "cpu_change_percent": 5.702084824482401,
-      "used_mib": 15.93896484375,
-      "mapped_mib": 0.0,
-      "rss_mib": 135.265625,
-      "footprint_mib": 39.60206604003906
-    },
-    {
-      "rows": 5000000,
-      "series": "measurement",
       "arm": "adaptive16",
       "qps": 1698.7774400534013,
       "qps_over_off": 0.9657717963074258,
@@ -326,19 +274,6 @@
       "mapped_mib": 0.0,
       "rss_mib": 300.84375,
       "footprint_mib": 47.141265869140625
-    },
-    {
-      "rows": 20000000,
-      "series": "measurement",
-      "arm": "manual16",
-      "qps": 721.1931615902145,
-      "qps_over_off": 0.9711011979007066,
-      "cpu_ms_per_query": 10.836169916264009,
-      "cpu_change_percent": 3.1041257247022003,
-      "used_mib": 15.937965393066406,
-      "mapped_mib": 0.0,
-      "rss_mib": 331.53125,
-      "footprint_mib": 81.20378875732422
     },
     {
       "rows": 20000000,

@@ -5,8 +5,10 @@
 The [current #5042 report](adaptive-docstore-2026-11-14/REPORT.md) connects
 capacity, oversized working sets and process-memory return using one cache
 implementation, with native DocID caching and reader TLS excluded from the
-throughput matrix. It includes default manual 16 MiB, cache off, adaptive
-16/128/512 MiB and a same-ceiling manual 512 MiB control at 20k–20M rows.
+throughput matrix. It presents cache off, adaptive 16/128/512 MiB and a
+fixed 512 MiB reference control at 20k–20M rows. Adaptive 16 MiB is now the
+default: `docstore_cache=1` enables the adaptive implementation and `0`
+disables it; `docstore_cache_size` remains the capacity ceiling.
 The report retains every original/confirmation sample, QPS and CPU/query,
 an advancing scan and A/A control, and two broad/hot/broad memory passes.
 The latest adaptive implementation is now included in #5042; this is no
@@ -14,7 +16,7 @@ longer an experiment outside that PR.
 
 [Download the current evidence ZIP](attachments/adaptive-docstore-final-20261114.zip)
 (264 timed samples, 6,515,205 checked timed queries, memory traces, source patches
-and validation logs; SHA-256 `7a5ff7dd99268cde5ef9375beebdedcb6c9917ea5555547b9b1b41c0f0c45f48`).
+and validation logs; SHA-256 `7a6f0c5cdee535f2aee056927a5481d5f2bd81bae490690a8fcb44d953587b22`).
 
 ## Latest independent reader TLS measurement (2026-11-14)
 
@@ -29,10 +31,12 @@ scale plot are retained. Default-cache 256-row QPS changes are -0.40% to
 
 PR [#5042](https://github.com/manticoresoftware/manticoresearch/pull/5042)
 contains the opt-in native DocID cache, shared XXH3 block-cache partitions,
-atomic pin release and opt-in adaptive admission/mapped-memory reclamation.
-Its current source is `90e884162544cc36d06fe3f20a978c6817c0e354`; the measured
+atomic pin release and adaptive admission/mapped-memory reclamation.
+Its current source is `d89cebcdbee5eeaa205b6a861067b0d1219e6ea3`; the measured
 production implementation is `8fec92b21c2f10f720f0bcbca498c5f8179f7ac0`.
-The follow-up changes only CMake test registration to avoid an upstream conflict.
+Follow-ups remove the upstream test-registration conflict and replace the
+policy selector with a default-on cache enable switch. Cache algorithms match
+the recorded adaptive measurements; fixed controls are not server options.
 It contains no reader TLS or global generation counter.
 PR [#5045](https://github.com/manticoresoftware/manticoresearch/pull/5045)
 remains reader TLS only at `019868e9f79d1bb2bd1f96dafb88ef20acd45418`.
@@ -61,6 +65,8 @@ Neither PR depends on the other.
 
 The current #5042 implementation passes 548 native gtests, API smoke and DocID
 SQL lifecycle; focused 30-test ASan+UBSan and TSan suites pass 20 repeats each.
+The latest enable switch also passes six real-server configuration cases,
+with default and explicit enable verified through mapped payload allocation.
 The CMake-only follow-up removes the new upstream test-registration conflict.
 Upstream CI for the pushed head is awaiting maintainer approval
 (`action_required`, zero executed jobs), not a passing run. The earlier shared

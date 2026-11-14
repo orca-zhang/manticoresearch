@@ -7,9 +7,9 @@ import json
 from pathlib import Path
 import statistics
 
-LABELS = {'off': 'Cache off', 'manual16': 'Manual 16 MiB (default)',
-          'adaptive16': 'Adaptive 16 MiB', 'adaptive128': 'Adaptive 128 MiB',
-          'manual512': 'Manual 512 MiB', 'adaptive512': 'Adaptive 512 MiB'}
+LABELS = {'off': 'Cache off', 'adaptive16': 'Adaptive 16 MiB (default)',
+          'adaptive128': 'Adaptive 128 MiB',
+          'manual512': 'Fixed 512 MiB (reference)', 'adaptive512': 'Adaptive 512 MiB'}
 ORDER = list(LABELS)
 MIB = 2**20
 
@@ -93,7 +93,7 @@ def main():
     import matplotlib.pyplot as plt
     plt.rcParams.update({'font.family':'DejaVu Sans','font.size':10,'svg.fonttype':'none'})
     fig,axes=plt.subplots(2,1,figsize=(10,8),sharex=True,layout='constrained')
-    colors={'manual16':'#999999','adaptive16':'#e69f00','adaptive128':'#009e73',
+    colors={'adaptive16':'#e69f00','adaptive128':'#009e73',
             'manual512':'#cc79a7','adaptive512':'#0072b2'}
     x=[c['rows'] for _,c in selected]
     for label in ORDER[1:]:
@@ -145,6 +145,7 @@ def main():
         if item['path'].startswith('controls/'):
             for c in item['data']['cases']:
                 for label,a in c['arms'].items():
+                    if label=='manual16': continue
                     lines.append(f"| {c['name']} | {LABELS.get(label,label)} | {a['qps']:,.1f} | {a['cpu_ms_per_query']:.4f} |")
     (out/'TABLES.md').write_text('\n'.join(lines)+'\n')
     print(json.dumps(json.loads((out/'summary.json').read_text()),indent=2))

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/private/tmp/manticore-admission-source-20261114/test/docid-cache/test_blockcache_config.py", line 47, in <module>
+    check(args.searchd, *case)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/manticore-admission-source-20261114/test/docid-cache/test_blockcache_config.py", line 25, in check
+    assert (stats["docstore_cache_mapped_bytes"] > 0) == enabled, (name, stats)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('default', {'docstore_cache_used_bytes': 16672, 'docstore_cache_mapped_bytes': 0, 'docstore_cache_spare_bytes': 0})

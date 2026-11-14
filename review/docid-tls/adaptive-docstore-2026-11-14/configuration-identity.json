@@ -1,0 +1,18 @@
+{
+  "measured_commit": "8fec92b21c2f10f720f0bcbca498c5f8179f7ac0",
+  "published_commit": "d89cebcdbee5eeaa205b6a861067b0d1219e6ea3",
+  "previous_published_commit": "90e884162544cc36d06fe3f20a978c6817c0e354",
+  "enable_switch": "docstore_cache",
+  "enabled_default": true,
+  "default_budget_bytes": 16777216,
+  "zero_budget_disables": true,
+  "reader_tls": false,
+  "cache_algorithm_sha256": {
+    "src/docstore.cpp": "524da0f309d6325d1c2f55ce488fe9b43f7bd954ac50e6610a6f9a2ffe15fbd7",
+    "src/docstore_admission.h": "5446f5e0edc222050af7af80af667add652498fe221206d7e3986d0ab902f63b",
+    "src/docstore_blockpool.h": "0279891d788c9440e599439cff89fa4af5ea7be5ae4f627cf5345cf13edd4d99",
+    "src/std/lrucache.h": "edde0702da9c61a7e020d0d23b268c8f730b1ba344bf130e41aff2a6d5965e08",
+    "src/std/lrucache_impl.h": "2a1b005ef7441df701c146aade9135c64caddaba9c6205825968e2490548cf6f",
+    "src/gtests/gtests_docstore_blockcache.cpp": "37d8cbf9c247d3ba546ef9fa3d93448b4fc2993d8452dfa64a534141ebd7d6dd"
+  }
+}
