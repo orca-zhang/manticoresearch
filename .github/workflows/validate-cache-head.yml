@@ -1,0 +1,67 @@
+name: Validate latest cache head
+on:
+  push:
+    branches: [diag/cache-head-20261114]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  build:
+    uses: ./.github/workflows/build_template.yml
+    with:
+      artifact_name: cache-head-build
+      cache_key: diagnostic-cache-head-linux
+      ref: a1dd0db409e2365cf372a13c18cdc1cb72a6b029
+      artifact_list: build/src/searchd build/src/gtests/gmanticoretest
+  verify:
+    needs: build
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
+        with:
+          repository: manticoresoftware/clt
+          ref: c558b2792d24590d7716564ba4ed3f1d3d1d00ff
+          path: clt
+      - uses: actions/download-artifact@v7
+        with:
+          name: cache-head-build
+          path: binaries
+      - name: Prepare latest test image
+        run: |
+          set -euo pipefail
+          tar -xf binaries/artifact.tar -C binaries
+          printf 'FROM ghcr.io/manticoresoftware/manticoresearch:test-kit-ci-ef2bec58593d167ca67ee38107a10ee7c5c3da5e\nCOPY build/src/searchd /usr/bin/searchd\nCOPY build/src/gtests/gmanticoretest /usr/bin/gmanticoretest\n' > binaries/Dockerfile
+          docker build -t cache:latest-head binaries
+          mkdir -p results
+          docker run --rm --entrypoint /usr/bin/searchd cache:latest-head --version | tee results/version.txt
+      - name: Native tests and cache lifecycle checks
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD:/checks" -w /checks --entrypoint /bin/bash cache:latest-head -c '
+            set -e
+            gmanticoretest --gtest_filter="DocidCache*:*DocidLookup*:*DocidPlanner*:*DocstoreBlockCache*:*AdaptiveLru*:*DocstoreBlockPool*:*DocstoreAdmission*"
+            python3 test/docid-cache/test_integration.py /usr/bin/searchd
+            python3 test/docid-cache/test_blockcache_config.py /usr/bin/searchd
+          ' 2>&1 | tee results/cache-checks.log
+      - name: Repeat unchanged REPLACE test on latest head
+        run: |
+          set -uo pipefail
+          test_file=test/clt-tests/data-manipulation/test-replace-into.rec
+          failed=0
+          for index in 1 2; do
+            clt/clt test -d -t "$test_file" cache:latest-head > "results/$index.log" 2>&1
+            status=$?
+            printf '%s\t%s\n' "$index" "$status" | tee -a results/status.tsv
+            cp "${test_file%.rec}.rep" "results/$index.rep" || true
+            cp "${test_file%.rec}.cmp" "results/$index.cmp" || true
+            if [ "$status" -ne 0 ]; then failed=1; fi
+          done
+          cat results/status.tsv >> "$GITHUB_STEP_SUMMARY"
+          exit "$failed"
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: cache-head-validation-evidence
+          path: results
