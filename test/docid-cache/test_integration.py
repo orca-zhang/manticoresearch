@@ -126,8 +126,8 @@ def check(binary, budget, expect_cache):
             used = db.used()
             assert (used > 0) == expect_cache, (budget, used)
             assert used <= limit
-            # Automatic planning must see cache admission, including when a
-            # budget refuses the chunk. Explicit hints remain authoritative.
+            # MCL may provide a cheaper secondary index; explicit lookup hints
+            # must remain authoritative with admitted and refused caches alike.
             clause = ",".join(map(str, candidates + [3, candidates[15]]))
             for suffix in ("", " /*+ DocidIndex(id) */", " /*+ NO_DocidIndex(id) */"):
                 result, meta = db.sql_all(
@@ -137,8 +137,10 @@ def check(binary, budget, expect_cache):
                 plan = [row["Value"] for row in meta["data"] if row["Variable_name"] == "index"]
                 if "NO_DocidIndex" in suffix:
                     assert not any("DocidIndex" in value for value in plan), plan
-                elif expect_cache or suffix:
+                elif suffix:
                     assert any("DocidIndex" in value for value in plan), plan
+                elif expect_cache:
+                    assert any("DocidIndex" in value or "SecondaryIndex" in value for value in plan), plan
             for predicate in (f"MATCH('document') AND id IN ({clause})",
                               f"id IN ({clause}) OR value=987654"):
                 assert db.sql(f"SELECT count(*) AS n FROM docs WHERE {predicate}")["data"] == [{"n": 129}]

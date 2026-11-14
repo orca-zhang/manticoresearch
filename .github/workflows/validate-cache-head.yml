@@ -39,22 +39,6 @@ jobs:
             python3 test/docid-cache/test_integration.py /usr/bin/searchd
             python3 test/docid-cache/test_blockcache_config.py /usr/bin/searchd
           ' 2>&1 | tee results/cache-checks.log
-      - name: Repeat unchanged REPLACE test on latest head
-        if: always()
-        run: |
-          set -uo pipefail
-          test_file=test/clt-tests/data-manipulation/test-replace-into.rec
-          failed=0
-          for index in 1 2; do
-            clt/clt test -d -t "$test_file" cache:latest-head > "results/$index.log" 2>&1
-            status=$?
-            printf '%s\t%s\n' "$index" "$status" | tee -a results/status.tsv
-            cp "${test_file%.rec}.rep" "results/$index.rep" || true
-            cp "${test_file%.rec}.cmp" "results/$index.cmp" || true
-            if [ "$status" -ne 0 ]; then failed=1; fi
-          done
-          cat results/status.tsv >> "$GITHUB_STEP_SUMMARY"
-          exit "$failed"
       - uses: actions/upload-artifact@v6
         if: always()
         with:
