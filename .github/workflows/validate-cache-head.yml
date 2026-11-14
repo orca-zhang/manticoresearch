@@ -40,6 +40,7 @@ jobs:
             python3 test/docid-cache/test_blockcache_config.py /usr/bin/searchd
           ' 2>&1 | tee results/cache-checks.log
       - name: Repeat unchanged REPLACE test on latest head
+        if: always()
         run: |
           set -uo pipefail
           test_file=test/clt-tests/data-manipulation/test-replace-into.rec
