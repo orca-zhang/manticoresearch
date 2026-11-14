@@ -1,0 +1,24 @@
+[Sat Nov 14 10:47:05.925 2026] [7492] Using local time zone 'UTC'
+[Sat Nov 14 10:47:05.926 2026] [7492] starting daemon version '0.0.0 047d2f9@26102712' ...
+[Sat Nov 14 10:47:05.926 2026] [7492] listening on 127.0.0.1:48275 for sphinx and http(s)
+[Sat Nov 14 10:47:05.929 2026] [7493] WARNING: secondary library not loaded; secondary index(es) disabled
+[Sat Nov 14 10:47:05.931 2026] [7494] prereading 1 tables
+[Sat Nov 14 10:47:05.931 2026] [7492] accepting connections
+[Sat Nov 14 10:47:05.931 2026] [7494] preread 1 tables in 0.000 sec
+[Sat Nov 14 10:48:32.275 2026] [7495] WARNING: conn 127.0.0.1:50728(312), sock=40: failed to receive HTTP request, AsyncNetInputBuffer_c::AppendData: error 11 (Resource temporarily unavailable) return -1
+[Sat Nov 14 10:48:32.275 2026] [7495] WARNING: send() failed: 104: Connection reset by peer, sock=40
+[Sat Nov 14 10:48:32.278 2026] [7493] WARNING: conn 127.0.0.1:50676(305), sock=33: failed to receive HTTP request, AsyncNetInputBuffer_c::AppendData: error 11 (Resource temporarily unavailable) return -1
+[Sat Nov 14 10:48:32.278 2026] [7493] WARNING: send() failed: 104: Connection reset by peer, sock=33
+[Sat Nov 14 10:48:32.281 2026] [7500] WARNING: conn 127.0.0.1:50638(300), sock=28: failed to receive HTTP request, AsyncNetInputBuffer_c::AppendData: error 11 (Resource temporarily unavailable) return -1
+[Sat Nov 14 10:48:32.281 2026] [7500] WARNING: send() failed: 104: Connection reset by peer, sock=28
+[Sat Nov 14 10:48:32.286 2026] [7494] WARNING: conn 127.0.0.1:50720(311), sock=39: failed to receive HTTP request, AsyncNetInputBuffer_c::AppendData: error 11 (Resource temporarily unavailable) return -1
+[Sat Nov 14 10:48:32.286 2026] [7494] WARNING: send() failed: 104: Connection reset by peer, sock=39
+[Sat Nov 14 10:48:32.292 2026] [7499] WARNING: conn 127.0.0.1:50620(318), sock=46: failed to receive HTTP request, AsyncNetInputBuffer_c::AppendData: error 11 (Resource temporarily unavailable) return -1
+[Sat Nov 14 10:48:32.292 2026] [7499] WARNING: send() failed: 104: Connection reset by peer, sock=46
+[Sat Nov 14 10:48:32.295 2026] [7496] WARNING: conn 127.0.0.1:50498(292), sock=20: failed to receive HTTP request, AsyncNetInputBuffer_c::AppendData: error 11 (Resource temporarily unavailable) return -1
+[Sat Nov 14 10:48:32.295 2026] [7496] WARNING: send() failed: 104: Connection reset by peer, sock=20
+[Sat Nov 14 10:48:32.304 2026] [7498] WARNING: conn 127.0.0.1:50482(291), sock=19: failed to receive HTTP request, AsyncNetInputBuffer_c::AppendData: error 11 (Resource temporarily unavailable) return -1
+[Sat Nov 14 10:48:32.304 2026] [7498] WARNING: send() failed: 104: Connection reset by peer, sock=19
+[Sat Nov 14 10:48:32.304 2026] [7497] WARNING: conn 127.0.0.1:50604(299), sock=27: failed to receive HTTP request, AsyncNetInputBuffer_c::AppendData: error 11 (Resource temporarily unavailable) return -1
+[Sat Nov 14 10:48:32.304 2026] [7497] WARNING: send() failed: 104: Connection reset by peer, sock=27
+[Sat Nov 14 10:48:32.304 2026] [7500] WARNING: conn 127.0.0.1:50584(320), sock=48: invalid size read 79(-1)

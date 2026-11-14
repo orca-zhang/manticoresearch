@@ -1,0 +1,12 @@
+diff --git a/src/gtests/CMakeLists.txt b/src/gtests/CMakeLists.txt
+index bc3efc6..56762f6 100644
+--- a/src/gtests/CMakeLists.txt
++++ b/src/gtests/CMakeLists.txt
+@@ -22,6 +22,7 @@ set ( GTESTS_SRC
+ 		gtests_stringbuilder.cpp
+ 		gtests_strfmt.cpp
+ 		gtests_pqstuff.cpp
++		gtests_docstore_readers.cpp
+ 		gtests_json.cpp
+ 		gtests_threadstuff.cpp
+ 		gtests_wsrep.cpp

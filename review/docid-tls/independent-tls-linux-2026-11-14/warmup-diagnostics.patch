@@ -1,0 +1,46 @@
+--- run_tls_v1.py
++++ run_tls.py
+@@ -8,6 +8,8 @@
+ import os
+ from pathlib import Path
+ import platform
++import queue
++import shutil
+ import random
+ import statistics
+ import subprocess
+@@ -68,8 +70,17 @@
+     go.clear()
+     jobs = [pool.apply_async(benchmark.worker, (db.port, queries, duration, False, None))
+             for queries in pools]
++    deadline = time.monotonic() + 180
+     for _ in jobs:
+-        assert ready.get(timeout=180) is True
++        while True:
++            try:
++                assert ready.get(timeout=1) is True
++                break
++            except queue.Empty:
++                for job in jobs:
++                    if job.ready():
++                        job.get()  # Surface worker exceptions during warmup.
++                assert time.monotonic() < deadline, 'Worker readiness timeout'
+     before = resources(db.pid)
+     stamp = time.monotonic()
+     started = time.perf_counter()
+@@ -158,6 +169,15 @@
+             sql = urllib.parse.parse_qs(pools[0][0][0].decode())['query'][0]
+             entry['arms'][label] = {'binary': binary, 'samples': [], 'config': config,
+                                    'meta': db.sql_all(sql + '; SHOW META')[1]['data']}
++        def save_server_logs():
++            saved = args.output / (case['name'] + '-server-logs')
++            saved.mkdir(exist_ok=True)
++            for label, db in servers.items():
++                for name in ('console.log', 'searchd.log', 'manticore.conf'):
++                    source = db.root / name
++                    if source.exists():
++                        shutil.copy2(source, saved / (label + '-' + name))
++        stack.callback(save_server_logs)
+         load_path = args.output / (case['name'] + '-load.jsonl')
+         with LoadMonitor(load_path) as monitor:
+             print('Idle gate:', case['name'], flush=True)

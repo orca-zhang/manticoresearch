@@ -1,0 +1,4 @@
+[1/4] Building CXX object src/CMakeFiles/lmanticore.dir/docstore.cpp.o
+[2/4] Linking CXX static library src/liblmanticore.a
+[3/4] Linking CXX executable src/searchd
+[4/4] Linking CXX executable src/gtests/gmanticoretest

@@ -1,0 +1,1 @@
+HTTP coalescing selfcheck passed: identical bytes, one write, no retry

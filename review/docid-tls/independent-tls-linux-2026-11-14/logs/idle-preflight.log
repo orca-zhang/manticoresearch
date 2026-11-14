@@ -1,0 +1,20 @@
+Idle gate: random256-20000-16m
+Traceback (most recent call last):
+  File "/work/driver/run_tls.py", line 239, in <module>
+    main()
+  File "/work/driver/run_tls.py", line 232, in main
+    result['cases'].append(run_case(case, number, args))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/driver/run_tls.py", line 164, in run_case
+    entry['idle_gate'] = monitor.wait_idle(30, 85, 70, 600)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/driver/load_telemetry.py", line 109, in wait_idle
+    if self.stop.wait(1):
+       ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/threading.py", line 655, in wait
+    signaled = self._cond.wait(timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/threading.py", line 359, in wait
+    gotit = waiter.acquire(True, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

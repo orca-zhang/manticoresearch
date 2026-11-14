@@ -1,0 +1,12 @@
+{
+  "reason": "Worker readiness timeout after 11 timed samples in first 32-client case; retain partial attempt and rerun the whole case; continue the three unstarted cases",
+  "completed_cases_retained": 19,
+  "partial_samples_retained": 11,
+  "cases": [
+    "churn-c32-20000-16m",
+    "mixed-c32-1000000-16m",
+    "churn-c32-20000-0m",
+    "mixed-c32-1000000-0m"
+  ],
+  "diagnostic_changes": "Propagate warmup worker failures before the readiness deadline; preserve server logs; no changes to engine binaries, query pools or timing region"
+}

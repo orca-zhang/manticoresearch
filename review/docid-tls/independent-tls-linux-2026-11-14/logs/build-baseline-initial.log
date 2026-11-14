@@ -1,0 +1,437 @@
+[1/332] Building CXX object src/CMakeFiles/lmanticore_coro.dir/coro_stack.cpp.o
+[2/332] Building CXX object src/CMakeFiles/conversion.dir/conversion.cpp.o
+[3/332] Building CXX object src/CMakeFiles/lmanticore_coro.dir/task_dispatcher.cpp.o
+[4/332] Building CXX object src/CMakeFiles/lmanticore_coro.dir/coroutine.cpp.o
+[5/332] Building CXX object src/CMakeFiles/lcjk.dir/cjkpreprocessor.cpp.o
+[6/332] Linking CXX static library src/liblcjk.a
+[7/332] Building CXX object src/CMakeFiles/indexcheck.dir/indexcheck.cpp.o
+[8/332] Building CXX object src/CMakeFiles/lmanticore_icu.dir/icu.cpp.o
+[9/332] Building CXX object src/CMakeFiles/digest_sha1.dir/digest_sha1.cpp.o
+[10/332] Linking CXX static library src/liblmanticore_icu.a
+[11/332] Linking CXX static library src/libdigest_sha1.a
+[12/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/autoevent.cpp.o
+[13/332] Building CXX object src/CMakeFiles/digest_sha256.dir/digest_sha256.cpp.o
+[14/332] Linking CXX static library src/libdigest_sha256.a
+[15/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/checks.cpp.o
+[16/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/crc32.cpp.o
+[17/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/env.cpp.o
+[18/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/fastlog.cpp.o
+[19/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/fatal.cpp.o
+[20/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/fnv64.cpp.o
+[21/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/mem.cpp.o
+[22/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/mm.cpp.o
+[23/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/mutex.cpp.o
+[24/332] Building CXX object src/CMakeFiles/searchd_ssl.dir/searchdssl.cpp.o
+/work/source/src/searchdssl.cpp:220:33: warning: 'RSA_free' is deprecated [-Wdeprecated-declarations]
+  220 |         std::unique_ptr<RSA, decltype(&RSA_free)> pRsa ( RSA_new(), RSA_free );
+      |                                        ^
+/usr/include/openssl/rsa.h:298:1: note: 'RSA_free' has been explicitly marked deprecated here
+  298 | OSSL_DEPRECATEDIN_3_0 void RSA_free(RSA *r);
+      | ^
+/usr/include/openssl/macros.h:182:49: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  182 | #   define OSSL_DEPRECATEDIN_3_0                OSSL_DEPRECATED(3.0)
+      |                                                 ^
+/usr/include/openssl/macros.h:62:52: note: expanded from macro 'OSSL_DEPRECATED'
+   62 | #     define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                                    ^
+/work/source/src/searchdssl.cpp:220:51: warning: 'RSA_new' is deprecated [-Wdeprecated-declarations]
+  220 |         std::unique_ptr<RSA, decltype(&RSA_free)> pRsa ( RSA_new(), RSA_free );
+      |                                                          ^
+/usr/include/openssl/rsa.h:206:1: note: 'RSA_new' has been explicitly marked deprecated here
+  206 | OSSL_DEPRECATEDIN_3_0 RSA *RSA_new(void);
+      | ^
+/usr/include/openssl/macros.h:182:49: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  182 | #   define OSSL_DEPRECATEDIN_3_0                OSSL_DEPRECATED(3.0)
+      |                                                 ^
+/usr/include/openssl/macros.h:62:52: note: expanded from macro 'OSSL_DEPRECATED'
+   62 | #     define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                                    ^
+/work/source/src/searchdssl.cpp:220:62: warning: 'RSA_free' is deprecated [-Wdeprecated-declarations]
+  220 |         std::unique_ptr<RSA, decltype(&RSA_free)> pRsa ( RSA_new(), RSA_free );
+      |                                                                     ^
+/usr/include/openssl/rsa.h:298:1: note: 'RSA_free' has been explicitly marked deprecated here
+  298 | OSSL_DEPRECATEDIN_3_0 void RSA_free(RSA *r);
+      | ^
+/usr/include/openssl/macros.h:182:49: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  182 | #   define OSSL_DEPRECATEDIN_3_0                OSSL_DEPRECATED(3.0)
+      |                                                 ^
+/usr/include/openssl/macros.h:62:52: note: expanded from macro 'OSSL_DEPRECATED'
+   62 | #     define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                                    ^
+/work/source/src/searchdssl.cpp:234:8: warning: 'RSA_generate_key_ex' is deprecated [-Wdeprecated-declarations]
+  234 |         if ( !RSA_generate_key_ex ( pRsa.get(), 2048, pBne.get(), nullptr ) )
+      |               ^
+/usr/include/openssl/rsa.h:265:1: note: 'RSA_generate_key_ex' has been explicitly marked deprecated here
+  265 | OSSL_DEPRECATEDIN_3_0 int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e,
+      | ^
+/usr/include/openssl/macros.h:182:49: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  182 | #   define OSSL_DEPRECATEDIN_3_0                OSSL_DEPRECATED(3.0)
+      |                                                 ^
+/usr/include/openssl/macros.h:62:52: note: expanded from macro 'OSSL_DEPRECATED'
+   62 | #     define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                                    ^
+/work/source/src/searchdssl.cpp:240:42: warning: 'RSAPrivateKey_dup' is deprecated [-Wdeprecated-declarations]
+  240 |         if ( !EVP_PKEY_assign_RSA ( pKey.get(), RSAPrivateKey_dup ( pRsa.get() ) ) )
+      |                                                 ^
+/usr/include/openssl/rsa.h:454:37: note: 'RSAPrivateKey_dup' has been explicitly marked deprecated here
+  454 | DECLARE_ASN1_DUP_FUNCTION_name_attr(OSSL_DEPRECATEDIN_3_0, RSA, RSAPrivateKey)
+      |                                     ^
+/usr/include/openssl/macros.h:182:49: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  182 | #   define OSSL_DEPRECATEDIN_3_0                OSSL_DEPRECATED(3.0)
+      |                                                 ^
+/usr/include/openssl/macros.h:62:52: note: expanded from macro 'OSSL_DEPRECATED'
+   62 | #     define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                                    ^
+/work/source/src/searchdssl.cpp:240:8: warning: 'EVP_PKEY_assign' is deprecated [-Wdeprecated-declarations]
+  240 |         if ( !EVP_PKEY_assign_RSA ( pKey.get(), RSAPrivateKey_dup ( pRsa.get() ) ) )
+      |               ^
+/usr/include/openssl/evp.h:498:41: note: expanded from macro 'EVP_PKEY_assign_RSA'
+  498 | #  define EVP_PKEY_assign_RSA(pkey,rsa) EVP_PKEY_assign((pkey),EVP_PKEY_RSA,\
+      |                                         ^
+/usr/include/openssl/evp.h:1329:1: note: 'EVP_PKEY_assign' has been explicitly marked deprecated here
+ 1329 | OSSL_DEPRECATEDIN_3_0
+      | ^
+/usr/include/openssl/macros.h:182:49: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+  182 | #   define OSSL_DEPRECATEDIN_3_0                OSSL_DEPRECATED(3.0)
+      |                                                 ^
+/usr/include/openssl/macros.h:62:52: note: expanded from macro 'OSSL_DEPRECATED'
+   62 | #     define OSSL_DEPRECATED(since) __attribute__((deprecated))
+      |                                                    ^
+/work/source/src/searchdssl.cpp:269:62: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+  269 |         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+      |                                                                     ^
+/work/source/src/searchdssl.cpp:269:152: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+  269 |         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+      |                                                                                                                                                               ^
+/work/source/src/searchdssl.cpp:269:225: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+  269 |         if ( !AddCertExtension ( pCert.get(), NID_subject_alt_name, "IP:127.0.0.1,DNS:localhost" ) || !AddCertExtension ( pCert.get(), NID_basic_constraints, "critical,CA:FALSE" ) || !AddCertExtension ( pCert.get(), NID_key_usage, "critical,digitalSignature,keyEncipherment" ) )
+      |                                                                                                                                                                                                                                        ^
+/work/source/src/searchdssl.cpp:818:6: warning: variable 'iCiphLen' set but not used [-Wunused-but-set-variable]
+  818 |         int iCiphLen = iLen;
+      |             ^
+/work/source/src/searchdssl.cpp:117:13: warning: unused function 'SetGlobalKeys' [-Wunused-function]
+  117 | static bool SetGlobalKeys ( SSL_CTX * pCtx, CSphString * pError )
+      |             ^~~~~~~~~~~~~
+/work/source/src/searchdssl.cpp:764:18: warning: unused variable 'AES_GCM_KEY_SIZE' [-Wunused-const-variable]
+  764 | static const int AES_GCM_KEY_SIZE = 32;
+      |                  ^~~~~~~~~~~~~~~~
+12 warnings generated.
+[25/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/rand.cpp.o
+[26/332] Linking CXX static library src/libsearchd_ssl.a
+[27/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/rwlock.cpp.o
+[28/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/sphwarn.cpp.o
+[29/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/smalloc.cpp.o
+[30/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/string.cpp.o
+[31/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/base64.cpp.o
+[32/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/stringhash.cpp.o
+[33/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/sys.cpp.o
+/work/source/src/std/sys.cpp:248:2: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+  248 |         GetCPUID ( 7, 0, dInfo );
+      |         ^
+/work/source/src/std/sys.cpp:245:5: note: previous statement is here
+  245 |     if ( ( uXcrFeatureMask & 0x6 ) != 0x6 )
+      |     ^
+1 warning generated.
+[34/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/stringbuilder.cpp.o
+[35/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/timers.cpp.o
+[36/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/tdigest.cpp.o
+[37/332] Building CXX object src/std/CMakeFiles/manticore_std.dir/tdigest_runtime.cpp.o
+[38/332] Building CXX object src/tokenizer/CMakeFiles/lowercaser.dir/lowercaser.cpp.o
+[39/332] Building CXX object src/stripper/CMakeFiles/stripper.dir/html_stripper.cpp.o
+[40/332] Linking CXX static library src/stripper/libstripper.a
+[41/332] Building CXX object src/tokenizer/CMakeFiles/lowercaser.dir/charset_definition_parser.cpp.o
+[42/332] Linking CXX static library src/tokenizer/liblowercaser.a
+[43/332] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer.cpp.o
+[44/332] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_bigram.cpp.o
+[45/332] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_multiform.cpp.o
+[46/332] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_plugin.cpp.o
+[47/332] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizerbase.cpp.o
+[48/332] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizer_utf8.cpp.o
+[49/332] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/tokenizerbase2.cpp.o
+[50/332] Building CXX object src/schema/CMakeFiles/schema.dir/columninfo.cpp.o
+[51/332] Building CXX object src/tokenizer/CMakeFiles/tokenizer.dir/exceptions_trie.cpp.o
+[52/332] Building CXX object src/schema/CMakeFiles/schema.dir/helper.cpp.o
+[53/332] Building CXX object src/schema/CMakeFiles/schema.dir/rset.cpp.o
+[54/332] Building CXX object src/dict/CMakeFiles/dict.dir/dict_base.cpp.o
+[55/332] Building CXX object src/schema/CMakeFiles/schema.dir/schema.cpp.o
+[56/332] Building CXX object src/dict/CMakeFiles/dict.dir/dict_star.cpp.o
+[57/332] Building CXX object src/dict/CMakeFiles/dict.dir/dict_exact.cpp.o
+[58/332] Building CXX object src/dict/CMakeFiles/dict.dir/dict_crc.cpp.o
+[59/332] Building CXX object src/dict/CMakeFiles/dict.dir/word_forms.cpp.o
+[60/332] Building CXX object src/dict/CMakeFiles/dict.dir/bin.cpp.o
+[61/332] Building CXX object src/dict/CMakeFiles/dict.dir/dict_keywords.cpp.o
+[62/332] Building CXX object src/dict/CMakeFiles/dict.dir/template_dict_traits.cpp.o
+[63/332] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxsoundex.cpp.o
+[64/332] Building CXX object src/dict/infix/CMakeFiles/infix.dir/infix_builder.cpp.o
+[65/332] Linking CXX static library src/dict/infix/libinfix.a
+[66/332] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxmetaphone.cpp.o
+[67/332] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxstemen.cpp.o
+[68/332] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxstemcz.cpp.o
+[69/332] [BISON][QueryParser] Building parser with bison 3.8.2
+[70/332] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxstemar.cpp.o
+[71/332] Building CXX object src/dict/stem/CMakeFiles/stem.dir/sphinxstemru.cpp.o
+[72/332] Linking CXX static library src/dict/stem/libstem.a
+[73/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/sphinxquery.cpp.o
+[74/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/xqparser.cpp.o
+[75/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/parse_helper.cpp.o
+[76/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/xqnode.cpp.o
+[77/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transformation.cpp.o
+[78/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonnot.cpp.o
+[79/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/common_subtree.cpp.o
+[80/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commoncompoundnot.cpp.o
+[81/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonsubterm.cpp.o
+[82/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonkeywords.cpp.o
+[83/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonandnotfactor.cpp.o
+[84/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_commonornot.cpp.o
+[85/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_hungoperand.cpp.o
+[86/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_excessandnot.cpp.o
+[87/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_andnotnotnot.cpp.o
+[88/332] Building CXX object src/sphinxquery/CMakeFiles/sphinxquery.dir/transform_phrase.cpp.o
+[89/332] [FLEX][SQLChecksLex] Building scanner with flex 2.6.4
+[90/332] [FLEX][SQLValidateVecLex] Building scanner with flex 2.6.4
+[91/332] Building CXX object src/indexing_sources/CMakeFiles/source_svpipe.dir/source_svpipe.cpp.o
+[92/332] Linking CXX static library src/indexing_sources/libsource_svpipe.a
+[93/332] Building CXX object src/indexing_sources/CMakeFiles/sourcedoc.dir/source_document.cpp.o
+[94/332] Linking CXX static library src/indexing_sources/libsourcedoc.a
+[95/332] [BISON][SelectParser] Building parser with bison 3.8.2
+[96/332] [BISON][ExprParser] Building parser with bison 3.8.2
+[97/332] [FLEX][Exprlex] Building scanner with flex 2.6.4
+[98/332] [BISON][JsonParser] Building parser with bison 3.8.2
+[99/332] [FLEX][Jsonlex] Building scanner with flex 2.6.4
+[100/332] Building CXX object src/sqlchecks/CMakeFiles/sqlchecks.dir/scan_parameters.cpp.o
+[101/332] Building CXX object src/sqlchecks/CMakeFiles/sqlchecks.dir/validate_vector.cpp.o
+[102/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxutils.cpp.o
+[103/332] Building CXX object src/CMakeFiles/lmanticore.dir/sortsetup.cpp.o
+[104/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxsort.cpp.o
+[105/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxexpr.cpp.o
+[106/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxfilter.cpp.o
+[107/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxsearch.cpp.o
+[108/332] Building CXX object src/CMakeFiles/lmanticore.dir/accumulator.cpp.o
+[109/332] Building CXX object src/CMakeFiles/lmanticore.dir/uuid_docid.cpp.o
+[110/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinx.cpp.o
+[111/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxjson.cpp.o
+[112/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxplugin.cpp.o
+[113/332] Building C object src/CMakeFiles/lmanticore.dir/sphinxudf.c.o
+[114/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxrt.cpp.o
+[115/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxaot.cpp.o
+[116/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxqcache.cpp.o
+[117/332] Building CXX object src/CMakeFiles/lmanticore.dir/attribute.cpp.o
+[118/332] Building CXX object src/CMakeFiles/lmanticore.dir/killlist.cpp.o
+[119/332] Building CXX object src/CMakeFiles/lmanticore.dir/secondaryindex.cpp.o
+[120/332] Building C object src/CMakeFiles/lmanticore.dir/json/cJSON_test.c.o
+[121/332] Building CXX object src/CMakeFiles/lmanticore.dir/global_idf.cpp.o
+[122/332] Building CXX object src/CMakeFiles/lmanticore.dir/docstore.cpp.o
+[123/332] Building C object src/CMakeFiles/lmanticore.dir/lz4/lz4.c.o
+[124/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxpq.cpp.o
+[125/332] Building C object src/CMakeFiles/lmanticore.dir/lz4/lz4hc.c.o
+[126/332] Building CXX object src/CMakeFiles/lmanticore.dir/snippetfunctor.cpp.o
+[127/332] Building CXX object src/CMakeFiles/lmanticore.dir/snippetindex.cpp.o
+[128/332] Building CXX object src/CMakeFiles/lmanticore.dir/snippetstream.cpp.o
+[129/332] Building CXX object src/CMakeFiles/lmanticore.dir/searchnode.cpp.o
+[130/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxversion.cpp.o
+[131/332] Building CXX object src/CMakeFiles/lmanticore.dir/snippetpassage.cpp.o
+[132/332] Building CXX object src/CMakeFiles/lmanticore.dir/datareader.cpp.o
+[133/332] Building CXX object src/CMakeFiles/lmanticore.dir/threadutils.cpp.o
+[134/332] Building CXX object src/CMakeFiles/lmanticore.dir/indexformat.cpp.o
+[135/332] Building CXX object src/CMakeFiles/lmanticore.dir/fileutils.cpp.o
+[136/332] Building CXX object src/CMakeFiles/lmanticore.dir/threads_detached.cpp.o
+[137/332] Building CXX object src/CMakeFiles/lmanticore.dir/hazard_pointer.cpp.o
+[138/332] Building CXX object src/CMakeFiles/lmanticore.dir/task_info.cpp.o
+[139/332] Building CXX object src/CMakeFiles/lmanticore.dir/indexsettings.cpp.o
+[140/332] Building CXX object src/CMakeFiles/lmanticore.dir/mini_timer.cpp.o
+[141/332] Building CXX object src/CMakeFiles/lmanticore.dir/fileio.cpp.o
+[142/332] Building CXX object src/CMakeFiles/lmanticore.dir/memio.cpp.o
+[143/332] Building CXX object src/CMakeFiles/lmanticore.dir/queryprofile.cpp.o
+[144/332] Building CXX object src/CMakeFiles/lmanticore.dir/columnarlib.cpp.o
+[145/332] Building CXX object src/CMakeFiles/lmanticore.dir/columnargrouper.cpp.o
+[146/332] Building CXX object src/CMakeFiles/lmanticore.dir/collation.cpp.o
+[147/332] Building CXX object src/CMakeFiles/lmanticore.dir/timeout_queue.cpp.o
+[148/332] Building CXX object src/CMakeFiles/lmanticore.dir/histogram.cpp.o
+[149/332] Building CXX object src/CMakeFiles/lmanticore.dir/columnarrt.cpp.o
+[150/332] Building CXX object src/CMakeFiles/lmanticore.dir/columnarfilter.cpp.o
+[151/332] Building CXX object src/CMakeFiles/lmanticore.dir/columnarmisc.cpp.o
+[152/332] Building CXX object src/CMakeFiles/lmanticore.dir/exprtraits.cpp.o
+[153/332] Building CXX object src/CMakeFiles/lmanticore.dir/columnarexpr.cpp.o
+[154/332] Building CXX object src/CMakeFiles/lmanticore.dir/sphinx_alter.cpp.o
+[155/332] Building CXX object src/CMakeFiles/lmanticore.dir/chunksearchctx.cpp.o
+[156/332] Building CXX object src/CMakeFiles/lmanticore.dir/binlog.cpp.o
+[157/332] Building CXX object src/CMakeFiles/lmanticore.dir/client_task_info.cpp.o
+[158/332] Building CXX object src/CMakeFiles/lmanticore.dir/indexfiles.cpp.o
+[159/332] Building CXX object src/CMakeFiles/lmanticore.dir/indexfilebase.cpp.o
+[160/332] Building CXX object src/CMakeFiles/lmanticore.dir/attrindex_builder.cpp.o
+[161/332] Building CXX object src/CMakeFiles/lmanticore.dir/queryfilter.cpp.o
+[162/332] Building CXX object src/CMakeFiles/lmanticore.dir/secondarylib.cpp.o
+[163/332] Building CXX object src/CMakeFiles/lmanticore.dir/aggregate.cpp.o
+[164/332] Building CXX object src/CMakeFiles/lmanticore.dir/costestimate.cpp.o
+[165/332] Building CXX object src/CMakeFiles/lmanticore.dir/tracer.cpp.o
+[166/332] Building CXX object src/CMakeFiles/lmanticore.dir/docidlookup.cpp.o
+[167/332] Building CXX object src/CMakeFiles/lmanticore.dir/distinct.cpp.o
+[168/332] Building CXX object src/CMakeFiles/lmanticore.dir/hyperloglog.cpp.o
+[169/332] Building CXX object src/CMakeFiles/lmanticore.dir/pseudosharding.cpp.o
+[170/332] Building CXX object src/CMakeFiles/lmanticore.dir/geodist.cpp.o
+[171/332] Building CXX object src/CMakeFiles/lmanticore.dir/attrindex_merge.cpp.o
+[172/332] Building CXX object src/CMakeFiles/lmanticore.dir/datetime.cpp.o
+[173/332] Building CXX object src/CMakeFiles/lmanticore.dir/exprdatetime.cpp.o
+[174/332] Building CXX object src/CMakeFiles/lmanticore.dir/detail/indexlink.cpp.o
+[175/332] Building CXX object src/CMakeFiles/lmanticore.dir/grouper.cpp.o
+[176/332] Building CXX object src/CMakeFiles/lmanticore.dir/knnlib.cpp.o
+[177/332] Building CXX object src/CMakeFiles/lmanticore.dir/libutils.cpp.o
+[178/332] Building CXX object src/CMakeFiles/lmanticore.dir/knnmisc.cpp.o
+[179/332] Building CXX object src/CMakeFiles/lmanticore.dir/fieldtext.cpp.o
+[180/332] Building CXX object src/CMakeFiles/lmanticore.dir/aggrexpr.cpp.o
+[181/332] Building CXX object src/CMakeFiles/lmanticore.dir/queuecreator.cpp.o
+[182/332] Building CXX object src/CMakeFiles/lmanticore.dir/exprgeodist.cpp.o
+[183/332] Building CXX object src/CMakeFiles/lmanticore.dir/exprremap.cpp.o
+[184/332] Building CXX object src/CMakeFiles/lmanticore.dir/joinsorter.cpp.o
+[185/332] Building CXX object src/CMakeFiles/lmanticore.dir/exprdocstore.cpp.o
+[186/332] Building CXX object src/CMakeFiles/lmanticore.dir/schematransform.cpp.o
+[187/332] Building CXX object src/CMakeFiles/lmanticore.dir/attr_embedding.cpp.o
+[188/332] Building CXX object src/CMakeFiles/lmanticore.dir/embeddingutils.cpp.o
+[189/332] Building CXX object src/CMakeFiles/lmanticore.dir/hybridexecutor.cpp.o
+[190/332] Building CXX object src/CMakeFiles/lmanticore.dir/sortertraits.cpp.o
+[191/332] Building CXX object src/CMakeFiles/lmanticore.dir/sorterprecalc.cpp.o
+[192/332] Building CXX object src/CMakeFiles/lmanticore.dir/querycontext.cpp.o
+[193/332] Building CXX object src/CMakeFiles/lmanticore.dir/skip_cache.cpp.o
+[194/332] Building CXX object src/CMakeFiles/lmanticore.dir/jsonsi.cpp.o
+[195/332] Building CXX object src/CMakeFiles/lmanticore.dir/sorterscroll.cpp.o
+[196/332] Linking CXX static library src/sqlchecks/libsqlchecks.a
+[197/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/wsrep_cxx.cpp.o
+[198/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/api_command_cluster.cpp.o
+[199/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_delete.cpp.o
+[200/332] Building CXX object src/CMakeFiles/lmanticore.dir/columnarsort.cpp.o
+[201/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_file_reserve.cpp.o
+[202/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_file_send.cpp.o
+[203/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_get_nodes.cpp.o
+[204/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_synced.cpp.o
+[205/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_index_add_local.cpp.o
+[206/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/grastate.cpp.o
+[207/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_update_nodes.cpp.o
+[208/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/commit_monitor.cpp.o
+[209/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/configuration.cpp.o
+[210/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/nodes.cpp.o
+[211/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/portrange.cpp.o
+[212/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/receiver_ctx.cpp.o
+[213/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/replicate_index.cpp.o
+[214/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/serialize.cpp.o
+[215/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/send_files.cpp.o
+[216/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/recv_state.cpp.o
+[217/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/wsrep_v25.cpp.o
+[218/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/wsrep_v31.cpp.o
+[219/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_binlog.cpp.o
+[220/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_sst_progress.cpp.o
+[221/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_recv_state_cleanup.cpp.o
+[222/332] Building CXX object src/replication/CMakeFiles/repli_stuff.dir/cluster_check_node.cpp.o
+[223/332] Linking CXX static library src/replication/librepli_stuff.a
+[224/332] [BISON][SQLParser] Building parser with bison 3.8.2
+[225/332] [FLEX][SQLlex] Building scanner with flex 2.6.4
+[226/332] [BISON][DDLParser] Building parser with bison 3.8.2
+[227/332] [FLEX][DDLlex] Building scanner with flex 2.6.4
+[228/332] [BISON][SQLDebugParser] Building parser with bison 3.8.2
+[229/332] [FLEX][SQLDebuglex] Building scanner with flex 2.6.4
+[230/332] [BISON][SQLSecondParser] Building parser with bison 3.8.2
+[231/332] [FLEX][SQLSecondlex] Building scanner with flex 2.6.4
+[232/332] [BISON][SQLExtraParser] Building parser with bison 3.8.2
+[233/332] [FLEX][SQLExtralex] Building scanner with flex 2.6.4
+[234/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/api_search.cpp.o
+[235/332] Building CXX object src/CMakeFiles/lsearchd.dir/api_reply_stream.cpp.o
+[236/332] Building C object src/CMakeFiles/lsearchd.dir/http/http_parser.c.o
+[237/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdha.cpp.o
+[238/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdhttp.cpp.o
+[239/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdtask.cpp.o
+[240/332] Building CXX object src/CMakeFiles/lsearchd.dir/taskping.cpp.o
+[241/332] Building CXX object src/CMakeFiles/lsearchd.dir/taskmalloctrim.cpp.o
+[242/332] Building CXX object src/CMakeFiles/lsearchd.dir/indexer_rt_bulk.cpp.o
+[243/332] Building CXX object src/CMakeFiles/lsearchd.dir/taskglobalidf.cpp.o
+[244/332] Building CXX object src/CMakeFiles/lsearchd.dir/tasksavestate.cpp.o
+[245/332] Building CXX object src/CMakeFiles/lsearchd.dir/taskflushbinlog.cpp.o
+[246/332] Building CXX object src/CMakeFiles/lsearchd.dir/taskflushattrs.cpp.o
+[247/332] Building CXX object src/CMakeFiles/lsearchd.dir/taskflushmutable.cpp.o
+[248/332] Building CXX object src/CMakeFiles/lsearchd.dir/taskpreread.cpp.o
+[249/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdaemon.cpp.o
+[250/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdfields.cpp.o
+[251/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdconfig.cpp.o
+[252/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdddl.cpp.o
+[253/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdsql.cpp.o
+[254/332] Building CXX object src/CMakeFiles/lsearchd.dir/networking_daemon.cpp.o
+[255/332] Building CXX object src/CMakeFiles/lsearchd.dir/net_action_accept.cpp.o
+[256/332] Building CXX object src/CMakeFiles/lsearchd.dir/netreceive_api.cpp.o
+[257/332] Building CXX object src/CMakeFiles/lsearchd.dir/netreceive_http.cpp.o
+[258/332] Building CXX object src/CMakeFiles/lsearchd.dir/netreceive_ql.cpp.o
+[259/332] Building CXX object src/CMakeFiles/lsearchd.dir/query_status.cpp.o
+[260/332] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxql_second.cpp.o
+[261/332] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxql_debug.cpp.o
+[262/332] Building CXX object src/CMakeFiles/lsearchd.dir/docs_collector.cpp.o
+[263/332] Building CXX object src/CMakeFiles/lsearchd.dir/stackmock.cpp.o
+[264/332] Building CXX object src/CMakeFiles/lsearchd.dir/index_rotator.cpp.o
+[265/332] Building CXX object src/CMakeFiles/lsearchd.dir/config_reloader.cpp.o
+[266/332] Building CXX object src/CMakeFiles/lsearchd.dir/netpoll.cpp.o
+[267/332] Building CXX object src/CMakeFiles/lsearchd.dir/pollable_event.cpp.o
+[268/332] Building CXX object src/CMakeFiles/lsearchd.dir/netfetch.cpp.o
+[269/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdbuddy.cpp.o
+[270/332] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxql_extra.cpp.o
+[271/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdhttpcompat.cpp.o
+[272/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdreplication.cpp.o
+[273/332] Building CXX object src/CMakeFiles/lsearchd.dir/frontendschema.cpp.o
+[274/332] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxjsonquery.cpp.o
+[275/332] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_http.cpp.o
+[276/332] Building CXX object src/CMakeFiles/lsearchd.dir/debug_cmds.cpp.o
+[277/332] Building CXX object src/CMakeFiles/lsearchd.dir/jsonqueryfilter.cpp.o
+[278/332] Building CXX object src/CMakeFiles/lsearchd.dir/dynamic_idx.cpp.o
+[279/332] Building CXX object src/CMakeFiles/lsearchd.dir/sphinxexcerpt.cpp.o
+[280/332] Building CXX object src/CMakeFiles/lsearchd.dir/querystats.cpp.o
+[281/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchdexpr.cpp.o
+[282/332] Building CXX object src/CMakeFiles/lsearchd.dir/facetutils.cpp.o
+[283/332] Building CXX object src/CMakeFiles/lsearchd.dir/searchd_shard.cpp.o
+[284/332] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth.cpp.o
+[285/332] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_common.cpp.o
+[286/332] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_proto_http.cpp.o
+[287/332] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_proto_mysql.cpp.o
+[288/332] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_proto_api.cpp.o
+[289/332] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_perms.cpp.o
+[290/332] Building CXX object src/CMakeFiles/lsearchd.dir/auth/gcm_nonce.cpp.o
+[291/332] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_log.cpp.o
+[292/332] Building CXX object src/CMakeFiles/lsearchd.dir/auth/auth_bootstrap.cpp.o
+[293/332] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_mysql_layer.cpp.o
+[294/332] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_zlib_mysql.cpp.o
+[295/332] Building CXX object src/CMakeFiles/lsearchd.dir/compressed_zstd_mysql.cpp.o
+[296/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/crash_logger.cpp.o
+[297/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/daemon_log.cpp.o
+[298/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/failures_log.cpp.o
+[299/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/match_iterator.cpp.o
+[300/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/minimize_aggr_result.cpp.o
+[301/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/http_log.cpp.o
+[302/332] Building CXX object src/CMakeFiles/searchd.dir/searchd.cpp.o
+[303/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/query_log.cpp.o
+[304/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/system_tables.cpp.o
+[305/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/winservice.cpp.o
+[306/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/notifier.cpp.o
+[307/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/search_handler.cpp.o
+[308/332] Building CXX object src/daemon/CMakeFiles/daemon.dir/daemon_ipc.cpp.o
+[309/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidlookup.cpp.o
+[310/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_text.cpp.o
+[311/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_rtstuff.cpp.o
+[312/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_globalstate.cpp.o
+[313/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_functions.cpp.o
+[314/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_hugetokenizer.cpp.o
+[315/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_filter.cpp.o
+[316/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchdaemon.cpp.o
+[317/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_api_reply_stream.cpp.o
+/work/source/src/gtests/gtests_api_reply_stream.cpp:1362:17: warning: unused variable 'uReplyVersion' [-Wunused-variable]
+ 1362 |         constexpr WORD uReplyVersion = 0x0123;
+      |                        ^~~~~~~~~~~~~
+1 warning generated.
+[318/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_searchd.cpp.o
+[319/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_send_files.cpp.o
+[320/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_ssl.cpp.o
+[321/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_stringbuilder.cpp.o
+[322/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_strfmt.cpp.o
+[323/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_pqstuff.cpp.o
+[324/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docstore_readers.cpp.o
+[325/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_threadstuff.cpp.o
+[326/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_wsrep.cpp.o
+[327/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_json.cpp.o
+[328/332] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_uklemmatizer.cpp.o
+[329/332] Building CXX object src/CMakeFiles/lmanticore.dir/sortergroup.cpp.o
+[330/332] Linking CXX static library src/liblmanticore.a
+[331/332] Linking CXX executable src/searchd
+[332/332] Linking CXX executable src/gtests/gmanticoretest

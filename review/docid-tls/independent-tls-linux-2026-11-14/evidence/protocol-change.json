@@ -1,0 +1,16 @@
+{
+  "reason": "Initial 85/70 idle gate not reached with existing services active; retain services and measure coexistence",
+  "timed_samples_before_change": 0,
+  "revised_gate": {
+    "seconds": 30,
+    "mean_idle_min": 60,
+    "interval_idle_min": 30
+  },
+  "quality_flags": {
+    "external_mean_machine_pct_max": 45,
+    "external_peak_machine_pct_max": 70
+  },
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "repeat_rule": "Repeat all flagged comparisons in full once; retain originals"
+}

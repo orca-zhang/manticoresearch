@@ -1,0 +1,16 @@
+Idle gate: transport-aa32-16m
+Round 1 transport-aa32-16m
+Round 2 transport-aa32-16m
+Round 3 transport-aa32-16m
+Round 4 transport-aa32-16m
+Round 5 transport-aa32-16m
+Round 6 transport-aa32-16m
+RESULT transport-aa32-16m QPS 3.91 CPU/query -0.28
+Idle gate: transport-aa32-0m
+Round 1 transport-aa32-0m
+Round 2 transport-aa32-0m
+Round 3 transport-aa32-0m
+Round 4 transport-aa32-0m
+Round 5 transport-aa32-0m
+Round 6 transport-aa32-0m
+RESULT transport-aa32-0m QPS 3.07 CPU/query -0.77

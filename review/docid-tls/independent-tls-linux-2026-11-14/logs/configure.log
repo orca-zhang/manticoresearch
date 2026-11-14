@@ -1,0 +1,120 @@
+-- WRITEB is not set, bundle will NOT be modified...
+-- WRITEB is not set, bundle will NOT be modified...
+-- WRITEB is not set, bundle will NOT be modified...
+-- WRITEB is not set, bundle will NOT be modified...
+-- VCPKG_ROOT is not defined, bail
+-- ZSTD will be loaded dynamically in runtime as libzstd.so.1 (libzstd.so.1)
+-- CURL will be loaded dynamically in runtime as libcurl.so.4 (libcurl.so.4)
+-- Could NOT find EXPAT (missing: EXPAT_LIBRARY EXPAT_INCLUDE_DIR) 
+Parsing deps.txt line: backup 1.11.0+26090711-f5c09c1e-dev
+BACKUP version: >= 1.11.0-26090711-f5c09c1e & < 2.0.0
+Parsing deps.txt line: buddy 4.4.9+26102317-85bde9ce-dev
+BUDDY version: >= 4.4.9-26102317-85bde9ce & < 5.0.0
+Parsing deps.txt line: executor 1.4.6+26102310-445049b4-dev
+EXECUTOR version: >= 1.4.6-26102310-445049b4 & < 2.0.0
+Parsing deps.txt line: tzdata 1.0.1 250714 7eebffa
+TZDATA version: >= 1.0.1-250714-7eebffa & < 2.0.0
+Parsing deps.txt line: load 1.29.0+26101001-0d5796a7-dev
+LOAD version: >= 1.29.0-26101001-0d5796a7 & < 2.0.0
+Parsing deps.txt line: galera 3.37
+GALERA version: >= 3.37-- & < 4.0.0
+EXECUTOR image: manticoresearch/manticore-executor:1.4.6
+-- Provide distr with -DDISTR=<distr>, one of: bionic;bookworm;bullseye;buster;debian;default;focal;jammy;macos;rhel;rhel10;rhel8;rhel9;stretch;windows;xenial
+-- Will create DEB for Debian (sid)
+-- Building for debian
+-- Inside directory src...
+-- Using MCL API from git submodule: /work/source/mcl
+-- Only api will be installed
+-- Configured with these definitions: -DUSE_SYSLOG=1 -DWITH_GALERA=OFF -DWITH_RE2=OFF -DWITH_STEMMER=OFF -DWITH_NLJSON=1 -DWITH_UNIALGO=1 -DWITH_ICU=1 -DWITH_ICU_FORCE_STATIC=0 -DWITH_JIEBA=OFF -DWITH_SSL=ON -DWITH_ZLIB=1 -DWITH_ZSTD=1 -DDL_ZSTD=1 -DZSTD_LIB=libzstd.so.1 -DWITH_CURL=1 -DDL_CURL=1 -DCURL_LIB=libcurl.so.4 -DWITH_ODBC=OFF -DWITH_MYSQL=OFF -DWITH_POSTGRESQL=OFF -DLOCALDATADIR=/var/lib/manticore -DFULL_SHARE_DIR=/usr/share/manticore
+-- Generating config files...
+-- Inside directory src/stripper...
+-- Generate globalaliases.h from /work/source/src/charsets/*.txt
+-- No Google perfetto library found
+-- Discovered and added individual google-tests
+CMake Warning (dev) at src/CMakeLists.txt:432 (find_package):
+  Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+  are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+  the cmake_policy command to set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- python binary is /usr/bin/python3
+CMake Warning (dev) at test/CMakeLists.txt:50 (find_package):
+  Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+  are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+  the cmake_policy command to set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Create ubertest.php proxies
+-- Skip adding test 194 -- regexps using RE2 since it requires RE2
+-- Skip adding test 228 -- Indexing of ODBC sources (mysql via ODBC connector) since it requires ODBC provider
+-- Skip adding test 252 -- reconfigure since it requires RE2
+-- Skip adding test 293 -- system.table since it requires Galera library for replication
+-- Skip adding test 309 -- jieba_mode since it requires JIEBA
+-- Skip adding test 310 -- CJK via Jieba (mysql) since it requires JIEBA
+-- Skip adding test 311 -- CJK via Jieba since it requires JIEBA
+-- Skip adding test 358 -- percolate query vs token filters since it requires RE2
+-- Skip adding test 368 -- REGEX filter, expression and full-text operator since it requires RE2
+-- Skip adding test 372 -- replication base since it requires Galera library for replication
+-- Skip adding test 376 -- replication join at since it requires Galera library for replication
+-- Skip adding test 381 -- replication of transactions since it requires Galera library for replication
+-- Skip adding test 383 -- replication for RT since it requires Galera library for replication
+-- Skip adding test 384 -- replication for RT via HTTP since it requires Galera library for replication
+-- Skip adding test 385 -- replication for RT with different local index files since it requires Galera library for replication
+-- Skip adding test 387 -- cluster table lock since it requires Galera library for replication
+-- Skip adding test 397 -- explain query since it requires RE2
+-- Skip adding test 402 -- replication for RT stored fields since it requires Galera library for replication
+-- Skip adding test 409 -- replication of external files since it requires Galera library for replication
+-- Skip adding test 456 -- replication of update with blobs since it requires Galera library for replication
+-- Skip adding test 478 -- replication for RT with nodes restart since it requires Galera library for replication
+-- Skip adding test 487 -- replication node rejoin after cluster added \ droped table since it requires Galera library for replication
+-- Skip adding test 488 -- replication duplicates bulk on IST replay since it requires Galera library for replication
+-- Skip adding test 508 -- replication cluster create with long data_dir path since it requires Galera library for replication
+-- Skip adding test 519 -- replication for RT UUID document IDs since it requires Galera library for replication
+-- Will create DEB for Debian (sid)
+Parsing deps.txt line: backup 1.11.0+26090711-f5c09c1e-dev
+BACKUP version: >= 1.11.0-26090711-f5c09c1e & < 2.0.0
+Parsing deps.txt line: buddy 4.4.9+26102317-85bde9ce-dev
+BUDDY version: >= 4.4.9-26102317-85bde9ce & < 5.0.0
+Parsing deps.txt line: executor 1.4.6+26102310-445049b4-dev
+EXECUTOR version: >= 1.4.6-26102310-445049b4 & < 2.0.0
+Parsing deps.txt line: tzdata 1.0.1 250714 7eebffa
+TZDATA version: >= 1.0.1-250714-7eebffa & < 2.0.0
+Parsing deps.txt line: load 1.29.0+26101001-0d5796a7-dev
+LOAD version: >= 1.29.0-26101001-0d5796a7 & < 2.0.0
+Parsing deps.txt line: galera 3.37
+GALERA version: >= 3.37-- & < 4.0.0
+-- Building for debian
+-- CMAKE_INSTALL_PREFIX="/"
+-- CMAKE_INSTALL_BINDIR="usr/bin" ; CMAKE_INSTALL_FULL_BINDIR="/usr/bin"
+-- CMAKE_INSTALL_SBINDIR="usr/sbin" ; CMAKE_INSTALL_FULL_SBINDIR="/usr/sbin"
+-- CMAKE_INSTALL_LIBEXECDIR="usr/libexec" ; CMAKE_INSTALL_FULL_LIBEXECDIR="/usr/libexec"
+-- CMAKE_INSTALL_SYSCONFDIR="etc" ; CMAKE_INSTALL_FULL_SYSCONFDIR="/etc"
+-- CMAKE_INSTALL_SHAREDSTATEDIR="usr/com" ; CMAKE_INSTALL_FULL_SHAREDSTATEDIR="/usr/com"
+-- CMAKE_INSTALL_LOCALSTATEDIR="var" ; CMAKE_INSTALL_FULL_LOCALSTATEDIR="/var"
+-- CMAKE_INSTALL_RUNSTATEDIR="run" ; CMAKE_INSTALL_FULL_RUNSTATEDIR="/run"
+-- CMAKE_INSTALL_LIBDIR="usr/lib" ; CMAKE_INSTALL_FULL_LIBDIR="/usr/lib"
+-- CMAKE_INSTALL_INCLUDEDIR="usr/include" ; CMAKE_INSTALL_FULL_INCLUDEDIR="/usr/include"
+-- CMAKE_INSTALL_OLDINCLUDEDIR="/usr/include" ; CMAKE_INSTALL_FULL_OLDINCLUDEDIR="/usr/include"
+-- CMAKE_INSTALL_DATAROOTDIR="usr/share" ; CMAKE_INSTALL_FULL_DATAROOTDIR="/usr/share"
+-- CMAKE_INSTALL_DATADIR="usr/share" ; CMAKE_INSTALL_FULL_DATADIR="/usr/share"
+-- CMAKE_INSTALL_INFODIR="usr/share/info" ; CMAKE_INSTALL_FULL_INFODIR="/usr/share/info"
+-- CMAKE_INSTALL_LOCALEDIR="usr/share/locale" ; CMAKE_INSTALL_FULL_LOCALEDIR="/usr/share/locale"
+-- CMAKE_INSTALL_MANDIR="usr/share/man" ; CMAKE_INSTALL_FULL_MANDIR="/usr/share/man"
+-- CMAKE_INSTALL_DOCDIR="usr/share/doc/manticore" ; CMAKE_INSTALL_FULL_DOCDIR="/usr/share/doc/manticore"
+-- CMAKE_INSTALL_LOCALLIBDIR="" ; CMAKE_INSTALL_FULL_LOCALLIBDIR="/usr/local/lib"
+-- Enabled features compiled in:
+ * nlohmann_json, JSON for Modern C++ library
+ * uni-algo, unicode algorithm implementation for C/C++
+ * icu, International Components for Unicode
+ * OpenSSL, for encrypted networking
+ * ZLIB, for compressed data and networking
+ * ZSTD, for compressed networking, <https://github.com/facebook/zstd>
+ * CURL, for enhanced network communication
+
+-- Available runtime features:
+
+-- Configuring done (1.6s)
+-- Generating done (0.1s)
+-- Build files have been written to: /work/build

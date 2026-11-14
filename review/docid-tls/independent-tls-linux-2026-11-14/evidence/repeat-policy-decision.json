@@ -1,0 +1,6 @@
+{
+  "affected_cases": [
+    "churn-c32-20000-0m"
+  ],
+  "policy": "Repeat all flagged complete comparisons in full once; retain every original and diagnostic; no selection by QPS"
+}

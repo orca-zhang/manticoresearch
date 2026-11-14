@@ -1,0 +1,8 @@
+{
+  "mode": "One send() call per byte-body HTTP request; same wire bytes; no reconnect/retry on error",
+  "reason": "Investigate high-concurrency HTTP receive/connection-reset failures while keeping engine binaries unchanged",
+  "source_sha256": {
+    "run_coalesced32.py": "4f2bcef8ff995c3e0a8d24de59b894ca3f1a6f5138c1d90211f867ebf90e3c68",
+    "coalesced_http.py": "1fd2241fad352af0bf803bdd5ad4987d27abd3b1bc12686abf50e6dc6780f7b4"
+  }
+}

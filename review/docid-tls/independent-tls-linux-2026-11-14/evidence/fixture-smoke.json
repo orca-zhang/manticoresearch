@@ -1,0 +1,1892 @@
+[
+  {
+    "rows": 20000,
+    "arm": "baseline",
+    "passed": true,
+    "status": [
+      {
+        "Counter": "uptime",
+        "Value": "0"
+      },
+      {
+        "Counter": "connections",
+        "Value": "6"
+      },
+      {
+        "Counter": "maxed_out",
+        "Value": "0"
+      },
+      {
+        "Counter": "version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "mysql_version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "command_search",
+        "Value": "4"
+      },
+      {
+        "Counter": "command_excerpt",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_update",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_keywords",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_persist",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_status",
+        "Value": "2"
+      },
+      {
+        "Counter": "command_flushattrs",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_sphinxql",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_ping",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_delete",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_set",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_insert",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_replace",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_commit",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_suggest",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_json",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_callpq",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_cluster",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_getfield",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_shard_write",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_optimize",
+        "Value": "0"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "search_stats_ms_avg",
+        "Value": "0.235 0.235 0.235"
+      },
+      {
+        "Counter": "search_stats_ms_min",
+        "Value": "0.142 0.142 0.142"
+      },
+      {
+        "Counter": "search_stats_ms_max",
+        "Value": "0.304 0.304 0.304"
+      },
+      {
+        "Counter": "search_stats_ms_pct95",
+        "Value": "0.235 0.235 0.235"
+      },
+      {
+        "Counter": "search_stats_ms_pct99",
+        "Value": "0.235 0.235 0.235"
+      },
+      {
+        "Counter": "update_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "agent_connect",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_tfo",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_retry",
+        "Value": "0"
+      },
+      {
+        "Counter": "queries",
+        "Value": "4"
+      },
+      {
+        "Counter": "dist_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_total",
+        "Value": "8"
+      },
+      {
+        "Counter": "workers_active",
+        "Value": "1"
+      },
+      {
+        "Counter": "workers_clients",
+        "Value": "1"
+      },
+      {
+        "Counter": "workers_clients_vip",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_clients_buddy",
+        "Value": "0"
+      },
+      {
+        "Counter": "work_queue_length",
+        "Value": "4"
+      },
+      {
+        "Counter": "load",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_primary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_secondary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "query_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "qcache_max_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_thresh_msec",
+        "Value": "3000"
+      },
+      {
+        "Counter": "qcache_ttl_sec",
+        "Value": "60"
+      },
+      {
+        "Counter": "qcache_cached_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_used_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_hits",
+        "Value": "0"
+      }
+    ]
+  },
+  {
+    "rows": 20000,
+    "arm": "tls",
+    "passed": true,
+    "status": [
+      {
+        "Counter": "uptime",
+        "Value": "0"
+      },
+      {
+        "Counter": "connections",
+        "Value": "6"
+      },
+      {
+        "Counter": "maxed_out",
+        "Value": "0"
+      },
+      {
+        "Counter": "version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "mysql_version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "command_search",
+        "Value": "4"
+      },
+      {
+        "Counter": "command_excerpt",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_update",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_keywords",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_persist",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_status",
+        "Value": "2"
+      },
+      {
+        "Counter": "command_flushattrs",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_sphinxql",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_ping",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_delete",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_set",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_insert",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_replace",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_commit",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_suggest",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_json",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_callpq",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_cluster",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_getfield",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_shard_write",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_optimize",
+        "Value": "0"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "search_stats_ms_avg",
+        "Value": "0.238 0.238 0.238"
+      },
+      {
+        "Counter": "search_stats_ms_min",
+        "Value": "0.198 0.198 0.198"
+      },
+      {
+        "Counter": "search_stats_ms_max",
+        "Value": "0.269 0.269 0.269"
+      },
+      {
+        "Counter": "search_stats_ms_pct95",
+        "Value": "0.238 0.238 0.238"
+      },
+      {
+        "Counter": "search_stats_ms_pct99",
+        "Value": "0.238 0.238 0.238"
+      },
+      {
+        "Counter": "update_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "agent_connect",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_tfo",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_retry",
+        "Value": "0"
+      },
+      {
+        "Counter": "queries",
+        "Value": "4"
+      },
+      {
+        "Counter": "dist_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_total",
+        "Value": "8"
+      },
+      {
+        "Counter": "workers_active",
+        "Value": "1"
+      },
+      {
+        "Counter": "workers_clients",
+        "Value": "1"
+      },
+      {
+        "Counter": "workers_clients_vip",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_clients_buddy",
+        "Value": "0"
+      },
+      {
+        "Counter": "work_queue_length",
+        "Value": "4"
+      },
+      {
+        "Counter": "load",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_primary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_secondary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "query_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "qcache_max_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_thresh_msec",
+        "Value": "3000"
+      },
+      {
+        "Counter": "qcache_ttl_sec",
+        "Value": "60"
+      },
+      {
+        "Counter": "qcache_cached_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_used_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_hits",
+        "Value": "0"
+      }
+    ]
+  },
+  {
+    "rows": 1000000,
+    "arm": "baseline",
+    "passed": true,
+    "status": [
+      {
+        "Counter": "uptime",
+        "Value": "0"
+      },
+      {
+        "Counter": "connections",
+        "Value": "6"
+      },
+      {
+        "Counter": "maxed_out",
+        "Value": "0"
+      },
+      {
+        "Counter": "version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "mysql_version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "command_search",
+        "Value": "4"
+      },
+      {
+        "Counter": "command_excerpt",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_update",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_keywords",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_persist",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_status",
+        "Value": "2"
+      },
+      {
+        "Counter": "command_flushattrs",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_sphinxql",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_ping",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_delete",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_set",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_insert",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_replace",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_commit",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_suggest",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_json",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_callpq",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_cluster",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_getfield",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_shard_write",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_optimize",
+        "Value": "0"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "search_stats_ms_avg",
+        "Value": "0.401 0.401 0.401"
+      },
+      {
+        "Counter": "search_stats_ms_min",
+        "Value": "0.176 0.176 0.176"
+      },
+      {
+        "Counter": "search_stats_ms_max",
+        "Value": "0.683 0.683 0.683"
+      },
+      {
+        "Counter": "search_stats_ms_pct95",
+        "Value": "0.401 0.401 0.401"
+      },
+      {
+        "Counter": "search_stats_ms_pct99",
+        "Value": "0.401 0.401 0.401"
+      },
+      {
+        "Counter": "update_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "agent_connect",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_tfo",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_retry",
+        "Value": "0"
+      },
+      {
+        "Counter": "queries",
+        "Value": "4"
+      },
+      {
+        "Counter": "dist_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_total",
+        "Value": "8"
+      },
+      {
+        "Counter": "workers_active",
+        "Value": "1"
+      },
+      {
+        "Counter": "workers_clients",
+        "Value": "1"
+      },
+      {
+        "Counter": "workers_clients_vip",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_clients_buddy",
+        "Value": "0"
+      },
+      {
+        "Counter": "work_queue_length",
+        "Value": "4"
+      },
+      {
+        "Counter": "load",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_primary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_secondary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "query_wall",
+        "Value": "0.001"
+      },
+      {
+        "Counter": "query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "qcache_max_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_thresh_msec",
+        "Value": "3000"
+      },
+      {
+        "Counter": "qcache_ttl_sec",
+        "Value": "60"
+      },
+      {
+        "Counter": "qcache_cached_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_used_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_hits",
+        "Value": "0"
+      }
+    ]
+  },
+  {
+    "rows": 1000000,
+    "arm": "tls",
+    "passed": true,
+    "status": [
+      {
+        "Counter": "uptime",
+        "Value": "0"
+      },
+      {
+        "Counter": "connections",
+        "Value": "6"
+      },
+      {
+        "Counter": "maxed_out",
+        "Value": "0"
+      },
+      {
+        "Counter": "version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "mysql_version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "command_search",
+        "Value": "4"
+      },
+      {
+        "Counter": "command_excerpt",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_update",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_keywords",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_persist",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_status",
+        "Value": "2"
+      },
+      {
+        "Counter": "command_flushattrs",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_sphinxql",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_ping",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_delete",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_set",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_insert",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_replace",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_commit",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_suggest",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_json",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_callpq",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_cluster",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_getfield",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_shard_write",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_optimize",
+        "Value": "0"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "search_stats_ms_avg",
+        "Value": "2.206 2.206 2.206"
+      },
+      {
+        "Counter": "search_stats_ms_min",
+        "Value": "0.206 0.206 0.206"
+      },
+      {
+        "Counter": "search_stats_ms_max",
+        "Value": "7.754 7.754 7.754"
+      },
+      {
+        "Counter": "search_stats_ms_pct95",
+        "Value": "2.206 2.206 2.206"
+      },
+      {
+        "Counter": "search_stats_ms_pct99",
+        "Value": "2.206 2.206 2.206"
+      },
+      {
+        "Counter": "update_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "agent_connect",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_tfo",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_retry",
+        "Value": "0"
+      },
+      {
+        "Counter": "queries",
+        "Value": "4"
+      },
+      {
+        "Counter": "dist_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_total",
+        "Value": "8"
+      },
+      {
+        "Counter": "workers_active",
+        "Value": "2"
+      },
+      {
+        "Counter": "workers_clients",
+        "Value": "2"
+      },
+      {
+        "Counter": "workers_clients_vip",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_clients_buddy",
+        "Value": "0"
+      },
+      {
+        "Counter": "work_queue_length",
+        "Value": "6"
+      },
+      {
+        "Counter": "load",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_primary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_secondary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "query_wall",
+        "Value": "0.008"
+      },
+      {
+        "Counter": "query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_wall",
+        "Value": "0.002"
+      },
+      {
+        "Counter": "avg_query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "qcache_max_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_thresh_msec",
+        "Value": "3000"
+      },
+      {
+        "Counter": "qcache_ttl_sec",
+        "Value": "60"
+      },
+      {
+        "Counter": "qcache_cached_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_used_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_hits",
+        "Value": "0"
+      }
+    ]
+  },
+  {
+    "rows": 10000000,
+    "arm": "baseline",
+    "passed": true,
+    "status": [
+      {
+        "Counter": "uptime",
+        "Value": "0"
+      },
+      {
+        "Counter": "connections",
+        "Value": "6"
+      },
+      {
+        "Counter": "maxed_out",
+        "Value": "0"
+      },
+      {
+        "Counter": "version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "mysql_version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "command_search",
+        "Value": "4"
+      },
+      {
+        "Counter": "command_excerpt",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_update",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_keywords",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_persist",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_status",
+        "Value": "2"
+      },
+      {
+        "Counter": "command_flushattrs",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_sphinxql",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_ping",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_delete",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_set",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_insert",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_replace",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_commit",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_suggest",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_json",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_callpq",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_cluster",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_getfield",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_shard_write",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_optimize",
+        "Value": "0"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "search_stats_ms_avg",
+        "Value": "13.008 13.008 13.008"
+      },
+      {
+        "Counter": "search_stats_ms_min",
+        "Value": "0.343 0.343 0.343"
+      },
+      {
+        "Counter": "search_stats_ms_max",
+        "Value": "39.803 39.803 39.803"
+      },
+      {
+        "Counter": "search_stats_ms_pct95",
+        "Value": "13.008 13.008 13.008"
+      },
+      {
+        "Counter": "search_stats_ms_pct99",
+        "Value": "13.008 13.008 13.008"
+      },
+      {
+        "Counter": "update_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "agent_connect",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_tfo",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_retry",
+        "Value": "0"
+      },
+      {
+        "Counter": "queries",
+        "Value": "4"
+      },
+      {
+        "Counter": "dist_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_total",
+        "Value": "8"
+      },
+      {
+        "Counter": "workers_active",
+        "Value": "2"
+      },
+      {
+        "Counter": "workers_clients",
+        "Value": "1"
+      },
+      {
+        "Counter": "workers_clients_vip",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_clients_buddy",
+        "Value": "0"
+      },
+      {
+        "Counter": "work_queue_length",
+        "Value": "6"
+      },
+      {
+        "Counter": "load",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_primary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_secondary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "query_wall",
+        "Value": "0.052"
+      },
+      {
+        "Counter": "query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_wall",
+        "Value": "0.013"
+      },
+      {
+        "Counter": "avg_query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "qcache_max_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_thresh_msec",
+        "Value": "3000"
+      },
+      {
+        "Counter": "qcache_ttl_sec",
+        "Value": "60"
+      },
+      {
+        "Counter": "qcache_cached_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_used_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_hits",
+        "Value": "0"
+      }
+    ]
+  },
+  {
+    "rows": 10000000,
+    "arm": "tls",
+    "passed": true,
+    "status": [
+      {
+        "Counter": "uptime",
+        "Value": "0"
+      },
+      {
+        "Counter": "connections",
+        "Value": "6"
+      },
+      {
+        "Counter": "maxed_out",
+        "Value": "0"
+      },
+      {
+        "Counter": "version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "mysql_version",
+        "Value": "0.0.0 047d2f9@26102712"
+      },
+      {
+        "Counter": "command_search",
+        "Value": "4"
+      },
+      {
+        "Counter": "command_excerpt",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_update",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_keywords",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_persist",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_status",
+        "Value": "2"
+      },
+      {
+        "Counter": "command_flushattrs",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_sphinxql",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_ping",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_delete",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_set",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_insert",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_replace",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_commit",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_suggest",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_json",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_callpq",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_cluster",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_getfield",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_shard_write",
+        "Value": "0"
+      },
+      {
+        "Counter": "command_optimize",
+        "Value": "0"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "insert_replace_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "search_stats_ms_avg",
+        "Value": "12.754 12.754 12.754"
+      },
+      {
+        "Counter": "search_stats_ms_min",
+        "Value": "0.311 0.311 0.311"
+      },
+      {
+        "Counter": "search_stats_ms_max",
+        "Value": "39.433 39.433 39.433"
+      },
+      {
+        "Counter": "search_stats_ms_pct95",
+        "Value": "12.754 12.754 12.754"
+      },
+      {
+        "Counter": "search_stats_ms_pct99",
+        "Value": "12.754 12.754 12.754"
+      },
+      {
+        "Counter": "update_stats_ms_avg",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_min",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_max",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct95",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "update_stats_ms_pct99",
+        "Value": "N/A N/A N/A"
+      },
+      {
+        "Counter": "agent_connect",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_tfo",
+        "Value": "0"
+      },
+      {
+        "Counter": "agent_retry",
+        "Value": "0"
+      },
+      {
+        "Counter": "queries",
+        "Value": "4"
+      },
+      {
+        "Counter": "dist_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_total",
+        "Value": "8"
+      },
+      {
+        "Counter": "workers_active",
+        "Value": "2"
+      },
+      {
+        "Counter": "workers_clients",
+        "Value": "1"
+      },
+      {
+        "Counter": "workers_clients_vip",
+        "Value": "0"
+      },
+      {
+        "Counter": "workers_clients_buddy",
+        "Value": "0"
+      },
+      {
+        "Counter": "work_queue_length",
+        "Value": "6"
+      },
+      {
+        "Counter": "load",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_primary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "load_secondary",
+        "Value": "0.00 0.00 0.00"
+      },
+      {
+        "Counter": "query_wall",
+        "Value": "0.051"
+      },
+      {
+        "Counter": "query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_wall",
+        "Value": "0.012"
+      },
+      {
+        "Counter": "avg_query_cpu",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_dist_wall",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_local",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_dist_wait",
+        "Value": "0.000"
+      },
+      {
+        "Counter": "avg_query_reads",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readkb",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "avg_query_readtime",
+        "Value": "OFF"
+      },
+      {
+        "Counter": "qcache_max_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_thresh_msec",
+        "Value": "3000"
+      },
+      {
+        "Counter": "qcache_ttl_sec",
+        "Value": "60"
+      },
+      {
+        "Counter": "qcache_cached_queries",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_used_bytes",
+        "Value": "0"
+      },
+      {
+        "Counter": "qcache_hits",
+        "Value": "0"
+      }
+    ]
+  }
+]

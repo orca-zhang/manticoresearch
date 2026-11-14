@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/work/run_experiment.py", line 31, in <module>
+    run(command+['--output','/work/measurement'],'measurement.log')
+  File "/work/run_experiment.py", line 11, in run
+    with (ROOT/'logs'/log).open('w') as out:subprocess.run(args,check=True,stdout=out,stderr=subprocess.STDOUT)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python3', '/work/driver/run_tls.py', '--fixtures', '/work/fixtures', '--rounds', '6', '--duration', '5', '--output', '/work/measurement']' returned non-zero exit status 1.

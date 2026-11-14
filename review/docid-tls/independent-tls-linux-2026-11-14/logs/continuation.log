@@ -1,0 +1,63 @@
+Idle gate: churn-c32-20000-16m
+Round 1 churn-c32-20000-16m
+Round 2 churn-c32-20000-16m
+Round 3 churn-c32-20000-16m
+Round 4 churn-c32-20000-16m
+Round 5 churn-c32-20000-16m
+Round 6 churn-c32-20000-16m
+RESULT churn-c32-20000-16m QPS -0.85 CPU/query 0.64
+Idle gate: mixed-c32-1000000-16m
+Round 1 mixed-c32-1000000-16m
+Round 2 mixed-c32-1000000-16m
+Round 3 mixed-c32-1000000-16m
+Round 4 mixed-c32-1000000-16m
+Round 5 mixed-c32-1000000-16m
+Round 6 mixed-c32-1000000-16m
+RESULT mixed-c32-1000000-16m QPS 7.23 CPU/query -13.07
+Idle gate: churn-c32-20000-0m
+Round 1 churn-c32-20000-0m
+Round 2 churn-c32-20000-0m
+Round 3 churn-c32-20000-0m
+Round 4 churn-c32-20000-0m
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/work/driver/benchmark.py", line 78, in worker
+    execute(connection, queries[completed % len(queries)])
+  File "/work/driver/benchmark.py", line 59, in execute
+    response = connection.getresponse()
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/http/client.py", line 1457, in getresponse
+    response.begin()
+  File "/usr/lib/python3.12/http/client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/http/client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 707, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [Errno 104] Connection reset by peer
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/work/driver/run_tls.py", line 259, in <module>
+    main()
+  File "/work/driver/run_tls.py", line 252, in main
+    result['cases'].append(run_case(case, number, args))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/driver/run_tls.py", line 190, in run_case
+    sample = measure(servers[label], pools, pool, go, ready, args.duration)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/driver/run_tls.py", line 88, in measure
+    replies = [job.get(timeout=duration + 30) for job in jobs]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 774, in get
+    raise self._value
+ConnectionResetError: [Errno 104] Connection reset by peer
