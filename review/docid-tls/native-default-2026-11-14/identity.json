@@ -1,0 +1,9 @@
+{
+  "measured_source": "503cb2bb9a6a793a5013bd57eee4b6756370d123",
+  "published_source": "a1dd0db409e2365cf372a13c18cdc1cb72a6b029",
+  "upstream_pr_head_preserved": "ae85db4772902d4c3df7a13cfaadaad90366f40d",
+  "mcl_source": "b5ffd36220fdc92b5b06ea706ee4ab22266d2d6f",
+  "measured_binary_sha256": "21d69340e3a0eac12fedad0487b9f8a36547c06f8de5b5a440c501d3b576a749",
+  "production_diff_since_measurement": "",
+  "reader_tls": false
+}

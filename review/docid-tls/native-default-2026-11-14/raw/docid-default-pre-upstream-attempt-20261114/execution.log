@@ -1,0 +1,25 @@
+Idle gate: 20000-stored
+Round 1 20000-stored
+Round 2 20000-stored
+Round 3 20000-stored
+Round 4 20000-stored
+Traceback (most recent call last):
+  File "/private/tmp/manticore-adaptive-pr-20261114/test_docid_default.py", line 137, in <module>
+    main()
+    ~~~~^^
+  File "/private/tmp/manticore-adaptive-pr-20261114/test_docid_default.py", line 100, in main
+    sample = bench.measure(db, queries, ctx, 5)
+  File "/private/tmp/manticore-adaptive-pr-20261114/run_final.py", line 88, in measure
+    replies = [j.get(timeout=duration + 30) for j in jobs]
+               ~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/pool.py", line 768, in get
+    self.wait(timeout)
+    ~~~~~~~~~^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/pool.py", line 765, in wait
+    self._event.wait(timeout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/threading.py", line 659, in wait
+    signaled = self._cond.wait(timeout)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/threading.py", line 363, in wait
+    gotit = waiter.acquire(True, timeout)
+KeyboardInterrupt

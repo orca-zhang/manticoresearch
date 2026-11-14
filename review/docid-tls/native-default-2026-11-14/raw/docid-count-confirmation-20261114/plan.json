@@ -1,0 +1,48 @@
+{
+  "version": "Manticore 0.0.0 503cb2bb9@26111412\nCopyright (c) 2001-2016, Andrew Aksyonoff\nCopyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)\nCopyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)\n\n",
+  "binary_sha256": "21d69340e3a0eac12fedad0487b9f8a36547c06f8de5b5a440c501d3b576a749",
+  "script_sha256": "09e78ffdad519ed8ff183a11b8092634e7e6fe0b171f973ff6f0ded095642bc2",
+  "rows": 1000000,
+  "workload": "full-count",
+  "clients": 8,
+  "seconds_per_arm": 5,
+  "rounds": 6,
+  "orders": [
+    [
+      "default",
+      "off",
+      "explicit64"
+    ],
+    [
+      "default",
+      "explicit64",
+      "off"
+    ],
+    [
+      "off",
+      "default",
+      "explicit64"
+    ],
+    [
+      "off",
+      "explicit64",
+      "default"
+    ],
+    [
+      "explicit64",
+      "default",
+      "off"
+    ],
+    [
+      "explicit64",
+      "off",
+      "default"
+    ]
+  ],
+  "startup_order": [
+    "default",
+    "off",
+    "explicit64"
+  ],
+  "arms": {}
+}

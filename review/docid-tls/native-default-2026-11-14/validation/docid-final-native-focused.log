@@ -1,0 +1,85 @@
+Running main() from gmock_main.cc
+Note: Google Test filter = *NativeDocidCache*:*UuidDocidLookup*:*DocidPlanner*
+[==========] Running 33 tests from 3 test suites.
+[----------] Global test environment set-up.
+
+[----------] 11 tests from UuidDocidLookupTest
+[ RUN      ] UuidDocidLookupTest.NumericPrefixCompatibility
+[       OK ] UuidDocidLookupTest.NumericPrefixCompatibility (0 ms)
+[ RUN      ] UuidDocidLookupTest.WriterReaderRoundTripAndSearch
+[       OK ] UuidDocidLookupTest.WriterReaderRoundTripAndSearch (0 ms)
+[ RUN      ] UuidDocidLookupTest.FormatCheckAndUpgrade
+[       OK ] UuidDocidLookupTest.FormatCheckAndUpgrade (0 ms)
+[ RUN      ] UuidDocidLookupTest.NativeCacheMatchesAndInvalidatesOnRemap
+[       OK ] UuidDocidLookupTest.NativeCacheMatchesAndInvalidatesOnRemap (0 ms)
+[ RUN      ] UuidDocidLookupTest.NativeCacheBudgetAndDuplicateFallback
+[       OK ] UuidDocidLookupTest.NativeCacheBudgetAndDuplicateFallback (0 ms)
+[ RUN      ] UuidDocidLookupTest.NativeCacheLegacyV70
+[       OK ] UuidDocidLookupTest.NativeCacheLegacyV70 (0 ms)
+[ RUN      ] UuidDocidLookupTest.NativeCacheSparseAndDenseIdFiltersMatchMerge
+[       OK ] UuidDocidLookupTest.NativeCacheSparseAndDenseIdFiltersMatchMerge (1 ms)
+[ RUN      ] UuidDocidLookupTest.NativeBatchMatchesCompressedAndHandlesRemap
+[       OK ] UuidDocidLookupTest.NativeBatchMatchesCompressedAndHandlesRemap (0 ms)
+[ RUN      ] UuidDocidLookupTest.NativeCacheIsDemandBuiltInBoundedSteps
+[       OK ] UuidDocidLookupTest.NativeCacheIsDemandBuiltInBoundedSteps (1 ms)
+[ RUN      ] UuidDocidLookupTest.NativeCacheConcurrentBuildAndBatchReaders
+[       OK ] UuidDocidLookupTest.NativeCacheConcurrentBuildAndBatchReaders (1 ms)
+[ RUN      ] UuidDocidLookupTest.NativeCacheLazyRefusalAndDuplicateFallback
+Running main() from gmock_main.cc
+
+[       OK ] UuidDocidLookupTest.NativeCacheLazyRefusalAndDuplicateFallback (16 ms)
+[----------] 11 tests from UuidDocidLookupTest (21 ms total)
+
+[----------] 15 tests from NativeDocidCache
+[ RUN      ] NativeDocidCache.DisabledEmptyAndOversizedDoNotAllocate
+[       OK ] NativeDocidCache.DisabledEmptyAndOversizedDoNotAllocate (0 ms)
+[ RUN      ] NativeDocidCache.LeafAndDirectoryBoundaries
+[       OK ] NativeDocidCache.LeafAndDirectoryBoundaries (2 ms)
+[ RUN      ] NativeDocidCache.UnsignedExtremesAndRowZero
+[       OK ] NativeDocidCache.UnsignedExtremesAndRowZero (0 ms)
+[ RUN      ] NativeDocidCache.IncompleteDuplicateAndUnsortedInputAreRefused
+[       OK ] NativeDocidCache.IncompleteDuplicateAndUnsortedInputAreRefused (0 ms)
+[ RUN      ] NativeDocidCache.MaxKeyInPartialLastLeaf
+[       OK ] NativeDocidCache.MaxKeyInPartialLastLeaf (0 ms)
+[ RUN      ] NativeDocidCache.BudgetChargesEntireAllocationAndReclaimsIt
+[       OK ] NativeDocidCache.BudgetChargesEntireAllocationAndReclaimsIt (0 ms)
+[ RUN      ] NativeDocidCache.RuntimeAlignmentAndPaddingRemainBudgeted
+[       OK ] NativeDocidCache.RuntimeAlignmentAndPaddingRemainBudgeted (0 ms)
+[ RUN      ] NativeDocidCache.RandomKeysMatchSortedReference
+[       OK ] NativeDocidCache.RandomKeysMatchSortedReference (10 ms)
+[ RUN      ] NativeDocidCache.ConcurrentReadersAndBudgetReservations
+[       OK ] NativeDocidCache.ConcurrentReadersAndBudgetReservations (0 ms)
+[ RUN      ] NativeDocidCache.BatchMatchesReferenceWithTilesPaddingAndUnsignedExtremes
+[       OK ] NativeDocidCache.BatchMatchesReferenceWithTilesPaddingAndUnsignedExtremes (0 ms)
+[ RUN      ] NativeDocidCache.BatchAcceptsDistinctUnsigned32BitOutputType
+[       OK ] NativeDocidCache.BatchAcceptsDistinctUnsigned32BitOutputType (0 ms)
+[ RUN      ] NativeDocidCache.BatchUnsealedAndConcurrentReadsDoNotChangeBudget
+[       OK ] NativeDocidCache.BatchUnsealedAndConcurrentReadsDoNotChangeBudget (0 ms)
+[ RUN      ] NativeDocidCache.BatchPreservesWideLeafIndicesAndOutputPositions
+[       OK ] NativeDocidCache.BatchPreservesWideLeafIndicesAndOutputPositions (12 ms)
+[ RUN      ] NativeDocidCache.ConsecutiveBatchesHandleDifferentCachesAndActiveLanes
+[       OK ] NativeDocidCache.ConsecutiveBatchesHandleDifferentCachesAndActiveLanes (0 ms)
+[ RUN      ] NativeDocidCache.ConcurrentBatchesIsolateThreadsCachesAndQueries
+[       OK ] NativeDocidCache.ConcurrentBatchesIsolateThreadsCachesAndQueries (1 ms)
+[----------] 15 tests from NativeDocidCache (27 ms total)
+
+[----------] 7 tests from CachedDocidPlanner
+[ RUN      ] CachedDocidPlanner.SparseUniqueIDsBoundHistogramAndSelectLookup
+[       OK ] CachedDocidPlanner.SparseUniqueIDsBoundHistogramAndSelectLookup (15 ms)
+[ RUN      ] CachedDocidPlanner.ExternalValuesUseActualProbeCount
+[       OK ] CachedDocidPlanner.ExternalValuesUseActualProbeCount (14 ms)
+[ RUN      ] CachedDocidPlanner.DenseListsAndOtherAttributesRetainHistogram
+[       OK ] CachedDocidPlanner.DenseListsAndOtherAttributesRetainHistogram (14 ms)
+[ RUN      ] CachedDocidPlanner.OutOfRangeIDsBoundHistogram
+[       OK ] CachedDocidPlanner.OutOfRangeIDsBoundHistogram (14 ms)
+[ RUN      ] CachedDocidPlanner.ExclusionsAndRangesRetainHistogram
+[       OK ] CachedDocidPlanner.ExclusionsAndRangesRetainHistogram (14 ms)
+[ RUN      ] CachedDocidPlanner.ExplicitLookupHintsRemainAuthoritative
+[       OK ] CachedDocidPlanner.ExplicitLookupHintsRemainAuthoritative (14 ms)
+[ RUN      ] CachedDocidPlanner.MissingIDsStillPayForEveryProbe
+[       OK ] CachedDocidPlanner.MissingIDsStillPayForEveryProbe (14 ms)
+[----------] 7 tests from CachedDocidPlanner (104 ms total)
+
+[----------] Global test environment tear-down
+[==========] 33 tests from 3 test suites ran. (154 ms total)
+[  PASSED  ] 33 tests.

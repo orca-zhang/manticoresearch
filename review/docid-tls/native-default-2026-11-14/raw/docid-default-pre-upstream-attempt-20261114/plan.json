@@ -1,0 +1,61 @@
+{
+  "source_commit": "af2fd38ec85c0598dc5848bf7cb0a3c4c41d3689",
+  "binary_sha256": "7ae52f0d1e46cc0f42a2f897e8831ff4e3350dbd4fab11f17ea8570b1ef6b92f",
+  "version": "Manticore 0.0.0 af2fd38ec@26111412\nCopyright (c) 2001-2016, Andrew Aksyonoff\nCopyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)\nCopyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)\n\n",
+  "script_sha256": "b27608075d841de0a46e841fa0ec9560a371dfe5cc77612ae09d882e38a58903",
+  "docstore_cache": true,
+  "docstore_budget_bytes": 16777216,
+  "sql_query_cache_bytes": 0,
+  "reader_tls": false,
+  "native_default_budget_bytes": 67108864,
+  "clients": 8,
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "serial_cold_queries": 512,
+  "idle_gate": {
+    "seconds": 30,
+    "mean_idle_percent": 90,
+    "minimum_idle_percent": 80,
+    "timeout_seconds": 300
+  },
+  "quality_rule": "Retain every sample. Mean external CPU >10% machine or peak >20% flags the complete case for confirmation.",
+  "plan": [
+    {
+      "rows": 20000,
+      "workload": "stored"
+    },
+    {
+      "rows": 1000000,
+      "workload": "point"
+    },
+    {
+      "rows": 1000000,
+      "workload": "id-only"
+    },
+    {
+      "rows": 1000000,
+      "workload": "stored"
+    },
+    {
+      "rows": 1000000,
+      "workload": "full-count"
+    },
+    {
+      "rows": 5000000,
+      "workload": "id-only"
+    },
+    {
+      "rows": 5000000,
+      "workload": "stored"
+    },
+    {
+      "rows": 20000000,
+      "workload": "id-only"
+    },
+    {
+      "rows": 20000000,
+      "workload": "stored"
+    }
+  ],
+  "cases": []
+}

@@ -1,0 +1,6 @@
+PASS default: adaptive=True, stored-field replacement and cache cleanup
+PASS enabled: adaptive=True, stored-field replacement and cache cleanup
+PASS disabled: adaptive=False, stored-field replacement and cache cleanup
+PASS disabled-large-budget: adaptive=False, stored-field replacement and cache cleanup
+PASS zero-budget: adaptive=False, stored-field replacement and cache cleanup
+PASS enabled-zero-budget: adaptive=False, stored-field replacement and cache cleanup

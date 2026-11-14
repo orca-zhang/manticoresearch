@@ -1,0 +1,42 @@
+{
+  "source_commit": "d89cebcdbee5eeaa205b6a861067b0d1219e6ea3",
+  "binary_sha256": "bb682c42adc3a9c9e25438373a212023683f957e676a401ff0017051c4573785",
+  "version": "Manticore 0.0.0 d89cebcdb@26111410\nCopyright (c) 2001-2016, Andrew Aksyonoff\nCopyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)\nCopyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)\n\n",
+  "script_sha256": "984a11abfcb8f115398b63e71bef9fe21a5c671c844698b97e869aa9f70e60bd",
+  "docstore_cache": true,
+  "docstore_adaptive": true,
+  "docstore_budget_bytes": 16777216,
+  "sql_query_cache_bytes": 0,
+  "reader_tls": false,
+  "clients": 8,
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "idle_gate": {
+    "seconds": 30,
+    "mean_idle_percent": 90,
+    "minimum_idle_percent": 80,
+    "timeout_seconds": 300
+  },
+  "quality_rule": "Retain every sample. Mean external CPU >10% machine or peak >20% schedules a complete case confirmation, never a selective round.",
+  "plan": [
+    {
+      "rows": 1000000,
+      "native_budget_bytes": 16777216,
+      "workloads": [
+        "point",
+        "id-only",
+        "stored",
+        "full-count"
+      ]
+    },
+    {
+      "rows": 5000000,
+      "native_budget_bytes": 134217728,
+      "workloads": [
+        "id-only",
+        "stored"
+      ]
+    }
+  ],
+  "cases": []
+}

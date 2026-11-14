@@ -1,0 +1,182 @@
+{
+  "20000": {
+    "rows": 20000,
+    "disk_chunk_count": 1,
+    "chunks": [
+      {
+        "file": "docs/docs.0.spt",
+        "rows": 20000
+      }
+    ]
+  },
+  "1000000": {
+    "rows": 1000000,
+    "disk_chunk_count": 3,
+    "chunks": [
+      {
+        "file": "docs/docs.0.spt",
+        "rows": 260000
+      },
+      {
+        "file": "docs/docs.1.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.2.spt",
+        "rows": 46000
+      }
+    ]
+  },
+  "5000000": {
+    "rows": 5000000,
+    "disk_chunk_count": 9,
+    "chunks": [
+      {
+        "file": "docs/docs.0.spt",
+        "rows": 260000
+      },
+      {
+        "file": "docs/docs.1.spt",
+        "rows": 693000
+      },
+      {
+        "file": "docs/docs.2.spt",
+        "rows": 695000
+      },
+      {
+        "file": "docs/docs.3.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.4.spt",
+        "rows": 38000
+      },
+      {
+        "file": "docs/docs.5.spt",
+        "rows": 658000
+      },
+      {
+        "file": "docs/docs.6.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.7.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.8.spt",
+        "rows": 574000
+      }
+    ]
+  },
+  "20000000": {
+    "rows": 20000000,
+    "disk_chunk_count": 26,
+    "chunks": [
+      {
+        "file": "docs/docs.10.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.13.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.14.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.15.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.16.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.18.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.19.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.2.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.20.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.22.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.23.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.24.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.25.spt",
+        "rows": 954000
+      },
+      {
+        "file": "docs/docs.26.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.27.spt",
+        "rows": 1388000
+      },
+      {
+        "file": "docs/docs.28.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.29.spt",
+        "rows": 1388000
+      },
+      {
+        "file": "docs/docs.3.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.31.spt",
+        "rows": 1388000
+      },
+      {
+        "file": "docs/docs.32.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.33.spt",
+        "rows": 308000
+      },
+      {
+        "file": "docs/docs.4.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.5.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.6.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.8.spt",
+        "rows": 694000
+      },
+      {
+        "file": "docs/docs.9.spt",
+        "rows": 694000
+      }
+    ]
+  }
+}

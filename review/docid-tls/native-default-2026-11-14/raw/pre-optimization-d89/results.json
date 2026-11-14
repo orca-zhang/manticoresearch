@@ -1,0 +1,2366 @@
+{
+  "source_commit": "d89cebcdbee5eeaa205b6a861067b0d1219e6ea3",
+  "binary_sha256": "bb682c42adc3a9c9e25438373a212023683f957e676a401ff0017051c4573785",
+  "version": "Manticore 0.0.0 d89cebcdb@26111410\nCopyright (c) 2001-2016, Andrew Aksyonoff\nCopyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)\nCopyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)\n\n",
+  "script_sha256": "984a11abfcb8f115398b63e71bef9fe21a5c671c844698b97e869aa9f70e60bd",
+  "docstore_cache": true,
+  "docstore_adaptive": true,
+  "docstore_budget_bytes": 16777216,
+  "sql_query_cache_bytes": 0,
+  "reader_tls": false,
+  "clients": 8,
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "idle_gate": {
+    "seconds": 30,
+    "mean_idle_percent": 90,
+    "minimum_idle_percent": 80,
+    "timeout_seconds": 300
+  },
+  "quality_rule": "Retain every sample. Mean external CPU >10% machine or peak >20% schedules a complete case confirmation, never a selective round.",
+  "plan": [
+    {
+      "rows": 1000000,
+      "native_budget_bytes": 16777216,
+      "workloads": [
+        "point",
+        "id-only",
+        "stored",
+        "full-count"
+      ]
+    },
+    {
+      "rows": 5000000,
+      "native_budget_bytes": 134217728,
+      "workloads": [
+        "id-only",
+        "stored"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "name": "1000000-point",
+      "rows": 1000000,
+      "workload": "point",
+      "arms": {
+        "off": {
+          "config": "searchd {\nlisten = 127.0.0.1:50477:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 37474.39820608634,
+              "completed": 187384,
+              "elapsed_seconds": 5.000320457969792,
+              "cpu_ms_per_query": 0.14709531985655125,
+              "rss_bytes": 42516480,
+              "footprint_bytes": 15303112,
+              "p95_ms": 0.308084,
+              "from_monotonic_seconds": 1021084.378225166,
+              "to_monotonic_seconds": 1021089.381137416,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.13371015789035,
+              "external_peak_machine_percent": 7.212134435773909,
+              "quality_flag": false
+            },
+            {
+              "qps": 37041.06180545899,
+              "completed": 185216,
+              "elapsed_seconds": 5.0002886248985305,
+              "cpu_ms_per_query": 0.1495626871706548,
+              "rss_bytes": 42827776,
+              "footprint_bytes": 15614408,
+              "p95_ms": 0.310959,
+              "from_monotonic_seconds": 1021099.703612583,
+              "to_monotonic_seconds": 1021104.706377833,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.608306937656976,
+              "external_peak_machine_percent": 6.1412781668700065,
+              "quality_flag": false
+            },
+            {
+              "qps": 37540.97616881611,
+              "completed": 187721,
+              "elapsed_seconds": 5.00042937498074,
+              "cpu_ms_per_query": 0.14589902257605702,
+              "rss_bytes": 43106304,
+              "footprint_bytes": 15892936,
+              "p95_ms": 0.309458,
+              "from_monotonic_seconds": 1021104.811044541,
+              "to_monotonic_seconds": 1021109.814009375,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.320662809834103,
+              "external_peak_machine_percent": 7.243283544611839,
+              "quality_flag": false
+            },
+            {
+              "qps": 37619.59922912912,
+              "completed": 188111,
+              "elapsed_seconds": 5.000345667009242,
+              "cpu_ms_per_query": 0.14654416762975053,
+              "rss_bytes": 43614208,
+              "footprint_bytes": 14729672,
+              "p95_ms": 0.308125,
+              "from_monotonic_seconds": 1021120.135319625,
+              "to_monotonic_seconds": 1021125.138277833,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.664563495621054,
+              "external_peak_machine_percent": 5.899271393223718,
+              "quality_flag": false
+            },
+            {
+              "qps": 37265.819339817455,
+              "completed": 186341,
+              "elapsed_seconds": 5.000319416052662,
+              "cpu_ms_per_query": 0.14803717668682684,
+              "rss_bytes": 43630592,
+              "footprint_bytes": 14746056,
+              "p95_ms": 0.311083,
+              "from_monotonic_seconds": 1021125.24190575,
+              "to_monotonic_seconds": 1021130.244568791,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 6.067073685683181,
+              "external_peak_machine_percent": 10.13305019128453,
+              "quality_flag": false
+            },
+            {
+              "qps": 37819.82667889286,
+              "completed": 189112,
+              "elapsed_seconds": 5.0003402079455554,
+              "cpu_ms_per_query": 0.14578917828059562,
+              "rss_bytes": 43646976,
+              "footprint_bytes": 14762440,
+              "p95_ms": 0.307083,
+              "from_monotonic_seconds": 1021140.576515916,
+              "to_monotonic_seconds": 1021145.579348875,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.3484467982194035,
+              "external_peak_machine_percent": 6.932572526531698,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps": 37507.68718745123,
+          "cpu_ms_per_query": 0.14681974374315088,
+          "docid_used_bytes": 0.0,
+          "rss_bytes": 43360256.0
+        },
+        "on": {
+          "config": "searchd {\nlisten = 127.0.0.1:50480:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 16777216\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 37149.15717975224,
+              "completed": 185761,
+              "elapsed_seconds": 5.000409540953115,
+              "cpu_ms_per_query": 0.1488593723924828,
+              "rss_bytes": 51380224,
+              "footprint_bytes": 24625608,
+              "p95_ms": 0.31125,
+              "from_monotonic_seconds": 1021089.484534958,
+              "to_monotonic_seconds": 1021094.487755583,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.709615283718277,
+              "external_peak_machine_percent": 5.496967048146533,
+              "quality_flag": false
+            },
+            {
+              "qps": 37221.333450725295,
+              "completed": 186124,
+              "elapsed_seconds": 5.0004656669916585,
+              "cpu_ms_per_query": 0.14845368298016376,
+              "rss_bytes": 51609600,
+              "footprint_bytes": 24854984,
+              "p95_ms": 0.311209,
+              "from_monotonic_seconds": 1021094.596050708,
+              "to_monotonic_seconds": 1021099.599065125,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.893658848055516,
+              "external_peak_machine_percent": 6.143786259631367,
+              "quality_flag": false
+            },
+            {
+              "qps": 37070.87084021471,
+              "completed": 185367,
+              "elapsed_seconds": 5.0003411249490455,
+              "cpu_ms_per_query": 0.14903890255547103,
+              "rss_bytes": 51789824,
+              "footprint_bytes": 25035208,
+              "p95_ms": 0.311875,
+              "from_monotonic_seconds": 1021109.921675166,
+              "to_monotonic_seconds": 1021114.9246285,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.837286582822739,
+              "external_peak_machine_percent": 5.394956515110445,
+              "quality_flag": false
+            },
+            {
+              "qps": 37144.52536120342,
+              "completed": 185738,
+              "elapsed_seconds": 5.000413875095546,
+              "cpu_ms_per_query": 0.14916967807879916,
+              "rss_bytes": 51789824,
+              "footprint_bytes": 25035208,
+              "p95_ms": 0.310875,
+              "from_monotonic_seconds": 1021115.030315166,
+              "to_monotonic_seconds": 1021120.033464708,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.8285461491511015,
+              "external_peak_machine_percent": 5.674258338075002,
+              "quality_flag": false
+            },
+            {
+              "qps": 37552.21518782903,
+              "completed": 187775,
+              "elapsed_seconds": 5.000370791996829,
+              "cpu_ms_per_query": 0.14693616739715085,
+              "rss_bytes": 51789824,
+              "footprint_bytes": 25035208,
+              "p95_ms": 0.308334,
+              "from_monotonic_seconds": 1021130.35461625,
+              "to_monotonic_seconds": 1021135.357508708,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.604832911821502,
+              "external_peak_machine_percent": 5.643992668523659,
+              "quality_flag": false
+            },
+            {
+              "qps": 37312.8455055289,
+              "completed": 186618,
+              "elapsed_seconds": 5.001441124943085,
+              "cpu_ms_per_query": 0.14794341225390906,
+              "rss_bytes": 51937280,
+              "footprint_bytes": 25182664,
+              "p95_ms": 0.310459,
+              "from_monotonic_seconds": 1021135.461576125,
+              "to_monotonic_seconds": 1021140.469489666,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.744249139092697,
+              "external_peak_machine_percent": 5.740834242526311,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps": 37185.24531523877,
+          "cpu_ms_per_query": 0.1486565276863233,
+          "docid_used_bytes": 12135677.0,
+          "rss_bytes": 51789824.0
+        }
+      },
+      "query_sha256": "a545e3d035a735e1bfd60cc4abd9711cddac9021a4615591c12d2176fca64fa9",
+      "idle_gate": {
+        "interval_seconds": 30.362015333026648,
+        "idle_percent_mean": 91.53080697682961,
+        "idle_percent_min": 88.67469879518072,
+        "from_monotonic_seconds": 1021053.181345708,
+        "to_monotonic_seconds": 1021083.543361041
+      },
+      "thermal_before": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   138909.\nPages active:                                 419366.\nPages inactive:                               418479.\nPages speculative:                             30302.\nPages throttled:                                   0.\nPages wired down:                             260108.\nPages purgeable:                               18304.\n\"Translation faults\":                     6751665817.\nPages copy-on-write:                       842811093.\nPages zero filled:                        4833246338.\nPages reactivated:                         224716971.\nPages purged:                               47460426.\nFile-backed pages:                            348019.\nAnonymous pages:                              520128.\nPages stored in compressor:                   822263.\nPages occupied by compressor:                 270734.\nDecompressions:                            170488475.\nCompressions:                              222647886.\nPageins:                                   109788778.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "thermal_after": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   144786.\nPages active:                                 421033.\nPages inactive:                               418522.\nPages speculative:                             30425.\nPages throttled:                                   0.\nPages wired down:                             252464.\nPages purgeable:                               18044.\n\"Translation faults\":                     6752410394.\nPages copy-on-write:                       842913549.\nPages zero filled:                        4834021173.\nPages reactivated:                         224717096.\nPages purged:                               47460922.\nFile-backed pages:                            348193.\nAnonymous pages:                              521787.\nPages stored in compressor:                   822189.\nPages occupied by compressor:                 270714.\nDecompressions:                            170488549.\nCompressions:                              222647886.\nPageins:                                   109793229.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      }
+    },
+    {
+      "name": "1000000-id-only",
+      "rows": 1000000,
+      "workload": "id-only",
+      "arms": {
+        "off": {
+          "config": "searchd {\nlisten = 127.0.0.1:50477:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 9061.82671649587,
+              "completed": 45317,
+              "elapsed_seconds": 5.000868082977831,
+              "cpu_ms_per_query": 0.7980675463953925,
+              "rss_bytes": 44498944,
+              "footprint_bytes": 12321224,
+              "p95_ms": 1.126625,
+              "from_monotonic_seconds": 1021178.017188958,
+              "to_monotonic_seconds": 1021183.018462583,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.092195473425025,
+              "external_peak_machine_percent": 8.212846050743584,
+              "quality_flag": false
+            },
+            {
+              "qps": 8610.358913450635,
+              "completed": 43059,
+              "elapsed_seconds": 5.000836833030917,
+              "cpu_ms_per_query": 0.8360423092036509,
+              "rss_bytes": 44711936,
+              "footprint_bytes": 12288456,
+              "p95_ms": 1.174667,
+              "from_monotonic_seconds": 1021193.393320791,
+              "to_monotonic_seconds": 1021198.394625208,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.009328545219359,
+              "external_peak_machine_percent": 6.358634299256997,
+              "quality_flag": false
+            },
+            {
+              "qps": 8580.899096994981,
+              "completed": 42917,
+              "elapsed_seconds": 5.001457249978557,
+              "cpu_ms_per_query": 0.842273887200876,
+              "rss_bytes": 44711936,
+              "footprint_bytes": 12190152,
+              "p95_ms": 1.176042,
+              "from_monotonic_seconds": 1021198.537356625,
+              "to_monotonic_seconds": 1021203.53909225,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.395488613436318,
+              "external_peak_machine_percent": 5.946724103018735,
+              "quality_flag": false
+            },
+            {
+              "qps": 8533.845108747591,
+              "completed": 42676,
+              "elapsed_seconds": 5.000793833984062,
+              "cpu_ms_per_query": 0.847734667400881,
+              "rss_bytes": 45203456,
+              "footprint_bytes": 12681672,
+              "p95_ms": 1.188334,
+              "from_monotonic_seconds": 1021213.921181416,
+              "to_monotonic_seconds": 1021218.922595916,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.066865022898131,
+              "external_peak_machine_percent": 6.440621519441159,
+              "quality_flag": false
+            },
+            {
+              "qps": 8575.630632864611,
+              "completed": 42887,
+              "elapsed_seconds": 5.001031625084579,
+              "cpu_ms_per_query": 0.8438402993214728,
+              "rss_bytes": 45236224,
+              "footprint_bytes": 12632520,
+              "p95_ms": 1.175041,
+              "from_monotonic_seconds": 1021219.068691291,
+              "to_monotonic_seconds": 1021224.070360708,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.422829328357342,
+              "external_peak_machine_percent": 5.988004568892734,
+              "quality_flag": false
+            },
+            {
+              "qps": 8603.098544161148,
+              "completed": 43023,
+              "elapsed_seconds": 5.000872625038028,
+              "cpu_ms_per_query": 0.8419464733979499,
+              "rss_bytes": 45236224,
+              "footprint_bytes": 12599752,
+              "p95_ms": 1.176083,
+              "from_monotonic_seconds": 1021234.453946666,
+              "to_monotonic_seconds": 1021239.455272416,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.613859700075616,
+              "external_peak_machine_percent": 5.708516785301961,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps": 8591.998820578065,
+          "cpu_ms_per_query": 0.842110180299413,
+          "docid_used_bytes": 0.0,
+          "rss_bytes": 44957696.0
+        },
+        "on": {
+          "config": "searchd {\nlisten = 127.0.0.1:50480:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 16777216\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 20938.3060908142,
+              "completed": 104700,
+              "elapsed_seconds": 5.000404500053264,
+              "cpu_ms_per_query": 0.27340776304680037,
+              "rss_bytes": 52609024,
+              "footprint_bytes": 24297928,
+              "p95_ms": 0.543083,
+              "from_monotonic_seconds": 1021183.122211708,
+              "to_monotonic_seconds": 1021188.124113375,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 6.4995972585940525,
+              "external_peak_machine_percent": 11.671030131985463,
+              "quality_flag": false
+            },
+            {
+              "qps": 21301.310587884054,
+              "completed": 106519,
+              "elapsed_seconds": 5.000584333087318,
+              "cpu_ms_per_query": 0.2726326148386673,
+              "rss_bytes": 53002240,
+              "footprint_bytes": 24691144,
+              "p95_ms": 0.514417,
+              "from_monotonic_seconds": 1021188.236205041,
+              "to_monotonic_seconds": 1021193.238646291,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 5.0242581659613235,
+              "external_peak_machine_percent": 5.712894848834465,
+              "quality_flag": false
+            },
+            {
+              "qps": 20884.378392338178,
+              "completed": 104432,
+              "elapsed_seconds": 5.0004839999601245,
+              "cpu_ms_per_query": 0.2779603095028344,
+              "rss_bytes": 53264384,
+              "footprint_bytes": 24560072,
+              "p95_ms": 0.5235,
+              "from_monotonic_seconds": 1021203.646997041,
+              "to_monotonic_seconds": 1021208.649387666,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.611351519045028,
+              "external_peak_machine_percent": 6.207214054343599,
+              "quality_flag": false
+            },
+            {
+              "qps": 20469.890234085477,
+              "completed": 102360,
+              "elapsed_seconds": 5.0005153339589015,
+              "cpu_ms_per_query": 0.2835478853262993,
+              "rss_bytes": 53264384,
+              "footprint_bytes": 24429000,
+              "p95_ms": 0.533958,
+              "from_monotonic_seconds": 1021208.765132833,
+              "to_monotonic_seconds": 1021213.767226083,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.901201425099514,
+              "external_peak_machine_percent": 5.472987004347892,
+              "quality_flag": false
+            },
+            {
+              "qps": 20734.50080799627,
+              "completed": 103681,
+              "elapsed_seconds": 5.000409749918617,
+              "cpu_ms_per_query": 0.28060825151184887,
+              "rss_bytes": 53297152,
+              "footprint_bytes": 24412616,
+              "p95_ms": 0.524,
+              "from_monotonic_seconds": 1021224.179193,
+              "to_monotonic_seconds": 1021229.181136583,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.5033182181641,
+              "external_peak_machine_percent": 6.106755401439085,
+              "quality_flag": false
+            },
+            {
+              "qps": 20723.86011695802,
+              "completed": 103632,
+              "elapsed_seconds": 5.0006127919768915,
+              "cpu_ms_per_query": 0.28022224232862436,
+              "rss_bytes": 53395456,
+              "footprint_bytes": 24461768,
+              "p95_ms": 0.526792,
+              "from_monotonic_seconds": 1021229.29760475,
+              "to_monotonic_seconds": 1021234.29953975,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.842103694606311,
+              "external_peak_machine_percent": 5.8095048829344895,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps": 20809.439600167225,
+          "cpu_ms_per_query": 0.27909127591572935,
+          "docid_used_bytes": 12135677.0,
+          "rss_bytes": 53264384.0
+        }
+      },
+      "query_sha256": "e6f584090cddc40617c7b4a3e592d5f56c45937d60f01a11a60565239d736c33",
+      "idle_gate": {
+        "interval_seconds": 30.452355209039524,
+        "idle_percent_mean": 91.59679090424821,
+        "idle_percent_min": 86.48648648648648,
+        "from_monotonic_seconds": 1021146.670641416,
+        "to_monotonic_seconds": 1021177.122996625
+      },
+      "thermal_before": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   141997.\nPages active:                                 424049.\nPages inactive:                               418533.\nPages speculative:                             30416.\nPages throttled:                                   0.\nPages wired down:                             252388.\nPages purgeable:                               18044.\n\"Translation faults\":                     6752416033.\nPages copy-on-write:                       842913983.\nPages zero filled:                        4834025031.\nPages reactivated:                         224717096.\nPages purged:                               47460922.\nFile-backed pages:                            348195.\nAnonymous pages:                              524803.\nPages stored in compressor:                   822189.\nPages occupied by compressor:                 270714.\nDecompressions:                            170488549.\nCompressions:                              222647886.\nPageins:                                   109793232.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "thermal_after": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   140825.\nPages active:                                 426290.\nPages inactive:                               421606.\nPages speculative:                             30642.\nPages throttled:                                   0.\nPages wired down:                             247241.\nPages purgeable:                               17371.\n\"Translation faults\":                     6753280627.\nPages copy-on-write:                       843023769.\nPages zero filled:                        4834813085.\nPages reactivated:                         224717198.\nPages purged:                               47462138.\nFile-backed pages:                            348499.\nAnonymous pages:                              530039.\nPages stored in compressor:                   821755.\nPages occupied by compressor:                 270618.\nDecompressions:                            170488983.\nCompressions:                              222647886.\nPageins:                                   109798044.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      }
+    },
+    {
+      "name": "1000000-stored",
+      "rows": 1000000,
+      "workload": "stored",
+      "arms": {
+        "off": {
+          "config": "searchd {\nlisten = 127.0.0.1:50477:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 3116.4491208972063,
+              "completed": 15588,
+              "elapsed_seconds": 5.001846458995715,
+              "cpu_ms_per_query": 2.324487840582499,
+              "rss_bytes": 70762496,
+              "footprint_bytes": 37519840,
+              "p95_ms": 3.092625,
+              "from_monotonic_seconds": 1021271.932771208,
+              "to_monotonic_seconds": 1021276.934820208,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.743387917579677,
+              "external_peak_machine_percent": 5.981488990486365,
+              "quality_flag": false
+            },
+            {
+              "qps": 3058.3014580825925,
+              "completed": 15297,
+              "elapsed_seconds": 5.001796000055037,
+              "cpu_ms_per_query": 2.363238292867883,
+              "rss_bytes": 71630848,
+              "footprint_bytes": 38388192,
+              "p95_ms": 3.161583,
+              "from_monotonic_seconds": 1021287.680847416,
+              "to_monotonic_seconds": 1021292.682843583,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 917504
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.746460924701464,
+              "external_peak_machine_percent": 6.215449765758515,
+              "quality_flag": false
+            },
+            {
+              "qps": 3023.3505301691766,
+              "completed": 15124,
+              "elapsed_seconds": 5.002397125004791,
+              "cpu_ms_per_query": 2.3853542851097593,
+              "rss_bytes": 71794688,
+              "footprint_bytes": 38552032,
+              "p95_ms": 3.172291,
+              "from_monotonic_seconds": 1021292.933958291,
+              "to_monotonic_seconds": 1021297.936841833,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16570960,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 851968
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.300984441652399,
+              "external_peak_machine_percent": 7.213247672282253,
+              "quality_flag": false
+            },
+            {
+              "qps": 2967.7273643959074,
+              "completed": 14846,
+              "elapsed_seconds": 5.0024810830364,
+              "cpu_ms_per_query": 2.428574478580089,
+              "rss_bytes": 71909376,
+              "footprint_bytes": 38666720,
+              "p95_ms": 3.232459,
+              "from_monotonic_seconds": 1021308.726334375,
+              "to_monotonic_seconds": 1021313.729054916,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.510702619654806,
+              "external_peak_machine_percent": 8.902891071241283,
+              "quality_flag": false
+            },
+            {
+              "qps": 2987.615717578038,
+              "completed": 14946,
+              "elapsed_seconds": 5.002651415998116,
+              "cpu_ms_per_query": 2.429004973437709,
+              "rss_bytes": 71909376,
+              "footprint_bytes": 38666720,
+              "p95_ms": 3.212167,
+              "from_monotonic_seconds": 1021314.000510875,
+              "to_monotonic_seconds": 1021319.003628708,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.784872031898213,
+              "external_peak_machine_percent": 6.040456077396112,
+              "quality_flag": false
+            },
+            {
+              "qps": 2969.318228054697,
+              "completed": 14855,
+              "elapsed_seconds": 5.002831915975548,
+              "cpu_ms_per_query": 2.440998645237294,
+              "rss_bytes": 71909376,
+              "footprint_bytes": 38666720,
+              "p95_ms": 3.213625,
+              "from_monotonic_seconds": 1021329.762014375,
+              "to_monotonic_seconds": 1021334.765068333,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.843601046407525,
+              "external_peak_machine_percent": 6.815254178956746,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.018"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps": 3005.4831238736074,
+          "cpu_ms_per_query": 2.406964381844924,
+          "docid_used_bytes": 0.0,
+          "rss_bytes": 71852032.0
+        },
+        "on": {
+          "config": "searchd {\nlisten = 127.0.0.1:50480:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 16777216\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 3433.143956544017,
+              "completed": 17175,
+              "elapsed_seconds": 5.002703125006519,
+              "cpu_ms_per_query": 1.9726182193304223,
+              "rss_bytes": 81248256,
+              "footprint_bytes": 51970528,
+              "p95_ms": 2.657458,
+              "from_monotonic_seconds": 1021277.170566541,
+              "to_monotonic_seconds": 1021282.174072291,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 917504
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 5.575889826192565,
+              "external_peak_machine_percent": 7.053077534642223,
+              "quality_flag": false
+            },
+            {
+              "qps": 3414.194833037343,
+              "completed": 17076,
+              "elapsed_seconds": 5.001472041010857,
+              "cpu_ms_per_query": 1.9837321776762706,
+              "rss_bytes": 81494016,
+              "footprint_bytes": 52216288,
+              "p95_ms": 2.687875,
+              "from_monotonic_seconds": 1021282.420928791,
+              "to_monotonic_seconds": 1021287.422850583,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 5.504655352964095,
+              "external_peak_machine_percent": 6.221916281579915,
+              "quality_flag": false
+            },
+            {
+              "qps": 3391.249550223291,
+              "completed": 16965,
+              "elapsed_seconds": 5.0025808330392465,
+              "cpu_ms_per_query": 1.994252925139994,
+              "rss_bytes": 82051072,
+              "footprint_bytes": 52773344,
+              "p95_ms": 2.6845,
+              "from_monotonic_seconds": 1021298.182390375,
+              "to_monotonic_seconds": 1021303.185444375,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16566528,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 917504
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 6.622641764835969,
+              "external_peak_machine_percent": 10.586771409825024,
+              "quality_flag": false
+            },
+            {
+              "qps": 3375.8403988750006,
+              "completed": 16885,
+              "elapsed_seconds": 5.001717499922961,
+              "cpu_ms_per_query": 2.0194069391175598,
+              "rss_bytes": 82362368,
+              "footprint_bytes": 53084640,
+              "p95_ms": 2.734667,
+              "from_monotonic_seconds": 1021303.454090125,
+              "to_monotonic_seconds": 1021308.456483541,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 917504
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 6.172669596993714,
+              "external_peak_machine_percent": 10.586771409825024,
+              "quality_flag": false
+            },
+            {
+              "qps": 3373.4275209694056,
+              "completed": 16874,
+              "elapsed_seconds": 5.002034250064753,
+              "cpu_ms_per_query": 2.0242790461656988,
+              "rss_bytes": 82575360,
+              "footprint_bytes": 53297632,
+              "p95_ms": 2.734375,
+              "from_monotonic_seconds": 1021319.242789166,
+              "to_monotonic_seconds": 1021324.245110458,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 5.441244377944174,
+              "external_peak_machine_percent": 7.867723965280746,
+              "quality_flag": false
+            },
+            {
+              "qps": 3367.354275550704,
+              "completed": 16843,
+              "elapsed_seconds": 5.001849708030932,
+              "cpu_ms_per_query": 2.0167683260701774,
+              "rss_bytes": 82608128,
+              "footprint_bytes": 53330400,
+              "p95_ms": 2.710458,
+              "from_monotonic_seconds": 1021324.501527416,
+              "to_monotonic_seconds": 1021329.504174916,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 5.492782682695852,
+              "external_peak_machine_percent": 7.867723965280746,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.016"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps": 3383.544974549146,
+          "cpu_ms_per_query": 2.0055106256050856,
+          "docid_used_bytes": 12135677.0,
+          "rss_bytes": 82206720.0
+        }
+      },
+      "query_sha256": "a6d1b1f3294ebea468aad5bdbfc58c93bc401cba314423c6119f03ac1e037619",
+      "idle_gate": {
+        "interval_seconds": 30.415493000065908,
+        "idle_percent_mean": 91.5414791507627,
+        "idle_percent_min": 88.66719872306464,
+        "from_monotonic_seconds": 1021240.467342,
+        "to_monotonic_seconds": 1021270.882835
+      },
+      "thermal_before": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   138878.\nPages active:                                 431062.\nPages inactive:                               421997.\nPages speculative:                             30848.\nPages throttled:                                   0.\nPages wired down:                             244283.\nPages purgeable:                               18775.\n\"Translation faults\":                     6753288399.\nPages copy-on-write:                       843024204.\nPages zero filled:                        4834815624.\nPages reactivated:                         224717198.\nPages purged:                               47462138.\nFile-backed pages:                            349096.\nAnonymous pages:                              534811.\nPages stored in compressor:                   821755.\nPages occupied by compressor:                 270618.\nDecompressions:                            170488983.\nCompressions:                              222647886.\nPageins:                                   109798065.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "thermal_after": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   133543.\nPages active:                                 430773.\nPages inactive:                               422887.\nPages speculative:                             30681.\nPages throttled:                                   0.\nPages wired down:                             249042.\nPages purgeable:                               17380.\n\"Translation faults\":                     6754277770.\nPages copy-on-write:                       843133556.\nPages zero filled:                        4835635590.\nPages reactivated:                         224717285.\nPages purged:                               47463098.\nFile-backed pages:                            349242.\nAnonymous pages:                              535099.\nPages stored in compressor:                   821741.\nPages occupied by compressor:                 270612.\nDecompressions:                            170488997.\nCompressions:                              222647886.\nPageins:                                   109802536.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      }
+    },
+    {
+      "name": "1000000-full-count",
+      "rows": 1000000,
+      "workload": "full-count",
+      "arms": {
+        "off": {
+          "config": "searchd {\nlisten = 127.0.0.1:50477:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/off/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 48326.74569494672,
+              "completed": 241652,
+              "elapsed_seconds": 5.000378083088435,
+              "cpu_ms_per_query": 0.08539130995398342,
+              "rss_bytes": 72007680,
+              "footprint_bytes": 36143584,
+              "p95_ms": 0.251542,
+              "from_monotonic_seconds": 1021366.530653833,
+              "to_monotonic_seconds": 1021371.534748916,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.985469227779859,
+              "external_peak_machine_percent": 8.269192700379303,
+              "quality_flag": false
+            },
+            {
+              "qps": 49452.073392743674,
+              "completed": 247276,
+              "elapsed_seconds": 5.000316124991514,
+              "cpu_ms_per_query": 0.08488900088565005,
+              "rss_bytes": 72007680,
+              "footprint_bytes": 36143584,
+              "p95_ms": 0.243625,
+              "from_monotonic_seconds": 1021381.872011708,
+              "to_monotonic_seconds": 1021386.875707708,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.990907339684751,
+              "external_peak_machine_percent": 6.508236375951557,
+              "quality_flag": false
+            },
+            {
+              "qps": 49159.560560110025,
+              "completed": 245816,
+              "elapsed_seconds": 5.000370166031644,
+              "cpu_ms_per_query": 0.08495355113174081,
+              "rss_bytes": 72007680,
+              "footprint_bytes": 36143584,
+              "p95_ms": 0.245208,
+              "from_monotonic_seconds": 1021386.983570583,
+              "to_monotonic_seconds": 1021391.988024583,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.953197772528139,
+              "external_peak_machine_percent": 5.707452616745187,
+              "quality_flag": false
+            },
+            {
+              "qps": 47433.15357045678,
+              "completed": 237185,
+              "elapsed_seconds": 5.000405457918532,
+              "cpu_ms_per_query": 0.08808092188797774,
+              "rss_bytes": 72024064,
+              "footprint_bytes": 35553760,
+              "p95_ms": 0.251542,
+              "from_monotonic_seconds": 1021402.336765458,
+              "to_monotonic_seconds": 1021407.341033208,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.948970722159027,
+              "external_peak_machine_percent": 6.273189441569438,
+              "quality_flag": false
+            },
+            {
+              "qps": 47756.50972244921,
+              "completed": 238796,
+              "elapsed_seconds": 5.000281666056253,
+              "cpu_ms_per_query": 0.08819253550310725,
+              "rss_bytes": 72024064,
+              "footprint_bytes": 35553760,
+              "p95_ms": 0.248959,
+              "from_monotonic_seconds": 1021407.452922166,
+              "to_monotonic_seconds": 1021412.45657225,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.571181763190441,
+              "external_peak_machine_percent": 4.9857546118331735,
+              "quality_flag": false
+            },
+            {
+              "qps": 47093.884502317545,
+              "completed": 235484,
+              "elapsed_seconds": 5.0003095410065725,
+              "cpu_ms_per_query": 0.08875821287221212,
+              "rss_bytes": 72024064,
+              "footprint_bytes": 35553760,
+              "p95_ms": 0.254792,
+              "from_monotonic_seconds": 1021422.811267791,
+              "to_monotonic_seconds": 1021427.815273416,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.464302787059646,
+              "external_peak_machine_percent": 6.747886047918777,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "count(*):Precalc (100%)"
+            }
+          ],
+          "qps": 48041.62770869797,
+          "cpu_ms_per_query": 0.08673611592098057,
+          "docid_used_bytes": 0.0,
+          "rss_bytes": 72015872.0
+        },
+        "on": {
+          "config": "searchd {\nlisten = 127.0.0.1:50480:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-yz1jynlr/on/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 16777216\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 48354.18537994698,
+              "completed": 241785,
+              "elapsed_seconds": 5.000291042029858,
+              "cpu_ms_per_query": 0.08752108312757201,
+              "rss_bytes": 82706432,
+              "footprint_bytes": 50135520,
+              "p95_ms": 0.24925,
+              "from_monotonic_seconds": 1021371.647675291,
+              "to_monotonic_seconds": 1021376.651480958,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 5.421060420753907,
+              "external_peak_machine_percent": 6.769698800600949,
+              "quality_flag": false
+            },
+            {
+              "qps": 48722.02859605162,
+              "completed": 243626,
+              "elapsed_seconds": 5.000325458939187,
+              "cpu_ms_per_query": 0.08708742584124847,
+              "rss_bytes": 82706432,
+              "footprint_bytes": 50135520,
+              "p95_ms": 0.245542,
+              "from_monotonic_seconds": 1021376.75878525,
+              "to_monotonic_seconds": 1021381.76256975,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.6480255321087816,
+              "external_peak_machine_percent": 5.739099640802153,
+              "quality_flag": false
+            },
+            {
+              "qps": 47430.200428339085,
+              "completed": 237166,
+              "elapsed_seconds": 5.000316209043376,
+              "cpu_ms_per_query": 0.08969520346508353,
+              "rss_bytes": 82706432,
+              "footprint_bytes": 50135520,
+              "p95_ms": 0.253,
+              "from_monotonic_seconds": 1021392.100150375,
+              "to_monotonic_seconds": 1021397.104441375,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 5.0132134332054346,
+              "external_peak_machine_percent": 5.791256566346437,
+              "quality_flag": false
+            },
+            {
+              "qps": 46570.683892889516,
+              "completed": 232868,
+              "elapsed_seconds": 5.000313083990477,
+              "cpu_ms_per_query": 0.09038068526804885,
+              "rss_bytes": 82706432,
+              "footprint_bytes": 50135520,
+              "p95_ms": 0.259459,
+              "from_monotonic_seconds": 1021397.217340666,
+              "to_monotonic_seconds": 1021402.221716291,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 5.588676611238003,
+              "external_peak_machine_percent": 7.927129617957277,
+              "quality_flag": false
+            },
+            {
+              "qps": 46891.93043075414,
+              "completed": 234471,
+              "elapsed_seconds": 5.000241999980062,
+              "cpu_ms_per_query": 0.09102028360010406,
+              "rss_bytes": 82706432,
+              "footprint_bytes": 48447968,
+              "p95_ms": 0.25425,
+              "from_monotonic_seconds": 1021412.571026,
+              "to_monotonic_seconds": 1021417.57489325,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 4.591016071494923,
+              "external_peak_machine_percent": 5.414991618433422,
+              "quality_flag": false
+            },
+            {
+              "qps": 46190.75840954374,
+              "completed": 230971,
+              "elapsed_seconds": 5.000372541020624,
+              "cpu_ms_per_query": 0.0915206117131588,
+              "rss_bytes": 82706432,
+              "footprint_bytes": 48447968,
+              "p95_ms": 0.261083,
+              "from_monotonic_seconds": 1021417.686911583,
+              "to_monotonic_seconds": 1021422.690994416,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 12135677,
+              "external_mean_machine_percent": 6.124337850085925,
+              "external_peak_machine_percent": 9.327360606898235,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "count(*):Precalc (100%)"
+            }
+          ],
+          "qps": 47161.06542954661,
+          "cpu_ms_per_query": 0.09003794436656619,
+          "docid_used_bytes": 12135677.0,
+          "rss_bytes": 82706432.0
+        }
+      },
+      "query_sha256": "5d5f89c0f91758996ceb942491818f2344b9673ad51971a5e7a7910f69397cc0",
+      "idle_gate": {
+        "interval_seconds": 30.4498985420214,
+        "idle_percent_mean": 91.09268365730941,
+        "idle_percent_min": 88.72901678657075,
+        "from_monotonic_seconds": 1021335.256696083,
+        "to_monotonic_seconds": 1021365.706594625
+      },
+      "thermal_before": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   132748.\nPages active:                                 431374.\nPages inactive:                               422894.\nPages speculative:                             30671.\nPages throttled:                                   0.\nPages wired down:                             249180.\nPages purgeable:                               17380.\n\"Translation faults\":                     6754286781.\nPages copy-on-write:                       843133983.\nPages zero filled:                        4835637957.\nPages reactivated:                         224717285.\nPages purged:                               47463098.\nFile-backed pages:                            349243.\nAnonymous pages:                              535696.\nPages stored in compressor:                   821741.\nPages occupied by compressor:                 270612.\nDecompressions:                            170488997.\nCompressions:                              222647886.\nPageins:                                   109802539.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "thermal_after": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   131491.\nPages active:                                 436338.\nPages inactive:                               421540.\nPages speculative:                             30744.\nPages throttled:                                   0.\nPages wired down:                             246452.\nPages purgeable:                               18893.\n\"Translation faults\":                     6755221989.\nPages copy-on-write:                       843250351.\nPages zero filled:                        4836420557.\nPages reactivated:                         224717361.\nPages purged:                               47463866.\nFile-backed pages:                            349338.\nAnonymous pages:                              539284.\nPages stored in compressor:                   821703.\nPages occupied by compressor:                 270600.\nDecompressions:                            170489035.\nCompressions:                              222647886.\nPageins:                                   109807328.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      }
+    },
+    {
+      "name": "5000000-id-only",
+      "rows": 5000000,
+      "workload": "id-only",
+      "arms": {
+        "off": {
+          "config": "searchd {\nlisten = 127.0.0.1:51580:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/off/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/off/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/off/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 2838.3406759485315,
+              "completed": 14198,
+              "elapsed_seconds": 5.0022184159606695,
+              "cpu_ms_per_query": 2.7429592753909002,
+              "rss_bytes": 102301696,
+              "footprint_bytes": 19923448,
+              "p95_ms": 3.550583,
+              "from_monotonic_seconds": 1021461.925162166,
+              "to_monotonic_seconds": 1021466.927586875,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.627713720420284,
+              "external_peak_machine_percent": 5.616702952818713,
+              "quality_flag": false
+            },
+            {
+              "qps": 2755.3883958910824,
+              "completed": 13785,
+              "elapsed_seconds": 5.002924459055066,
+              "cpu_ms_per_query": 2.8250750997461007,
+              "rss_bytes": 103104512,
+              "footprint_bytes": 19628536,
+              "p95_ms": 3.631334,
+              "from_monotonic_seconds": 1021477.419505916,
+              "to_monotonic_seconds": 1021482.422600083,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.315426872579372,
+              "external_peak_machine_percent": 5.217458452227887,
+              "quality_flag": false
+            },
+            {
+              "qps": 2712.7984973135203,
+              "completed": 13574,
+              "elapsed_seconds": 5.003688999917358,
+              "cpu_ms_per_query": 2.868153581037277,
+              "rss_bytes": 103743488,
+              "footprint_bytes": 20267512,
+              "p95_ms": 3.6755,
+              "from_monotonic_seconds": 1021482.691901041,
+              "to_monotonic_seconds": 1021487.695730333,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.234431164696246,
+              "external_peak_machine_percent": 4.952509626685509,
+              "quality_flag": false
+            },
+            {
+              "qps": 2658.217881983274,
+              "completed": 13298,
+              "elapsed_seconds": 5.002599707921036,
+              "cpu_ms_per_query": 2.927386903368928,
+              "rss_bytes": 103841792,
+              "footprint_bytes": 19513848,
+              "p95_ms": 3.769791,
+              "from_monotonic_seconds": 1021498.215449208,
+              "to_monotonic_seconds": 1021503.218207125,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.380522846045793,
+              "external_peak_machine_percent": 5.528106636957474,
+              "quality_flag": false
+            },
+            {
+              "qps": 2676.8047137687654,
+              "completed": 13392,
+              "elapsed_seconds": 5.002979833050631,
+              "cpu_ms_per_query": 2.9086703224313024,
+              "rss_bytes": 104464384,
+              "footprint_bytes": 20136440,
+              "p95_ms": 3.736167,
+              "from_monotonic_seconds": 1021503.490126375,
+              "to_monotonic_seconds": 1021508.493237625,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.118652278284712,
+              "external_peak_machine_percent": 4.966636021556614,
+              "quality_flag": false
+            },
+            {
+              "qps": 2666.160793788823,
+              "completed": 13340,
+              "elapsed_seconds": 5.003449165960774,
+              "cpu_ms_per_query": 2.919644777661169,
+              "rss_bytes": 104579072,
+              "footprint_bytes": 20120056,
+              "p95_ms": 3.759208,
+              "from_monotonic_seconds": 1021519.010984791,
+              "to_monotonic_seconds": 1021524.014586833,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.497277059318421,
+              "external_peak_machine_percent": 5.7784443325128985,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps": 2694.8016055411426,
+          "cpu_ms_per_query": 2.8884119517342897,
+          "docid_used_bytes": 0.0,
+          "rss_bytes": 103792640.0
+        },
+        "on": {
+          "config": "searchd {\nlisten = 127.0.0.1:51583:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/on/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/on/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/on/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 134217728\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 20954.958987066042,
+              "completed": 104785,
+              "elapsed_seconds": 5.000486999982968,
+              "cpu_ms_per_query": 0.2885651067328339,
+              "rss_bytes": 161579008,
+              "footprint_bytes": 80675368,
+              "p95_ms": 0.528292,
+              "from_monotonic_seconds": 1021467.029645416,
+              "to_monotonic_seconds": 1021472.031712583,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 5.152680655194527,
+              "external_peak_machine_percent": 6.099600702899337,
+              "quality_flag": false
+            },
+            {
+              "qps": 20848.06640500663,
+              "completed": 104252,
+              "elapsed_seconds": 5.000559667008929,
+              "cpu_ms_per_query": 0.2905080374189464,
+              "rss_bytes": 161857536,
+              "footprint_bytes": 80953896,
+              "p95_ms": 0.526875,
+              "from_monotonic_seconds": 1021472.143407958,
+              "to_monotonic_seconds": 1021477.145429708,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 4.8153345501310465,
+              "external_peak_machine_percent": 5.537865595683442,
+              "quality_flag": false
+            },
+            {
+              "qps": 19951.443235822768,
+              "completed": 99769,
+              "elapsed_seconds": 5.000590624986216,
+              "cpu_ms_per_query": 0.30164343716986236,
+              "rss_bytes": 161988608,
+              "footprint_bytes": 81084968,
+              "p95_ms": 0.548459,
+              "from_monotonic_seconds": 1021487.8020465,
+              "to_monotonic_seconds": 1021492.804198791,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 5.105829616627093,
+              "external_peak_machine_percent": 7.1064538666369215,
+              "quality_flag": false
+            },
+            {
+              "qps": 20095.723012012208,
+              "completed": 100487,
+              "elapsed_seconds": 5.000417249975726,
+              "cpu_ms_per_query": 0.3000533331873775,
+              "rss_bytes": 162152448,
+              "footprint_bytes": 81248808,
+              "p95_ms": 0.54575,
+              "from_monotonic_seconds": 1021492.919878583,
+              "to_monotonic_seconds": 1021497.921962083,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 4.88972082031159,
+              "external_peak_machine_percent": 5.687826221078417,
+              "quality_flag": false
+            },
+            {
+              "qps": 19965.05636957598,
+              "completed": 99833,
+              "elapsed_seconds": 5.000386583036743,
+              "cpu_ms_per_query": 0.29930556571474365,
+              "rss_bytes": 162660352,
+              "footprint_bytes": 80970280,
+              "p95_ms": 0.5505,
+              "from_monotonic_seconds": 1021508.598712833,
+              "to_monotonic_seconds": 1021513.600913041,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 5.701199829854949,
+              "external_peak_machine_percent": 9.134606971125692,
+              "quality_flag": false
+            },
+            {
+              "qps": 19917.47165779217,
+              "completed": 99597,
+              "elapsed_seconds": 5.000484083080664,
+              "cpu_ms_per_query": 0.301486259626294,
+              "rss_bytes": 162660352,
+              "footprint_bytes": 80970280,
+              "p95_ms": 0.549125,
+              "from_monotonic_seconds": 1021513.7240405,
+              "to_monotonic_seconds": 1021518.72616175,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 0,
+                "mapped_bytes": 0,
+                "spare_bytes": 0
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 5.7716181806194875,
+              "external_peak_machine_percent": 9.134606971125692,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.001"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps": 20030.389690794094,
+          "cpu_ms_per_query": 0.29967944945106056,
+          "docid_used_bytes": 60675575.0,
+          "rss_bytes": 162070528.0
+        }
+      },
+      "query_sha256": "f0fb02f00f176669c901616bc45ffb6c4ce77566128fb48f95522aaf21c6c851",
+      "idle_gate": {
+        "interval_seconds": 30.475116166984662,
+        "idle_percent_mean": 91.06405392974115,
+        "idle_percent_min": 88.00635424940428,
+        "from_monotonic_seconds": 1021430.498242083,
+        "to_monotonic_seconds": 1021460.97335825
+      },
+      "thermal_before": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   126640.\nPages active:                                 441513.\nPages inactive:                               420806.\nPages speculative:                             30821.\nPages throttled:                                   0.\nPages wired down:                             246976.\nPages purgeable:                               19780.\n\"Translation faults\":                     6755251743.\nPages copy-on-write:                       843252397.\nPages zero filled:                        4836436679.\nPages reactivated:                         224717361.\nPages purged:                               47463866.\nFile-backed pages:                            355366.\nAnonymous pages:                              537774.\nPages stored in compressor:                   821703.\nPages occupied by compressor:                 270600.\nDecompressions:                            170489035.\nCompressions:                              222647886.\nPageins:                                   109815703.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "thermal_after": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   117061.\nPages active:                                 442785.\nPages inactive:                               422085.\nPages speculative:                             30949.\nPages throttled:                                   0.\nPages wired down:                             254075.\nPages purgeable:                               21956.\n\"Translation faults\":                     6756214935.\nPages copy-on-write:                       843357817.\nPages zero filled:                        4837204058.\nPages reactivated:                         224717447.\nPages purged:                               47464242.\nFile-backed pages:                            355610.\nAnonymous pages:                              540209.\nPages stored in compressor:                   821660.\nPages occupied by compressor:                 270588.\nDecompressions:                            170489050.\nCompressions:                              222647886.\nPageins:                                   109820254.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      }
+    },
+    {
+      "name": "5000000-stored",
+      "rows": 5000000,
+      "workload": "stored",
+      "arms": {
+        "off": {
+          "config": "searchd {\nlisten = 127.0.0.1:51580:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/off/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/off/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/off/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 0\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 1742.1680818575044,
+              "completed": 8719,
+              "elapsed_seconds": 5.004683584091254,
+              "cpu_ms_per_query": 4.3904181337309325,
+              "rss_bytes": 131973120,
+              "footprint_bytes": 47219216,
+              "p95_ms": 5.593208,
+              "from_monotonic_seconds": 1021556.133471041,
+              "to_monotonic_seconds": 1021561.13836925,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.72703909519651,
+              "external_peak_machine_percent": 5.481489391813562,
+              "quality_flag": false
+            },
+            {
+              "qps": 1732.5905494395365,
+              "completed": 8668,
+              "elapsed_seconds": 5.002913124975748,
+              "cpu_ms_per_query": 4.418279990539917,
+              "rss_bytes": 132186112,
+              "footprint_bytes": 47432208,
+              "p95_ms": 5.642375,
+              "from_monotonic_seconds": 1021572.05920775,
+              "to_monotonic_seconds": 1021577.062389875,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.622387556846601,
+              "external_peak_machine_percent": 5.970518228142073,
+              "quality_flag": false
+            },
+            {
+              "qps": 1695.9997394427453,
+              "completed": 8488,
+              "elapsed_seconds": 5.004717750009149,
+              "cpu_ms_per_query": 4.5067152351555135,
+              "rss_bytes": 132218880,
+              "footprint_bytes": 47464976,
+              "p95_ms": 5.741042,
+              "from_monotonic_seconds": 1021577.443951833,
+              "to_monotonic_seconds": 1021582.44887925,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16566528,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.992835733710941,
+              "external_peak_machine_percent": 6.035766258333411,
+              "quality_flag": false
+            },
+            {
+              "qps": 1647.2261577686963,
+              "completed": 8244,
+              "elapsed_seconds": 5.00477724999655,
+              "cpu_ms_per_query": 4.648289943231441,
+              "rss_bytes": 132235264,
+              "footprint_bytes": 45646352,
+              "p95_ms": 5.936916,
+              "from_monotonic_seconds": 1021593.385519083,
+              "to_monotonic_seconds": 1021598.390498291,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.334056230014388,
+              "external_peak_machine_percent": 6.402610216424379,
+              "quality_flag": false
+            },
+            {
+              "qps": 1653.2393414308422,
+              "completed": 8275,
+              "elapsed_seconds": 5.00532487500459,
+              "cpu_ms_per_query": 4.633512371601208,
+              "rss_bytes": 132235264,
+              "footprint_bytes": 42385936,
+              "p95_ms": 5.874916,
+              "from_monotonic_seconds": 1021598.804849833,
+              "to_monotonic_seconds": 1021603.810397625,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 4.8124966011799035,
+              "external_peak_machine_percent": 6.410096669397639,
+              "quality_flag": false
+            },
+            {
+              "qps": 1648.2748239192915,
+              "completed": 8249,
+              "elapsed_seconds": 5.004626583075151,
+              "cpu_ms_per_query": 4.647020184264759,
+              "rss_bytes": 132284416,
+              "footprint_bytes": 42435088,
+              "p95_ms": 5.930333,
+              "from_monotonic_seconds": 1021614.761246791,
+              "to_monotonic_seconds": 1021619.766142291,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 0,
+              "external_mean_machine_percent": 5.015323007251042,
+              "external_peak_machine_percent": 5.9791121372007305,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.037"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps": 1674.6195404367936,
+          "cpu_ms_per_query": 4.57011380337836,
+          "docid_used_bytes": 0.0,
+          "rss_bytes": 132227072.0
+        },
+        "on": {
+          "config": "searchd {\nlisten = 127.0.0.1:51583:http\ndata_dir = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/on/data\nlog = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/on/searchd.log\npid_file = /private/tmp/manticore-adaptive-pr-20261114/docid-probe-pzxag_cf/on/searchd.pid\ndocstore_cache = 1\nbuddy_path =\ndocid_lookup_cache_size = 134217728\ndocstore_cache_size = 16777216\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "samples": [
+            {
+              "qps": 2990.444207355975,
+              "completed": 14959,
+              "elapsed_seconds": 5.002266875002533,
+              "cpu_ms_per_query": 2.336509556721706,
+              "rss_bytes": 194183168,
+              "footprint_bytes": 110576192,
+              "p95_ms": 3.08225,
+              "from_monotonic_seconds": 1021561.404097958,
+              "to_monotonic_seconds": 1021566.407174333,
+              "round": 0,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16566528,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 5.636997650317455,
+              "external_peak_machine_percent": 6.517720128054694,
+              "quality_flag": false
+            },
+            {
+              "qps": 3019.0246729502937,
+              "completed": 15103,
+              "elapsed_seconds": 5.002608999959193,
+              "cpu_ms_per_query": 2.3134739096868175,
+              "rss_bytes": 194723840,
+              "footprint_bytes": 111116864,
+              "p95_ms": 3.064375,
+              "from_monotonic_seconds": 1021566.675204416,
+              "to_monotonic_seconds": 1021571.67858775,
+              "round": 1,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 5.230407323920711,
+              "external_peak_machine_percent": 6.703351229780641,
+              "quality_flag": false
+            },
+            {
+              "qps": 2983.899861230602,
+              "completed": 14925,
+              "elapsed_seconds": 5.001843457925133,
+              "cpu_ms_per_query": 2.3434643662981576,
+              "rss_bytes": 194969600,
+              "footprint_bytes": 111362624,
+              "p95_ms": 3.100333,
+              "from_monotonic_seconds": 1021582.719711166,
+              "to_monotonic_seconds": 1021587.722022833,
+              "round": 2,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 5.267012971687645,
+              "external_peak_machine_percent": 5.887319214281348,
+              "quality_flag": false
+            },
+            {
+              "qps": 2971.5144978882304,
+              "completed": 14864,
+              "elapsed_seconds": 5.002163041965105,
+              "cpu_ms_per_query": 2.3497761761975244,
+              "rss_bytes": 195067904,
+              "footprint_bytes": 111460928,
+              "p95_ms": 3.10625,
+              "from_monotonic_seconds": 1021587.982713541,
+              "to_monotonic_seconds": 1021592.985257166,
+              "round": 3,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 5.305978355309755,
+              "external_peak_machine_percent": 6.406199917748681,
+              "quality_flag": false
+            },
+            {
+              "qps": 2951.755890152414,
+              "completed": 14764,
+              "elapsed_seconds": 5.00176862499211,
+              "cpu_ms_per_query": 2.3661449810349495,
+              "rss_bytes": 195117056,
+              "footprint_bytes": 111510080,
+              "p95_ms": 3.10125,
+              "from_monotonic_seconds": 1021604.078496875,
+              "to_monotonic_seconds": 1021609.080663625,
+              "round": 4,
+              "order": [
+                "off",
+                "on"
+              ],
+              "block_cache": {
+                "used_bytes": 16566528,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 983040
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 5.241037653109326,
+              "external_peak_machine_percent": 7.049374259687631,
+              "quality_flag": false
+            },
+            {
+              "qps": 2917.310348386727,
+              "completed": 14594,
+              "elapsed_seconds": 5.0025531250284985,
+              "cpu_ms_per_query": 2.393315988899548,
+              "rss_bytes": 195149824,
+              "footprint_bytes": 111542848,
+              "p95_ms": 3.15475,
+              "from_monotonic_seconds": 1021609.349087625,
+              "to_monotonic_seconds": 1021614.352130041,
+              "round": 5,
+              "order": [
+                "on",
+                "off"
+              ],
+              "block_cache": {
+                "used_bytes": 16568576,
+                "mapped_bytes": 23068672,
+                "spare_bytes": 1048576
+              },
+              "docid_used_bytes": 60675575,
+              "external_mean_machine_percent": 5.568142732029499,
+              "external_peak_machine_percent": 6.32666096415041,
+              "quality_flag": false
+            }
+          ],
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "256"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.036"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps": 2977.707179559416,
+          "cpu_ms_per_query": 2.346620271247841,
+          "docid_used_bytes": 60675575.0,
+          "rss_bytes": 195018752.0
+        }
+      },
+      "query_sha256": "12b9cfeee9d5887ef4daeaabb35e4460ce807d4cb3abd737929fb87028778023",
+      "idle_gate": {
+        "interval_seconds": 30.450059124967083,
+        "idle_percent_mean": 90.96840746541933,
+        "idle_percent_min": 86.41087130295763,
+        "from_monotonic_seconds": 1021524.550519458,
+        "to_monotonic_seconds": 1021555.000578583
+      },
+      "thermal_before": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   115934.\nPages active:                                 442897.\nPages inactive:                               422345.\nPages speculative:                             31885.\nPages throttled:                                   0.\nPages wired down:                             254076.\nPages purgeable:                               21956.\n\"Translation faults\":                     6756222915.\nPages copy-on-write:                       843358246.\nPages zero filled:                        4837204961.\nPages reactivated:                         224717447.\nPages purged:                               47464242.\nFile-backed pages:                            356807.\nAnonymous pages:                              540320.\nPages stored in compressor:                   821660.\nPages occupied by compressor:                 270588.\nDecompressions:                            170489050.\nCompressions:                              222647886.\nPageins:                                   109820257.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      },
+      "thermal_after": {
+        "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "swap": "vm.swapusage: total = 5120.00M  used = 3597.44M  free = 1522.56M  (encrypted)\n",
+        "vm": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   120053.\nPages active:                                 450059.\nPages inactive:                               429934.\nPages speculative:                             30678.\nPages throttled:                                   0.\nPages wired down:                             236419.\nPages purgeable:                               25474.\n\"Translation faults\":                     6757239004.\nPages copy-on-write:                       843467293.\nPages zero filled:                        4838034238.\nPages reactivated:                         224717532.\nPages purged:                               47464754.\nFile-backed pages:                            358675.\nAnonymous pages:                              551996.\nPages stored in compressor:                   821656.\nPages occupied by compressor:                 270586.\nDecompressions:                            170489054.\nCompressions:                              222647886.\nPageins:                                   109824911.\nPageouts:                                    1485256.\nSwapins:                                     1214430.\nSwapouts:                                    2156871.\n"
+      }
+    }
+  ],
+  "completed": true
+}

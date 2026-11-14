@@ -1,0 +1,67 @@
+[  0%] Built target stripper
+[  2%] Built target conversion
+[  2%] Built target lcjk
+[  2%] Built target lmanticore_coro
+[  2%] Built target indexcheck
+[  6%] Built target daemon
+[  6%] Built target infix
+[  7%] Built target lowercaser
+[  9%] Built target schema
+[ 11%] Built target stem
+[ 18%] Built target manticore_std
+[ 18%] Built target digest_sha1
+[ 19%] Built target digest_sha256
+[ 24%] Built target sphinxquery
+[ 25%] Built target sqlchecks
+[ 25%] Built target searchd_ssl
+[ 27%] Built target source_svpipe
+[ 27%] Built target source_xmlpipe2
+[ 27%] Built target sourcedoc
+[ 27%] Built target lmanticore_icu
+[ 35%] Built target repli_stuff
+[ 37%] Built target tokenizer
+[ 40%] Built target dict
+[ 62%] Built target lsearchd
+[ 93%] Built target lmanticore
+[ 93%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidlookup.cpp.o
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:452:11: error: no member named 'PrepareCache' in 'LookupReader_c'
+  452 |                 tReader.PrepareCache ( 1, UUID_INDEX_VERSION );
+      |                 ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:453:11: error: no member named 'PrepareCache' in 'LookupReader_c'
+  453 |                 tReader.PrepareCache ( 4096, UUID_INDEX_VERSION ); // dense lists stay on merge
+      |                 ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:456:10: error: no member named 'PrepareCache' in 'LookupReader_c'
+  456 |         tReader.PrepareCache ( 256, UUID_INDEX_VERSION ); // observe reuse before allocating
+      |         ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:458:10: error: no member named 'PrepareCache' in 'LookupReader_c'
+  458 |         tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
+      |         ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:466:36: error: no member named 'PrepareCache' in 'LookupReader_c'
+  466 |         for ( int i=0; i<8; ++i ) tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
+      |                                   ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:474:10: error: no member named 'PrepareCache' in 'LookupReader_c'
+  474 |         tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
+      |         ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:475:10: error: no member named 'PrepareCache' in 'LookupReader_c'
+  475 |         tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
+      |         ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:497:14: error: no member named 'PrepareCache' in 'LookupReader_c'
+  497 |                                         tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
+      |                                         ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:523:37: error: no member named 'PrepareCache' in 'LookupReader_c'
+  523 |         for ( int i=0; i<10; ++i ) tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
+      |                                    ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:528:10: error: no member named 'PrepareCache' in 'LookupReader_c'
+  528 |         tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
+      |         ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:529:10: error: no member named 'PrepareCache' in 'LookupReader_c'
+  529 |         tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
+      |         ~~~~~~~ ^
+/private/tmp/manticore-admission-source-20261114/src/gtests/gtests_docidlookup.cpp:531:37: error: no member named 'PrepareCache' in 'LookupReader_c'
+  531 |         for ( int i=0; i<10; ++i ) tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
+      |                                    ~~~~~~~ ^
+12 errors generated.
+make[3]: *** [src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidlookup.cpp.o] Error 1
+make[2]: *** [src/gtests/CMakeFiles/gmanticoretest.dir/all] Error 2
+make[1]: *** [src/gtests/CMakeFiles/gmanticoretest.dir/rule] Error 2
+make: *** [gmanticoretest] Error 2

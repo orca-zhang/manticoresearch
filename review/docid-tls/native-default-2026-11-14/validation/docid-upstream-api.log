@@ -1,0 +1,10 @@
+Test project /private/tmp/manticore-admission-review-20261114/build
+    Start 2325: Perform API smoke test
+1/1 Test #2325: Perform API smoke test ...........   Passed    1.21 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Label Time Summary:
+API    =   1.21 sec*proc (1 test)
+
+Total Test time (real) =   1.34 sec

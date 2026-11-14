@@ -1,0 +1,60 @@
+[  0%] Built target stripper
+[  0%] Built target conversion
+[  1%] Built target lcjk
+[  1%] Built target indexcheck
+[  2%] Built target lmanticore_coro
+[  4%] Built target bitmap_base
+[  5%] Built target lowercaser
+[  6%] Built target infix
+[  8%] Built target schema
+[ 10%] Built target stem
+[ 10%] Built target digest_sha1
+[ 14%] Built target daemon
+[ 16%] Built target digest_sha256
+[ 17%] Built target sqlchecks
+[ 17%] Built target sourcedoc
+[ 18%] Built target manticore_bitmap
+[ 20%] Built target searchd_ssl
+[ 20%] Built target lmanticore_icu
+[ 25%] Built target sphinxquery
+[ 28%] Built target tokenizer
+[ 31%] Built target dict
+[ 37%] Built target manticore_std
+[ 45%] Built target repli_stuff
+[ 67%] Built target lsearchd
+[ 67%] Building CXX object src/CMakeFiles/lmanticore.dir/sphinxversion.cpp.o
+[ 67%] Linking CXX static library liblmanticore.a
+[100%] Built target lmanticore
+[100%] Linking CXX executable searchd
+[100%] Built target searchd
+[  0%] Built target indexcheck
+[  0%] Built target conversion
+[  1%] Built target stripper
+[  1%] Built target lcjk
+[  2%] Built target lmanticore_coro
+[  5%] Built target bitmap_base
+[  7%] Built target daemon
+[ 10%] Built target infix
+[ 10%] Built target lowercaser
+[ 11%] Built target schema
+[ 13%] Built target stem
+[ 13%] Built target digest_sha1
+[ 15%] Built target digest_sha256
+[ 16%] Built target sqlchecks
+[ 17%] Built target searchd_ssl
+[ 22%] Built target sphinxquery
+[ 22%] Built target sourcedoc
+[ 22%] Built target lmanticore_icu
+[ 23%] Built target manticore_bitmap
+[ 23%] Built target source_xmlpipe2
+[ 25%] Built target source_svpipe
+[ 32%] Built target repli_stuff
+[ 37%] Built target tokenizer
+[ 37%] Built target dict
+[ 43%] Built target manticore_std
+[ 63%] Built target lsearchd
+[ 93%] Built target lmanticore
+[ 93%] Building CXX object src/gtests/CMakeFiles/gmanticoretest.dir/gtests_docidlookup.cpp.o
+[ 93%] Linking CXX executable gmanticoretest
+ld: warning: ignoring duplicate libraries: '/opt/homebrew/Cellar/openssl@3/3.6.2/lib/libcrypto.a', '/opt/homebrew/Cellar/openssl@3/3.6.2/lib/libssl.a'
+[100%] Built target gmanticoretest

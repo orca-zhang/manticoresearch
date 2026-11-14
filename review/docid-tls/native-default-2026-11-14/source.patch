@@ -1,0 +1,575 @@
+diff --git a/manual/english/Server_settings/Searchd.md b/manual/english/Server_settings/Searchd.md
+index 81d676b5d..b76ed245c 100755
+--- a/manual/english/Server_settings/Searchd.md
++++ b/manual/english/Server_settings/Searchd.md
+@@ -647,18 +647,29 @@ diskchunk_flush_write_timeout = 60s
+ 
+ ### docid_lookup_cache_size
+ 
+-Experimental C++ cache for numeric disk document ID lookups. Optional; default
+-`0` (disabled). This is a process-wide allocation budget, in bytes:
++Native C++ cache for numeric disk document ID lookups. Enabled by default with
++a `64m` ceiling. This is a process-wide allocation budget, in bytes; set `0`
++to disable it:
+ 
+ ```ini
+ docid_lookup_cache_size = 256m
+ ```
+ 
+-Disk chunks attempt to build a complete immutable cache before publication.
++Loading a disk chunk does not allocate a cache. Repeated sparse ID batches
++(at least 16 IDs and at most 1/64 of the chunk's rows) trigger construction,
++decoding at most 16,384 entries per chunk in each eligible build call. A query
++visiting several chunks can advance several builds. Other queries do not wait for the
++builder. Only a complete, unique-ID mapping is published for batch lookup.
++Point-only workloads do not trigger construction. Scalar lookups keep the
++compressed reader.
+ Allocation refusal, budget exhaustion, duplicate IDs or cancellation retains
+ the compressed reader. Cache allocations, alignment padding and handles count
+ against the budget; allocator metadata and process RSS do not. The cache adds
+ memory beside existing mapped data and does not change the disk format.
++Admission is for a whole chunk (about 11.6 MiB per million rows), so actual
++allocation can be lower than the ceiling. A refused build is not retried until
++the chunk is remapped. Unfinished builds also count against the ceiling and are
++released on remap/destruction; there is no hot-entry eviction or idle shrinking.
+ 
+ Cache allocation alignment is detected once from the OS (64, 128 or 256 bytes),
+ with a 64-byte fallback. The handle padding and alignment slack count against
+diff --git a/src/docidlookup.cpp b/src/docidlookup.cpp
+index cb7ae6fb5..201687609 100644
+--- a/src/docidlookup.cpp
++++ b/src/docidlookup.cpp
+@@ -297,7 +297,9 @@ bool RowidIterator_LookupValues_T<ROWID_LIMITS,BITMAP>::Fill()
+ 		}
+ 		while ( m_tFilterReader.ReadDocID(tDocID) )
+ 		{
+-			RowID_t tRowID = m_pPointReader->Find(tDocID);
++			uint64_t uDocID = (uint64_t)tDocID;
++			RowID_t tRowID;
++			m_pPointReader->FindBatch ( &uDocID, &tRowID, 1 );
+ 			++m_iProcessed;
+ 			if ( tRowID!=INVALID_ROWID && ( !ROWID_LIMITS || ( tRowID>=m_tBoundaries.m_tMinRowID && tRowID<=m_tBoundaries.m_tMaxRowID ) ) )
+ 				BASE::Add(tRowID);
+@@ -1181,6 +1183,18 @@ DocID_t UuidLookupReader_c::Find ( const UuidDocidKey_t & tKey ) const
+ }
+ 
+ 
++struct LookupReader_c::CacheBuild_t
++{
++	DocidLookupCache_c::Ptr_t m_pCache;
++	LookupReaderIterator_c m_tReader;
++	DWORD m_nRead {0};
++	CacheBuild_t ( const BYTE * pData, DWORD uVersion, DWORD nDocs )
++		: m_pCache ( DocidLookupCache_c::Create(nDocs) ), m_tReader ( pData, uVersion ) {}
++};
++
++LookupReader_c::LookupReader_c() = default;
++LookupReader_c::~LookupReader_c() = default;
++
+ LookupReader_c::LookupReader_c ( const BYTE * pData, DWORD uIndexVersion )
+ {
+ 	SetData ( pData, uIndexVersion );
+@@ -1189,7 +1203,11 @@ LookupReader_c::LookupReader_c ( const BYTE * pData, DWORD uIndexVersion )
+ 
+ std::pair<SphOffset_t,DWORD> LookupReader_c::SetData ( const BYTE * pData, DWORD uIndexVersion )
+ {
+-	m_pCache.reset();
++	// Remapping and destruction require the owning chunk's readers to be quiescent.
++	m_pCache.store ( nullptr, std::memory_order_relaxed );
++	m_pCacheBuild.reset();
++	m_nCacheBytes.store ( 0, std::memory_order_relaxed );
++	m_eCacheState.store ( CacheState_e::COLD, std::memory_order_relaxed );
+ 	m_pData = pData;
+ 	m_pCheckpoints = nullptr;
+ 	m_nDocs = m_nDocsPerCheckpoint = m_nCheckpoints = 0;
+@@ -1234,34 +1252,66 @@ void LookupReaderIterator_c::SetData ( const BYTE * pData, DWORD uIndexVersion )
+ 
+ bool LookupReader_c::BuildCache ( DWORD uIndexVersion )
+ {
+-	if ( m_pCache )
++	if ( HasCache() )
+ 		return true;
+-	if ( !m_pData || !m_nDocs )
+-		return false;
+-	auto pCache = DocidLookupCache_c::Create(m_nDocs);
+-	if ( !pCache )
++	if ( !m_pData || !m_nDocs || !DocidLookupCache_c::IsEnabled() )
+ 		return false;
+-	LookupReaderIterator_c tReader ( m_pData, uIndexVersion );
++	m_eCacheState.store ( CacheState_e::SEEN, std::memory_order_relaxed );
++	BuildCacheStep ( uIndexVersion, m_nDocs );
++	return HasCache();
++}
++
++void LookupReader_c::PrepareCache ( size_t nValues, DWORD uIndexVersion ) const
++{
++	if ( nValues<DocidLookupCache_c::BATCH_SIZE || !DocidLookupCache_c::IsSparse ( nValues, m_nDocs ) || !DocidLookupCache_c::IsEnabled() )
++		return;
++	auto eState = m_eCacheState.load(std::memory_order_relaxed);
++	if ( eState==CacheState_e::COLD )
++	{
++		m_eCacheState.compare_exchange_strong ( eState, CacheState_e::SEEN, std::memory_order_relaxed );
++		return;
++	}
++	if ( eState==CacheState_e::SEEN )
++		BuildCacheStep ( uIndexVersion, 16384 );
++}
++
++void LookupReader_c::BuildCacheStep ( DWORD uIndexVersion, DWORD nMaxDocs ) const
++{
++	auto eExpected = CacheState_e::SEEN;
++	if ( !m_eCacheState.compare_exchange_strong ( eExpected, CacheState_e::BUILDING, std::memory_order_acquire ) )
++		return; // another query builds; readers use the compressed lookup without waiting
++	if ( !m_pCacheBuild )
++		m_pCacheBuild.reset ( new (std::nothrow) CacheBuild_t ( m_pData, uIndexVersion, m_nDocs ) );
++	auto Fail = [this]() {
++		m_pCacheBuild.reset();
++		m_nCacheBytes.store ( 0, std::memory_order_relaxed );
++		m_eCacheState.store ( CacheState_e::DISABLED, std::memory_order_release );
++	};
++	if ( !m_pCacheBuild || !m_pCacheBuild->m_pCache || sphInterrupted() )
++		return Fail();
++	auto & tBuild = *m_pCacheBuild;
++	m_nCacheBytes.store ( tBuild.m_pCache->GetLengthBytes(), std::memory_order_relaxed );
+ 	DocID_t tDocID;
+ 	RowID_t tRowID;
+-	DWORD nRead = 0;
+-	while ( tReader.Read ( tDocID, tRowID ) )
++	for ( DWORD i=0; i<nMaxDocs && tBuild.m_nRead<m_nDocs; ++i )
+ 	{
+-		if ( !pCache->Append ( (uint64_t)tDocID, tRowID ) )
+-			return false;
+-		if ( !(++nRead & 1023) && sphInterrupted() )
+-			return false;
++		if ( !tBuild.m_tReader.Read ( tDocID, tRowID ) || !tBuild.m_pCache->Append ( (uint64_t)tDocID, tRowID ) )
++			return Fail();
++		if ( !(++tBuild.m_nRead & 1023) && sphInterrupted() )
++			return Fail();
+ 	}
+-	if ( !pCache->Seal() )
+-		return false;
+-	m_pCache = std::move(pCache);
+-	return true;
++	if ( tBuild.m_nRead<m_nDocs )
++		return m_eCacheState.store ( CacheState_e::SEEN, std::memory_order_release );
++	if ( !tBuild.m_pCache->Seal() )
++		return Fail();
++	m_pCache.store ( tBuild.m_pCache.get(), std::memory_order_release );
++	m_eCacheState.store ( CacheState_e::READY, std::memory_order_release );
+ }
+ 
+ void LookupReader_c::FindBatch ( const uint64_t * pDocIDs, RowID_t * pRows, size_t nQueries ) const
+ {
+-	if ( m_pCache )
+-		m_pCache->FindBatch ( pDocIDs, pRows, nQueries );
++	if ( const auto * pCache = m_pCache.load(std::memory_order_acquire) )
++		pCache->FindBatch ( pDocIDs, pRows, nQueries );
+ 	else
+ 		for ( size_t i=0; i<nQueries; ++i )
+ 			pRows[i] = Find((DocID_t)pDocIDs[i]);
+diff --git a/src/docidlookup.h b/src/docidlookup.h
+index 25371d56a..468be3bf3 100644
+--- a/src/docidlookup.h
++++ b/src/docidlookup.h
+@@ -14,6 +14,7 @@
+ #include "secondaryindex.h"
+ #include "uuid_docid.h"
+ #include "docidlookupcache.h"
++#include <atomic>
+ 
+ class CSphWriter;
+ 
+@@ -81,19 +82,19 @@ private:
+ class LookupReader_c
+ {
+ public:
+-			LookupReader_c() = default;
++			LookupReader_c();
+ 			LookupReader_c ( const BYTE * pData, DWORD uIndexVersion );
++			~LookupReader_c();
+ 
+ 	std::pair<SphOffset_t,DWORD> SetData ( const BYTE * pData, DWORD uIndexVersion );
+ 	bool BuildCache ( DWORD uIndexVersion ); // before publishing the owning chunk
+-	bool HasCache() const { return bool(m_pCache); }
+-	size_t GetCacheBytes() const { return m_pCache ? m_pCache->GetLengthBytes() : 0; }
++	void PrepareCache ( size_t nValues, DWORD uIndexVersion ) const;
++	bool HasCache() const { return m_pCache.load(std::memory_order_acquire)!=nullptr; }
++	size_t GetCacheBytes() const { return m_nCacheBytes.load(std::memory_order_relaxed); }
+ 	void FindBatch ( const uint64_t * pDocIDs, RowID_t * pRows, size_t nQueries ) const;
+ 
+ 	inline RowID_t Find ( DocID_t tDocID ) const
+ 	{
+-		if ( m_pCache )
+-			return m_pCache->Find((uint64_t)tDocID);
+ 		if ( !m_pCheckpoints || (uint64_t)tDocID<(uint64_t)m_pCheckpoints->m_tBaseDocID || (uint64_t)tDocID>(uint64_t)m_tMaxDocID )
+ 			return INVALID_ROWID;
+ 
+@@ -130,7 +131,6 @@ public:
+ 	}
+ 
+ protected:
+-	DocidLookupCache_c::Ptr_t m_pCache;
+ 	DWORD							m_nDocs {0};
+ 	DWORD							m_nDocsPerCheckpoint {0};
+ 	int								m_nCheckpoints {0};
+@@ -172,6 +172,15 @@ protected:
+ 		int iLeftover = m_nDocs % m_nDocsPerCheckpoint;
+ 		return iLeftover ? iLeftover : m_nDocsPerCheckpoint;
+ 	}
++
++private:
++	struct CacheBuild_t;
++	enum class CacheState_e : uint8_t { COLD, SEEN, BUILDING, READY, DISABLED };
++	void BuildCacheStep ( DWORD uIndexVersion, DWORD nMaxDocs ) const;
++	mutable std::unique_ptr<CacheBuild_t> m_pCacheBuild;
++	mutable std::atomic<const DocidLookupCache_c *> m_pCache {nullptr};
++	mutable std::atomic<size_t> m_nCacheBytes {0};
++	mutable std::atomic<CacheState_e> m_eCacheState {CacheState_e::COLD};
+ };
+ 
+ 
+diff --git a/src/docidlookupcache.cpp b/src/docidlookupcache.cpp
+index 88724fc5d..12d295a7a 100644
+--- a/src/docidlookupcache.cpp
++++ b/src/docidlookupcache.cpp
+@@ -54,6 +54,11 @@ void DocidLookupCache_c::SetBudget ( size_t nBytes ) noexcept
+ 	g_nLimit.store ( nBytes, std::memory_order_relaxed );
+ }
+ 
++bool DocidLookupCache_c::IsEnabled() noexcept
++{
++	return g_nLimit.load(std::memory_order_relaxed)!=0;
++}
++
+ size_t DocidLookupCache_c::GetUsed() noexcept
+ {
+ 	return g_nUsed.load(std::memory_order_relaxed);
+diff --git a/src/docidlookupcache.h b/src/docidlookupcache.h
+index 22b341165..b6a11ff7e 100644
+--- a/src/docidlookupcache.h
++++ b/src/docidlookupcache.h
+@@ -18,6 +18,7 @@ public:
+ 
+ 	static size_t GetAlignment() noexcept;
+ 	static void SetBudget ( size_t nBytes ) noexcept;
++	static bool IsEnabled() noexcept;
+ 	static size_t GetUsed() noexcept;
+ 	static Ptr_t Create ( uint32_t nDocs ) noexcept;
+ 	bool Append ( uint64_t uDocID, uint32_t uRowID ) noexcept;
+diff --git a/src/gtests/gtests_docidlookup.cpp b/src/gtests/gtests_docidlookup.cpp
+index 138bc5086..ac2134c67 100644
+--- a/src/gtests/gtests_docidlookup.cpp
++++ b/src/gtests/gtests_docidlookup.cpp
+@@ -18,6 +18,7 @@
+ #include "threadutils.h"
+ 
+ #include <cstring>
++#include <thread>
+ 
+ namespace
+ {
+@@ -433,3 +434,122 @@ TEST_F ( UuidDocidLookupTest, NativeBatchMatchesCompressedAndHandlesRemap )
+ 	tCached.FindBatch ( dQueries, dRows, 65 );
+ 	for ( RowID_t uRow : dRows ) EXPECT_EQ ( uRow, INVALID_ROWID );
+ }
++
++TEST_F ( UuidDocidLookupTest, NativeCacheIsDemandBuiltInBoundedSteps )
++{
++	CacheBudgetGuard_t tBudget ( 2*1024*1024 );
++	CSphVector<DocidRowidPair_t> dPairs;
++	for ( RowID_t i=0; i<65536; ++i ) dPairs.Add ( { (DocID_t)(i*2), i } );
++	CSphString sError;
++	ASSERT_TRUE ( WriteDocidLookup ( m_sFile, dPairs, sError ) );
++	CSphMappedBuffer<BYTE> tData;
++	Map(tData);
++	LookupReader_c tReader ( tData.GetReadPtr(), UUID_INDEX_VERSION );
++	EXPECT_EQ ( tReader.GetCacheBytes(), 0U );
++	for ( int i=0; i<10; ++i )
++	{
++		EXPECT_EQ ( tReader.Find(42), 21U );
++		tReader.PrepareCache ( 1, UUID_INDEX_VERSION );
++		tReader.PrepareCache ( 4096, UUID_INDEX_VERSION ); // dense lists stay on merge
++	}
++	EXPECT_EQ ( DocidLookupCache_c::GetUsed(), 0U );
++	tReader.PrepareCache ( 256, UUID_INDEX_VERSION ); // observe reuse before allocating
++	EXPECT_EQ ( DocidLookupCache_c::GetUsed(), 0U );
++	tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++	EXPECT_GT ( tReader.GetCacheBytes(), 0U );
++	EXPECT_FALSE ( tReader.HasCache() ); // at most 16K rows decoded in one call
++	uint64_t dIDs[] = { 42, 43, 131070, UINT64_MAX };
++	RowID_t dRows[4];
++	tReader.FindBatch ( dIDs, dRows, 4 );
++	EXPECT_EQ ( dRows[0], 21U );
++	EXPECT_EQ ( dRows[1], INVALID_ROWID );
++	for ( int i=0; i<8; ++i ) tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++	ASSERT_TRUE ( tReader.HasCache() );
++	tReader.FindBatch ( dIDs, dRows, 4 );
++	EXPECT_EQ ( dRows[2], 65535U );
++	EXPECT_EQ ( dRows[3], INVALID_ROWID );
++	tReader.SetData ( tData.GetReadPtr(), UUID_INDEX_VERSION );
++	EXPECT_FALSE ( tReader.HasCache() );
++	EXPECT_EQ ( DocidLookupCache_c::GetUsed(), 0U );
++	tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++	tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++	EXPECT_GT ( DocidLookupCache_c::GetUsed(), 0U );
++	tReader.SetData ( nullptr, UUID_INDEX_VERSION ); // reclaim an unfinished build too
++	EXPECT_EQ ( DocidLookupCache_c::GetUsed(), 0U );
++}
++
++TEST_F ( UuidDocidLookupTest, NativeCacheConcurrentBuildAndBatchReaders )
++{
++	CacheBudgetGuard_t tBudget ( 2*1024*1024 );
++	CSphVector<DocidRowidPair_t> dPairs;
++	for ( RowID_t i=0; i<65536; ++i ) dPairs.Add ( { (DocID_t)(i*2), i } );
++	CSphString sError;
++	ASSERT_TRUE ( WriteDocidLookup ( m_sFile, dPairs, sError ) );
++	CSphMappedBuffer<BYTE> tData;
++	Map(tData);
++	{
++		LookupReader_c tReader ( tData.GetReadPtr(), UUID_INDEX_VERSION );
++		std::thread dThreads[8];
++		for ( auto & tThread : dThreads )
++			tThread = std::thread ( [&tReader]() {
++				for ( int i=0; i<100; ++i )
++				{
++					tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++					uint64_t dIDs[16];
++					RowID_t dRows[16];
++					for ( int j=0; j<16; ++j ) dIDs[j] = (i*16+j)*3;
++					tReader.FindBatch ( dIDs, dRows, 16 );
++					for ( int j=0; j<16; ++j ) EXPECT_EQ ( dRows[j], dIDs[j]%2 ? INVALID_ROWID : RowID_t(dIDs[j]/2) );
++					EXPECT_LE ( tReader.GetCacheBytes(), 2U*1024*1024 );
++				}
++			} );
++		for ( auto & tThread : dThreads ) tThread.join();
++		// Skipped build attempts need not advance progress; finish remaining steps serially.
++		for ( int i=0; i<5 && !tReader.HasCache(); ++i ) tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++		EXPECT_TRUE ( tReader.HasCache() );
++		EXPECT_EQ ( tReader.GetCacheBytes(), DocidLookupCache_c::GetUsed() );
++	}
++	EXPECT_EQ ( DocidLookupCache_c::GetUsed(), 0U );
++}
++
++TEST_F ( UuidDocidLookupTest, NativeCacheLazyRefusalAndDuplicateFallback )
++{
++	CacheBudgetGuard_t tBudget(1024);
++	CSphVector<DocidRowidPair_t> dPairs;
++	for ( RowID_t i=0; i<32768; ++i ) dPairs.Add ( { (DocID_t)(i<20000 ? i : i-1), i } );
++	CSphString sError;
++	ASSERT_TRUE ( WriteDocidLookup ( m_sFile, dPairs, sError ) );
++	CSphMappedBuffer<BYTE> tData;
++	Map(tData);
++	LookupReader_c tReader ( tData.GetReadPtr(), UUID_INDEX_VERSION );
++	for ( int i=0; i<10; ++i ) tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++	EXPECT_FALSE ( tReader.HasCache() );
++	EXPECT_EQ ( DocidLookupCache_c::GetUsed(), 0U );
++	DocidLookupCache_c::SetBudget ( 2*1024*1024 );
++	tReader.SetData ( tData.GetReadPtr(), UUID_INDEX_VERSION );
++	tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++	tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++	EXPECT_GT ( DocidLookupCache_c::GetUsed(), 0U );
++	for ( int i=0; i<10; ++i ) tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++	EXPECT_FALSE ( tReader.HasCache() );
++	EXPECT_EQ ( DocidLookupCache_c::GetUsed(), 0U );
++	CSphVector<DocID_t> dValues;
++	dValues.Add(19999);
++	int64_t nProcessed;
++	auto dRows = CollectLookupRows ( tData.GetReadPtr(), UUID_INDEX_VERSION, 32768, dValues, &tReader, nProcessed );
++	ASSERT_EQ ( dRows.GetLength(), 2 );
++	EXPECT_EQ ( dRows[0], 19999U );
++	EXPECT_EQ ( dRows[1], 20000U );
++	::testing::FLAGS_gtest_death_test_style = "threadsafe";
++	EXPECT_EXIT (
++		{
++			tReader.SetData ( tData.GetReadPtr(), UUID_INDEX_VERSION );
++			tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++			tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++			if ( !DocidLookupCache_c::GetUsed() ) std::exit(1);
++			sphInterruptNow();
++			tReader.PrepareCache ( 256, UUID_INDEX_VERSION );
++			std::exit ( !tReader.HasCache() && !DocidLookupCache_c::GetUsed() ? 0 : 1 );
++		},
++		::testing::ExitedWithCode(0), "" );
++}
+diff --git a/src/searchd.cpp b/src/searchd.cpp
+index 4321f3e54..ab2006acd 100644
+--- a/src/searchd.cpp
++++ b/src/searchd.cpp
+@@ -16012,7 +16012,7 @@ void ConfigureSearchd ( const CSphConfig & hConf, bool bNeedPIDFile, bool bTestM
+ 	if ( hSearchd("shutdown_timeout") )
+ 		g_iShutdownTimeoutUs = hSearchd.GetUsTime64S ( "shutdown_timeout", 60000000);
+ 
+-	int64_t iDocidCache = hSearchd.GetSize64 ( "docid_lookup_cache_size", 0 );
++	int64_t iDocidCache = hSearchd.GetSize64 ( "docid_lookup_cache_size", 67108864 );
+ 	if ( iDocidCache<0 || (uint64_t)iDocidCache>SIZE_MAX )
+ 		sphDie ( "docid_lookup_cache_size is out of range" );
+ 	DocidLookupCache_c::SetBudget((size_t)iDocidCache);
+diff --git a/src/sphinx.cpp b/src/sphinx.cpp
+index 1c49a0239..d9ac11277 100755
+--- a/src/sphinx.cpp
++++ b/src/sphinx.cpp
+@@ -2237,6 +2237,8 @@ RowsToUpdateData_t CSphIndex_VLN::Update_CollectRowPtrs ( const UpdateContext_t
+ 	// Keep the same sorted order and first occurrence for repeated update IDs.
+ 	// The existing signed-sorted update merge needs a separate negative-ID audit;
+ 	// leave that input on its existing path in this experiment.
++	if ( dDocids[dSorted[0]]>=0 )
++		m_tLookupReader.PrepareCache ( dSorted.GetLength(), m_uVersion );
+ 	if ( m_tLookupReader.HasCache() && DocidLookupCache_c::IsSparse ( dSorted.GetLength(), uint64_t(m_iDocinfo) ) && dDocids[dSorted[0]]>=0 )
+ 	{
+ 		dRowsToUpdate.Reserve(dSorted.GetLength());
+@@ -2271,7 +2273,9 @@ RowsToUpdateData_t CSphIndex_VLN::Update_CollectRowPtrs ( const UpdateContext_t
+ 			DocID_t tDocID = dDocids[iUpdate];
+ 			if ( i && tDocID==dDocids[dSorted[i-1]] )
+ 				continue;
+-			RowID_t tRowID = m_tLookupReader.Find(tDocID);
++			uint64_t uDocID = (uint64_t)tDocID;
++			RowID_t tRowID;
++			m_tLookupReader.FindBatch ( &uDocID, &tRowID, 1 );
+ 			if ( tRowID!=INVALID_ROWID && !m_tDeadRowMap.IsSet(tRowID) )
+ 				dRowsToUpdate.Add ( { tRowID, iUpdate } );
+ 		}
+@@ -8826,6 +8830,18 @@ static bool RecreateFallbackFilters ( const CSphVector<CSphFilterSettings> & dFi
+ 
+ bool CSphIndex_VLN::ChooseIterators ( CSphVector<SecondaryIndexInfo_t> & dSIInfo, const CSphQuery & tQuery, const CSphVector<CSphFilterSettings> & dFilters, CSphQueryContext & tCtx, CreateFilterContext_t & tFlx, const ISphSchema & tMaxSorterSchema, CSphQueryResultMeta & tMeta, int iCutoff, int iThreads, CSphVector<CSphFilterSettings> & dModifiedFilters, ISphRanker * pRanker, bool bPlanForKNNIterator ) const
+ {
++	// Observe demand before costing: an unbuilt cache may otherwise lose to a scan forever.
++	if ( tQuery.m_dFilterTree.IsEmpty() )
++		for ( const auto & tFilter : dFilters )
++			if ( tFilter.m_eType==SPH_FILTER_VALUES && !tFilter.m_bExclude && tFilter.m_sAttrName==sphGetDocidName() )
++			{
++				bool bDisabled = tQuery.m_dIndexHints.any_of ( []( const IndexHint_t & tHint ) {
++					return tHint.m_eType==SecondaryIndexType_e::LOOKUP && !tHint.m_bForce && tHint.m_sIndex==sphGetDocidName();
++				} );
++				if ( !bDisabled )
++					m_tLookupReader.PrepareCache ( tFilter.GetNumValues(), m_uVersion );
++				break;
++			}
+ 	StrVec_t dWarnings;
+ 	float fBestCost = FLT_MAX;
+ 
+@@ -10213,7 +10229,6 @@ bool CSphIndex_VLN::PreallocDocidLookup()
+ 	if ( bUuidLinked )
+ 		m_tUuidLookupReader.SetData ( m_tDocidLookup.GetReadPtr(), tUuidEntriesOffset, nDocs );
+ 
+-	m_tLookupReader.BuildCache(m_uVersion);
+ 	return true;
+ }
+ 
+diff --git a/test/docid-cache/README.md b/test/docid-cache/README.md
+index 1ca1fa6e4..ebc9a654b 100644
+--- a/test/docid-cache/README.md
++++ b/test/docid-cache/README.md
+@@ -1,13 +1,23 @@
+ # DocID lookup cache validation
+ 
+-The optional native C++ cache stores sorted numeric document IDs and row IDs
+-beside the existing compressed lookup. Set `docid_lookup_cache_size = 16m` in
+-`searchd` to opt in; the default budget is zero. The whole allocation, including
++The native C++ cache stores sorted numeric document IDs and row IDs
++beside the existing compressed lookup. `docid_lookup_cache_size` is a server-wide
++memory ceiling, defaulting to `64m`; `0` disables caching. The whole allocation, including
+ alignment padding and the handle, is charged to one process-wide budget.
+ Rejected or incomplete caches retain the existing compressed reader. Disk format
+ and UUID lookup remain unchanged. Chunk destruction/remapping reclaims storage;
+ there is no eviction or automatic admission retry.
+ 
++Disk-chunk load, single-ID lookups and full-count queries allocate no native
++cache. The first sparse batch (at least 16 IDs, at most 1/64 of chunk rows)
++records demand. Each subsequent eligible build call decodes at most 16,384 entries
++per chunk; a query visiting several chunks can advance several builds. One builder
++proceeds per chunk while other readers fall back without waiting. An acquire/release
++pointer publishes the immutable mapping only after uniqueness is established.
++Scalar `Find()` keeps the compressed path, with no cache-pointer check. In-progress
++allocations count against the ceiling and are reclaimed on remap/destruction.
++Admission covers a whole chunk; actual use need not equal the configured ceiling.
++
+ Directory nodes contain eight child maxima on 64-byte cache lines and sixteen
+ on 128/256-byte lines. The OS cache-line query has a 64-byte fallback. Sparse
+ numeric ID lists and nonnegative updates (at most 1/64 of the chunk's rows) use
+@@ -27,9 +37,9 @@ python3 test/docid-cache/test_integration.py build/src/searchd
+ ```
+ 
+ The Python integration check uses only the standard library and isolated
+-loopback servers/temporary data. It checks zero, refused and admitted cache
++loopback servers/temporary data. It checks default, zero, refused and admitted cache
+ budgets, automatic/explicit plans, sparse batches and tails, missing/repeated/
+-dead IDs, UPDATE, REPLACE, ALTER, restart and DROP/reclamation. It requires
++dead IDs, lazy allocation, UPDATE, REPLACE, ALTER, restart and DROP/reclamation. It requires
+ Python 3.8+ and is invoked explicitly, independently of UberTest/CLT.
+ 
+ Performance reports should identify both binaries and the workload, distinguish
+diff --git a/test/docid-cache/test_integration.py b/test/docid-cache/test_integration.py
+index 8ad47d881..f65bbcc9f 100644
+--- a/test/docid-cache/test_integration.py
++++ b/test/docid-cache/test_integration.py
+@@ -26,6 +26,7 @@ class Server:
+         (root / "data").mkdir(exist_ok=True)
+         self.config = root / "manticore.conf"
+         threads_config = f"threads = {threads}\n" if threads is not None else ""
++        cache_config = f"docid_lookup_cache_size = {budget}\n" if budget is not None else ""
+         self.config.write_text(
+             "searchd {\n"
+             f"listen = 127.0.0.1:{self.port}:http\n"
+@@ -33,7 +34,7 @@ class Server:
+             f"log = {root / 'searchd.log'}\n"
+             f"pid_file = {root / 'searchd.pid'}\n"
+             "buddy_path =\n"
+-            f"docid_lookup_cache_size = {budget}\n"
++            f"{cache_config}"
+             f"{threads_config}"
+             "}\n"
+         )
+@@ -92,6 +93,7 @@ class Server:
+ 
+ 
+ def check(binary, budget, expect_cache):
++    limit = 64 * 1024 * 1024 if budget is None else budget
+     with tempfile.TemporaryDirectory(prefix="manticore-native-docid-") as temp:
+         root = Path(temp)
+         server = Server(binary, root, budget)
+@@ -102,9 +104,24 @@ def check(binary, budget, expect_cache):
+                 rows = ",".join(f"({i * 2 + 2},0,'document')" for i in range(start, start + 1000))
+                 db.sql("INSERT INTO docs (id,value,title) VALUES " + rows)
+             db.sql("FLUSH RAMCHUNK docs")
++            assert db.used() == 0  # load and ordinary queries do not build mappings
++            for _ in range(3):
++                assert db.sql("SELECT id FROM docs WHERE id=2")["data"] == [{"id": 2}]
++                assert db.sql("SELECT count(*) AS n FROM docs")["data"] == [{"n": 10000}]
++            assert db.used() == 0
++            # Repeated sparse batches trigger bounded construction. The first
++            # query only records demand; readers keep falling back until sealed.
++            warm_clause = ",".join(str(i * 154 + 2) for i in range(129))
++            dense_clause = ",".join(str(i * 2 + 2) for i in range(512))
++            for _ in range(3):
++                assert db.sql(f"SELECT count(*) AS n FROM docs WHERE id IN ({warm_clause}) /*+ NO_DocidIndex(id) */")["data"] == [{"n": 129}]
++                assert db.sql(f"SELECT count(*) AS n FROM docs WHERE id IN ({dense_clause})")["data"] == [{"n": 512}]
++            assert db.used() == 0
++            for _ in range(6):
++                assert db.sql(f"SELECT count(*) AS n FROM docs WHERE id IN ({warm_clause})")["data"] == [{"n": 129}]
+             used = db.used()
+             assert (used > 0) == expect_cache, (budget, used)
+-            assert used <= budget
++            assert used <= limit
+             # Automatic planning must see cache admission, including when a
+             # budget refuses the chunk. Explicit hints remain authoritative.
+             candidates = [i * 154 + 2 for i in range(129)]
+@@ -153,11 +170,7 @@ def check(binary, budget, expect_cache):
+             db.sql("UPDATE docs SET added=9 WHERE id=100")
+             assert db.sql("SELECT added FROM docs WHERE id=100")["data"] == [{"added": 9}]
+         with server.running() as db:
+-            # A small chunk created by REPLACE may fit even when the original
+-            # large chunk did not. Admission is per chunk under one budget.
+-            assert db.used() <= budget
+-            if expect_cache:
+-                assert db.used() > 0
++            assert db.used() == 0  # restart is lazy too
+             assert db.sql("SELECT value FROM docs WHERE id=2")["data"] == [{"value": 23}]
+             assert not db.sql("SELECT id FROM docs WHERE id IN (4,6)")["data"]
+             assert db.sql("SELECT count(*) AS n FROM docs")["data"] == [{"n": 9998}]
+@@ -173,5 +186,5 @@ if __name__ == "__main__":
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument("searchd", type=lambda value: str(Path(value).resolve()))
+     args = parser.parse_args()
+-    for limit, enabled in [(0, False), (1024, False), (16 * 1024 * 1024, True)]:
++    for limit, enabled in [(None, True), (0, False), (1024, False), (16 * 1024 * 1024, True)]:
+         check(args.searchd, limit, enabled)

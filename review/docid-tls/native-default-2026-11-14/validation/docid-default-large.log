@@ -1,0 +1,17 @@
+Idle gate: 20000000-id-only
+Round 1 20000000-id-only
+Round 2 20000000-id-only
+Round 3 20000000-id-only
+Round 4 20000000-id-only
+Round 5 20000000-id-only
+Round 6 20000000-id-only
+RESULT 20000000-id-only {'off': {'qps': 876.2, 'cpu_ms_per_query': 8.9996, 'native_mib': 0.0}, 'default': {'qps': 1147.2, 'cpu_ms_per_query': 6.851, 'native_mib': 59.78}}
+Idle gate: 20000000-stored
+Round 1 20000000-stored
+Round 2 20000000-stored
+Round 3 20000000-stored
+Round 4 20000000-stored
+Round 5 20000000-stored
+Round 6 20000000-stored
+RESULT 20000000-stored {'off': {'qps': 715.2, 'cpu_ms_per_query': 10.9279, 'native_mib': 0.0}, 'default': {'qps': 886.4, 'cpu_ms_per_query': 8.7686, 'native_mib': 59.78}}
+Completed; quality flags: 0

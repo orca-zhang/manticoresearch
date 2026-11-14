@@ -1,5 +1,22 @@
 # Manticore cache review evidence
 
+## Native DocID cache: default demand admission (2026-11-14)
+
+The [independent native-cache report](native-default-2026-11-14/REPORT.md)
+compares explicit cache off with the new default 64 MiB ceiling on the same
+`503cb2bb9` binary, after merging the maintainer's latest upstream changes.
+Both arms retain adaptive docstore at 16 MiB and exclude reader TLS.
+Repeated sparse batches build mappings in bounded steps; point/count workloads
+allocate none. At 5M rows, 256-ID queries reach 7.53× QPS / -89.76% CPU/query;
+with stored text they reach 1.69× / -46.21%. The 20M fixture admits only part of
+its 26 chunks and retains positive measured gains under the 64 MiB ceiling.
+The table, scale plot, cold diagnostics and every negative/control result remain
+visible, including primary/repeated count controls around -2% QPS and a separate
+explicit-64-MiB count arm near parity. The matrix has 108 timed samples; the
+fresh-process three-arm count confirmation adds 18. All load-quality flags are zero.
+
+[Download the native default-admission evidence ZIP](attachments/native-default-evidence-20261114.zip)
+
 ## Latest adaptive docstore measurement (2026-11-14)
 
 The [current #5042 report](adaptive-docstore-2026-11-14/REPORT.md) connects
@@ -30,10 +47,11 @@ scale plot are retained. Default-cache 256-row QPS changes are -0.40% to
 +0.61%; the 20k cache-off result is +13.09% QPS / -10.31% CPU/query.
 
 PR [#5042](https://github.com/manticoresoftware/manticoresearch/pull/5042)
-contains the opt-in native DocID cache, shared XXH3 block-cache partitions,
+contains the default-on, demand-built native DocID cache, shared XXH3 block-cache partitions,
 atomic pin release and adaptive admission/mapped-memory reclamation.
-Its current source is `d89cebcdbee5eeaa205b6a861067b0d1219e6ea3`; the measured
-production implementation is `8fec92b21c2f10f720f0bcbca498c5f8179f7ac0`.
+Its current source is `a1dd0db409e2365cf372a13c18cdc1cb72a6b029`; the latest native
+study measures `503cb2bb9` (the follow-up changes documentation only).
+The recorded docstore matrix measures `8fec92b21c2f10f720f0bcbca498c5f8179f7ac0`.
 Follow-ups remove the upstream test-registration conflict and replace the
 policy selector with a default-on cache enable switch. Cache algorithms match
 the recorded adaptive measurements; fixed controls are not server options.
@@ -63,13 +81,19 @@ Neither PR depends on the other.
 - The original [DocID ZIP](attachments/docid-cache-evidence.zip) and
   [reader TLS ZIP](attachments/reader-tls-evidence.zip) are dated snapshots.
 
-The current #5042 implementation passes 548 native gtests, API smoke and DocID
-SQL lifecycle; focused 30-test ASan+UBSan and TSan suites pass 20 repeats each.
+The merged #5042 production code passes 577 native tests, with 17 conditioned
+skips, API smoke, and default/zero/refused/admitted native SQL lifecycle cases.
+The final test-only scheduling correction passes 33 focused tests, with 23 native
+cache/lookup tests ×20 under both ASan+UBSan and TSan. The earlier docstore
+30-test sanitizer suites separately passed 20 repeats each.
 The latest enable switch also passes six real-server configuration cases,
 with default and explicit enable verified through mapped payload allocation.
 The CMake-only follow-up removes the new upstream test-registration conflict.
-Upstream CI for the pushed head is awaiting maintainer approval
-(`action_required`, zero executed jobs), not a passing run. The earlier shared
+Upstream CI for the newly pushed head awaits maintainer approval
+(`action_required`), not a passing run. The preceding merged head built on all
+tested platforms but failed one columnar REPLACE timing-ratio assertion (13,
+against an allowed maximum of 12); the failure log is retained with the native
+evidence. This update does not relax that threshold. The earlier shared
 cache comparison passed 521/521 per arm. The latest TLS-context pair
 separately passed 529/529 each and focused reader/block sanitizers (11 tests ×20
 per sanitizer). See the reports for the distinct source and validation scopes.

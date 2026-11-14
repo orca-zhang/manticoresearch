@@ -1,0 +1,65 @@
+Idle gate: 20000-stored
+Round 1 20000-stored
+Round 2 20000-stored
+Round 3 20000-stored
+Round 4 20000-stored
+Round 5 20000-stored
+Round 6 20000-stored
+RESULT 20000-stored {'off': {'qps': 8090.9, 'cpu_ms_per_query': 0.8295, 'native_mib': 0.0}, 'default': {'qps': 9485.1, 'cpu_ms_per_query': 0.6466, 'native_mib': 0.23}}
+Idle gate: 1000000-point
+Round 1 1000000-point
+Round 2 1000000-point
+Round 3 1000000-point
+Round 4 1000000-point
+Round 5 1000000-point
+Round 6 1000000-point
+RESULT 1000000-point {'off': {'qps': 37028.3, 'cpu_ms_per_query': 0.148, 'native_mib': 0.0}, 'default': {'qps': 37204.4, 'cpu_ms_per_query': 0.1483, 'native_mib': 0.0}}
+Idle gate: 1000000-id-only
+Round 1 1000000-id-only
+Round 2 1000000-id-only
+Round 3 1000000-id-only
+Round 4 1000000-id-only
+Round 5 1000000-id-only
+Round 6 1000000-id-only
+RESULT 1000000-id-only {'off': {'qps': 8582.0, 'cpu_ms_per_query': 0.8452, 'native_mib': 0.0}, 'default': {'qps': 20790.6, 'cpu_ms_per_query': 0.2789, 'native_mib': 11.57}}
+Idle gate: 1000000-stored
+Round 1 1000000-stored
+Round 2 1000000-stored
+Round 3 1000000-stored
+Round 4 1000000-stored
+Round 5 1000000-stored
+Round 6 1000000-stored
+RESULT 1000000-stored {'off': {'qps': 3025.0, 'cpu_ms_per_query': 2.3975, 'native_mib': 0.0}, 'default': {'qps': 3341.1, 'cpu_ms_per_query': 2.0226, 'native_mib': 11.57}}
+Idle gate: 1000000-full-count
+Round 1 1000000-full-count
+Round 2 1000000-full-count
+Round 3 1000000-full-count
+Round 4 1000000-full-count
+Round 5 1000000-full-count
+Round 6 1000000-full-count
+RESULT 1000000-full-count {'off': {'qps': 48037.2, 'cpu_ms_per_query': 0.0886, 'native_mib': 0.0}, 'default': {'qps': 46935.7, 'cpu_ms_per_query': 0.091, 'native_mib': 0.0}}
+Idle gate: 5000000-id-only
+Round 1 5000000-id-only
+Round 2 5000000-id-only
+Round 3 5000000-id-only
+Round 4 5000000-id-only
+Round 5 5000000-id-only
+Round 6 5000000-id-only
+RESULT 5000000-id-only {'off': {'qps': 2709.6, 'cpu_ms_per_query': 2.8781, 'native_mib': 0.0}, 'default': {'qps': 20407.1, 'cpu_ms_per_query': 0.2948, 'native_mib': 57.86}}
+Idle gate: 5000000-stored
+Round 1 5000000-stored
+Round 2 5000000-stored
+Round 3 5000000-stored
+Round 4 5000000-stored
+Round 5 5000000-stored
+Round 6 5000000-stored
+RESULT 5000000-stored {'off': {'qps': 1677.3, 'cpu_ms_per_query': 4.5662, 'native_mib': 0.0}, 'default': {'qps': 2840.8, 'cpu_ms_per_query': 2.4564, 'native_mib': 57.86}}
+Idle gate: 20000000-id-only
+Traceback (most recent call last):
+  File "/private/tmp/manticore-adaptive-pr-20261114/test_docid_default.py", line 137, in <module>
+    main()
+    ~~~~^^
+  File "/private/tmp/manticore-adaptive-pr-20261114/test_docid_default.py", line 93, in main
+    assert (used(db) > 0) == (label == 'default' and expected_allocation), (name, label, used(db))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('20000000-id-only', 'default', 62687097)
