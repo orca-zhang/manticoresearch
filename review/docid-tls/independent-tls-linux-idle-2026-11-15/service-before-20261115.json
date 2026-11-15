@@ -1,0 +1,12 @@
+{
+  "captured_utc": "2026-11-15T02:54:52.811499+00:00",
+  "service": {
+    "Id": "zimaos-search.service",
+    "ActiveState": "active",
+    "SubState": "running",
+    "Restart": "always",
+    "MainPID": "2679",
+    "KillMode": "control-group"
+  },
+  "requested_action": "Temporarily stop the two search processes by stopping their owning systemd unit; restore after benchmark"
+}

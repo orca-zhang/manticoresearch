@@ -1,0 +1,9 @@
+Id=zimaos-search.service
+ActiveState=active
+SubState=running
+MainPID=392351
+
+Id=zimaos-photos.service
+ActiveState=active
+SubState=running
+MainPID=392384

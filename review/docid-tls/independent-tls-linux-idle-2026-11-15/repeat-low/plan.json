@@ -1,0 +1,71 @@
+{
+  "comparison": "Upstream 047d2f9 vs PR #5045 TLS only; original upstream single-lock block cache in BOTH arms",
+  "upstream_base": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+  "tls_pr_head": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+  "environment": "Strict-idle retest requested after the user pauses background search tasks",
+  "idle_policy": "30 s mean idle >=85%, minimum >=70%; fixed before the first timed sample",
+  "platform": "Linux-6.18.9-x86_64-with-glibc2.39",
+  "compiler": "Ubuntu Clang 18; -O2 -DNDEBUG; no -march=native",
+  "server_threads": 8,
+  "cpu_accounting": "Linux /proc/PID/stat utime+stime at SC_CLK_TCK",
+  "rounds": 6,
+  "seconds_per_arm": 5.0,
+  "payload_bytes": 128,
+  "block_bytes": 16384,
+  "compression": "lz4",
+  "query_cache_bytes": 0,
+  "reader_buffer_budget_bytes": 8388608,
+  "docid_cache": "Upstream has no native DocID cache; no setting injected",
+  "planned_cases": [
+    {
+      "name": "random256-20000-16m",
+      "rows": 20000,
+      "cache_mib": 16,
+      "batch": 256,
+      "clients": 8
+    },
+    {
+      "name": "random256-10000000-0m",
+      "rows": 10000000,
+      "cache_mib": 0,
+      "batch": 256,
+      "clients": 8
+    },
+    {
+      "name": "random64-20000-16m",
+      "rows": 20000,
+      "cache_mib": 16,
+      "batch": 64,
+      "clients": 8
+    },
+    {
+      "name": "random64-20000-0m",
+      "rows": 20000,
+      "cache_mib": 0,
+      "batch": 64,
+      "clients": 8
+    },
+    {
+      "name": "point-20000-16m",
+      "rows": 20000,
+      "cache_mib": 16,
+      "batch": 1,
+      "clients": 8
+    },
+    {
+      "name": "point-20000-0m",
+      "rows": 20000,
+      "cache_mib": 0,
+      "batch": 1,
+      "clients": 8
+    }
+  ],
+  "calibration": {},
+  "binary_sha256": {
+    "baseline": "0fceb502694c975e53d2b432edefd7a13b83ba5b5fb9f342d0957a5ef489ca97",
+    "tls": "12441ce3bcfb257a308db876a4fa7b54d4bab811bf60a359ef9d52ccb5fe1163"
+  },
+  "driver_sha256": "37bccd5f8a0cb9ec1452a292dcd8abca000470291d364b8edef7b12022a2700c",
+  "quality_policy": "Retain every sample; flag external mean CPU >15% machine or one-second peak >30%; repeat affected comparisons in full, never select rounds by QPS",
+  "cases": []
+}

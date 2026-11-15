@@ -1,0 +1,7 @@
+[Sat Nov 14 14:18:16.956 2026] [52] Using local time zone 'UTC'
+[Sat Nov 14 14:18:16.957 2026] [52] starting daemon version '0.0.0 047d2f9@26102712' ...
+[Sat Nov 14 14:18:16.957 2026] [52] listening on 127.0.0.1:43573 for sphinx and http(s)
+[Sat Nov 14 14:18:16.959 2026] [53] WARNING: secondary library not loaded; secondary index(es) disabled
+[Sat Nov 14 14:18:16.962 2026] [59] prereading 1 tables
+[Sat Nov 14 14:18:16.962 2026] [52] accepting connections
+[Sat Nov 14 14:18:16.963 2026] [59] preread 1 tables in 0.001 sec

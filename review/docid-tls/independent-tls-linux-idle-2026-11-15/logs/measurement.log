@@ -1,0 +1,152 @@
+Idle gate: random256-20000-16m
+Round 1 random256-20000-16m
+Round 2 random256-20000-16m
+Round 3 random256-20000-16m
+Round 4 random256-20000-16m
+Round 5 random256-20000-16m
+Round 6 random256-20000-16m
+RESULT random256-20000-16m QPS 5.28 CPU/query -1.12
+Idle gate: random256-20000-0m
+Round 1 random256-20000-0m
+Round 2 random256-20000-0m
+Round 3 random256-20000-0m
+Round 4 random256-20000-0m
+Round 5 random256-20000-0m
+Round 6 random256-20000-0m
+RESULT random256-20000-0m QPS 2.7 CPU/query -1.68
+Idle gate: random256-1000000-16m
+Round 1 random256-1000000-16m
+Round 2 random256-1000000-16m
+Round 3 random256-1000000-16m
+Round 4 random256-1000000-16m
+Round 5 random256-1000000-16m
+Round 6 random256-1000000-16m
+RESULT random256-1000000-16m QPS 3.74 CPU/query -0.06
+Idle gate: random256-1000000-0m
+Round 1 random256-1000000-0m
+Round 2 random256-1000000-0m
+Round 3 random256-1000000-0m
+Round 4 random256-1000000-0m
+Round 5 random256-1000000-0m
+Round 6 random256-1000000-0m
+RESULT random256-1000000-0m QPS 1.35 CPU/query -1.27
+Idle gate: random256-10000000-16m
+Round 1 random256-10000000-16m
+Round 2 random256-10000000-16m
+Round 3 random256-10000000-16m
+Round 4 random256-10000000-16m
+Round 5 random256-10000000-16m
+Round 6 random256-10000000-16m
+RESULT random256-10000000-16m QPS 1.52 CPU/query -0.56
+Idle gate: random256-10000000-0m
+Round 1 random256-10000000-0m
+Round 2 random256-10000000-0m
+Round 3 random256-10000000-0m
+Round 4 random256-10000000-0m
+Round 5 random256-10000000-0m
+Round 6 random256-10000000-0m
+RESULT random256-10000000-0m QPS 0.4 CPU/query -1.16
+Idle gate: random64-20000-16m
+Round 1 random64-20000-16m
+Round 2 random64-20000-16m
+Round 3 random64-20000-16m
+Round 4 random64-20000-16m
+Round 5 random64-20000-16m
+Round 6 random64-20000-16m
+RESULT random64-20000-16m QPS -3.64 CPU/query 0.23
+Idle gate: random64-20000-0m
+Round 1 random64-20000-0m
+Round 2 random64-20000-0m
+Round 3 random64-20000-0m
+Round 4 random64-20000-0m
+Round 5 random64-20000-0m
+Round 6 random64-20000-0m
+RESULT random64-20000-0m QPS -2.51 CPU/query -0.96
+Idle gate: random64-1000000-16m
+Round 1 random64-1000000-16m
+Round 2 random64-1000000-16m
+Round 3 random64-1000000-16m
+Round 4 random64-1000000-16m
+Round 5 random64-1000000-16m
+Round 6 random64-1000000-16m
+RESULT random64-1000000-16m QPS 4.48 CPU/query -0.97
+Idle gate: random64-1000000-0m
+Round 1 random64-1000000-0m
+Round 2 random64-1000000-0m
+Round 3 random64-1000000-0m
+Round 4 random64-1000000-0m
+Round 5 random64-1000000-0m
+Round 6 random64-1000000-0m
+RESULT random64-1000000-0m QPS 0.75 CPU/query -0.79
+Idle gate: point-20000-16m
+Round 1 point-20000-16m
+Round 2 point-20000-16m
+Round 3 point-20000-16m
+Round 4 point-20000-16m
+Round 5 point-20000-16m
+Round 6 point-20000-16m
+RESULT point-20000-16m QPS -3.03 CPU/query 0.12
+Idle gate: mixed-1000000-16m
+Round 1 mixed-1000000-16m
+Round 2 mixed-1000000-16m
+Round 3 mixed-1000000-16m
+Round 4 mixed-1000000-16m
+Round 5 mixed-1000000-16m
+Round 6 mixed-1000000-16m
+RESULT mixed-1000000-16m QPS -1.45 CPU/query 0.89
+Idle gate: point-20000-0m
+Round 1 point-20000-0m
+Round 2 point-20000-0m
+Round 3 point-20000-0m
+Round 4 point-20000-0m
+Round 5 point-20000-0m
+Round 6 point-20000-0m
+RESULT point-20000-0m QPS -0.07 CPU/query 0.31
+Idle gate: mixed-1000000-0m
+Round 1 mixed-1000000-0m
+Round 2 mixed-1000000-0m
+Round 3 mixed-1000000-0m
+Round 4 mixed-1000000-0m
+Round 5 mixed-1000000-0m
+Round 6 mixed-1000000-0m
+RESULT mixed-1000000-0m QPS -3.82 CPU/query 0.58
+Idle gate: count-1000000-16m
+Round 1 count-1000000-16m
+Round 2 count-1000000-16m
+Round 3 count-1000000-16m
+Round 4 count-1000000-16m
+Round 5 count-1000000-16m
+Round 6 count-1000000-16m
+RESULT count-1000000-16m QPS 1.86 CPU/query -0.35
+Idle gate: aa-20000-16m
+Round 1 aa-20000-16m
+Round 2 aa-20000-16m
+Round 3 aa-20000-16m
+Round 4 aa-20000-16m
+Round 5 aa-20000-16m
+Round 6 aa-20000-16m
+RESULT aa-20000-16m QPS 1.71 CPU/query 0.1
+Idle gate: aa-20000-0m
+Round 1 aa-20000-0m
+Round 2 aa-20000-0m
+Round 3 aa-20000-0m
+Round 4 aa-20000-0m
+Round 5 aa-20000-0m
+Round 6 aa-20000-0m
+RESULT aa-20000-0m QPS -1.0 CPU/query 0.22
+Idle gate: churn-c1-20000-16m
+Round 1 churn-c1-20000-16m
+Round 2 churn-c1-20000-16m
+Round 3 churn-c1-20000-16m
+Round 4 churn-c1-20000-16m
+Round 5 churn-c1-20000-16m
+Round 6 churn-c1-20000-16m
+RESULT churn-c1-20000-16m QPS 0.76 CPU/query -0.41
+Idle gate: churn-c1-20000-0m
+Round 1 churn-c1-20000-0m
+Round 2 churn-c1-20000-0m
+Round 3 churn-c1-20000-0m
+Round 4 churn-c1-20000-0m
+Round 5 churn-c1-20000-0m
+Round 6 churn-c1-20000-0m
+RESULT churn-c1-20000-0m QPS 0.5 CPU/query 0.29

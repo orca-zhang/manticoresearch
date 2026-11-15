@@ -1,0 +1,41 @@
+{
+  "stage": "complete",
+  "unix_seconds": 1794717568.4172645,
+  "primary_cases": 23,
+  "primary_samples": 276,
+  "flagged_primary_cases": [
+    "random256-20000-16m",
+    "random256-10000000-0m",
+    "random64-20000-16m",
+    "random64-20000-0m",
+    "point-20000-16m",
+    "point-20000-0m",
+    "churn-c32-20000-0m"
+  ],
+  "repeat_phases": [
+    "repeat-low",
+    "repeat-high"
+  ],
+  "diagnostics": [
+    {
+      "phase": "original32-16m",
+      "same_upstream_binary_both_arms": false,
+      "returncode": 1
+    },
+    {
+      "phase": "aa32-16m",
+      "same_upstream_binary_both_arms": true,
+      "returncode": 0
+    },
+    {
+      "phase": "original32-0m",
+      "same_upstream_binary_both_arms": false,
+      "returncode": 0
+    },
+    {
+      "phase": "aa32-0m",
+      "same_upstream_binary_both_arms": true,
+      "returncode": 0
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+[Sun Nov 15 04:32:46.732 2026] [1817] using config file '/work/idle-20261114/servers-egqzfmev/baseline/manticore.conf' (314 chars)...
+starting daemon version '0.0.0 047d2f9@26102712' ...
+listening on 127.0.0.1:60393 for sphinx and http(s)
+Manticore 0.0.0 047d2f9@26102712
+Copyright (c) 2001-2016, Andrew Aksyonoff
+Copyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)
+Copyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)
+
+precaching table 'docs'
+WARNING: secondary library not loaded; secondary index(es) disabled
+prereading 1 tables
+accepting connections
+preread 1 tables in 0.000 sec

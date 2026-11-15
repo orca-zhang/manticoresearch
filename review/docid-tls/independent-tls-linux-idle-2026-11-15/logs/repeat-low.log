@@ -1,0 +1,48 @@
+Idle gate: random256-20000-16m
+Round 1 random256-20000-16m
+Round 2 random256-20000-16m
+Round 3 random256-20000-16m
+Round 4 random256-20000-16m
+Round 5 random256-20000-16m
+Round 6 random256-20000-16m
+RESULT random256-20000-16m QPS 0.44 CPU/query -0.58
+Idle gate: random256-10000000-0m
+Round 1 random256-10000000-0m
+Round 2 random256-10000000-0m
+Round 3 random256-10000000-0m
+Round 4 random256-10000000-0m
+Round 5 random256-10000000-0m
+Round 6 random256-10000000-0m
+RESULT random256-10000000-0m QPS 0.5 CPU/query -0.94
+Idle gate: random64-20000-16m
+Round 1 random64-20000-16m
+Round 2 random64-20000-16m
+Round 3 random64-20000-16m
+Round 4 random64-20000-16m
+Round 5 random64-20000-16m
+Round 6 random64-20000-16m
+RESULT random64-20000-16m QPS -0.65 CPU/query -0.51
+Idle gate: random64-20000-0m
+Round 1 random64-20000-0m
+Round 2 random64-20000-0m
+Round 3 random64-20000-0m
+Round 4 random64-20000-0m
+Round 5 random64-20000-0m
+Round 6 random64-20000-0m
+RESULT random64-20000-0m QPS 3.2 CPU/query -1.33
+Idle gate: point-20000-16m
+Round 1 point-20000-16m
+Round 2 point-20000-16m
+Round 3 point-20000-16m
+Round 4 point-20000-16m
+Round 5 point-20000-16m
+Round 6 point-20000-16m
+RESULT point-20000-16m QPS -4.19 CPU/query 0.77
+Idle gate: point-20000-0m
+Round 1 point-20000-0m
+Round 2 point-20000-0m
+Round 3 point-20000-0m
+Round 4 point-20000-0m
+Round 5 point-20000-0m
+Round 6 point-20000-0m
+RESULT point-20000-0m QPS -1.88 CPU/query 0.45

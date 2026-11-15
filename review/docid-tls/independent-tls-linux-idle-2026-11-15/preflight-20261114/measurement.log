@@ -1,0 +1,13 @@
+Idle gate: random256-20000-16m
+Traceback (most recent call last):
+  File "/work/idle-20261114/driver/run_tls.py", line 259, in <module>
+    main()
+  File "/work/idle-20261114/driver/run_tls.py", line 252, in main
+    result['cases'].append(run_case(case, number, args))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/idle-20261114/driver/run_tls.py", line 184, in run_case
+    entry['idle_gate'] = monitor.wait_idle(30, 85, 70, 600)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/idle-20261114/driver/load_telemetry.py", line 111, in wait_idle
+    raise RuntimeError('Idle gate not reached; preserve logs and defer the timed rerun.')
+RuntimeError: Idle gate not reached; preserve logs and defer the timed rerun.

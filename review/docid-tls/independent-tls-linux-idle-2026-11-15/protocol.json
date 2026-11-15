@@ -1,0 +1,51 @@
+{
+  "purpose": "Full independent reader-TLS retest after user pauses background search tasks",
+  "upstream_base": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+  "tls_head": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+  "binary_sha256": {
+    "baseline": "0fceb502694c975e53d2b432edefd7a13b83ba5b5fb9f342d0957a5ef489ca97",
+    "tls": "12441ce3bcfb257a308db876a4fa7b54d4bab811bf60a359ef9d52ccb5fe1163"
+  },
+  "fixed_before_timing": true,
+  "rounds": 6,
+  "seconds_per_arm": 5,
+  "server_workers": 8,
+  "idle_gate": {
+    "seconds": 30,
+    "mean_idle_at_least": 85,
+    "minimum_idle_at_least": 70,
+    "timeout_seconds": 600
+  },
+  "flag_external_cpu": {
+    "mean_machine_percent_above": 15,
+    "one_second_peak_machine_percent_above": 30
+  },
+  "repeat_policy": "Repeat every telemetry-flagged complete primary comparison once in full; retain original and repeat, do not filter individual rounds",
+  "primary_transport": "Original CPython HTTP at 1/8 clients; identical bytes in one write at 32 clients, matched within each comparison",
+  "diagnostic_plan": "After primary comparisons, run original-transport 32-client point cases on/off, then upstream A/A32 point cases on/off. Retain errors without request retries; each diagnostic is a separate complete attempt.",
+  "source_changes": {
+    "monitor.wait_idle(30, 60, 30, 600)": "monitor.wait_idle(30, 85, 70, 600)",
+    "sample['external_cpu_mean_machine_percent'] > 45": "sample['external_cpu_mean_machine_percent'] > 15",
+    "sample['external_cpu_peak_machine_percent'] > 70": "sample['external_cpu_peak_machine_percent'] > 30",
+    "Existing host services retained; co-resident-service measurement": "Strict-idle retest requested after the user pauses background search tasks",
+    "30 s mean idle >=60%, minimum >=30%; fixed before the first timed sample": "30 s mean idle >=85%, minimum >=70%; fixed before the first timed sample",
+    "flag external mean CPU >45% machine or one-second peak >70%": "flag external mean CPU >15% machine or one-second peak >30%"
+  },
+  "driver_sha256": {
+    "benchmark.py": "58efd94de75c3cf7105be0d0b42bb390cdbb14adcd44cfc75ef39f8e4b3ded86",
+    "coalesced_http.py": "1fd2241fad352af0bf803bdd5ad4987d27abd3b1bc12686abf50e6dc6780f7b4",
+    "load_telemetry.py": "355c646c8a6df94e2b2e9612021056b962c8a104a012d212a071b674c6d4120c",
+    "make_linux_report.py": "63f54771dbc7a75213ac45a3670c3e91811d902c76b1446df194cf0af2e8332c",
+    "make_report.py": "3208b63e58d4e0793300a669886208f61d93d1586bd7ddab21a9ad0fcc9f710a",
+    "report_common.py": "cc50c09b17442165b56b9abbf4999c965af096ae4d53e6868c24be27be3ea950",
+    "run_aa32.py": "921cc687f349f1a8c235efe27c6dd4cd830400238d398bad79e7b70035710e32",
+    "run_coalesced32.py": "4f2bcef8ff995c3e0a8d24de59b894ca3f1a6f5138c1d90211f867ebf90e3c68",
+    "run_tls.py": "37bccd5f8a0cb9ec1452a292dcd8abca000470291d364b8edef7b12022a2700c",
+    "run_tls_co_resident.py": "2c3305b68797cbeb592160574cc10363de8f7d3e04c788e8f46f60a9480a852c",
+    "run_tls_v1.py": "2e92a22fbc30274c7193e005a8135902813d7b6452a5a1b6c40ffb55f9b6f1ae",
+    "selfcheck_warmup.py": "a1e7dc2776c0389a61c6feb8e4f86467b4f24da99e6fd7698550bf353b66c72b",
+    "support.py": "254a1156fbf2ac19595ef7b5ad46764ed6ee8b5afa9ecea1eddf30f4543b92af"
+  },
+  "fixture_source": "/work/fixtures",
+  "fixture_hashes_match_previous_run": true
+}

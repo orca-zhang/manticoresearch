@@ -1,0 +1,10 @@
+{
+  "prepared_utc": "2026-11-15T02:57:07.752418+00:00",
+  "production_search_unit": "zimaos-search.service",
+  "production_search_unit_stopped": true,
+  "production_photo_unit_stopped": false,
+  "binary_hashes_reverified": true,
+  "fixture_hashes_reverified": true,
+  "prior_attempt_timed_samples": 0,
+  "prior_attempt_preserved_in": "preflight-20261114"
+}

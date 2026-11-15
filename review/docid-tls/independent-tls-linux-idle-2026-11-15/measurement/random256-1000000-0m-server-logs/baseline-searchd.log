@@ -1,0 +1,12 @@
+[Sun Nov 15 03:46:49.864 2026] [230] Using local time zone 'UTC'
+[Sun Nov 15 03:46:49.865 2026] [230] starting daemon version '0.0.0 047d2f9@26102712' ...
+[Sun Nov 15 03:46:49.865 2026] [230] listening on 127.0.0.1:51031 for sphinx and http(s)
+[Sun Nov 15 03:46:49.869 2026] [231] WARNING: secondary library not loaded; secondary index(es) disabled
+[Sun Nov 15 03:46:49.879 2026] [238] last message repeated 2 times
+[Sun Nov 15 03:46:49.879 2026] [238] prereading 1 tables
+[Sun Nov 15 03:46:49.879 2026] [230] accepting connections
+[Sun Nov 15 03:46:49.890 2026] [238] preread 1 tables in 0.011 sec
+[Sun Nov 15 03:48:31.558 2026] [236] WARNING: secondary library not loaded; secondary index(es) disabled
+[Sun Nov 15 03:48:31.559 2026] [236] rt: table docs: diskchunk 3(4), segments 1 forcibly saved in 0.004884 (0.005146) sec [attrs=4ms deadmap=0ms docs=0ms infix=0ms checkpoints=0ms header=0ms], RAM saved/new 140/0 ratio 0.950000 (soft limit 127506841, conf limit 134217728)
+[Sun Nov 15 03:48:31.581 2026] [231] WARNING: secondary library not loaded; secondary index(es) disabled
+[Sun Nov 15 03:48:31.581 2026] [231] rt: table docs: diskchunk 0(1), segments 1 forcibly saved in 0.005365 (0.005607) sec [attrs=4ms deadmap=0ms docs=0ms infix=0ms checkpoints=0ms header=0ms], RAM saved/new 138/0 ratio 0.950000 (soft limit 127506841, conf limit 134217728)

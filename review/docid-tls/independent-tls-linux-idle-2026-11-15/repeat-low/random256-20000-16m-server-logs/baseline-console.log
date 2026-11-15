@@ -1,0 +1,17 @@
+[Sun Nov 15 04:21:01.235 2026] [1394] using config file '/work/idle-20261114/servers-ck_eqix0/baseline/manticore.conf' (314 chars)...
+starting daemon version '0.0.0 047d2f9@26102712' ...
+listening on 127.0.0.1:49133 for sphinx and http(s)
+Manticore 0.0.0 047d2f9@26102712
+Copyright (c) 2001-2016, Andrew Aksyonoff
+Copyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)
+Copyright (c) 2017-2026, Manticore Software LTD (https://manticoresearch.com)
+
+precaching table 'docs'
+WARNING: secondary library not loaded; secondary index(es) disabled
+prereading 1 tables
+accepting connections
+preread 1 tables in 0.000 sec
+WARNING: secondary library not loaded; secondary index(es) disabled
+rt: table docs: diskchunk 1(2), segments 1 forcibly saved in 0.008134 (0.008573) sec [attrs=7ms deadmap=0ms docs=0ms infix=0ms checkpoints=0ms header=0ms], RAM saved/new 140/0 ratio 0.950000 (soft limit 127506841, conf limit 134217728)
+WARNING: secondary library not loaded; secondary index(es) disabled
+rt: table docs: diskchunk 0(1), segments 1 forcibly saved in 0.006929 (0.007324) sec [attrs=5ms deadmap=0ms docs=0ms infix=0ms checkpoints=0ms header=0ms], RAM saved/new 138/0 ratio 0.950000 (soft limit 127506841, conf limit 134217728)

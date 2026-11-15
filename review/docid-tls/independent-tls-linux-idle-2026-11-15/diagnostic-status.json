@@ -1,0 +1,22 @@
+[
+  {
+    "phase": "original32-16m",
+    "same_upstream_binary_both_arms": false,
+    "returncode": 1
+  },
+  {
+    "phase": "aa32-16m",
+    "same_upstream_binary_both_arms": true,
+    "returncode": 0
+  },
+  {
+    "phase": "original32-0m",
+    "same_upstream_binary_both_arms": false,
+    "returncode": 0
+  },
+  {
+    "phase": "aa32-0m",
+    "same_upstream_binary_both_arms": true,
+    "returncode": 0
+  }
+]

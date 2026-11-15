@@ -1,0 +1,48 @@
+[
+  {
+    "phase": "original32-16m",
+    "returncode": 1,
+    "recorded_samples": 8,
+    "binary_sha256": {
+      "baseline": "0fceb502694c975e53d2b432edefd7a13b83ba5b5fb9f342d0957a5ef489ca97",
+      "tls": "12441ce3bcfb257a308db876a4fa7b54d4bab811bf60a359ef9d52ccb5fe1163"
+    },
+    "same_upstream_binary_both_arms": false,
+    "connection_reset": true,
+    "next_planned_round_zero_based": 4,
+    "next_planned_arm": "baseline",
+    "active_binary_sha256": "0fceb502694c975e53d2b432edefd7a13b83ba5b5fb9f342d0957a5ef489ca97",
+    "active_binary_is_unmodified_upstream": true,
+    "attribution_method": "Inferred from the next planned interval after the validated journal prefix; traceback fails inside measure before journal append. Every diagnostic selects one case, numbered zero, so AB/BA ordering is fixed."
+  },
+  {
+    "phase": "aa32-16m",
+    "returncode": 0,
+    "recorded_samples": 12,
+    "binary_sha256": {
+      "baseline": "0fceb502694c975e53d2b432edefd7a13b83ba5b5fb9f342d0957a5ef489ca97",
+      "tls": "0fceb502694c975e53d2b432edefd7a13b83ba5b5fb9f342d0957a5ef489ca97"
+    },
+    "same_upstream_binary_both_arms": true
+  },
+  {
+    "phase": "original32-0m",
+    "returncode": 0,
+    "recorded_samples": 12,
+    "binary_sha256": {
+      "baseline": "0fceb502694c975e53d2b432edefd7a13b83ba5b5fb9f342d0957a5ef489ca97",
+      "tls": "12441ce3bcfb257a308db876a4fa7b54d4bab811bf60a359ef9d52ccb5fe1163"
+    },
+    "same_upstream_binary_both_arms": false
+  },
+  {
+    "phase": "aa32-0m",
+    "returncode": 0,
+    "recorded_samples": 12,
+    "binary_sha256": {
+      "baseline": "0fceb502694c975e53d2b432edefd7a13b83ba5b5fb9f342d0957a5ef489ca97",
+      "tls": "0fceb502694c975e53d2b432edefd7a13b83ba5b5fb9f342d0957a5ef489ca97"
+    },
+    "same_upstream_binary_both_arms": true
+  }
+]

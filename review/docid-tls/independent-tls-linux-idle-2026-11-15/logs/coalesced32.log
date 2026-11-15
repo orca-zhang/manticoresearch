@@ -1,0 +1,33 @@
+HTTP coalescing selfcheck passed: identical bytes, one write, no retry
+Idle gate: churn-c32-20000-16m
+Round 1 churn-c32-20000-16m
+Round 2 churn-c32-20000-16m
+Round 3 churn-c32-20000-16m
+Round 4 churn-c32-20000-16m
+Round 5 churn-c32-20000-16m
+Round 6 churn-c32-20000-16m
+RESULT churn-c32-20000-16m QPS -0.75 CPU/query 0.75
+Idle gate: mixed-c32-1000000-16m
+Round 1 mixed-c32-1000000-16m
+Round 2 mixed-c32-1000000-16m
+Round 3 mixed-c32-1000000-16m
+Round 4 mixed-c32-1000000-16m
+Round 5 mixed-c32-1000000-16m
+Round 6 mixed-c32-1000000-16m
+RESULT mixed-c32-1000000-16m QPS 4.18 CPU/query -7.71
+Idle gate: churn-c32-20000-0m
+Round 1 churn-c32-20000-0m
+Round 2 churn-c32-20000-0m
+Round 3 churn-c32-20000-0m
+Round 4 churn-c32-20000-0m
+Round 5 churn-c32-20000-0m
+Round 6 churn-c32-20000-0m
+RESULT churn-c32-20000-0m QPS 0.16 CPU/query 0.6
+Idle gate: mixed-c32-1000000-0m
+Round 1 mixed-c32-1000000-0m
+Round 2 mixed-c32-1000000-0m
+Round 3 mixed-c32-1000000-0m
+Round 4 mixed-c32-1000000-0m
+Round 5 mixed-c32-1000000-0m
+Round 6 mixed-c32-1000000-0m
+RESULT mixed-c32-1000000-0m QPS -3.29 CPU/query 1.08

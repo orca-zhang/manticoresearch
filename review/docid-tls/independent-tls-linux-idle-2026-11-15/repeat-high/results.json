@@ -1,0 +1,465 @@
+{
+  "comparison": "Upstream 047d2f9 vs PR #5045 TLS only; original upstream single-lock block cache in BOTH arms",
+  "upstream_base": "047d2f99522d78e0aa1de7e7dc945a9abe1b673a",
+  "tls_pr_head": "019868e9f79d1bb2bd1f96dafb88ef20acd45418",
+  "environment": "Strict-idle retest requested after the user pauses background search tasks",
+  "idle_policy": "30 s mean idle >=85%, minimum >=70%; fixed before the first timed sample",
+  "platform": "Linux-6.18.9-x86_64-with-glibc2.39",
+  "compiler": "Ubuntu Clang 18; -O2 -DNDEBUG; no -march=native",
+  "server_threads": 8,
+  "cpu_accounting": "Linux /proc/PID/stat utime+stime at SC_CLK_TCK",
+  "rounds": 6,
+  "seconds_per_arm": 5.0,
+  "payload_bytes": 128,
+  "block_bytes": 16384,
+  "compression": "lz4",
+  "query_cache_bytes": 0,
+  "reader_buffer_budget_bytes": 8388608,
+  "docid_cache": "Upstream has no native DocID cache; no setting injected",
+  "planned_cases": [
+    {
+      "name": "churn-c32-20000-0m",
+      "rows": 20000,
+      "cache_mib": 0,
+      "batch": 1,
+      "clients": 32
+    }
+  ],
+  "calibration": {},
+  "binary_sha256": {
+    "baseline": "0fceb502694c975e53d2b432edefd7a13b83ba5b5fb9f342d0957a5ef489ca97",
+    "tls": "12441ce3bcfb257a308db876a4fa7b54d4bab811bf60a359ef9d52ccb5fe1163"
+  },
+  "driver_sha256": "37bccd5f8a0cb9ec1452a292dcd8abca000470291d364b8edef7b12022a2700c",
+  "quality_policy": "Retain every sample; flag external mean CPU >15% machine or one-second peak >30%; repeat affected comparisons in full, never select rounds by QPS",
+  "cases": [
+    {
+      "case": {
+        "name": "churn-c32-20000-0m",
+        "rows": 20000,
+        "cache_mib": 0,
+        "batch": 1,
+        "clients": 32
+      },
+      "arms": {
+        "baseline": {
+          "binary": "searchd-baseline",
+          "samples": [
+            {
+              "completed": 40884,
+              "elapsed_seconds": 5.0124141779961064,
+              "qps": 8156.548630692936,
+              "server_cpu_ms_per_query": 0.2081498874865473,
+              "rss_bytes": 29749248,
+              "p95_ms": 7.686113,
+              "client_cpu_cores": 2.002063665858499,
+              "bulk_qps": 4078.274315346468,
+              "point_qps": 4078.274315346468,
+              "from_monotonic_seconds": 137537.774304147,
+              "to_monotonic_seconds": 137542.788593356,
+              "round": 0,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 6.52509396800253,
+              "external_cpu_peak_machine_percent": 14.925800977259485,
+              "quality_flag": false
+            },
+            {
+              "completed": 38504,
+              "elapsed_seconds": 5.017949991975911,
+              "qps": 7673.253033922391,
+              "server_cpu_ms_per_query": 0.21296488676501144,
+              "rss_bytes": 30273536,
+              "p95_ms": 8.345995,
+              "client_cpu_cores": 1.9221111038219176,
+              "bulk_qps": 3833.0393947242696,
+              "point_qps": 3840.213639198122,
+              "from_monotonic_seconds": 137554.543518782,
+              "to_monotonic_seconds": 137559.5618244,
+              "round": 1,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 10.589372193057704,
+              "external_cpu_peak_machine_percent": 21.84650132175443,
+              "quality_flag": false
+            },
+            {
+              "completed": 40969,
+              "elapsed_seconds": 5.012995955999941,
+              "qps": 8172.55795927087,
+              "server_cpu_ms_per_query": 0.21211159657301862,
+              "rss_bytes": 30666752,
+              "p95_ms": 7.448535,
+              "client_cpu_cores": 2.031037888792608,
+              "bulk_qps": 3968.684629834606,
+              "point_qps": 4203.873329436265,
+              "from_monotonic_seconds": 137560.211458368,
+              "to_monotonic_seconds": 137565.22506554,
+              "round": 2,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 7.365986650723653,
+              "external_cpu_peak_machine_percent": 21.84650132175443,
+              "quality_flag": false
+            },
+            {
+              "completed": 40860,
+              "elapsed_seconds": 5.02382982801646,
+              "qps": 8133.237270923367,
+              "server_cpu_ms_per_query": 0.2139011257953989,
+              "rss_bytes": 30797824,
+              "p95_ms": 7.659074,
+              "client_cpu_cores": 2.0286845999765837,
+              "bulk_qps": 4054.476504440481,
+              "point_qps": 4078.7607664828856,
+              "from_monotonic_seconds": 137577.549538868,
+              "to_monotonic_seconds": 137582.573943903,
+              "round": 3,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 6.241001799188692,
+              "external_cpu_peak_machine_percent": 13.799740185160374,
+              "quality_flag": false
+            },
+            {
+              "completed": 38272,
+              "elapsed_seconds": 5.020288792991778,
+              "qps": 7623.465816035711,
+              "server_cpu_ms_per_query": 0.21556229096989968,
+              "rss_bytes": 30928896,
+              "p95_ms": 8.267375,
+              "client_cpu_cores": 1.915377373194823,
+              "bulk_qps": 3820.2981523241247,
+              "point_qps": 3803.1676637115866,
+              "from_monotonic_seconds": 137583.174870498,
+              "to_monotonic_seconds": 137588.195527052,
+              "round": 4,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 9.414489798474287,
+              "external_cpu_peak_machine_percent": 18.038158383448305,
+              "quality_flag": false
+            },
+            {
+              "completed": 38938,
+              "elapsed_seconds": 5.012617395987036,
+              "qps": 7767.997619601428,
+              "server_cpu_ms_per_query": 0.21547074836920233,
+              "rss_bytes": 30928896,
+              "p95_ms": 7.981475,
+              "client_cpu_cores": 1.9523870542832291,
+              "bulk_qps": 3911.329840513267,
+              "point_qps": 3856.667779088161,
+              "from_monotonic_seconds": 137599.778648518,
+              "to_monotonic_seconds": 137604.791978205,
+              "round": 5,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 13.843061565200715,
+              "external_cpu_peak_machine_percent": 45.87905366935617,
+              "quality_flag": true
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:41807:http\ndata_dir = /work/idle-20261114/servers-jya9zmsu/baseline/data\nlog = /work/idle-20261114/servers-jya9zmsu/baseline/searchd.log\npid_file = /work/idle-20261114/servers-jya9zmsu/baseline/searchd.pid\nbuddy_path =\ndocstore_cache_size = 0\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 7950.617445262397,
+          "server_cpu_ms_per_query_median": 0.21343300628020517,
+          "p95_ms_median": 7.833793999999999,
+          "rss_bytes_median": 30732288.0,
+          "bulk_qps_median": 3940.0072351739364,
+          "point_qps_median": 3967.4710472173147
+        },
+        "tls": {
+          "binary": "searchd-tls",
+          "samples": [
+            {
+              "completed": 37604,
+              "elapsed_seconds": 5.0356241230037995,
+              "qps": 7467.594697590106,
+              "server_cpu_ms_per_query": 0.21327518349111796,
+              "rss_bytes": 29507584,
+              "p95_ms": 8.560275,
+              "client_cpu_cores": 1.8648271196616704,
+              "bulk_qps": 3726.449699507455,
+              "point_qps": 3741.144998082651,
+              "from_monotonic_seconds": 137543.450813768,
+              "to_monotonic_seconds": 137548.486753928,
+              "round": 0,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 12.517836151786208,
+              "external_cpu_peak_machine_percent": 17.856105460364674,
+              "quality_flag": false
+            },
+            {
+              "completed": 40843,
+              "elapsed_seconds": 5.014195327006746,
+              "qps": 8145.474465268084,
+              "server_cpu_ms_per_query": 0.21203143745562275,
+              "rss_bytes": 29769728,
+              "p95_ms": 7.452156,
+              "client_cpu_cores": 2.0186790557364303,
+              "bulk_qps": 4077.423926802781,
+              "point_qps": 4068.050538465303,
+              "from_monotonic_seconds": 137548.993932068,
+              "to_monotonic_seconds": 137554.008387401,
+              "round": 1,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 5.208473308717467,
+              "external_cpu_peak_machine_percent": 8.651753243690067,
+              "quality_flag": false
+            },
+            {
+              "completed": 40054,
+              "elapsed_seconds": 5.012351831013802,
+              "qps": 7991.059157532971,
+              "server_cpu_ms_per_query": 0.2129625006241574,
+              "rss_bytes": 30425088,
+              "p95_ms": 7.792378,
+              "client_cpu_cores": 1.9871740184657785,
+              "bulk_qps": 3995.1305644778986,
+              "point_qps": 3995.9285930550723,
+              "from_monotonic_seconds": 137566.398821926,
+              "to_monotonic_seconds": 137571.41335771,
+              "round": 2,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 6.384142660103199,
+              "external_cpu_peak_machine_percent": 12.759305323148027,
+              "quality_flag": false
+            },
+            {
+              "completed": 37704,
+              "elapsed_seconds": 5.0175713899952825,
+              "qps": 7514.3923363361355,
+              "server_cpu_ms_per_query": 0.21615743687672395,
+              "rss_bytes": 30425088,
+              "p95_ms": 8.322521,
+              "client_cpu_cores": 1.8904941892633278,
+              "bulk_qps": 3756.7975689565073,
+              "point_qps": 3757.594767379628,
+              "from_monotonic_seconds": 137571.963562709,
+              "to_monotonic_seconds": 137576.982036314,
+              "round": 3,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 10.735412113342006,
+              "external_cpu_peak_machine_percent": 19.63490722638967,
+              "quality_flag": false
+            },
+            {
+              "completed": 40583,
+              "elapsed_seconds": 5.024845481995726,
+              "qps": 8076.467255642175,
+              "server_cpu_ms_per_query": 0.21388266022718871,
+              "rss_bytes": 30425088,
+              "p95_ms": 7.695697,
+              "client_cpu_cores": 2.017873555382021,
+              "bulk_qps": 4043.507421830266,
+              "point_qps": 4032.959833811908,
+              "from_monotonic_seconds": 137588.69248934,
+              "to_monotonic_seconds": 137593.717540038,
+              "round": 4,
+              "order": [
+                "baseline",
+                "tls"
+              ],
+              "external_cpu_mean_machine_percent": 4.640909200565791,
+              "external_cpu_peak_machine_percent": 7.835643250173618,
+              "quality_flag": false
+            },
+            {
+              "completed": 37638,
+              "elapsed_seconds": 5.015124173980439,
+              "qps": 7504.898920603836,
+              "server_cpu_ms_per_query": 0.21680216802168023,
+              "rss_bytes": 30818304,
+              "p95_ms": 8.396424,
+              "client_cpu_cores": 1.89578956974338,
+              "bulk_qps": 3739.4886645678394,
+              "point_qps": 3765.4102560359966,
+              "from_monotonic_seconds": 137594.243586191,
+              "to_monotonic_seconds": 137599.259227713,
+              "round": 5,
+              "order": [
+                "tls",
+                "baseline"
+              ],
+              "external_cpu_mean_machine_percent": 9.803715483191347,
+              "external_cpu_peak_machine_percent": 20.708410196586996,
+              "quality_flag": false
+            }
+          ],
+          "config": "searchd {\nlisten = 127.0.0.1:45131:http\ndata_dir = /work/idle-20261114/servers-jya9zmsu/tls/data\nlog = /work/idle-20261114/servers-jya9zmsu/tls/searchd.log\npid_file = /work/idle-20261114/servers-jya9zmsu/tls/searchd.pid\nbuddy_path =\ndocstore_cache_size = 0\nqcache_max_bytes = 0\nthreads = 8\n}\n",
+          "meta": [
+            {
+              "Variable_name": "total",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_found",
+              "Value": "1"
+            },
+            {
+              "Variable_name": "total_relation",
+              "Value": "eq"
+            },
+            {
+              "Variable_name": "time",
+              "Value": "0.000"
+            },
+            {
+              "Variable_name": "index",
+              "Value": "id:DocidIndex (100%)"
+            }
+          ],
+          "qps_median": 7752.725746934553,
+          "server_cpu_ms_per_query_median": 0.21357892185915334,
+          "p95_ms_median": 8.0574495,
+          "rss_bytes_median": 30425088.0,
+          "bulk_qps_median": 3875.964066717203,
+          "point_qps_median": 3880.6694245455346
+        }
+      },
+      "query_pool_sizes": [
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128
+      ],
+      "query_sha256": "40c23696bb026f2a575b572e721f6b2144b4e49c75f1fa3d0b691fadc7149e5f",
+      "fixture": {
+        "spds_bytes": 111801,
+        "disk_chunks": 1,
+        "logical_text_bytes": 2560000
+      },
+      "idle_gate": {
+        "interval_seconds": 30.111643804004416,
+        "idle_percent_mean": 88.62785123933654,
+        "idle_percent_min": 73.29974811083123,
+        "from_monotonic_seconds": 137505.386933432,
+        "to_monotonic_seconds": 137535.498577236
+      },
+      "thermal_before": {
+        "/proc/meminfo": "MemTotal:       16218748 kB\nMemFree:         2916008 kB\nMemAvailable:    9314024 kB\nBuffers:          584160 kB\nCached:          5449724 kB\nSwapCached:         7284 kB\nActive:          4177724 kB\nInactive:        6838980 kB\nActive(anon):    2298168 kB\nInactive(anon):  2849244 kB\nActive(file):    1879556 kB\nInactive(file):  3989736 kB\nUnevictable:       23252 kB\nMlocked:           23252 kB\nSwapTotal:       5403984 kB\nSwapFree:        4652388 kB\nZswap:            289128 kB\nZswapped:         704852 kB\nDirty:              2652 kB\nWriteback:             0 kB\nAnonPages:       5001892 kB\nMapped:          1208492 kB\nShmem:            153032 kB\nKReclaimable:     870768 kB\nSlab:            1177432 kB\nSReclaimable:     870768 kB\nSUnreclaim:       306664 kB\nKernelStack:       43180 kB\nPageTables:        83520 kB\nSecPageTables:      1028 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    13513356 kB\nCommitted_AS:   28751652 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:      143960 kB\nVmallocChunk:          0 kB\nPercpu:             4528 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:    933888 kB\nFilePmdMapped:         0 kB\nUnaccepted:            0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:     2417880 kB\nDirectMap2M:    14196736 kB\nDirectMap1G:     2097152 kB\n",
+        "/proc/pressure/cpu": "some avg10=51.02 avg60=52.54 avg300=49.28 total=13754992847\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "/proc/pressure/memory": "some avg10=0.00 avg60=0.00 avg300=0.00 total=2681395\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=2318942\n",
+        "/sys/class/thermal/thermal_zone0/temp": "27800\n",
+        "/sys/class/thermal/thermal_zone1/temp": "73000\n",
+        "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor": "powersave\n",
+        "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor": "powersave\n",
+        "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor": "powersave\n",
+        "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor": "powersave\n"
+      },
+      "thermal_after": {
+        "/proc/meminfo": "MemTotal:       16218748 kB\nMemFree:         2899040 kB\nMemAvailable:    9302056 kB\nBuffers:          584724 kB\nCached:          5453880 kB\nSwapCached:         7276 kB\nActive:          4201868 kB\nInactive:        6841336 kB\nActive(anon):    2320080 kB\nInactive(anon):  2849196 kB\nActive(file):    1881788 kB\nInactive(file):  3992140 kB\nUnevictable:       23252 kB\nMlocked:           23252 kB\nSwapTotal:       5403984 kB\nSwapFree:        4652396 kB\nZswap:            289128 kB\nZswapped:         704852 kB\nDirty:             17900 kB\nWriteback:             0 kB\nAnonPages:       5023460 kB\nMapped:          1210168 kB\nShmem:            153096 kB\nKReclaimable:     871132 kB\nSlab:            1179084 kB\nSReclaimable:     871132 kB\nSUnreclaim:       307952 kB\nKernelStack:       43392 kB\nPageTables:        84656 kB\nSecPageTables:      1028 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    13513356 kB\nCommitted_AS:   28850852 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:      144216 kB\nVmallocChunk:          0 kB\nPercpu:             4528 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:    933888 kB\nFilePmdMapped:         0 kB\nUnaccepted:            0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:     2417880 kB\nDirectMap2M:    14196736 kB\nDirectMap1G:     2097152 kB\n",
+        "/proc/pressure/cpu": "some avg10=91.25 avg60=71.88 avg300=54.08 total=13818171630\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "/proc/pressure/memory": "some avg10=0.00 avg60=0.00 avg300=0.00 total=2681395\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=2318942\n",
+        "/sys/class/thermal/thermal_zone0/temp": "27800\n",
+        "/sys/class/thermal/thermal_zone1/temp": "66000\n",
+        "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor": "powersave\n",
+        "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor": "powersave\n",
+        "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor": "powersave\n",
+        "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor": "powersave\n"
+      },
+      "qps_change_percent": -2.4890104408905156,
+      "cpu_change_percent": 0.06836598588533249,
+      "paired_qps_changes_percent": [
+        -8.446635510886424,
+        6.154123020029023,
+        -2.2208322368886813,
+        -7.608839063377948,
+        5.942198083365047,
+        -3.386956483273118
+      ],
+      "paired_cpu_changes_percent": [
+        2.462310245016064,
+        -0.4383113683988027,
+        0.4011586659505628,
+        1.0548383384775928,
+        -0.7791857913337474,
+        0.6179120194062637
+      ],
+      "lifecycle_passed": true
+    }
+  ],
+  "completed": true,
+  "transport": {
+    "mode": "One send() call per byte-body HTTP request; same wire bytes; no reconnect/retry on error",
+    "reason": "Investigate high-concurrency HTTP receive/connection-reset failures while keeping engine binaries unchanged",
+    "source_sha256": {
+      "run_coalesced32.py": "4f2bcef8ff995c3e0a8d24de59b894ca3f1a6f5138c1d90211f867ebf90e3c68",
+      "coalesced_http.py": "1fd2241fad352af0bf803bdd5ad4987d27abd3b1bc12686abf50e6dc6780f7b4"
+    }
+  }
+}

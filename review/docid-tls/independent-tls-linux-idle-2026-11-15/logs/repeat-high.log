@@ -1,0 +1,9 @@
+HTTP coalescing selfcheck passed: identical bytes, one write, no retry
+Idle gate: churn-c32-20000-0m
+Round 1 churn-c32-20000-0m
+Round 2 churn-c32-20000-0m
+Round 3 churn-c32-20000-0m
+Round 4 churn-c32-20000-0m
+Round 5 churn-c32-20000-0m
+Round 6 churn-c32-20000-0m
+RESULT churn-c32-20000-0m QPS -2.49 CPU/query 0.07

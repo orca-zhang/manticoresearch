@@ -1,0 +1,6 @@
+{
+  "passed": false,
+  "reason": "Idle gate not reached; preserve logs and defer the timed rerun.",
+  "mean_idle": 67.49045286954876,
+  "minimum_idle": 39.34837092731829
+}
